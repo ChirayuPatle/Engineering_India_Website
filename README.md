@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Welcome to **Engineering India** Repo
 
-## Getting Started
+## 📁 Folder Structure Details
 
-First, run the development server:
+### 🗂 Project Structure Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Folder Structure](https://res.cloudinary.com/priyanshukayarkar/image/upload/v1738484614/Screenshot_2025-02-02_135244_yqdahn.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 🧪 `test/` (Outside `src/`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This folder contains **tests** for our services to ensure code reliability and correctness.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 📂 `src/` - The Core Codebase
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `src` folder contains multiple subfolders, each serving a specific purpose.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Inside Folder](https://res.cloudinary.com/priyanshukayarkar/image/upload/v1738485065/Screenshot_2025-02-02_135639_bgjodm.png)
 
-## Deploy on Vercel
+#### 📌 Breakdown of `src/` Subfolders:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **`app/`**  
+  ➝ Handles **server components** and **routing logic** (if using the App Router in Next.js 13+).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **`components/`**  
+  ➝ Stores **reusable UI components** such as buttons, modals, and form elements.
+
+- **`features/`**  
+  ➝ Organizes code **by feature** rather than type.  
+  ➝ Example: If working on an "Events" page, create an `events/` folder inside `features/`, containing both UI and server-related logic.
+
+- **`hooks/`**  
+  ➝ Contains **custom React hooks** to encapsulate reusable logic.  
+  ➝ Example: `useAuth.ts` for authentication handling.
+
+- **`libs/`**  
+  ➝ Stores **third-party library integrations** or **utility functions**.  
+  ➝ Example: API clients, authentication utilities, SDK wrappers.
+
+- **`types/`**  
+  ➝ Defines **TypeScript interfaces** and **types** for type safety and maintainability.
+
+- **`utils/`**  
+  ➝ Contains **helper functions** used throughout the project.  
+  ➝ Example: Date formatting, string manipulations, and other common utilities.
+
+---
