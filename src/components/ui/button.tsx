@@ -1,14 +1,9 @@
-import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
 import { cn } from "@/libs/utils";
-=======
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
-import ButtonIcons from "../../../public/icons/button-icon/page"
-
+import ButtonIcons from "../../../public/icons/button-icon/page";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -25,7 +20,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        text :""
+        text: "",
       },
       size: {
         default: "h-9 px-4 py-2",
@@ -44,11 +39,10 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   rightIcon?: keyof typeof ButtonIcons;
 }
-
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, rightIcon, asChild = false, ...props }, ref) => {
@@ -63,9 +57,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {props.children}
 
-        {RightIconComponent && <span className={`my-2`}>
-          <RightIconComponent className="min-w-[2.5rem] min-h-[2rem]" />
-        </span>}
+        {RightIconComponent && (
+          <span className={`my-2`}>
+            <RightIconComponent className="min-w-[2.5rem] min-h-[2rem]" />
+          </span>
+        )}
       </Comp>
     );
   }

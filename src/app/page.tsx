@@ -1,12 +1,5 @@
 "use client";
 import { account, AppwriteService } from "@/libs/appwrite/config";
-
-export default function Home() {
-  const loginUser = async () => {
-    const userService = new AppwriteService();
-    const response = await userService.loginWithGoogle();
-  };
-
 import { Button } from "@/components/ui/button";
 import LeftPage from "@/features/auth/components/left-segment/page";
 import RightSegment from "@/features/auth/components/right-segment/page";
@@ -19,6 +12,10 @@ import EventMiniLoadingpage from "@/features/events/eventP2/event";
 import EventImage from "@/features/events/eventP2/eventP2-image/image";
 
 export default function Home() {
+  const loginUser = async () => {
+    const userService = new AppwriteService();
+    const response = await userService.loginWithGoogle();
+  };
   return (
     <>
       {/* <h1>This is main page</h1> */}
@@ -29,8 +26,8 @@ export default function Home() {
       {/* <EventMiniLoadingpage /> */}
       {/* <EventImage /> */}
       <div className="w-full min-h-screen bg-black text-white">
-      <button onClick={loginUser}>Login with Google</button>
-    </div>
-      </>
+        <Button onClick={loginUser}>Login with Google</Button>
+      </div>
+    </>
   );
 }
