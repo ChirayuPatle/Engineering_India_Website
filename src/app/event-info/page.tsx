@@ -1,68 +1,98 @@
 "use client";
-import React from 'react'
-import { TimelineDemo } from '@/features/event-info/components/timeline';
+import React, { useEffect } from "react";
+import { TimelineDemo } from "@/features/event-info/components/timeline";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import CardOragnaizer from "@/features/event-info/components/Oraganiziers-card";
+import Lenis from "@studio-freight/lenis";
 
-function page() {
-  
+gsap.registerPlugin(ScrollTrigger);
+
+function EventInfo() {
+  useEffect(() => {
+    // Initialize Lenis
+    const lenis = new Lenis({
+      smooth: true,
+      lerp: 0.1,
+    });
+
+    const raf = (time) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // 🔹 Sync GSAP ScrollTrigger with Lenis
+    lenis.on("scroll", () => {
+      ScrollTrigger.update(); // Refresh ScrollTrigger when Lenis scrolls
+    });
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    // 🔹 Ensure ScrollTrigger refreshes after mount
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
+    gsap.from(".card", {
+      scrollTrigger: {
+        trigger: ".page3",
+        start: "top 30%",
+        end: "top bottom",
+        scrub: 5,
+      },
+      duration: 1,
+      y: 80,
+      opacity: 0,
+      stagger: 0.2,
+      ease: "power3",
+    });
+  }, []);
+
   return (
     <>
-    
-    <div className="page1 min-h-screen lg:h-screen w-full   ">
+      <div className="page1 min-h-screen lg:h-screen w-full">
+        <div className="h-full w-full flex flex-col-reverse lg:flex-row items-center justify-center">
+          <div className="h-full w-full lg:w-1/2 py-14 lg:px-20 px-6 lg:mt-32">
+            <h1 className="text-5xl text-green-600">Youth Parliament</h1>
+            <h2 className="text-4xl mt-3 font-bold">Description</h2>
+            <p className="w-full mt-6">
+              Weekend UX, is a UI/UX Design Academy in Delhi involved in User
+              Experience and User Interface Training and Consulting...
+            </p>
+          </div>
 
-    <div className="h-full  w-ful flex flex-col-reverse lg:flex-row  items-center justify-center">
-
-        <div className="h-full w-full lg:w-1/2 py-14 lg:px-20 px-6 lg:mt-32 ">
-          <h1 className="text-5xl text-green-600">Youth Parliament</h1>
-          <h2 className="text-4xl mt-3 font-bold" >Description</h2>
-          <p className="w-full  mt-6 ">Weekend UX, is a UI/UX Design Academy in Delhi involved in User Experience and User Interface Training and Consulting. It was started in 2023 and passionate towards User Interface Design/ User Experience Design, Human Computer Interaction Design. Humanoid is gushing towards competence to acquire knowledge and have a wide understanding towards the sphere through the foremost courses in the area of UI/UX Design, by strengthening up your skills, for your golden future</p>
+          <div className="h-full w-full lg:w-1/2 flex justify-center lg:items-start lg:mt-40 items-center py-10 lg:py-0 relative">
+            <div className="h-[26rem] w-80 bg-blue-400 rounded-lg"></div>
+          </div>
         </div>
+      </div>
 
-        <div className="h-full w-full lg:w-1/2 flex justify-center lg:items-start lg:mt-40 items-center py-10 lg:py-0 relative  ">
-              <div className='h-[12rem] w-72 bg-red-400 rounded-lg ml-4 absolute bottom-20 left-16 hidden lg:block'></div>
-              <div className="h-[26rem] w-80 bg-blue-400 rounded-lg" ></div>
-              <div className='h-[12rem] w-72 bg-orange-300 rounded-lg ml-4 absolute left-96 hidden lg:block'></div>
-             
+      <div className="page2 w-full">
+        <TimelineDemo />
+      </div>
+
+      <div className="page3 w-full h-screen">
+        <div className="text-center text-6xl font-bold">
+          <h1>Our Organizers</h1>
         </div>
-    </div>
-  
-  </div>
-
- 
- <div className='w-full '>
-         <TimelineDemo/>
- </div>
-
- <div className='w-full h-screen'>
-         <div className='text-center text-6xl font-bold'><h1>Our Organizers</h1></div>
-         <div className = " min-h-full w-full p-10">
-            
-            <div  className='flex flex-wrap items-start justify-center gap-10 mt-10'>
-            
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-             <div className='h-80 w-64 bg-blue-400 rounded-lg'></div>
-
-
-
-
-            </div>
-
-         </div>
- </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        <div className="min-h-full w-full p-10">
+          <div className="flex flex-wrap items-start justify-center gap-10 mt-10">
+            <CardOragnaizer />
+            <CardOragnaizer />
+            <CardOragnaizer />
+            <CardOragnaizer />
+            <CardOragnaizer />
+            <CardOragnaizer />
+          </div>
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default page
+export default EventInfo;
