@@ -1,5 +1,5 @@
 "use client";
-import { account, AppwriteService } from "@/libs/appwrite/config";
+import { account, AppwriteService, userService } from "@/libs/appwrite/config";
 import { Button } from "@/components/ui/button";
 import LeftPage from "@/features/auth/components/left-segment/page";
 import RightSegment from "@/features/auth/components/right-segment/page";
@@ -13,9 +13,9 @@ import EventImage from "@/features/events/eventP2/eventP2-image/image";
 
 export default function Home() {
   const loginUser = async () => {
-    const userService = new AppwriteService();
     const response = await userService.loginWithGoogle();
   };
+
   return (
     <>
       {/* <h1>This is main page</h1> */}
