@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import EventImage from "./eventP2-image/image";
+import EventImage from "../eventP2-image/image";
 
 function EventMiniLoadingpage() {
   return (
@@ -13,7 +13,7 @@ function EventMiniLoadingpage() {
         <h1 className="text-orange-600 text-2xl font-bold">GYANDEEP 2.0</h1>
         <p className="text-gray-700 mt-2 text-justify">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, ea ipsa! Illum odit dolorem amet harum velit quo obcaecati error? Repudiandae expedita ipsa odio earum dignissimos eos dolor quibusdam, labore quos adipisci nisi quaerat? Lorem ipsum dolor sit amet consectetur adipisicing elit. Non voluptas illo ducimus expedita consequatur architecto dolorum harum fuga iure cupiditate.
-        </p>2
+        </p>
         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 justify-center">
           <Button className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded-lg">Register Now!</Button>
           <Button className="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Community Page</Button>

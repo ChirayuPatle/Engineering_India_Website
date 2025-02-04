@@ -8,8 +8,9 @@ import SignUpForm from "@/features/auth/components/final-sigin-form/form";
 import RightQR from "@/features/event-registration-response/rightQR/page";
 import Responseform from "@/features/event-registration-response/submit_response/responseform";
 import FinalForm from "@/features/event-registration-response/finalform/finalForm";
-import EventMiniLoadingpage from "@/features/events/eventP2/event";
+import EventMiniLoadingpage from "@/features/events/eventP2/eventP2-page/event";
 import EventImage from "@/features/events/eventP2/eventP2-image/image";
+import InputField from "@/features/event-registration-form/form/form";
 
 export default function Home() {
   const loginUser = async () => {
@@ -25,9 +26,7 @@ export default function Home() {
       {/* <FinalForm /> */}
       {/* <EventMiniLoadingpage /> */}
       {/* <EventImage /> */}
-      <div className="w-full min-h-screen bg-black text-white">
-        <Button onClick={loginUser}>Login with Google</Button>
-      </div>
+      <InputField />
     </>
   );
 }
