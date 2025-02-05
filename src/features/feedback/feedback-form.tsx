@@ -4,9 +4,6 @@ import Input  from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
  function FeedbackForm() {
-  const [feedback, setFeedback] = useState("");
-
-//   const handleInputChange = (e) => {};
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -37,11 +34,9 @@ import { Button } from "@/components/ui/button";
 
         <div className="mb-6">
           <label className="block text-lg font-semibold text-gray-700 mb-2">Enter your feedback:</label>
-          <textarea 
+          <textarea typeof="text"
             className="w-full h-40 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400"
             placeholder="Type here..."
-            value={feedback}
-            // onChange={handleInputChange}
           />
         </div>
 
