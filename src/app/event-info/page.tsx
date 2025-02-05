@@ -43,9 +43,9 @@ function EventInfo() {
         trigger: ".page3",
         start: "top 30%",
         end: "top bottom",
-        scrub: 5,
+        scrub: 6,
       },
-      duration: 1,
+      duration: 1.2,
       y: 80,
       opacity: 0,
       stagger: 0.2,
@@ -77,7 +77,7 @@ function EventInfo() {
         <TimelineDemo />
       </div>
 
-      <div className="page3 w-full h-screen">
+      <div className="page3 w-full min-h-screen">
         <div className="text-center text-6xl font-bold">
           <h1>Our Organizers</h1>
         </div>
@@ -91,6 +91,10 @@ function EventInfo() {
             <CardOragnaizer />
           </div>
         </div>
+      </div>
+
+      <div className="page4 w-full min-h-screen">
+            <Gallery/>
       </div>
 
 
