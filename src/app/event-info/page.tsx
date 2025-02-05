@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardOragnaizer from "@/features/event-info/components/Oraganiziers-card";
 import Lenis from "@studio-freight/lenis";
+import Gallery from "@/features/landing/components/gallery";
 
 function EventInfo() {
         gsap.registerPlugin(ScrollTrigger);
@@ -91,6 +92,8 @@ function EventInfo() {
           </div>
         </div>
       </div>
+
+
     </>
   );
 }
