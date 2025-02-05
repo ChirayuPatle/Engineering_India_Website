@@ -16,6 +16,9 @@ const envConfig = {
   appwriteRegistrationCollectionID: String(
     process.env.NEXT_PUBLIC_APPWRITE_REGISTRATION_COLLECTION_ID
   ),
+  appwriteFeedbackCollectionID: String(
+    process.env.NEXT_PUBLIC_APPWRITE_FEEDBACK_COLLECTION_ID
+  ),
 };
 
 export default envConfig;
