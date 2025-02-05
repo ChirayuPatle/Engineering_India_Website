@@ -5,10 +5,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardOragnaizer from "@/features/event-info/components/Oraganiziers-card";
 import Lenis from "@studio-freight/lenis";
-
-gsap.registerPlugin(ScrollTrigger);
+import Gallery from "@/features/landing/components/gallery";
 
 function EventInfo() {
+        gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis({
@@ -92,8 +92,10 @@ function EventInfo() {
           </div>
         </div>
       </div>
+
+
     </>
   );
 }
 
-export default EventInfo;
+export default EventInfo

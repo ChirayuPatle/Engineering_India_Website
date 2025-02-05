@@ -14,4 +14,5 @@ type EventRegistrationType = {
   mobileNumber: number;
   userId: string;
   qrLink?: string;
+  eventId: string;
 };
