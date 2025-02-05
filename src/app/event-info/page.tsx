@@ -65,8 +65,9 @@ function EventInfo() {
             </p>
           </div>
 
-          <div className="h-full w-full lg:w-1/2 flex justify-center lg:items-start lg:mt-40 items-center py-10 lg:py-0 relative">
-            <div className="h-[26rem] w-80 bg-blue-400 rounded-lg"></div>
+          <div className="h-full w-full lg:w-1/2 flex justify-center lg:items-start items-center py-10 lg:py-0 relative ">
+            <div className="h-[26rem] w-80 bg-blue-400 rounded-lg lg:mt-20"></div>
+            {/* <div className="h-20 w-40 absolute  bg-red-600 top-0 rounded-md"></div> */}
           </div>
         </div>
       </div>
