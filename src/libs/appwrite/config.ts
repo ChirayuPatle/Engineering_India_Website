@@ -21,7 +21,7 @@ export const storage = new Storage(appwriteClient);
 export class AppwriteService {
   async loginWithGoogle() {
     try {
-      const response = await account.createOAuth2Session(
+      await account.createOAuth2Session(
         OAuthProvider.Google,
         "http://localhost:3000/dashboard",
         "http://localhost:3000/error"
@@ -34,11 +34,10 @@ export class AppwriteService {
 
   async getCurrentUserDetail() {
     try {
-      const currentUser = await account.get();
-      return currentUser;
+      return await account.get(); // Only fetch user details
     } catch (error) {
       console.log("Error getting current user", error);
-      throw error;
+      return null;
     }
   }
 
