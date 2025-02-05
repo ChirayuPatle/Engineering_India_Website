@@ -2,7 +2,7 @@
 import React from 'react'
 import { TimelineDemo } from '@/features/event-info/components/timeline';
 
-function page() {
+function EventInfo() {
   
   return (
     <>
@@ -65,4 +65,4 @@ function page() {
   )
 }
 
-export default page
+export default EventInfo
