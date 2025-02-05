@@ -6,9 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CardOragnaizer from "@/features/event-info/components/Oraganiziers-card";
 import Lenis from "@studio-freight/lenis";
 
-gsap.registerPlugin(ScrollTrigger);
-
 function EventInfo() {
+        gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
     // Initialize Lenis
     const lenis = new Lenis({
@@ -95,4 +94,4 @@ function EventInfo() {
   );
 }
 
-export default EventInfo;
+export default EventInfo
