@@ -1,30 +1,28 @@
 "use client";
 import React, { useEffect } from "react";
-import { TimelineDemo } from "@/features/event-info/components/timeline";
+import { TimelineDemo } from "@/features/event/component/timeline";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CardOragnaizer from "@/features/event-info/components/Oraganiziers-card";
+import CardOragnaizer from "@/features/event/component/eventOrganizerCard";
 import Lenis from "@studio-freight/lenis";
 import Gallery from "@/features/landing/components/gallery";
 
 function EventInfo() {
-        gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis({
-      smooth: true,
+      smoothWheel: true,
       lerp: 0.1,
     });
 
-    const raf = (time) => {
+    const raf = (time: number): void => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
 
-    // 🔹 Sync GSAP ScrollTrigger with Lenis
     lenis.on("scroll", () => {
-      ScrollTrigger.update(); // Refresh ScrollTrigger when Lenis scrolls
+      ScrollTrigger.update();
     });
 
     return () => {
@@ -33,7 +31,6 @@ function EventInfo() {
   }, []);
 
   useEffect(() => {
-    // 🔹 Ensure ScrollTrigger refreshes after mount
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 500);
@@ -94,12 +91,10 @@ function EventInfo() {
       </div>
 
       <div className="page4 w-full min-h-screen">
-            <Gallery/>
+        <Gallery />
       </div>
-
-
     </>
   );
 }
 
-export default EventInfo
+export default EventInfo;
