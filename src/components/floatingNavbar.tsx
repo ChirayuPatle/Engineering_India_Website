@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface ClassNameArgs {
   [key: number]: string | boolean | undefined;
@@ -37,6 +38,12 @@ export const FloatingNavbar = ({ className }: { className?: string }) => {
     { name: "Events", link: "/events" },
     { name: "Contact", link: "/contact" },
   ];
+
+  const pathname = usePathname();
+
+  if (pathname === "/auth/login") {
+    return null;
+  }
 
   return (
     <AnimatePresence mode="wait">
