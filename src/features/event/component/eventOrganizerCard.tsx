@@ -1,24 +1,26 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+"use client";
 
-
-function CardOragnaizer() {
+const CardOrganizer = () => {
   return (
-    <>
-    <Card className='card w-64 h-80'>
-    <CardHeader>
-    </CardHeader>
-    <CardContent >
-        <div className='h-52 w-full bg-blue-200 rounded'> </div>
-        <div className='leading-[0.8] mt-3'>
-        <p className='text-[14px] opacity-80'>Database head</p>
-        <h1 className='text-lg'>Aman ghuse</h1>
+    <div className="card w-64 h-80 bg-white shadow-lg rounded overflow-hidden border border-gray-100">
+      <div className="p-4"></div>
+      <div className="p-4">
+        <div className="h-40 w-full rounded overflow-hidden">
+          <img
+            src="https://appwrite.io/images/appwrite-dashboard.png"
+            alt="Appwrite Dashboard"
+            className="w-full h-full object-cover"
+          />
         </div>
-    </CardContent>
-  </Card>
-    </>
-  
-  )
-}
+        <div className="mt-4">
+          <p className="text-sm text-gray-600">Scalable Databases</p>
+          <h2 className="text-lg font-semibold text-blue-600">
+            Appwrite Storage
+          </h2>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default CardOragnaizer
+export default CardOrganizer;

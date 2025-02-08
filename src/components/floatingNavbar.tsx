@@ -1,113 +1,123 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 
-interface ClassNameArgs {
-  [key: number]: string | boolean | undefined;
-}
+const navItems = [
+  { name: "Home", link: "/" },
+  { name: "About", link: "/about" },
+  { name: "Events", link: "/events" },
+  { name: "Contact", link: "/contact" },
+];
 
-const cn = (...classes: any[]): string => {
-  return classes.filter(Boolean).join(" ");
-};
-
-export const FloatingNavbar = ({ className }: { className?: string }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const currentScrollY = latest;
-    setIsVisible(currentScrollY < lastScrollY || currentScrollY < 50);
-    setLastScrollY(currentScrollY);
-  });
-
-  const navItems = [
-    { name: "Home", link: "/" },
-    { name: "About", link: "/about" },
-    { name: "Team", link: "/team" },
-    { name: "Events", link: "/events" },
-    { name: "Contact", link: "/contact" },
-  ];
-
+const FloatingNavbar = ({ className = "" }) => {
   const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isWhiteSection, setIsWhiteSection] = useState(false);
 
-  if (pathname === "/auth/login") {
-    return null;
-  }
+  useEffect(() => {
+    // Observe the white section (Gallery and subsequent white areas)
+    const whiteSection = document.getElementById("white-section");
+    if (!whiteSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If at least 50% of the white section is in view, mark it as white background
+          if (entry.intersectionRatio >= 0.5) {
+            setIsWhiteSection(true);
+          } else {
+            setIsWhiteSection(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(whiteSection);
+
+    return () => {
+      if (whiteSection) observer.unobserve(whiteSection);
+    };
+  }, []);
+
+  if (pathname === "/auth/login") return null;
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
+    <AnimatePresence>
+      <motion.nav
         initial={{ opacity: 1, y: 0 }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          y: isVisible ? 0 : -100,
-        }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -100 }}
         transition={{ duration: 0.3 }}
-        className={cn(
-          "flex w-screen h-[4rem] fixed inset-x-0 mx-auto backdrop-blur-[5px] z-[5000] px-20 py-4 items-center font-space justify-between ",
-          className
-        )}
+        // The navbar background remains unchanged; only text color will update based on section
+        className={`fixed top-0 inset-x-0 z-50 backdrop-blur-sm py-4 px-8 sm:px-20 flex items-center justify-between ${className}`}
       >
         <Link href="/">
-          <h1 className="cursor-pointer text-2xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.indigo.500),theme(colors.blue.500),theme(colors.indigo.300),theme(colors.blue.400),theme(colors.indigo.500))] bg-[length:200%_auto] backdrop-blur-sm mt-3 ml-0">
-            <div className="w-10 h-10 bg-blue-600"></div>
-          </h1>
-        </Link>
-
-        <div className="hidden sm:flex items-center space-x-12 ml-auto">
-          {navItems.map((navItem, idx) => (
-            <Link
-              key={`link-${idx}`}
-              href={navItem.link}
-              className="relative text-gray-700 items-center flex space-x-1 hover:text-blue-600"
+          <div className="flex items-center space-x-2 cursor-pointer">
+            {/* Logo text: white on blue sections, black on white sections */}
+            {/* <span
+              className={`text-2xl font-bold ${
+                isWhiteSection ? "text-black" : "text-white"
+              }`}
             >
-              <span className="text-sm">{navItem.name}</span>
+              EI
+            </span> */}
+            <img src="./logo.png" className="size-14" alt="" />
+          </div>
+        </Link>
+        <div className="hidden sm:flex space-x-8">
+          {navItems.map((item, idx) => (
+            <Link
+              key={idx}
+              href={item.link}
+              className={` ${
+                isWhiteSection ? "text-white" : "text-black/80"
+              } hover:opacity-70`}
+            >
+              {item.name}
             </Link>
           ))}
         </div>
-
         <button
-          className="sm:hidden text-gray-700 p-2 ml-auto"
+          className={`sm:hidden p-2 ${
+            isWhiteSection ? "text-white" : "text-black/80"
+          }`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Menu"
         >
           <motion.div
             animate={isMenuOpen ? { rotate: 90 } : { rotate: 0 }}
-            className="w-6 h-5 flex flex-col justify-between"
+            className="w-6 h-6"
           >
-            <motion.span className="w-full h-[1.5px] bg-gray-700"></motion.span>
-            <motion.span className="w-full h-[1.5px] bg-gray-700"></motion.span>
-            <motion.span className="w-full h-[1.5px] bg-gray-700"></motion.span>
+            <div className="h-0.5 bg-current mb-1"></div>
+            <div className="h-0.5 bg-current mb-1"></div>
+            <div className="h-0.5 bg-current"></div>
           </motion.div>
         </button>
-
         {isMenuOpen && (
-          <motion.div className="absolute top-[4rem] h-screen left-0 right-0 bg-white/20 backdrop-blur-lg sm:hidden">
-            <div className="flex flex-col items-center py-4 space-y-4">
-              {navItems.map((navItem, idx) => (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            className="absolute top-full left-0 right-0 bg-white/95 shadow-sm sm:hidden"
+          >
+            <div className="flex flex-col space-y-4 py-4">
+              {navItems.map((item, idx) => (
                 <Link
-                  key={`mobile-link-${idx}`}
-                  href={navItem.link}
-                  className="text-gray-700 hover:text-blue-600"
+                  key={idx}
+                  href={item.link}
+                  className="text-gray-700 text-center hover:text-blue-600"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="text-sm">{navItem.name}</span>
+                  {item.name}
                 </Link>
               ))}
             </div>
           </motion.div>
         )}
-      </motion.div>
+      </motion.nav>
     </AnimatePresence>
   );
 };

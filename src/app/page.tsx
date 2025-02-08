@@ -1,140 +1,118 @@
 "use client";
 
-
-import { useRouter } from "next/navigation";
-import ModifiedCard from "@/components/modifiedCard";
-import React, { useEffect } from "react";
+import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import CardOragnaizer from "@/features/event/component/eventOrganizerCard";
-import Lenis from "@studio-freight/lenis";
-import Gallery from "@/features/landing/components/gallery";
+import { useEffect } from "react";
+
+import Footer from "@/components/footer";
+import FAQ from "@/features/landing/components/faqs";
+import { DirectionAwareHoverDemo } from "@/features/landing/components/heads";
 import LandingComponent from "@/features/landing/components/landing-component";
-import { motion } from "framer-motion";
-import { Poppins } from "next/font/google";
+import { Background } from "@/features/landing/components/background";
+import { Vortex } from "@/components/ui/vortex";
+import Aurora from "@/components/react-bits/Aurora";
+import BackgroundPaths from "@/features/landing/components/backgroundPath";
+import ImageSlider from "@/features/landing/components/image-slider/ImageSlider";
+import HeadsCard from "@/features/landing/components/HeadsCard";
+import FeedbackForm from "@/features/feedback/component/feedback-form";
+import Feedback from "@/features/landing/components/feedback";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+gsap.registerPlugin(ScrollTrigger);
 
-const inter = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
-
-export default function Page() {
-  const router = useRouter();
-  gsap.registerPlugin(ScrollTrigger);
+export default function HomePage() {
   useEffect(() => {
     const lenis = new Lenis({
       smoothWheel: true,
       lerp: 0.1,
     });
-
     const raf = (time: number): void => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     };
     requestAnimationFrame(raf);
-
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
-    });
-
+    lenis.on("scroll", ScrollTrigger.update);
     return () => {
       lenis.destroy();
     };
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
+  // useEffect(() => {
+  //   // Cards animation: plays as you scroll into view
+  //   gsap.from(".card", {
+  //     scrollTrigger: {
+  //       trigger: ".cards-section",
+  //       start: "top center",
+  //       end: "bottom center",
+  //       scrub: true,
+  //     },
+  //     duration: 1.2,
+  //     y: 50,
+  //     opacity: 0,
+  //     scale: 0.95,
+  //     rotation: 2,
+  //     ease: "power4.out",
+  //     stagger: 0.25,
+  //   });
+  // }, []);
 
-    gsap.from(".card", {
-      scrollTrigger: {
-        trigger: ".page-1",
-        start: "top top",
-        end: "top bottom",
-        scrub: 6,
-        // markers:trueg
-      },
-      duration: 2,
-      y: 90,
-      opacity: 0,
-      stagger: 0.3,
-      ease: "power3",
-    });
-  }, []);
   return (
-    <section className="relative w-full min-h-screen overflow-hidden">
-      <main className="container w-full mx-auto px-6 h-screen flex items-center justify-center relative gap-12">
-        {/* Background Blurs */}
-        <div className="absolute top-0 left-0 w-72 h-72 bg-blue-200 rounded-full opacity-60 blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="fixed -bottom-[20%] left-1/4 w-[60%] h-[s0%] bg-blue-400 rounded-full opacity-40 blur-3xl translate-x-[2%] translate-y-1/4" />
-        <div className="fixed top-[40%] left-[40%] w-[65%] h-[35%] bg-blue-primary rounded-full opacity-20 blur-3xl -translate-x-1/2 -translate-y-1/2" />
+    <div className="relative bg-white/90 text-white overflow-x-hidden">
+      <div className="space-y-2">
+        <section className="w-full ">
+          <BackgroundPaths title="Engineering India, YCCE" />
+        </section>
+        <section className="container mx-auto px-4 sm:px-6">
+          {/* <ImageSlider /> */}
+        </section>
+        <section className="container mx-auto flex flex-col items-center justify-start px-4 sm:px-14">
+          <h1 className="my-6 text-black/80 text-2xl md:text-7xl font-semibold  ">
+            Our Heads
+          </h1>
+          <div className="w-full flex flex-col md:flex-row md:flex-wrap gap-4 items-center justify-center p-6 h-full ">
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+            <HeadsCard
+              name="Chirayu Patle"
+              post="Database Head"
+              imageUrl="https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png"
+            />
+          </div>
+        </section>
+        <section className="container w-full mx-auto flex flex-col items-center justify-start px-4 sm:px-14">
+          <Feedback />
+        </section>
 
-    
-        {/* Page-1 */}
-       <LandingComponent/>
+        <section className="container mx-auto px-4 sm:px-6 py-12">
+          <FAQ />
+        </section>
 
-  
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 flex-shrink-0"
-        > 
-        </motion.div>
-      </main>
-
-    {/* Page-2 */}
-      <main className={` mx-auto px-6 min-h-screen w-full relative gap-12 flex flex-wrap items-center  justify-center ${inter.className}`}>
-     {/* <ModifiedCard title="Chirayu patle" description="Database head " content="" imagelink=""/> */}
-     {/* <ModifiedCard title="Chirayu patle" description="Database head " content="" imagelink=""/> */}
-     {/* <ModifiedCard title="Chirayu patle" description="Database head " content="" imagelink=""/> */}
-     {/* <ModifiedCard title="Chirayu patle" description="Database head " content="" imagelink=""/> */}
-     {/* <ModifiedCard title="Chirayu patle" description="Database head " content="" imagelink=""/> */}
-     < CardOragnaizer/>
-     < CardOragnaizer/>
-     < CardOragnaizer/>
-     < CardOragnaizer/>
-     < CardOragnaizer/>
-     < CardOragnaizer/> 
-      </main>
-      
-          {/* Page-3 */}
-      <main className="container mx-auto px-x mt-12 min-h-screen relative gap-12 flex flex-wrap items-center  justify-center">
-         <Gallery/>
-      </main>
-
-      {/* Page-4 */}
-      <main className={` mx-auto lg:p-24 p-10 min-h-screen w-full relative gap-12 ${inter.className}`}>
-      <h1 className="text-4xl text-bold ">FAQ</h1>
-      <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="text-blue-primary text-lg lg:text-2xl">Is it accessible?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It adheres to the WAI-ARIA design pattern.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-2">
-        <AccordionTrigger className="text-blue-primary text-lg lg:text-2xl">Is it styled?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It comes with default styles that matches the other
-          components&apos; aesthetic.
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="item-3">
-        <AccordionTrigger className="text-blue-primary text-xl lg:text-2xl">Is it animated?</AccordionTrigger>
-        <AccordionContent>
-          Yes. It's animated by default, but you can disable it if you prefer.
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-      </main>
-<div/>
-<div/>
-    </section>
+        {/* Footer (white background) */}
+        <Footer />
+      </div>
+    </div>
   );
 }
