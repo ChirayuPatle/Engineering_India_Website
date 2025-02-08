@@ -63,7 +63,7 @@ export default function HomePage() {
           <BackgroundPaths title="Engineering India, YCCE" />
         </section>
         <section className="container mx-auto px-4 sm:px-6">
-          {/* <ImageSlider /> */}
+          <ImageSlider />
         </section>
         <section className="container mx-auto flex flex-col items-center justify-start px-4 sm:px-14">
           <h1 className="my-6 text-black/80 text-2xl md:text-7xl font-semibold  ">
