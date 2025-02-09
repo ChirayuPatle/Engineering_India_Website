@@ -31,9 +31,9 @@ const initialFrames: Frame[] = [
       "https://static.cdn-luma.com/files/981e483f71aa764b/Company%20Thing%20Exported.mp4",
     defaultPos: { x: 0, y: 0, w: 4, h: 4 },
     corner:
-      "https://static.cdn-luma.com/files/bcf576df9c38b05f/1_corner_update.png",
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1739080953/Website-details/Events%20images/Website-details/Events%20images/Chitrankan/No_to_Alcohol_abuse_-_Tejas_Shende_g3f7nj.jpg",
     edgeHorizontal:
-      "https://static.cdn-luma.com/files/bcf576df9c38b05f/1_vert_update.png",
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1739080953/Website-details/Events%20images/Website-details/Events%20images/Chitrankan/No_to_Alcohol_abuse_-_Tejas_Shende_g3f7nj.jpg",
     edgeVertical:
       "https://static.cdn-luma.com/files/bcf576df9c38b05f/1_hori_update.png",
     mediaSize: 1,

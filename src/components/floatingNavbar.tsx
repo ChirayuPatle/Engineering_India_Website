@@ -1,9 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
+import AuthContext from "@/context/auth-context";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
+import Error from "next/error";
 
 const navItems = [
   { name: "Home", link: "/" },
@@ -16,6 +34,13 @@ const FloatingNavbar = ({ className = "" }) => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isWhiteSection, setIsWhiteSection] = useState(false);
+  const authData = useContext(AuthContext);
+
+  const isAuthenticated = authData?.isAuthenticated;
+
+  if (isAuthenticated) {
+    console.log(authData.user);
+  }
 
   useEffect(() => {
     const whiteSection = document.getElementById("white-section");
@@ -42,6 +67,15 @@ const FloatingNavbar = ({ className = "" }) => {
   }, []);
 
   if (pathname === "/auth/login") return null;
+  if (pathname === "/dashboard") return null;
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    const response = await authData?.logout();
+    if (response) {
+      router.push("/");
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -57,7 +91,7 @@ const FloatingNavbar = ({ className = "" }) => {
             <img src="./logo.png" className="size-14" alt="" />
           </div>
         </Link>
-        <div className="hidden sm:flex space-x-8">
+        <div className="hidden sm:flex items-center space-x-8">
           {navItems.map((item, idx) => (
             <Link
               key={idx}
@@ -69,6 +103,27 @@ const FloatingNavbar = ({ className = "" }) => {
               {item.name}
             </Link>
           ))}
+          {isAuthenticated && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="cursor-pointer">
+                  <Avatar className="flex items-center justify-center text-neutral-700 bg-neutral-300">
+                    P
+                  </Avatar>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
         <button
           className={`sm:hidden p-2 ${

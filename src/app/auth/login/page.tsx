@@ -3,20 +3,20 @@
 import { userService } from "@/libs/appwrite/config";
 import { FaGoogle } from "react-icons/fa";
 
-export default function SignIn() {
+function Page() {
   const handleUserLogin = async () => {
     const user = userService.loginWithGoogle();
   };
 
   return (
     <div className="flex min-h-screen">
-      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 to-blue-500 justify-center items-center p-12">
+      <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-neutral-950 to-neutral-800 justify-center items-center p-12">
         <div>
-          <h1 className="text-5xl font-bold leading-tight text-white">
+          <h1 className="text-5xl font-bold leading-tight text-zinc-200">
             Welcome to Our Community!
           </h1>
 
-          <p className="mt-4 text-xl text-blue-200">
+          <p className="mt-4 text-xl text-zinc-400">
             Join thousands of innovators building together.
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function SignIn() {
 
           <button
             onClick={() => handleUserLogin()}
-            className="w-full flex gap-4 items-center justify-center p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+            className="w-full flex gap-4 items-center justify-center p-3 bg-neutral-800 text-white rounded-lg font-semibold hover:bg-neutral-700 transition"
           >
             <FaGoogle className="text-xl" />
             Sign In with Google
@@ -40,3 +40,5 @@ export default function SignIn() {
     </div>
   );
 }
+
+export default Page;

@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       "cloudinary.com",
       "hebbkx1anhila5yf.public.blob.vercel-storage.com",
       "static.cdn-luma.com",
+      "assets.aceternity.com",
+      "drive.google.com",
     ],
   },
 };

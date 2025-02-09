@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import AuthContext from "@/context/auth-context";
 
 function FloatingPaths({ position }: { position: number }) {
   const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -57,7 +60,11 @@ export default function BackgroundPaths({
   title?: string;
   isButton?: boolean;
 }) {
+  const router = useRouter();
   const words = title.split(" ");
+
+  const authContextData = useContext(AuthContext);
+  const isAuthenticated = authContextData?.isAuthenticated;
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden border border-b-zinc-300 rounded-b-3xl bg-white dark:bg-neutral-950">
@@ -103,8 +110,9 @@ export default function BackgroundPaths({
                         dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg 
                         overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            {isButton && (
+            {isButton && !isAuthenticated ? (
               <Button
+                onClick={() => router.push("/auth/login")}
                 variant="ghost"
                 className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md 
                             bg-white/95 hover:bg-white/100 dark:bg-black/95 dark:hover:bg-black/100 
@@ -114,6 +122,26 @@ export default function BackgroundPaths({
               >
                 <span className="opacity-90 group-hover:opacity-100 transition-opacity">
                   Explore Now !
+                </span>
+                <span
+                  className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 
+                                transition-all duration-300"
+                >
+                  →
+                </span>
+              </Button>
+            ) : (
+              <Button
+                onClick={() => router.push("/events")}
+                variant="ghost"
+                className="rounded-[1.15rem] px-8 py-6 text-lg font-semibold backdrop-blur-md 
+                            bg-white/95 hover:bg-white/100 dark:bg-black/95 dark:hover:bg-black/100 
+                            text-black dark:text-white transition-all duration-300 
+                            group-hover:-translate-y-0.5 border border-black/10 dark:border-white/10
+                            hover:shadow-md dark:hover:shadow-neutral-800/50"
+              >
+                <span className="opacity-90 group-hover:opacity-100 transition-opacity">
+                  Explore Events !
                 </span>
                 <span
                   className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 

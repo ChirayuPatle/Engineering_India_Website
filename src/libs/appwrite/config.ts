@@ -21,11 +21,12 @@ export const storage = new Storage(appwriteClient);
 export class AppwriteService {
   async loginWithGoogle() {
     try {
-      await account.createOAuth2Session(
+      const user = await account.createOAuth2Session(
         OAuthProvider.Google,
         "http://localhost:3000/dashboard",
         "http://localhost:3000/error"
       );
+      console.log("USER DETAILS", user);
     } catch (error) {
       console.log("Error While Authenticating User", error);
       throw error;

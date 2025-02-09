@@ -1,172 +1,145 @@
+// app/dashboard/layout.tsx
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import {
-  Calendar,
-  CreditCard,
-  Heart,
-  Link2,
-  LogOut,
-  Menu,
-  Share2,
-  User,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+  IconArrowLeft,
+  IconBrandTabler,
+  IconCash,
+  IconSettings,
+  IconUserBolt,
+} from "@tabler/icons-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import { cn } from "@/libs/utils";
-import type React from "react"; // Added import for React
+import { FaAccusoft, FaEnvelopeOpenText, FaEvernote } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
-interface NavItem {
-  title: string;
-  icon: React.ElementType;
-  href: string;
-}
+export const Logo = () => {
+  return (
+    <Link
+      href="#"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium text-black dark:text-white whitespace-pre"
+      >
+        Acet Labs
+      </motion.span>
+    </Link>
+  );
+};
 
-const navItems: NavItem[] = [
-  {
-    title: "Events Registered",
-    icon: Calendar,
-    href: "/dashboard/events",
-  },
-  {
-    title: "Payment Details",
-    icon: CreditCard,
-    href: "/dashboard/payments",
-  },
-  {
-    title: "Profile",
-    icon: User,
-    href: "/dashboard/profile",
-  },
-  {
-    title: "Liked Events",
-    icon: Heart,
-    href: "/dashboard/liked",
-  },
-  {
-    title: "Social Links",
-    icon: Link2,
-    href: "/dashboard/social",
-  },
-  {
-    title: "Share Profile",
-    icon: Share2,
-    href: "/dashboard/share",
-  },
-];
+export const LogoIcon = () => {
+  return (
+    <Link
+      href="#"
+      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+    >
+      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+    </Link>
+  );
+};
 
-interface DashboardLayoutProps {
+export default function DashboardLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
+}) {
+  // Using absolute paths here:
+  const links = [
+    {
+      label: "Events",
+      href: "/dashboard/events",
+      icon: (
+        <FaEnvelopeOpenText className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Registered Events",
+      href: "/dashboard/registered-events",
+      icon: (
+        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Payment Details",
+      href: "/dashboard/payment-details",
+      icon: (
+        <IconCash className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Profile",
+      href: "/dashboard/profile",
+      icon: (
+        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Settings",
+      href: "/dashboard/settings",
+      icon: (
+        <IconSettings className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Logout",
+      href: "/dashboard/logout",
+      icon: (
+        <IconArrowLeft className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+  ];
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [selectedItem, setSelectedItem] = useState("Events Registered");
+  const [open, setOpen] = useState(false);
+
+  const router = useRouter();
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar for desktop */}
-      <motion.div
-        initial={{ x: -300 }}
-        animate={{ x: 0 }}
-        className="hidden md:flex w-64 flex-col fixed inset-y-0"
-      >
-        <div className="flex flex-col flex-1 min-h-0 bg-card border-r">
-          <div className="flex-1 flex flex-col pt-5 pb-4">
-            <div className="flex items-center flex-shrink-0 px-4">
-              <h1 className="text-xl font-bold">Dashboard</h1>
+    <div
+      className={cn(
+        "rounded-md min-h-screen min-w-full flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 flex-1 max-w-7xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
+        "h-[60vh]" // Adjust height as needed (e.g. "h-screen")
+      )}
+    >
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between py-8 gap-10">
+          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+            <div onClick={() => router.push("/")}>
+              {open ? <Logo /> : <LogoIcon />}
             </div>
-            <ScrollArea className="mt-5 flex-1">
-              <nav className="flex-1 px-2 space-y-1">
-                {navItems.map((item) => (
-                  <Button
-                    key={item.title}
-                    variant={
-                      selectedItem === item.title ? "secondary" : "ghost"
-                    }
-                    className={cn(
-                      "w-full justify-start gap-2",
-                      selectedItem === item.title && "bg-secondary"
-                    )}
-                    onClick={() => setSelectedItem(item.title)}
-                  >
-                    <item.icon className="h-4 w-4" />
-                    {item.title}
-                  </Button>
-                ))}
-              </nav>
-            </ScrollArea>
-          </div>
-          <div className="flex-shrink-0 flex border-t p-4">
-            <Button variant="ghost" className="w-full justify-start gap-2">
-              <LogOut className="h-4 w-4" />
-              Logout
-            </Button>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Mobile menu */}
-      <div className="md:hidden">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="ml-2 mt-2">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-64 p-0">
-            <div className="flex flex-col flex-1 min-h-0">
-              <div className="flex-1 flex flex-col pt-5 pb-4">
-                <div className="flex items-center flex-shrink-0 px-4">
-                  <h1 className="text-xl font-bold">Dashboard</h1>
-                </div>
-                <ScrollArea className="mt-5 flex-1">
-                  <nav className="flex-1 px-2 space-y-1">
-                    {navItems.map((item) => (
-                      <Button
-                        key={item.title}
-                        variant={
-                          selectedItem === item.title ? "secondary" : "ghost"
-                        }
-                        className={cn(
-                          "w-full justify-start gap-2",
-                          selectedItem === item.title && "bg-secondary"
-                        )}
-                        onClick={() => setSelectedItem(item.title)}
-                      >
-                        <item.icon className="h-4 w-4" />
-                        {item.title}
-                      </Button>
-                    ))}
-                  </nav>
-                </ScrollArea>
-              </div>
-              <div className="flex-shrink-0 flex border-t p-4">
-                <Button variant="ghost" className="w-full justify-start gap-2">
-                  <LogOut className="h-4 w-4" />
-                  Logout
-                </Button>
-              </div>
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
             </div>
-          </SheetContent>
-        </Sheet>
-      </div>
-
-      {/* Main content */}
-      <main className="flex-1 md:ml-64 p-8">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedItem}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+          </div>
+          <div>
+            <SidebarLink
+              link={{
+                label: "Manu Arora",
+                href: "#",
+                icon: (
+                  <Image
+                    src="https://assets.aceternity.com/manu.png"
+                    className="h-7 w-7 flex-shrink-0 rounded-full"
+                    width={50}
+                    height={50}
+                    alt="Avatar"
+                  />
+                ),
+              }}
+            />
+          </div>
+        </SidebarBody>
+      </Sidebar>
+      <main className="flex-1">{children}</main>
     </div>
   );
 }
