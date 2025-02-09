@@ -52,7 +52,7 @@ function EventInfo() {
 
   return (
     <>
-      <div className="page1 min-h-screen lg:h-screen w-full">
+      <div className="page1 min-h-screen lg:h-screen w-full pt-[6rem] ">
         <div className="h-full w-full flex flex-col-reverse lg:flex-row items-center justify-center">
           <div className="h-full w-full lg:w-1/2 py-14 lg:px-20 px-6 lg:mt-32">
             <h1 className="text-5xl text-green-600">Youth Parliament</h1>

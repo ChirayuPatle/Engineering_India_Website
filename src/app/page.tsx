@@ -6,17 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from "react";
 
 import Footer from "@/components/footer";
-import FAQ from "@/features/landing/components/faqs";
-import { DirectionAwareHoverDemo } from "@/features/landing/components/heads";
-import LandingComponent from "@/features/landing/components/landing-component";
-import { Background } from "@/features/landing/components/background";
-import { Vortex } from "@/components/ui/vortex";
-import Aurora from "@/components/react-bits/Aurora";
 import BackgroundPaths from "@/features/landing/components/backgroundPath";
-import ImageSlider from "@/features/landing/components/image-slider/ImageSlider";
-import HeadsCard from "@/features/landing/components/HeadsCard";
-import FeedbackForm from "@/features/feedback/component/feedback-form";
+import FAQ from "@/features/landing/components/faqs";
 import Feedback from "@/features/landing/components/feedback";
+import HeadsCard from "@/features/landing/components/HeadsCard";
+import ImageSlider from "@/features/landing/components/image-slider/ImageSlider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,25 +30,6 @@ export default function HomePage() {
       lenis.destroy();
     };
   }, []);
-
-  // useEffect(() => {
-  //   // Cards animation: plays as you scroll into view
-  //   gsap.from(".card", {
-  //     scrollTrigger: {
-  //       trigger: ".cards-section",
-  //       start: "top center",
-  //       end: "bottom center",
-  //       scrub: true,
-  //     },
-  //     duration: 1.2,
-  //     y: 50,
-  //     opacity: 0,
-  //     scale: 0.95,
-  //     rotation: 2,
-  //     ease: "power4.out",
-  //     stagger: 0.25,
-  //   });
-  // }, []);
 
   return (
     <div className="relative bg-white/90 text-white overflow-x-hidden">

@@ -19,6 +19,7 @@ const envConfig = {
   appwriteFeedbackCollectionID: String(
     process.env.NEXT_PUBLIC_APPWRITE_FEEDBACK_COLLECTION_ID
   ),
+  baseUrl: String(process.env.NEXT_PUBLIC_BASE_URL),
 };
 
 export default envConfig;

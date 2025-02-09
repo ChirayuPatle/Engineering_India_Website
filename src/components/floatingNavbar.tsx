@@ -18,14 +18,12 @@ const FloatingNavbar = ({ className = "" }) => {
   const [isWhiteSection, setIsWhiteSection] = useState(false);
 
   useEffect(() => {
-    // Observe the white section (Gallery and subsequent white areas)
     const whiteSection = document.getElementById("white-section");
     if (!whiteSection) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // If at least 50% of the white section is in view, mark it as white background
           if (entry.intersectionRatio >= 0.5) {
             setIsWhiteSection(true);
           } else {
@@ -52,19 +50,10 @@ const FloatingNavbar = ({ className = "" }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -100 }}
         transition={{ duration: 0.3 }}
-        // The navbar background remains unchanged; only text color will update based on section
         className={`fixed top-0 inset-x-0 z-50 backdrop-blur-sm py-4 px-8 sm:px-20 flex items-center justify-between ${className}`}
       >
         <Link href="/">
           <div className="flex items-center space-x-2 cursor-pointer">
-            {/* Logo text: white on blue sections, black on white sections */}
-            {/* <span
-              className={`text-2xl font-bold ${
-                isWhiteSection ? "text-black" : "text-white"
-              }`}
-            >
-              EI
-            </span> */}
             <img src="./logo.png" className="size-14" alt="" />
           </div>
         </Link>

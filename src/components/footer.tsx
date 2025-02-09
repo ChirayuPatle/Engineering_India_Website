@@ -20,7 +20,9 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Social Links */}
-          <div className="w-20 h-20 bg-zinc-500 rounded-full "></div>
+          <div className="w-20 h-20 ounded-full ">
+            <img src="./logo.png" alt="" />
+          </div>
 
           {/* Copyright */}
           <div className="text-sm ">

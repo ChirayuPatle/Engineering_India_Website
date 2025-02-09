@@ -57,31 +57,51 @@ export const DELETE = async (
   }
 };
 
-export const GET = async (
+export async function GET(
   req: NextRequest,
-  context: { params: { eventId: string } }
-) => {
+  context: { params: Promise<{ eventId: string }> } // note: params is awaited
+) {
   try {
-    const { eventId } = context.params;
+    // Await the params to get eventId
+    const { eventId } = await context.params;
 
-    const registrations = await database.listDocuments(
+    // Option 1: Use getDocument to fetch the single event document by its id
+    const event = await database.getDocument(
       envConfig.appwriteDatabaseId,
-      envConfig.appwriteRegistrationCollectionID,
-      [Query.equal("eventId", eventId)]
+      envConfig.appwriteEventsCollectionID,
+      eventId
     );
 
     return NextResponse.json(
       {
-        message: "Registration count retrieved successfully",
-        totalRegistrations: registrations.total,
-        registrations: registrations.documents,
+        message: "Successfully retrieved the event",
+        event,
       },
       { status: 200 }
     );
-  } catch (error) {
+
+    /* 
+    // Option 2: Alternatively, if you prefer to use listDocuments with a query:
+    import { Query } from "appwrite";
+    const result = await database.listDocuments(
+      envConfig.appwriteDatabaseId,
+      envConfig.appwriteEventsCollectionID,
+      [Query.equal("$id", eventId)]
+    );
+    // Assuming the document exists, result.documents[0] is your event
     return NextResponse.json(
-      { error: "Failed to get registration count" },
+      {
+        message: "Successfully retrieved the event",
+        event: result.documents[0],
+      },
+      { status: 200 }
+    );
+    */
+  } catch (error) {
+    console.error("Error fetching event:", error);
+    return NextResponse.json(
+      { error: "Failed to retrieve the event" },
       { status: 500 }
     );
   }
-};
+}
