@@ -1,243 +1,239 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Calendar, Clock, MapPin, Share2 } from "lucide-react";
-import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
-import { RegisterButton } from "@/features/event/component/registrationButton";
-import { Share } from "@/features/event/component/share";
-import EventTimeline, {
-  TimelineEvent,
-} from "@/features/event/component/eventTimelime";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
+import { Calendar, Globe, Heart, Share2 } from "lucide-react";
+import { cn } from "@/libs/utils";
+import EventMetrics from "@/features/event/component/event-info/event-metric";
+import EventRegistration from "@/features/event/component/event-info/event-registration";
+import FAQsSection from "@/features/event/component/event-info/faq-section";
+import FeedbackSection from "@/features/event/component/event-info/feedback-section";
+import PrizesSection from "@/features/event/component/event-info/price-section";
+import Timeline from "@/features/event/component/event-info/timeline";
 
-// Dummy event data (in real app, fetch from API)
-const event = {
-  id: "1",
-  title: "Tech Conference 2024 🚀",
-  description:
-    "Join us for an amazing tech conference featuring industry experts, hands-on workshops, and innovative discussions. Expect networking, expert panels, and a lot of fun!",
-  date: "2024-04-15",
-  time: "09:00 AM - 05:00 PM",
-  location: "Tech Convention Center, Silicon Valley",
-  price: "$99",
-  category: "Technical",
-  isFree: false,
-  images: [
-    "https://images.unsplash.com/photo-1738975927070-d5af82de67c1?w=600&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1497493292307-31c376b6e479?w=600&auto=format&fit=crop&q=60",
-  ],
-  features: [
-    "Expert Speakers 🎤",
-    "Networking Opportunities 🤝",
-    "Hands-on Workshops 🛠️",
-    "Certificate of Participation 🎓",
-  ],
+// Import all event data arrays
+import {
+  Chitrankan,
+  DonationDrive,
+  Rangittalim3,
+  Rangittalim4,
+  Abhudaya,
+  ShivajiJayanti,
+} from "@/constant/events";
+
+// Animation variant for a fadeInUp effect
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
 };
 
-// Dummy timeline data
-const dummyTimeline: TimelineEvent[] = [
-  { day: 1, time: "09:00 AM", title: "Opening Ceremony" },
-  { day: 1, time: "10:00 AM", title: "Keynote Speech" },
-  { day: 1, time: "11:30 AM", title: "Networking Break" },
-  { day: 2, time: "08:30 AM", title: "Workshop: React Best Practices" },
-  { day: 2, time: "10:00 AM", title: "Panel Discussion" },
-  { day: 3, time: "09:30 AM", title: "Closing Ceremony" },
+// Navigation sections for scrolling within the page
+const sections = [
+  { id: "timeline", label: "Stages & Timeline" },
+  { id: "details", label: "Details" },
+  { id: "prizes", label: "Prizes" },
+  { id: "feedback", label: "Feedbacks" },
+  { id: "faqs", label: "FAQs" },
 ];
 
 export default function EventPage() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const handleRegister = () => {
-    // Registration logic here
-    router.push(`${pathname}/register`);
-    console.log("Register clicked");
+  // Get the eventId from the URL parameters
+  const params = useParams();
+  const eventId = parseInt(params.eventId as string, 10);
+
+  // Combine all events into one array
+  const events = [
+    ...Chitrankan,
+    ...DonationDrive,
+    ...Rangittalim3,
+    ...Rangittalim4,
+    ...Abhudaya,
+    ...ShivajiJayanti,
+  ];
+
+  // Find the event whose id matches the eventId param
+  const eventData = events.find(
+    (event) => event.id === eventId
+  ) as { imgUrl: string[]; id: number; name?: string; details?: string };
+
+  if (!eventData) {
+    return <div>Event not found</div>;
+  }
+
+  // Destructure event data with fallbacks
+  const images: string[] = eventData.imgUrl;
+  const eventName: string = eventData?.name || "Event Name";
+  const eventDetails: string =
+    eventData?.details || "Event details will be updated soon.";
+
+  // State for the auto-sliding hero banner images
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // State for active navigation section
+  const [activeSection, setActiveSection] = useState("timeline");
+  // State for like button
+  const [liked, setLiked] = useState(false);
+
+  // Auto-slide: update current image index every 3 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  // Handler to scroll to a given section by its ID
+  const scrollToSection = ({ sectionId }: { sectionId: string }): void => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(sectionId);
+    }
+  };
+
+  // Handler for the Like button
+  const handleLike = () => {
+    setLiked((prev) => !prev);
+    // Optionally, update like count via an API
+  };
+
+  // Handler to open a pre-filled Google Calendar event
+  const handleCalendar = () => {
+    const start = "20250415T090000Z";
+    const end = "20250417T180000Z";
+    const title = encodeURIComponent(eventName);
+    const details = encodeURIComponent(eventDetails);
+    const location = encodeURIComponent("Tech Convention Center");
+    const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+    window.open(calendarUrl, "_blank");
+  };
+
+  // Handler to share the current page URL
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Link copied to clipboard!");
+    } catch (err) {
+      alert("Failed to copy link. Please try manually.");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-background mt-[6rem] px-20">
+    <div className="min-h-screen bg-background">
+      {/* Hero Banner with Auto-Sliding Images */}
       <motion.div
+        className="relative h-[300px] sm:h-[550px] rounded-xl overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="container mx-auto px-4 py-8 space-y-12"
+        transition={{ duration: 1 }}
       >
-        {/* Header Section */}
-        <div className="space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-wrap items-center justify-between gap-4"
-          >
-            <div className="space-y-2">
-              <div className="flex gap-2">
-                <Badge>{event.category}</Badge>
-                {event.isFree && <Badge variant="secondary">Free</Badge>}
-              </div>
-              <h1 className="text-5xl font-bold">{event.title}</h1>
-            </div>
-            <div className="mt-2">
-              <RegisterButton onClick={handleRegister} />
-            </div>
-          </motion.div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-muted-foreground text-lg max-w-3xl"
-          >
-            {event.description}
-          </motion.p>
-        </div>
-
-        {/* Event Details Section */}
-        <div className="grid gap-8 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <Card className="p-6 h-full space-y-4">
-              <h2 className="text-2xl font-semibold">Event Details</h2>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-muted-foreground" />
-                  <span>{event.date}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-muted-foreground" />
-                  <span>{event.time}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-muted-foreground" />
-                  <span>{event.location}</span>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <Card className="p-6 space-y-4">
-              <h2 className="text-2xl font-semibold">Features ✨</h2>
-              <ul className="space-y-2">
-                {event.features.map((feature, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    className="flex items-center gap-2"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    {feature}
-                  </motion.li>
-                ))}
-              </ul>
-            </Card>
-          </motion.div>
-        </div>
-
-        {/* Image Gallery */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          {event.images.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 * index }}
-              className="relative aspect-video rounded-lg overflow-hidden"
-            >
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`Event image ${index + 1}`}
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Additional Images Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          {event.images.map((image, index) => (
-            <motion.div
-              key={`more-${index}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 * index + 0.4 }}
-              className="relative aspect-video rounded-lg overflow-hidden"
-            >
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`Additional image ${index + 1}`}
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Event Timeline Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="p-8 bg-background min-h-screen"
-        >
-          <h1 className="text-3xl font-bold mb-6">Event Timeline 📅</h1>
-          <EventTimeline timeline={dummyTimeline} />
-        </motion.div>
-
-        {/* Google Maps Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.55 }}
-          className="w-full h-96 mt-8"
-        >
-          <h2 className="text-2xl font-semibold mb-4">Location on Map 🗺️</h2>
-          <iframe
-            width="100%"
-            height="100%"
-            loading="lazy"
-            allowFullScreen
-            src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(
-              event.location
-            )}`}
-          ></iframe>
-        </motion.div>
-
-        {/* Share Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="flex flex-col items-center gap-4 pt-8"
-        >
-          <div className="flex items-center gap-2">
-            <Share2 className="w-5 h-5" />
-            <span>Share this event</span>
-          </div>
-          <Share
-            url={`https://example.com/events/${event.id}`}
-            title={event.title}
+        {images.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt={`Event Banner ${index + 1}`}
+            // Removed fixed horizontal padding and added object-contain for responsiveness
+            className={`absolute top-0 left-0 w-full h-full object-contain transition-opacity duration-500 ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
           />
-        </motion.div>
+        ))}
       </motion.div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-24 py-8">
+        {/* Event Header */}
+        <motion.div
+          className="flex flex-col sm:flex-row items-start gap-6 mb-8 bg-white rounded-lg p-6 shadow-sm"
+          {...fadeInUp}
+        >
+          <img
+            // Use the first image as the event logo (or customize as needed)
+            src={images[0]}
+            alt={`${eventName} Logo`}
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg object-cover"
+          />
+          <div className="flex-1">
+            <h1 className="text-xl sm:text-2xl font-bold mb-2">{eventName}</h1>
+            <div className="flex flex-wrap items-center gap-2 mt-2">
+              <Badge variant="secondary" className="flex items-center gap-1">
+                <Globe className="w-3 h-3" /> Online
+              </Badge>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="icon" onClick={handleLike}>
+              <Heart className={`w-4 h-4 ${liked ? "text-red-500" : ""}`} />
+            </Button>
+            <Button variant="outline" size="icon" onClick={handleCalendar}>
+              <Calendar className="w-4 h-4" />
+            </Button>
+            <Button variant="outline" size="icon" onClick={handleShare}>
+              <Share2 className="w-4 h-4" />
+            </Button>
+          </div>
+        </motion.div>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Registration Sidebar (Desktop: Right; Mobile: Top) */}
+          <div className="order-1 lg:order-2 lg:w-[320px] shrink-0">
+            <div className="sticky top-4 space-y-6">
+              <EventRegistration />
+              <EventMetrics />
+            </div>
+          </div>
+
+          {/* Main Content Section */}
+          <div className="order-2 lg:order-1 flex-1">
+            {/* Navigation Buttons */}
+            <div className="sticky top-0 z-10 bg-background py-2 mb-8 border-b overflow-x-auto hide-scrollbar flex gap-2">
+              {sections.map((section) => (
+                <Button
+                  key={section.id}
+                  variant="ghost"
+                  className={cn(
+                    "rounded-full",
+                    activeSection === section.id &&
+                      "bg-primary text-primary-foreground"
+                  )}
+                  onClick={() => scrollToSection({ sectionId: section.id })}
+                >
+                  {section.label}
+                </Button>
+              ))}
+            </div>
+
+            {/* Scrollable Sections */}
+            <div className="space-y-12">
+              <div id="timeline">
+                <Timeline />
+              </div>
+              <Separator />
+              <div id="details">
+                <div className="p-4 bg-gray-100 rounded">
+                  <p>{eventDetails}</p>
+                </div>
+              </div>
+              {/* <Separator /> */}
+              {/* <div id="prizes">
+                <PrizesSection />
+              </div> */}
+              <Separator />
+              <div id="feedback">
+                <FeedbackSection />
+              </div>
+              <Separator />
+              <div id="faqs">
+                <FAQsSection />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

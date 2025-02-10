@@ -16,23 +16,22 @@ const FAQ = () => {
       <Accordion type="single" collapsible className="max-w-2xl mx-auto">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-zinc-800 text-lg">
-            Is Appwrite secure?
+            What is Engineering India?
           </AccordionTrigger>
           <AccordionContent className="text-neutral-500">
-            Yes. Appwrite follows strict security protocols with advanced
-            permissions and encryption.
+            Engineering India is a central club dedicated to connecting engineers and tech enthusiasts across India, driving collaborative efforts to better society through technology and innovation.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger className="text-zinc-800 text-lg">
-            Is it scalable?
+            How Can I Join it?
           </AccordionTrigger>
           <AccordionContent className="text-neutral-500">
             Absolutely. It’s designed to handle high-scale applications with
             real-time features.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-3">
+        {/* <AccordionItem value="item-3">
           <AccordionTrigger className="text-zinc-800 text-lg">
             How easy is integration?
           </AccordionTrigger>
@@ -40,7 +39,7 @@ const FAQ = () => {
             Appwrite provides SDKs for multiple platforms to ensure seamless
             integration.
           </AccordionContent>
-        </AccordionItem>
+        </AccordionItem> */}
       </Accordion>
     </div>
   );

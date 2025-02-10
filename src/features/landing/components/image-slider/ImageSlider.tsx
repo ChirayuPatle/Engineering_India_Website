@@ -14,7 +14,7 @@ export default function ImageSlider() {
         Our Events
       </h1>
       <div className="w-full h-full flex flex-col md:flex-row items-start gap-8 md:gap-8">
-        <div className="w-full md:flex-grow h-[60vh] md:h-[80vh]">
+        <div className="w-full md:flex-grow h-[60vh] md:h-[110vh]">
           <DynamicFrameLayout />
         </div>
       </div>

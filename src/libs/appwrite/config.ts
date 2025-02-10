@@ -23,7 +23,7 @@ export class AppwriteService {
     try {
       const user = await account.createOAuth2Session(
         OAuthProvider.Google,
-        "http://localhost:3000/dashboard",
+        "http://localhost:3000/",
         "http://localhost:3000/error"
       );
       console.log("USER DETAILS", user);

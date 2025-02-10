@@ -152,7 +152,7 @@ const FloatingNavbar = ({ className = "" }) => {
                 <Link
                   key={idx}
                   href={item.link}
-                  className="text-gray-700 text-center hover:text-blue-600"
+                  className="text-neutral-900 text-center hover:text-neutral-400"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}

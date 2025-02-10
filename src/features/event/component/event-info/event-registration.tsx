@@ -17,14 +17,15 @@ export default function EventRegistration() {
         </div>
 
         <Button
-          className="w-full bg-neutral-800 hover:bg-neutral-700 text-white"
+        disabled
+          className="w-full bg-red-800 hover:bg-red-700 text-white"
           size="lg"
         >
           {/* <div className="flex flex-col items-center">
             <span>Incomplete Registration</span>
             <span className="text-xs opacity-90">(Consent needed)</span>
           </div> */}
-          Register
+          Close
         </Button>
       </Card>
     </motion.div>

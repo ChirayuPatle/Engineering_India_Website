@@ -28,7 +28,7 @@ const initialFrames: Frame[] = [
   {
     id: 1,
     video:
-      "https://static.cdn-luma.com/files/981e483f71aa764b/Company%20Thing%20Exported.mp4",
+      "https://res.cloudinary.com/priyanshukayarkar/video/upload/v1739080948/Website-details/Events%20images/Website-details/Events%20images/Donation%20drive%20%28orphanage%29/Copy_of_MVI_0299_aug9ws.mp4",
     defaultPos: { x: 0, y: 0, w: 4, h: 4 },
     corner:
       "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1739080953/Website-details/Events%20images/Website-details/Events%20images/Chitrankan/No_to_Alcohol_abuse_-_Tejas_Shende_g3f7nj.jpg",
@@ -45,7 +45,7 @@ const initialFrames: Frame[] = [
   {
     id: 2,
     video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/WebGL%20Exported%20(1).mp4",
+      "https://res.cloudinary.com/priyanshukayarkar/video/upload/v1739075762/Website-details/Events%20images/Rangittalim%203.0/IMG_6996_ircw5q.mov",
     defaultPos: { x: 4, y: 0, w: 4, h: 4 },
     corner:
       "https://static.cdn-luma.com/files/bcf576df9c38b05f/2_corner_update.png",
@@ -62,7 +62,7 @@ const initialFrames: Frame[] = [
   {
     id: 3,
     video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Jitter%20Exported%20Poster.mp4",
+      "https://res.cloudinary.com/priyanshukayarkar/video/upload/v1739175986/20240302_180303_jqg1a9.mp4",
     defaultPos: { x: 8, y: 0, w: 4, h: 4 },
     corner:
       "https://static.cdn-luma.com/files/3d36d1e0dba2476c/3_Corner_update.png",
@@ -76,104 +76,104 @@ const initialFrames: Frame[] = [
     autoplayMode: "all",
     isHovered: false,
   },
-  {
-    id: 4,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Exported%20Web%20Video.mp4",
-    defaultPos: { x: 0, y: 4, w: 4, h: 4 },
-    corner:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/4_corner_update.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/4_hori_update.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/4_vert_update.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
-  {
-    id: 5,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Logo%20Exported.mp4",
-    defaultPos: { x: 4, y: 4, w: 4, h: 4 },
-    corner:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/5_corner_update.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/5_hori_update.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/9e67e05f37e52522/5_verti_update.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
-  {
-    id: 6,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Animation%20Exported%20(4).mp4",
-    defaultPos: { x: 8, y: 4, w: 4, h: 4 },
-    corner: "https://static.cdn-luma.com/files/1199340587e8da1d/6_corner.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/1199340587e8da1d/6_corner-1.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/1199340587e8da1d/6_vert.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
-  {
-    id: 7,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Illustration%20Exported%20(1).mp4",
-    defaultPos: { x: 0, y: 8, w: 4, h: 4 },
-    corner: "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_corner.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_hori.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_vert.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
-  {
-    id: 8,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Art%20Direction%20Exported.mp4",
-    defaultPos: { x: 4, y: 8, w: 4, h: 4 },
-    corner: "https://static.cdn-luma.com/files/981e483f71aa764b/8_corner.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/981e483f71aa764b/8_hori.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/981e483f71aa764b/8_verticle.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
-  {
-    id: 9,
-    video:
-      "https://static.cdn-luma.com/files/58ab7363888153e3/Product%20Video.mp4",
-    defaultPos: { x: 8, y: 8, w: 4, h: 4 },
-    corner: "https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png",
-    edgeHorizontal:
-      "https://static.cdn-luma.com/files/981e483f71aa764b/9_hori.png",
-    edgeVertical:
-      "https://static.cdn-luma.com/files/981e483f71aa764b/9_vert.png",
-    mediaSize: 1,
-    borderThickness: 0,
-    borderSize: 80,
-    autoplayMode: "all",
-    isHovered: false,
-  },
+  // {
+  //   id: 4,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Exported%20Web%20Video.mp4",
+  //   defaultPos: { x: 0, y: 4, w: 4, h: 4 },
+  //   corner:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/4_corner_update.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/4_hori_update.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/4_vert_update.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
+  // {
+  //   id: 5,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Logo%20Exported.mp4",
+  //   defaultPos: { x: 4, y: 4, w: 4, h: 4 },
+  //   corner:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/5_corner_update.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/5_hori_update.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/9e67e05f37e52522/5_verti_update.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
+  // {
+  //   id: 6,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Animation%20Exported%20(4).mp4",
+  //   defaultPos: { x: 8, y: 4, w: 4, h: 4 },
+  //   corner: "https://static.cdn-luma.com/files/1199340587e8da1d/6_corner.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/1199340587e8da1d/6_corner-1.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/1199340587e8da1d/6_vert.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
+  // {
+  //   id: 7,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Illustration%20Exported%20(1).mp4",
+  //   defaultPos: { x: 0, y: 8, w: 4, h: 4 },
+  //   corner: "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_corner.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_hori.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/b80b5aa00ccc33bd/7_vert.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
+  // {
+  //   id: 8,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Art%20Direction%20Exported.mp4",
+  //   defaultPos: { x: 4, y: 8, w: 4, h: 4 },
+  //   corner: "https://static.cdn-luma.com/files/981e483f71aa764b/8_corner.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/981e483f71aa764b/8_hori.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/981e483f71aa764b/8_verticle.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
+  // {
+  //   id: 9,
+  //   video:
+  //     "https://static.cdn-luma.com/files/58ab7363888153e3/Product%20Video.mp4",
+  //   defaultPos: { x: 8, y: 8, w: 4, h: 4 },
+  //   corner: "https://static.cdn-luma.com/files/981e483f71aa764b/9_corner.png",
+  //   edgeHorizontal:
+  //     "https://static.cdn-luma.com/files/981e483f71aa764b/9_hori.png",
+  //   edgeVertical:
+  //     "https://static.cdn-luma.com/files/981e483f71aa764b/9_vert.png",
+  //   mediaSize: 1,
+  //   borderThickness: 0,
+  //   borderSize: 80,
+  //   autoplayMode: "all",
+  //   isHovered: false,
+  // },
 ];
 
 export default function DynamicFrameLayout() {
