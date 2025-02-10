@@ -1,27 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { motion } from "framer-motion";
-import { Calendar, Globe, Heart, Share2 } from "lucide-react";
-import { cn } from "@/libs/utils";
 import EventMetrics from "@/features/event/component/event-info/event-metric";
 import EventRegistration from "@/features/event/component/event-info/event-registration";
 import FAQsSection from "@/features/event/component/event-info/faq-section";
 import FeedbackSection from "@/features/event/component/event-info/feedback-section";
-import PrizesSection from "@/features/event/component/event-info/price-section";
 import Timeline from "@/features/event/component/event-info/timeline";
+import { cn } from "@/libs/utils";
+import { motion } from "framer-motion";
+import { Calendar, Globe, Heart, Share2 } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // Import all event data arrays
 import {
+  Abhudaya,
   Chitrankan,
   DonationDrive,
   Rangittalim3,
   Rangittalim4,
-  Abhudaya,
   ShivajiJayanti,
 } from "@/constant/events";
 

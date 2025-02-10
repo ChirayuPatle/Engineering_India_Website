@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import { RegistrationForm } from "@/features/event/component/registration-form/registrationPage";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { RegistrationForm } from "@/features/event/component/registration-form/registrationPage";
 
 const Page = () => {
   return (

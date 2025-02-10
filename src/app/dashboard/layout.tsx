@@ -1,8 +1,8 @@
 // app/dashboard/layout.tsx
 "use client";
 
-import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
+import { cn } from "@/libs/utils";
 import {
   IconArrowLeft,
   IconBrandTabler,
@@ -10,12 +10,12 @@ import {
   IconSettings,
   IconUserBolt,
 } from "@tabler/icons-react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { cn } from "@/libs/utils";
-import { FaAccusoft, FaEnvelopeOpenText, FaEvernote } from "react-icons/fa";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { FaEnvelopeOpenText } from "react-icons/fa";
 
 export const Logo = () => {
   return (

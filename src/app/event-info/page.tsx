@@ -3,18 +3,16 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/libs/utils";
-import { motion } from "framer-motion";
-import { Calendar, Clock, Globe, Heart, Share2, Trophy } from "lucide-react";
-import React, { useState } from "react";
 import EventMetrics from "@/features/event/component/event-info/event-metric";
 import EventRegistration from "@/features/event/component/event-info/event-registration";
 import FAQsSection from "@/features/event/component/event-info/faq-section";
 import FeedbackSection from "@/features/event/component/event-info/feedback-section";
 import PrizesSection from "@/features/event/component/event-info/price-section";
-import ReferAndWin from "@/features/event/component/event-info/refer-win";
-import { TimelineDemo } from "@/features/event/component/timeline";
 import Timeline from "@/features/event/component/event-info/timeline";
+import { cn } from "@/libs/utils";
+import { motion } from "framer-motion";
+import { Calendar, Clock, Globe, Heart, Share2, Trophy } from "lucide-react";
+import { useState } from "react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

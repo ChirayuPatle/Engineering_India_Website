@@ -1,14 +1,13 @@
 "use client";
-import { EventCard, EventsProps } from "@/features/event/component/eventCard";
 import {
   Abhudaya,
   Chitrankan,
   DonationDrive,
-  HeadsDetails,
   Rangittalim3,
   Rangittalim4,
-  ShivajiJayanti,
+  ShivajiJayanti
 } from "@/constant/events";
+import { EventCard, EventsProps } from "@/features/event/component/eventCard";
 import { motion } from "framer-motion";
 
 // The imported constants are arrays of event objects (each with properties: imgUrl, id, name, details).

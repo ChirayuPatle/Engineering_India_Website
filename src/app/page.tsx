@@ -6,14 +6,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useContext, useEffect } from "react";
 
 import Footer from "@/components/footer";
+import { HeadsDetails } from "@/constant/events";
+import AuthContext from "@/context/auth-context";
 import BackgroundPaths from "@/features/landing/components/backgroundPath";
 import FAQ from "@/features/landing/components/faqs";
 import Feedback from "@/features/landing/components/feedback";
 import HeadsCard from "@/features/landing/components/HeadsCard";
 import ImageSlider from "@/features/landing/components/image-slider/ImageSlider";
-import Loading from "./loading";
-import AuthContext from "@/context/auth-context";
-import { HeadsDetails } from "@/constant/events";
 
 gsap.registerPlugin(ScrollTrigger);
 
