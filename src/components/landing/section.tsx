@@ -31,7 +31,7 @@ export default function Section({
     // Mobile:
     "absolute bottom-[2rem] w-[40rem] h-[40rem] ",
     // Desktop:
-    "md:bottom-[-10rem] md:left-[-22rem] md:w-[60rem] md:h-[60rem]",
+    "md:bottom-[-10rem] md:left-[-20rem] md:w-[60rem] md:h-[60rem]",
     // permament styles
     "rounded-full bg-gradient-to-r blur-[9rem] from-blue-600 to-blue-950 opacity-30 pointer-events-none",
   );
@@ -40,7 +40,7 @@ export default function Section({
     // Mobile:
     "absolute bottom-[2rem] w-[40rem] h-[40rem]",
     // Desktop:
-    "md:bottom-[-10rem] md:right-[-22rem] md:w-[60rem] md:h-[60rem]",
+    "md:bottom-[-10rem] md:right-[-20rem] md:w-[60rem] md:h-[60rem]",
     // permament styles
     "rounded-full bg-gradient-to-r blur-[7rem] sm:blur-[9rem] from-blue-600 to-blue-950 opacity-30 pointer-events-none",
   );

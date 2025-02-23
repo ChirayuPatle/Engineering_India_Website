@@ -11,12 +11,16 @@ interface BentoGridProps extends ComponentPropsWithoutRef<"div"> {
 
 interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
   name: string;
-  className: string;
+  className?: string;
   background: ReactNode;
   Icon: React.ElementType;
   description: string;
   href: string;
   cta: string;
+  /** Custom background class for light mode */
+  bg?: string;
+  /** Custom background class for dark mode */
+  darkBg?: string;
 }
 
 const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
@@ -41,16 +45,20 @@ const BentoCard = ({
   description,
   href,
   cta,
+  bg = "bg-background", // default light mode bg
+  darkBg = "dark:bg-background", // default dark mode bg
   ...props
 }: BentoCardProps) => (
   <div
     key={name}
     className={cn(
       "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl",
-      // light styles
-      "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
-      // dark styles
-      "transform-gpu dark:bg-background dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
+      bg,
+      "[box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      "transform-gpu",
+      darkBg,
+      "dark:[border:1px_solid_rgba(255,255,255,.1)]",
+      "dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       className,
     )}
     {...props}
