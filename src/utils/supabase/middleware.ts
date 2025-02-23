@@ -5,12 +5,11 @@ import { NextResponse, type NextRequest } from "next/server";
 const publicPaths = [
   "/", // Landing page
   "/login", // Auth pages
-  "/create-account",
+  "/signup",
   "/forgot-password",
   "/auth/callback",
   "/auth/reset-password",
   "/auth/auth-error",
-  "/profile/:id", // Public profile pages - using path pattern
 ];
 
 export async function updateSession(request: NextRequest) {
