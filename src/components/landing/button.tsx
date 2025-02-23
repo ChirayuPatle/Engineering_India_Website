@@ -19,8 +19,7 @@ const buttonVariants = cva(
         outline:
           "border border-[#0094FF] bg-transparent text-[#0094FF] hover:bg-[#0094FF]/10",
 
-        default:
-          "bg-gradient-to-r from-black to-blue-600 text-white hover:opacity-90",
+        default: "bg-blue-600 text-white hover:opacity-90",
       },
       size: {
         sm: "h-9 px-3 text-sm",

@@ -5,6 +5,7 @@ import { ArrowRight, Menu } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "./button";
+import { usePathname } from "next/navigation";
 
 const mobileMenuVariants = {
   hidden: { opacity: 0, y: "-100%" },
@@ -13,6 +14,7 @@ const mobileMenuVariants = {
 };
 
 export default function Navbar() {
+  const pathName = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -28,9 +30,13 @@ export default function Navbar() {
     { href: "/contact", text: "Contact Us" },
   ];
 
+  if (pathName === "/login" || pathName === "/signup") {
+    return null;
+  }
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 text-base">
-      <nav className="container mx-auto mt-5 flex w-full max-w-[90%] items-center justify-between rounded-3xl border border-zinc-800 bg-black/80 px-4 py-3 backdrop-blur-lg sm:max-w-[75%] md:py-2">
+      <nav className="container mx-auto mt-5 flex w-full max-w-[90%] items-center justify-between rounded-xl border border-zinc-800 bg-black/80 px-4 py-3 backdrop-blur-lg sm:max-w-[75%] md:py-2">
         <div className="flex flex-1 items-center space-x-4">
           <Link
             href="/"
