@@ -1,7 +1,84 @@
-import React from "react";
+"use client";
 
-const About = () => {
-  return <div>About</div>;
-};
+import { Typography } from "@/components/ui/typography";
+import { Navigation } from "@/components/events/navigation";
+import { siteConfig } from "@/lib/constants";
+import Image from "next/image";
 
-export default About;
+export default function AboutPage() {
+  return (
+    <>
+      <Navigation />
+      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
+          <div>
+            <Typography variant="h1" className="mb-6">
+              About {siteConfig.name}
+            </Typography>
+            <Typography className="mb-4">
+              Welcome to {siteConfig.name}, where technology meets community. We
+              are a passionate group of students and tech enthusiasts dedicated
+              to exploring and advancing technology together.
+            </Typography>
+            <Typography className="mb-4">
+              Our mission is to create an inclusive environment where members
+              can learn, collaborate, and grow their technical skills while
+              building meaningful connections with fellow tech enthusiasts.
+            </Typography>
+            <Typography className="mb-4">
+              Founded in 2024, we've grown into a vibrant community of over 500
+              members, hosting regular workshops, hackathons, and networking
+              events that bring together students, professionals, and industry
+              experts.
+            </Typography>
+          </div>
+          <div className="relative h-[400px] overflow-hidden rounded-lg">
+            <Image
+              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4"
+              alt="Students collaborating"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <Typography variant="h2" className="mb-8">
+            What We Offer
+          </Typography>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Workshops & Training",
+                description:
+                  "Regular hands-on sessions covering the latest technologies and programming concepts.",
+              },
+              {
+                title: "Networking Events",
+                description:
+                  "Connect with industry professionals and fellow tech enthusiasts.",
+              },
+              {
+                title: "Project Collaboration",
+                description:
+                  "Work on real-world projects and build your portfolio with other members.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-lg border bg-card p-6 shadow-sm"
+              >
+                <Typography variant="h3" className="mb-2">
+                  {item.title}
+                </Typography>
+                <Typography className="text-muted-foreground">
+                  {item.description}
+                </Typography>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
