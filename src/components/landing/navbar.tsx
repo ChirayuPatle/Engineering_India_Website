@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Button from "./button";
+import Button from "../ui/button";
 import { usePathname } from "next/navigation";
 
 const mobileMenuVariants = {
