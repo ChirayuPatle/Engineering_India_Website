@@ -104,7 +104,7 @@ export default function HomePage() {
   return (
     <>
       <div className="cursor pointer-events-none fixed left-0 top-0 z-50 h-4 w-4 rounded-full bg-white mix-blend-difference"></div>
-      <div className="cursor-follower pointer-events-none fixed left-0 top-0 z-50 h-12 w-12 rounded-full bg-white opacity-30 mix-blend-exclusion"></div>
+      {/* <div className="cursor-follower pointer-events-none fixed left-0 top-0 z-50 h-12 w-12 rounded-full bg-white opacity-30 mix-blend-exclusion"></div> */}
       <Section className="relative min-h-screen pb-16 pt-32">
         {/* Mouse Follower */}
 
