@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
-import { Navigation } from "@/components/events/navigation";
 import { siteConfig } from "@/lib/constants";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState } from "react";
@@ -23,7 +22,6 @@ export default function ContactPage() {
 
   return (
     <>
-      <Navigation />
       <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>

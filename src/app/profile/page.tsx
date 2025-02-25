@@ -1,83 +1,71 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { Typography } from "@/components/ui/typography";
-import { Button } from "@/components/ui/button";
-
-const userData = {
-  fullName: "Varis Rana",
-  email: "varis3@gmail.com",
-  avatarUrl: "/default-avatar.png", // Replace with actual avatar URL or fallback image
-  bio: "I am a passionate developer focused on building event-driven applications. I love coding and coffee.",
-  socialProfiles: {
-    facebook: "https://facebook.com/varisrana",
-    instagram: "https://instagram.com/varisrana",
-    linkedin: "https://linkedin.com/in/varisrana",
-  },
-};
+import { useAuth } from "@/context/authContext";
+import { supabase } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+import { User, UserMetadata } from "@supabase/supabase-js";
 
 export default function ProfilePage() {
+  const [user, setUser] = useState<UserMetadata | null>(null);
+  const getUser = async () => {
+    const { data } = await supabase.auth.getUser();
+    if (data) {
+      setUser(data.user?.user_metadata ?? null);
+      console.log(data.user?.user_metadata);
+    } else {
+      console.error("AUTH ERROR");
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div className="min-h-screen bg-green-50">
-      {/* Header */}
-      <header className="bg-white shadow">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <Link href="/">
-            <Typography variant="h2" className="text-green-600">
-              Engineering India
-            </Typography>
-          </Link>
-          <div>
-            <Link href="/profile/edit">
-              <Button variant="outline">Edit Profile</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center rounded-lg bg-white p-8 shadow">
+        <div className="flex flex-col items-center rounded-lg bg-white p-8 text-black shadow">
           <img
-            src={userData.avatarUrl}
-            alt={userData.fullName}
+            // src={user?.-}
+            alt={String(user?.avatar_url)}
             className="mb-4 h-32 w-32 rounded-full object-cover"
           />
-          <Typography variant="h1" className="mb-2 text-2xl font-bold">
-            {userData.fullName}
+          <Typography variant="p" className="mb-2 text-2xl font-bold">
+            {user?.full_name}
           </Typography>
           <Typography variant="p" className="mb-4 text-muted-foreground">
-            {userData.email}
+            {user?.email}
           </Typography>
-          <Typography variant="p" className="mb-6 text-center">
-            {userData.bio}
-          </Typography>
+          {/* <Typography variant="p" className="mb-6 text-center">
+            {user.}
+          </Typography> */}
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href={userData.socialProfiles.facebook}
+            {/* <a
+              href={user.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
             >
               Facebook
-            </a>
-            <a
-              href={userData.socialProfiles.instagram}
+            </a> */}
+            {/* <a
+              href={user.socialProfiles.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="text-pink-600 hover:underline"
             >
               Instagram
-            </a>
-            <a
-              href={userData.socialProfiles.linkedin}
+            </a> */}
+            {/* <a
+              href={userDetails.socialProfiles.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-800 hover:underline"
             >
               LinkedIn
-            </a>
+            </a> */}
           </div>
         </div>
       </main>

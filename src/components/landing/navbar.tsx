@@ -1,19 +1,28 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "next-themes";
+
+import { useAuth } from "@/context/authContext";
+
+// ShadCN UI components
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/context/authContext";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+// -----------------------------------
+// Theme Toggle Component
+// -----------------------------------
 function ThemeToggle() {
   const { setTheme, theme } = useTheme();
   return (
@@ -40,10 +49,13 @@ function ThemeToggle() {
   );
 }
 
+// -----------------------------------
+// Navbar Items
+// -----------------------------------
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
   { name: "Events", href: "/events" },
+  { name: "About", href: "/about" },
   { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
 ];
@@ -54,6 +66,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  // Handle scroll for navbar background
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -61,6 +74,12 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Example logout handler (adjust to your auth logic)
+  function handleLogout() {
+    // your logout logic here
+    console.log("Logged out");
+  }
 
   return (
     <header
@@ -71,6 +90,7 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-primary">
             Engineering India
@@ -92,23 +112,63 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
+
+          {/* Theme Toggle */}
           <ThemeToggle />
+
+          {/* Profile Dropdown or Get Started */}
           {user ? (
-            <Link href="/profile">
-              <img
-                src={userDetails?.avatar_url || "/default-avatar.png"}
-                alt="Profile"
-                className="h-[42px] w-[42px] rounded-full"
-              />
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full"
+                >
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage
+                      src={userDetails?.avatar_url || "/default-avatar.png"}
+                      alt={userDetails?.full_name || "User"}
+                    />
+                    <AvatarFallback>
+                      {userDetails?.full_name
+                        ?.split(" ")
+                        ?.map((n) => n[0])
+                        ?.join("") || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {userDetails?.full_name || "User"}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {userDetails?.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/profile">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/settings">Settings</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
-            <Link href="/auth/signup">
+            <Link href="/auth/">
               <Button variant="default">Get Started</Button>
             </Link>
           )}
         </nav>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Button */}
         <div className="flex md:hidden">
           <Button
             variant="default"
@@ -142,13 +202,53 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
             {user ? (
-              <Link href="/profile" onClick={() => setIsOpen(false)}>
-                <img
-                  src={userDetails?.avatar_url || "/default-avatar.png"}
-                  alt="Profile"
-                  className="h-[42px] w-[42px] rounded-full"
-                />
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage
+                        src={userDetails?.avatar_url || "/default-avatar.png"}
+                        alt={userDetails?.full_name || "User"}
+                      />
+                      <AvatarFallback>
+                        {userDetails?.full_name
+                          ?.split(" ")
+                          ?.map((n) => n[0])
+                          ?.join("") || "U"}
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {userDetails?.full_name || "User"}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {userDetails?.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link href="/profile" onClick={() => setIsOpen(false)}>
+                      Profile
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" onClick={() => setIsOpen(false)}>
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
                 <Button variant="default" className="w-full">

@@ -6,6 +6,7 @@ import { AuthProvider } from "@/context/authContext";
 import Header from "@/vcomponents/Header";
 import { type Metadata } from "next";
 import Footer from "@/vcomponents/Footer";
+import Navbar from "@/components/landing/navbar";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={`${dmsans.variable}`}>
       <body className="space">
         <AuthProvider>
-          <Header />
+          <Navbar />
           {children}
         </AuthProvider>
         <Footer />
