@@ -20,8 +20,8 @@ export default function Section({
 }: SectionProps) {
   const gradientMap = {
     default: "bg-gradient-to-b from-black to-zinc-900",
-    cool: "bg-gradient-to-r from-blue-500 to-purple-600",
-    warm: "bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500",
+    cool: "bg-gradient-to-r from-blue-100 to-purple-100",
+    warm: "bg-gradient-to-r from-yellow-400 via-red-800 to-pink-800",
     green: "bg-gradient-to-b from-green-400 to-green-700",
   };
 
