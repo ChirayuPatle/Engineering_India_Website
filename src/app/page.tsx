@@ -109,9 +109,11 @@ export default function HomePage() {
         {/* Mouse Follower */}
 
         <Container className="min-h-screen w-full">
-          <div className="mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center">
+          <div className="mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center z-50">
+           <div className="h-[70%] w-[70%]  absolute top-20 "> <img className="h-full w-full object-cover rounded-lg z-20"  src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740507612/WhatsApp_Image_2025-02-25_at_11.48.56_PM_gndyjs.jpg " alt="" /></div>
+            
             <h1
-              className={`${bebasNeue.className} mb-6 text-5xl font-extralight text-white sm:text-5xl md:text-6xl lg:text-9xl`}
+              className={`${bebasNeue.className} mb-6  text-5xl font-extralight text-white sm:text-5xl md:text-6xl lg:text-9xl z-50`}
             >
               {"ENGINEERING INDIA".split("").map((letter, index) => (
                 <span key={index} className="header-letter">
@@ -126,7 +128,7 @@ export default function HomePage() {
               Ycce
             </h2>
 
-            <p className="mx-auto mb-8 max-w-3xl text-base text-gray-300 sm:text-lg md:text-xl">
+            <p className="mx-auto mb-8 max-w-3xl text-base text-gray-300 sm:text-lg md:text-xl ">
               Engineering India: YCCE's hub for
               <Link href="/docs" className="text-[#0094FF] hover:underline">
                 {" "}

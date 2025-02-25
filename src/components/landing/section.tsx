@@ -20,7 +20,7 @@ export default function Section({
 
 }: SectionProps) {
   const gradientMap = {
-    default: "bg-gradient-to-b from-white to-w",
+    default: "bg-gradient-to-b from-zinc-900 to-zinc-900",
     cool: "bg-gradient-to-r from-blue-100 to-purple-100",
     warm: "bg-gradient-to-r from-yellow-400 via-red-800 to-pink-800",
     green: "bg-gradient-to-b from-green-400 to-green-700",
@@ -56,8 +56,8 @@ export default function Section({
     >
       {circle && (
         <>
-          <div className={cn("z-30", leftCircleClasses, circleClasses)} />
-          <div className={cn("z-30", rightCircleClasses, circleClasses)} />
+          <div className={cn("z-10", leftCircleClasses, circleClasses)} />
+          <div className={cn("z-10", rightCircleClasses, circleClasses)} />
         </>
       )}
       {children}
