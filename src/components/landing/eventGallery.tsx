@@ -20,10 +20,10 @@ const galleryImages = [
 
 export default function EventsGallery() {
   return (
-    <section className="bg-muted/50 py-16 md:py-24">
+    <section className=" py-16 md:py-24 text-zinc-700">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl ">
             Our Events &amp; Activities
           </h2>
           <p className="mx-auto max-w-2xl text-muted-foreground">
