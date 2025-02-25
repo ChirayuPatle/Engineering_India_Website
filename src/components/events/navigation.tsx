@@ -78,7 +78,7 @@ export function Navigation() {
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Button>
-            <Link href="/join">Join Now</Link>
+            <Link href="/login">Join Now</Link>
           </Button>
         </div>
       </nav>

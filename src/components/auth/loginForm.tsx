@@ -1,18 +1,22 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
+import { auth } from "@/utils/supabase/auth";
 import Link from "next/link";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  // const email = "rolex@admin.com";
+  // const password = "rolex@admin.com";
+  // const name = "rolex";
   const handleGoogleLogin = async () => {
-    // Your Google login functionality here
+    // const response = await auth.registerWithEmail(email,password,name);
   };
 
   return (
@@ -69,6 +73,7 @@ export function LoginForm({
               </div>
               <div className="gap-4">
                 <Button
+                type="submit"
                   onClick={handleGoogleLogin}
                   variant="outline"
                   className="flex w-full items-center justify-center gap-2 px-4 py-2"
