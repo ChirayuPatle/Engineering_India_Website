@@ -1,18 +1,18 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { signupWithGoogle } from "./action";
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const handleGoogleLogin = async () => {
+  const handleGoogleSignup = async () => {
     // Your Google login functionality here (if needed)
+    await signupWithGoogle();
   };
 
   return (
@@ -34,47 +34,9 @@ export function SignupForm({
                   Create your account
                 </p>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="fullName" className="text-sm">
-                  Full Name
-                </Label>
-                <Input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  placeholder="Your Full Name"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email" className="text-sm">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your.email@example.com"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password" className="text-sm">
-                  Password
-                </Label>
-                <Input id="password" name="password" type="password" required />
-              </div>
-              <Button variant="default" type="submit" className="w-full">
-                Sign Up
-              </Button>
-              <div className="relative text-center text-xs after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border sm:text-sm">
-                <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
               <div className="gap-4">
                 <Button
-                  onClick={handleGoogleLogin}
+                  formAction={handleGoogleSignup}
                   variant="outline"
                   className="flex w-full items-center justify-center gap-2 px-4 py-2"
                 >

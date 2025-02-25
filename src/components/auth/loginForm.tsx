@@ -5,18 +5,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { auth } from "@/utils/supabase/auth";
+import { loginWithGoogle } from "./action";
 import Link from "next/link";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  // const email = "rolex@admin.com";
-  // const password = "rolex@admin.com";
-  // const name = "rolex";
-  const handleGoogleLogin = async () => {
-    // const response = await auth.registerWithEmail(email,password,name);
+  const handleGoogleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await loginWithGoogle();
   };
 
   return (
@@ -33,47 +31,14 @@ export function LoginForm({
           <form className="p-4 sm:p-6 md:p-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold sm:text-3xl">Welcome back</h1>
+                <h1 className="text-2xl font-bold sm:text-3xl">Welcome 😄!</h1>
                 <p className="text-balance text-sm text-muted-foreground sm:text-base">
                   Login to your account
                 </p>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email" className="text-sm">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password" className="text-sm">
-                    Password
-                  </Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-xs underline-offset-2 hover:underline sm:text-sm"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" type="password" required />
-              </div>
-              <Button variant="default" type="submit" className="w-full">
-                Login
-              </Button>
-              <div className="relative text-center text-xs after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border sm:text-sm">
-                <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div>
               <div className="gap-4">
                 <Button
-                type="submit"
+                  type="submit"
                   onClick={handleGoogleLogin}
                   variant="outline"
                   className="flex w-full items-center justify-center gap-2 px-4 py-2"
@@ -90,12 +55,6 @@ export function LoginForm({
                   </svg>
                   <span className="font-medium">Continue with Google</span>
                 </Button>
-              </div>
-              <div className="text-center text-xs sm:text-sm">
-                Don&apos;t have an account?{" "}
-                <Link href="/signup" className="underline underline-offset-4">
-                  Sign up
-                </Link>
               </div>
             </div>
           </form>

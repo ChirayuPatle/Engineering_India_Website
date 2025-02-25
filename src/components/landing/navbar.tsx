@@ -30,7 +30,7 @@ export default function Navbar() {
     { href: "/contact", text: "Contact Us" },
   ];
 
-  if (pathName === "/" ) {
+  if (pathName === "/") {
     return (
       <header className="fixed inset-x-0 top-0 z-50 text-base">
         <nav className="container mx-auto mt-5 flex w-full max-w-[90%] items-center justify-between rounded-xl border border-zinc-800 bg-black/80 px-4 py-3 backdrop-blur-lg sm:max-w-[75%] md:py-2">
@@ -42,7 +42,7 @@ export default function Navbar() {
               <h1>EI</h1>
             </Link>
           </div>
-  
+
           {/* Center Section: Nav Links (visible on tablet and above) */}
           <div className="hidden flex-1 items-center justify-center space-x-4 lg:flex lg:space-x-4 xl:space-x-6 2xl:space-x-8">
             {navLinks.map(({ href, text }) => (
@@ -55,14 +55,14 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
-  
+
           {/* Right Section: Auth Buttons (visible on tablet and above) + Hamburger (mobile only) */}
           <div className="flex flex-1 items-center justify-end space-x-4">
             <div className="hidden lg:flex xl:space-x-4">
               <Link href="/login">
                 <Button variant="neuOutline">LOGIN</Button>
               </Link>
-              <Link href="/get-started">
+              <Link href="/signup">
                 <Button className="flex items-center text-sm font-medium">
                   GET STARTED
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -77,7 +77,7 @@ export default function Navbar() {
             </button>
           </div>
         </nav>
-  
+
         {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
@@ -100,7 +100,7 @@ export default function Navbar() {
                 >
                   We&apos;re hiring!
                 </Link>
-  
+
                 <div className="flex flex-col items-center space-y-6">
                   {navLinks.map(({ href, text }) => (
                     <Link
@@ -113,10 +113,13 @@ export default function Navbar() {
                     </Link>
                   ))}
                 </div>
-  
+
                 <div className="mt-8 flex flex-col items-center space-y-4">
                   <Link href="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="neuOutline" className="sm:text w-36 text-sm">
+                    <Button
+                      variant="neuOutline"
+                      className="sm:text w-36 text-sm"
+                    >
                       LOGIN
                     </Button>
                   </Link>
@@ -133,10 +136,7 @@ export default function Navbar() {
         </AnimatePresence>
       </header>
     );
-    
   }
 
   return null;
-
-  
 }
