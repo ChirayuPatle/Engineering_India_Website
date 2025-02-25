@@ -2,10 +2,10 @@
 
 import Container from "@/components/landing/container";
 import Section from "@/components/landing/section";
-import { Bebas_Neue } from "next/font/google";
-import { ArrowRight, Building, Rocket, Users } from "lucide-react";
-import Link from "next/link";
 import gsap from "gsap";
+import { ArrowRight, Building, Rocket, Users } from "lucide-react";
+import { Bebas_Neue } from "next/font/google";
+import Link from "next/link";
 import { useEffect } from "react";
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
@@ -116,7 +116,7 @@ export default function HomePage() {
             </p>
 
             <Link
-              href="/get-started"
+              href="/events"
               className="cta-button mb-6 inline-flex items-center rounded-lg bg-[#0094FF] px-6 py-2 text-base font-medium text-white transition-colors hover:bg-[#0094FF]/90 sm:text-lg md:px-8 md:py-3 md:text-xl"
             >
               GET STARTED

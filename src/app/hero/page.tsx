@@ -1,23 +1,23 @@
-// import Hero from "@/components/hero"
-import ClubHeads from "@/components/landing/clubHeads";
-import EventsGallery from "@/components/landing/eventGallery";
-import Feedback from "@/components/landing/feedback";
-import Faq from "@/components/landing/faq";
-import AboutSection from "@/components/landing/aboutSection";
-import Footer from "@/components/landing/footer";
+import Hero from "@/vcomponents/Hero";
+import WearYourStory from "@/vcomponents/WearYourStory";
+import FeatureCarousel from "@/vcomponents/FeatureCarousel";
+import PortfolioGrid from "@/vcomponents/PortfolioGrid";
+import Timeline from "@/vcomponents/Timeline";
+import Marquee from "@/vcomponents/Marquee";
+import ContactForm from "@/vcomponents/ContactForm";
+import NewsletterSubscribe from "@/vcomponents/NewsletterSubscribe";
 
 export default function Home() {
   return (
     <>
-      <main className="min-h-screen px-20">
-        {/* <Hero /> */}
-        <AboutSection />
-        <ClubHeads />
-        <EventsGallery />
-        <Feedback />
-        <Faq />
-      </main>
-      <Footer />
+      <Hero />
+      <WearYourStory />
+      <FeatureCarousel />
+      <PortfolioGrid />
+      <Timeline />
+      <Marquee />
+      <ContactForm />
+      <NewsletterSubscribe />
     </>
   );
 }

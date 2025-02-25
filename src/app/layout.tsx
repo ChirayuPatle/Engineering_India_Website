@@ -1,9 +1,11 @@
-import Navbar from "@/components/landing/navbar";
 import "@/styles/globals.css";
 
 import { DM_Sans } from "next/font/google";
 
+import { AuthProvider } from "@/context/authContext";
+import Header from "@/vcomponents/Header";
 import { type Metadata } from "next";
+import Footer from "@/vcomponents/Footer";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -23,8 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmsans.variable}`}>
       <body className="space">
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
+        <Footer />
       </body>
     </html>
   );

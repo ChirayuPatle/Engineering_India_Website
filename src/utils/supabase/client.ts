@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { createBrowserClient } from "@supabase/ssr";
+import { redirect } from "next/navigation";
 
 export const createClient = () =>
   createBrowserClient(
@@ -8,3 +9,7 @@ export const createClient = () =>
   );
 
 export const supabase = createClient();
+
+export const getUser = async () => {
+  return await supabase.auth.getUser();
+};

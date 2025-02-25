@@ -1,142 +1,164 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import Button from "../ui/button";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/authContext";
 
-const mobileMenuVariants = {
-  hidden: { opacity: 0, y: "-100%" },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  exit: { opacity: 0, y: "-100%", transition: { duration: 0.3 } },
-};
+function ThemeToggle() {
+  const { setTheme, theme } = useTheme();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="default">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Events", href: "/events" },
+  { name: "Team", href: "/team" },
+  { name: "Contact", href: "/contact" },
+];
 
 export default function Navbar() {
-  const pathName = usePathname();
+  const { user, userDetails } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
     };
-  }, [isOpen]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const navLinks = [
-    { href: "/events", text: "Events" },
-    { href: "/about", text: "About" },
-    { href: "/contact", text: "Contact Us" },
-  ];
+  return (
+    <header
+      className={`sticky top-0 z-50 w-full px-20 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/80 shadow-sm backdrop-blur-md"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <Link href="/" className="flex items-center space-x-2">
+          <span className="text-2xl font-bold text-primary">
+            Engineering India
+          </span>
+        </Link>
 
-  if (pathName === "/") {
-    return (
-      <header className="fixed inset-x-0 top-0 z-50 text-base">
-        <nav className="container mx-auto mt-5 flex w-full max-w-[90%] items-center justify-between rounded-xl border border-zinc-800 bg-black/80 px-4 py-3 backdrop-blur-lg sm:max-w-[75%] md:py-2">
-          <div className="flex flex-1 items-center space-x-4">
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center space-x-6 md:flex">
+          {navItems.map((item) => (
             <Link
-              href="/"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-600"
+              key={item.name}
+              href={item.href}
+              className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+                pathname === item.href
+                  ? "text-blue-600"
+                  : "text-muted-foreground"
+              }`}
             >
-              <h1>EI</h1>
+              {item.name}
             </Link>
-          </div>
-
-          {/* Center Section: Nav Links (visible on tablet and above) */}
-          <div className="hidden flex-1 items-center justify-center space-x-4 lg:flex lg:space-x-4 xl:space-x-6 2xl:space-x-8">
-            {navLinks.map(({ href, text }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-gray-300 transition-colors hover:text-white"
-              >
-                {text}
-              </Link>
-            ))}
-          </div>
-
-          {/* Right Section: Auth Buttons (visible on tablet and above) + Hamburger (mobile only) */}
-          <div className="flex flex-1 items-center justify-end space-x-4">
-            <div className="hidden lg:flex xl:space-x-4">
-              <Link href="/login">
-                <Button variant="neuOutline">LOGIN</Button>
-              </Link>
-              <Link href="/signup">
-                <Button className="flex items-center text-sm font-medium">
-                  GET STARTED
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white focus:outline-none lg:hidden"
-            >
-              <Menu size={24} />
-            </button>
-          </div>
+          ))}
+          <ThemeToggle />
+          {user ? (
+            <Link href="/profile">
+              <img
+                src={userDetails?.avatar_url || "/default-avatar.png"}
+                alt="Profile"
+                className="h-[42px] w-[42px] rounded-full"
+              />
+            </Link>
+          ) : (
+            <Link href="/auth/signup">
+              <Button variant="default">Get Started</Button>
+            </Link>
+          )}
         </nav>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              className="fixed inset-0 z-40 flex min-h-screen backdrop-blur-sm lg:hidden"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onClick={() => setIsOpen(false)}
-            >
-              <motion.div
-                variants={mobileMenuVariants}
-                onClick={(e) => e.stopPropagation()}
-                className="relative mx-auto mt-16 h-[65%] w-[80%] rounded-2xl border border-zinc-800 bg-black/90 px-4 py-6 backdrop-blur-lg sm:h-[50%]"
+        {/* Mobile Navigation */}
+        <div className="flex md:hidden">
+          <Button
+            variant="default"
+            aria-label="Toggle Menu"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden">
+          <div className="flex flex-col space-y-4 bg-background px-4 py-6 shadow-md">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+                  pathname === item.href
+                    ? "text-blue-600"
+                    : "text-muted-foreground"
+                }`}
+                onClick={() => setIsOpen(false)}
               >
-                <Link
-                  href="/careers"
-                  onClick={() => setIsOpen(false)}
-                  className="mb-4 block rounded-full bg-blue-600/10 px-4 py-1 text-center text-sm font-medium text-blue-500 transition-colors hover:bg-blue-600/20"
-                >
-                  We&apos;re hiring!
-                </Link>
-
-                <div className="flex flex-col items-center space-y-6">
-                  {navLinks.map(({ href, text }) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className="text-base text-white transition-colors hover:text-gray-300"
-                    >
-                      {text}
-                    </Link>
-                  ))}
-                </div>
-
-                <div className="mt-8 flex flex-col items-center space-y-4">
-                  <Link href="/login" onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant="neuOutline"
-                      className="sm:text w-36 text-sm"
-                    >
-                      LOGIN
-                    </Button>
-                  </Link>
-                  <Link href="/get-started" onClick={() => setIsOpen(false)}>
-                    <Button className="flex w-36 items-center text-sm font-medium">
-                      GET STARTED
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
-    );
-  }
-
-  return null;
+                {item.name}
+              </Link>
+            ))}
+            <div className="pt-2">
+              <ThemeToggle />
+            </div>
+            {user ? (
+              <Link href="/profile" onClick={() => setIsOpen(false)}>
+                <img
+                  src={userDetails?.avatar_url || "/default-avatar.png"}
+                  alt="Profile"
+                  className="h-[42px] w-[42px] rounded-full"
+                />
+              </Link>
+            ) : (
+              <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+                <Button variant="default" className="w-full">
+                  Get Started
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
+    </header>
+  );
 }

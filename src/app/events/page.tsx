@@ -1,10 +1,9 @@
 "use client";
 
+import { EventCard } from "@/components/events/eventCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
-import { EventCard } from "@/components/events/eventCard";
-import { Navigation } from "@/components/events/navigation";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";

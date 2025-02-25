@@ -18,7 +18,6 @@ export async function loginWithGoogle() {
   });
 
   if (data.url) {
-    console.log("DATA", data);
     redirect(data.url);
   }
 
@@ -26,8 +25,8 @@ export async function loginWithGoogle() {
     redirect("/error");
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  // revalidatePath("/", "layout");
+  redirect("/dashboard");
 }
 
 export async function signupWithGoogle() {
@@ -54,4 +53,9 @@ export async function logoutUser() {
   }
   revalidatePath("/", "layout");
   redirect("/login");
+}
+
+export async function getUser() {
+  const supabase = await createClient();
+  return supabase.auth.getUser();
 }
