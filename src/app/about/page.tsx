@@ -79,7 +79,7 @@ export default function AboutPage() {
                 <Typography variant="h3" className="mb-2">
                   {item.title}
                 </Typography>
-                <Typography className="text-muted-foreground hover:text-white">
+                <Typography className="text-muted-foreground">
                   {item.description}
                 </Typography>
               </div>
