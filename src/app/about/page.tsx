@@ -34,7 +34,7 @@ export default function AboutPage() {
           </div>
           <div className="relative h-[400px] overflow-hidden rounded-lg">
             <Image
-              src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4"
+              src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740506794/WhatsApp_Image_2025-02-25_at_11.35.13_PM_fxxfc9.jpg"
               alt="Students collaborating"
               fill
               className="object-cover"
@@ -48,6 +48,16 @@ export default function AboutPage() {
           </Typography>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
+              {
+                title: "Team Building",
+                description:
+                  "Connect with coordinators and get the opportunity to work with them.",
+              },
+              {
+                title: "Self Development",
+                description:
+                  "Collaborating and Working with a team enhances your soft skills.",
+              },
               {
                 title: "Workshops & Training",
                 description:
@@ -66,12 +76,13 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="rounded-lg border bg-card p-6 shadow-sm"
+                className="rounded-lg border bg-card p-6 shadow-sm transition-transform duration-300 ease-out 
+             hover:shadow-2xl hover:-rotate-1 hover:-translate-y-2 hover:scale-105 cursor-pointer hover:bg-blue-700 hover:text-white"
               >
                 <Typography variant="h3" className="mb-2">
                   {item.title}
                 </Typography>
-                <Typography className="text-muted-foreground">
+                <Typography className="text-muted-foreground hover:text-white">
                   {item.description}
                 </Typography>
               </div>
