@@ -37,7 +37,7 @@ export default function ClubHeads() {
   return (
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
+        <div className="mb-12 text-center text-blue-400">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">Meet Our Team</h2>
           <p className="mx-auto max-w-2xl text-muted-foreground">
             Our dedicated team of student leaders works tirelessly to organize

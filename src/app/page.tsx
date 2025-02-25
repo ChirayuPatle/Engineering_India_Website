@@ -7,11 +7,31 @@ import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useEffect } from "react";
+import AboutSection from "@/components/landing/aboutSection"; 
+import ClubHeads  from "@/components/landing/clubHeads";
+import EventsGallery from "@/components/landing/eventGallery";
+import Faq from "@/components/landing/faq";
+import Feedback from "@/components/landing/feedback";
+import Footer from "@/components/landing/footer";
+import Lenis from '@studio-freight/lenis'
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2, // Controls the smoothness of scrolling
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
+      smooth: true,
+    });
+
+    function raf(time:any) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+
     // GSAP Animations
     gsap.from(".header-letter", {
       y: 100,
@@ -88,7 +108,7 @@ export default function HomePage() {
       <Section className="relative min-h-screen pb-16 pt-32">
         {/* Mouse Follower */}
 
-        <Container className="w-full">
+        <Container className="min-h-screen w-full">
           <div className="mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center">
             <h1
               className={`${bebasNeue.className} mb-6 text-5xl font-extralight text-white sm:text-5xl md:text-6xl lg:text-9xl`}
@@ -174,9 +194,32 @@ export default function HomePage() {
         </Container>
       </Section>
       <Section>
-        {" "}
-        <div className="h-screen w-full"></div>{" "}
+        <div className="min-h-screen w-full">
+        <AboutSection />
+        </div>
       </Section>
+      <Section>
+        <div className="min-h-screen w-full">
+        <ClubHeads />
+        </div>
+      </Section>
+      <Section>
+        <div className="min-h-screen w-full">
+        <EventsGallery />
+        </div>
+      </Section>
+      <Section>
+        <div className="min-h-screen w-full">
+          <Feedback />
+        
+        </div>
+      </Section>
+      <Section>
+        <div className="min-h-screen w-full">
+        <Faq />
+        </div>
+      </Section>
+      <Footer/>
     </>
   );
 }

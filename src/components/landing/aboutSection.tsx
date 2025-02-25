@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section className="bg-secondary/50 py-16 md:py-24">
-      <div className="container mx-auto px-4">
+    <section className=" py-16 md:py-24 text-white ">
+      <div className="container mx-auto px-8">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
-            <h2 className="mb-6 text-3xl font-bold md:text-4xl">
+            <h2 className="mb-6 text-3xl font-bold md:text-4xl ">
               About Engineering India
             </h2>
             <p className="mb-6 text-muted-foreground">
@@ -42,31 +42,33 @@ export default function AboutSection() {
             </div>
             <Button variant="outline">
               <Link href="/about" className="group">
+              <div className="flex items-center">
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </div>
+               </Link>
             </Button>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/10 p-6">
+              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/10 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Technical Workshops
                 </h3>
               </div>
-              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/20 p-6">
+              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/20 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Social Outreach
                 </h3>
               </div>
             </div>
             <div className="mt-8 space-y-4">
-              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/15 p-6">
+              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/15 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Competitions
                 </h3>
               </div>
-              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/5 p-6">
+              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/5 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Industry Visits
                 </h3>

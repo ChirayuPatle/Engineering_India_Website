@@ -41,7 +41,7 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <section className="bg-secondary/50 py-16 md:py-24">
+    <section className=" text-[#C8CFE1] py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl">
