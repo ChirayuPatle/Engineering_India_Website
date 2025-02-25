@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section className=" py-16 md:py-24 text-white ">
+    <section className=" py-16 md:py-24 text-zinc-700 ">
       <div className="container mx-auto px-8">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>

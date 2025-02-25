@@ -20,7 +20,7 @@ const galleryImages = [
 
 export default function EventsGallery() {
   return (
-    <section className=" py-16 md:py-24 text-[#CED4E2]">
+    <section className=" py-16 md:py-24 text-zinc-700">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl ">

@@ -48,7 +48,7 @@ export default function Feedback() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl text-[#CED4E2]">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl text-zinc-700">
               Share Your Feedback
             </h2>
             <p className="text-muted-foreground">
