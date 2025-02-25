@@ -77,12 +77,12 @@ export default function AboutPage() {
               <div
                 key={item.title}
                 className="rounded-lg border bg-card p-6 shadow-sm transition-transform duration-300 ease-out 
-             hover:shadow-2xl hover:-rotate-1 hover:-translate-y-2 hover:scale-105 cursor-pointer hover:bg-blue-700 hover:text-white"
+             hover:shadow-2xl hover:-rotate-1 hover:-translate-y-2 hover:scale-105 cursor-pointer hover:bg-blue-700 hover:text-white-50"
               >
                 <Typography variant="h3" className="mb-2">
                   {item.title}
                 </Typography>
-                <Typography className="text-muted-foreground hover:text-white">
+                <Typography className="text-muted-foreground">
                   {item.description}
                 </Typography>
               </div>
