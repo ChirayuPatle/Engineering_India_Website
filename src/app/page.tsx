@@ -2,22 +2,24 @@
 
 import Container from "@/components/landing/container";
 import Section from "@/components/landing/section";
+import SplineScreen from "@/components/landing/splineScreen";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
+  // https://prod.spline.design/IxSnC7bIuSoYwlPC/scene.splinecode
   return (
-    <Section className="min-h-screen pb-16 pt-32">
-      <Container className="w-full">
+    <section className="min-h-screen pb-16 pt-32">
+      <main className="w-full">
         <div className="mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center">
-          <h1 className="mb-6 text-4xl font-extralight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mb-6 text-4xl font-semibold text-black sm:text-5xl md:text-6xl lg:text-7xl">
             Engineering India
           </h1>
           <h2 className="mb-8 text-3xl font-semibold text-[#0094FF] sm:text-4xl md:text-5xl lg:text-6xl">
             YCCE.
           </h2>
 
-          <p className="mx-auto mb-8 max-w-3xl text-base text-gray-300 sm:text-lg md:text-xl">
+          <p className="mx-auto mb-8 max-w-3xl text-base text-gray-400 sm:text-lg md:text-xl">
             Engineering India: YCCE's hub for
             <Link href="/docs" className="text-[#0094FF] hover:underline">
               {" "}
@@ -35,14 +37,15 @@ export default function HomePage() {
           </Link>
           <p className="text-xs text-gray-400 sm:text-sm">Free Registration</p>
 
-          <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-y-8 px-4 text-white sm:grid-cols-3 sm:gap-x-8 sm:px-6">
+          <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-y-8 px-4 text-gray-700 sm:grid-cols-3 sm:gap-x-8 sm:px-6">
             {/* First item */}
             <div className="flex flex-col items-center gap-y-2 text-center">
-              <Rocket className="h-10 w-10 text-zinc-200/80 sm:h-12 sm:w-12" />
+              <Rocket className="h-10 w-10 text-zinc-700/80 sm:h-12 sm:w-12" />
               <div className="leading-snug">
                 <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
                   80+
                 </h1>
+
                 <p className="text-sm sm:text-base md:text-lg">
                   Passionate Engineers & Innovators
                 </p>
@@ -51,7 +54,7 @@ export default function HomePage() {
 
             {/* Second item */}
             <div className="flex flex-col items-center gap-y-2 text-center">
-              <Building className="h-10 w-10 text-zinc-200/80 sm:h-12 sm:w-12" />
+              <Building className="h-10 w-10 text-zinc-700/80 sm:h-12 sm:w-12" />
               <div className="leading-snug">
                 <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
                   20+
@@ -64,7 +67,7 @@ export default function HomePage() {
 
             {/* Third item */}
             <div className="col-span-2 flex flex-col items-center gap-y-2 justify-self-center text-center sm:col-span-1">
-              <Users className="h-10 w-10 text-zinc-200/80 sm:h-12 sm:w-12" />
+              <Users className="h-10 w-10 text-zinc-700/80 sm:h-12 sm:w-12" />
               <div className="leading-snug">
                 <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
                   500+
@@ -95,10 +98,10 @@ export default function HomePage() {
             </h3>
           </div>
         </div>
-      </Container>
+      </main>
       {/* <main className="pb-16 pt-32">
        
       </main> */}
-    </Section>
+    </section>
   );
 }

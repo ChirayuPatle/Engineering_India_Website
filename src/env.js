@@ -24,6 +24,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
     NEXT_PUBLIC_SUPABASE_SERVICE_ROLE: z.string(),
     NEXT_PUBLIC_BASE_URL: z.string(),
+    NEXT_PUBLIC_SUPABASE_PROJECT_URL: z.string(),
   },
 
   /**
@@ -39,6 +40,8 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    NEXT_PUBLIC_SUPABASE_PROJECT_URL:
+      process.env.NEXT_PUBLIC_SUPABASE_PROJECT_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

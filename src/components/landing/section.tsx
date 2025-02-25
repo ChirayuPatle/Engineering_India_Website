@@ -19,7 +19,7 @@ export default function Section({
   circleClasses,
 }: SectionProps) {
   const gradientMap = {
-    default: "bg-gradient-to-b from-black to-zinc-900",
+    default: "bg-gradient-to-b from-white to-zinc-100",
     cool: "bg-gradient-to-r from-blue-500 to-purple-600",
     warm: "bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500",
     green: "bg-gradient-to-b from-green-400 to-green-700",
