@@ -14,6 +14,8 @@ import Faq from "@/components/landing/faq";
 import Feedback from "@/components/landing/feedback";
 import Footer from "@/components/landing/footer";
 import Lenis from '@studio-freight/lenis'
+import FeatureCarousel from "@/vcomponents/FeatureCarousel";
+import Timeline from "@/vcomponents/Timeline";
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
@@ -211,7 +213,7 @@ export default function HomePage() {
       </Section>
       <Section>
         <div className="min-h-screen w-full">
-        <ClubHeads />
+        <FeatureCarousel />
         </div>
       </Section>
       <Section>
@@ -227,10 +229,16 @@ export default function HomePage() {
       </Section>
       <Section>
         <div className="min-h-screen w-full">
+        <Timeline />
+        
+        </div>
+      </Section>
+      <Section>
+        <div className="min-h-screen w-full">
         <Faq />
         </div>
       </Section>
-      <Footer/>
+      {/* <Footer/> */}
     </>
   );
 }
