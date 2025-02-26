@@ -102,11 +102,10 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="cursor pointer-events-none fixed left-0 top-0 z-50 h-4 w-4 rounded-full bg-white mix-blend-difference"></div>
+      <div className="cursor pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
       {/* <div className="cursor-follower pointer-events-none fixed left-0 top-0 z-50 h-12 w-12 rounded-full bg-white opacity-30 mix-blend-exclusion"></div> */}
       <Section className="relative min-h-screen pb-16 pt-32">
         {/* Mouse Follower */}
-
         <Container className="min-h-screen w-full">
           <div className="z-50 mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center">
             {/* <div className="h-[70%] w-[70%]  absolute top-20 "> <img className="h-full w-full object-cover rounded-lg z-20"  src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740507612/WhatsApp_Image_2025-02-25_at_11.48.56_PM_gndyjs.jpg " alt="" /></div> */}

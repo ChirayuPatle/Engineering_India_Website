@@ -14,7 +14,7 @@ export interface ContainerProps {
  */
 export default function Container({ children, className }: ContainerProps) {
   return (
-    <div
+    <div id="page1"
       className={cn(
         "container mx-auto w-full max-w-[80%] px-4 text-black",
         className,

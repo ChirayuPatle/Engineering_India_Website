@@ -1,8 +1,46 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from "react";
 
 export default function AboutSection() {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.from("#text", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: "power2.out",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#page1",
+        start: "60%",
+        // markers: true,
+        toggleActions: "play none none reverse",
+        scrub: 1,
+      },
+    });
+
+    gsap.from("#box", {
+      opacity: 0,
+      scale: 0.6,
+      y: 100,
+      duration: 1,
+      ease: "power2",
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: "#page1",
+        start: "70%",
+        // markers: true,
+        toggleActions: "play none none reverse",
+        scrub: 3,
+      },
+    });
+  }, []);
+
   return (
     <section className="py-16 text-zinc-700 md:py-24">
       <div className="container mx-auto px-8">
@@ -23,17 +61,17 @@ export default function AboutSection() {
               and social awareness through various activities and initiatives.
             </p>
             <div className="mb-8 flex flex-wrap gap-8">
-              <div>
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">50+</p>
                 <p className="text-sm text-muted-foreground">
                   Events Organized
                 </p>
               </div>
-              <div>
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">1000+</p>
                 <p className="text-sm text-muted-foreground">Student Members</p>
               </div>
-              <div>
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">20+</p>
                 <p className="text-sm text-muted-foreground">
                   Social Initiatives
