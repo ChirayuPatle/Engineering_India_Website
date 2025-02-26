@@ -79,9 +79,7 @@ export default function AboutPage() {
                 <Typography variant="h3" className="mb-2">
                   {item.title}
                 </Typography>
-                <Typography className="">
-                  {item.description}
-                </Typography>
+                <Typography className="">{item.description}</Typography>
               </div>
             ))}
           </div>
