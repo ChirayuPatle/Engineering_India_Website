@@ -52,17 +52,18 @@ export default function ProductShowcase() {
             >
               <div className="mb-8 md:mb-0 md:w-1/2">
                 <h3 className="mb-4 text-3xl font-bold">
-                  {products[currentProduct].name}
+                  {products[currentProduct]?.name || "Product Name"}
                 </h3>
                 <p className="mb-8 text-xl text-gray-600">
-                  {products[currentProduct].description}
+                  {products[currentProduct]?.description ||
+                    "Product Description"}
                 </p>
                 <button className="apple-button">Learn More</button>
               </div>
               <div className="md:w-1/2">
                 <Image
-                  src={products[currentProduct].image || "/placeholder.svg"}
-                  alt={products[currentProduct].name}
+                  src={products[currentProduct]?.image || "/placeholder.svg"}
+                  alt={products[currentProduct]?.name || "Product"}
                   width={600}
                   height={600}
                   className="rounded-2xl shadow-lg"

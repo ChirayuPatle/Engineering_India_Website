@@ -1,10 +1,9 @@
 "use client";
 
 import { Typography } from "@/components/ui/typography";
-import { useAuth } from "@/context/authContext";
 import { supabase } from "@/utils/supabase/client";
+import { type UserMetadata } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { User, type UserMetadata } from "@supabase/supabase-js";
 
 export default function ProfilePage() {
   const [user, setUser] = useState<UserMetadata | null>(null);

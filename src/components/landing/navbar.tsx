@@ -126,14 +126,14 @@ export default function Navbar() {
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage
-                      src={userDetails?.avatar_url || "/default-avatar.png"}
-                      alt={userDetails?.full_name || "User"}
+                      src={userDetails?.avatar_url ?? "/default-avatar.png"}
+                      alt={userDetails?.full_name ?? "User"}
                     />
                     <AvatarFallback>
                       {userDetails?.full_name
                         ?.split(" ")
                         ?.map((n) => n[0])
-                        ?.join("") || "U"}
+                        ?.join("") ?? "U"}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -142,7 +142,7 @@ export default function Navbar() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {userDetails?.full_name || "User"}
+                      {userDetails?.full_name ?? "User"}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {userDetails?.email}
@@ -210,14 +210,14 @@ export default function Navbar() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={userDetails?.avatar_url || "/default-avatar.png"}
-                        alt={userDetails?.full_name || "User"}
+                        src={userDetails?.avatar_url ?? "/default-avatar.png"}
+                        alt={userDetails?.full_name ?? "User"}
                       />
                       <AvatarFallback>
                         {userDetails?.full_name
                           ?.split(" ")
                           ?.map((n) => n[0])
-                          ?.join("") || "U"}
+                          ?.join("") ?? "U"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -226,7 +226,7 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {userDetails?.full_name || "User"}
+                        {userDetails?.full_name ?? "User"}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {userDetails?.email}

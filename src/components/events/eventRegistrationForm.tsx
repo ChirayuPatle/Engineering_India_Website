@@ -1,8 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +18,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -44,7 +43,7 @@ export function RegistrationForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    toast.success("Registration submitted successfully!");
+    // toast.success("Registration submitted successfully!");
     console.log(values);
   }
 

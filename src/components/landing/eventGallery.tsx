@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const galleryImages = [
   {
@@ -57,12 +58,12 @@ export default function EventsGallery() {
         </div>
 
         <div className="mt-12 text-center">
-          <a
+          <Link
             href="/events"
             className="font-medium text-primary hover:underline"
           >
             View All Events →
-          </a>
+          </Link>
         </div>
       </div>
     </section>

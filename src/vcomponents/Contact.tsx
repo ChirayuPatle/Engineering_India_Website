@@ -1,12 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,7 +9,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -48,10 +47,10 @@ export default function Contact() {
     setTimeout(() => {
       console.log(values);
       setIsSubmitting(false);
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
-      });
+      // toast({
+      //   title: "Message sent!",
+      //   description: "We'll get back to you as soon as possible.",
+      // });
       form.reset();
     }, 2000);
   }
