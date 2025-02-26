@@ -1,34 +1,45 @@
-"use client"
+"use client";
 
-import { motion, AnimatePresence } from "framer-motion"
-import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 interface FullScreenMenuProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
-  const menuItems = ["Work", "About", "Services", "Contact"]
+export default function FullScreenMenu({
+  isOpen,
+  onClose,
+}: FullScreenMenuProps) {
+  const menuItems = ["Work", "About", "Services", "Contact"];
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-white z-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <button className="absolute top-6 right-6 text-gray-900" onClick={onClose}>
+          <button
+            className="absolute right-6 top-6 text-gray-900"
+            onClick={onClose}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              className="w-8 h-8"
+              className="h-8 w-8"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
           <nav className="text-center">
@@ -41,7 +52,7 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
               >
                 <Link
                   href={`#${item.toLowerCase()}`}
-                  className="block text-4xl font-bold text-gray-900 mb-6 hover:text-gray-600 transition-colors"
+                  className="mb-6 block text-4xl font-bold text-gray-900 transition-colors hover:text-gray-600"
                   onClick={onClose}
                 >
                   {item}
@@ -52,6 +63,5 @@ export default function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps)
         </motion.div>
       )}
     </AnimatePresence>
-  )
+  );
 }
-

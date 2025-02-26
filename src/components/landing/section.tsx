@@ -17,7 +17,6 @@ export default function Section({
   gradientVariant = "default",
   circle = true,
   circleClasses,
-
 }: SectionProps) {
   const gradientMap = {
     default: "bg-gradient-to-b from-white to-white",

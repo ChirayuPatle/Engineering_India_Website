@@ -15,32 +15,36 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center justify-center flex-col leading-[0 ] ">
-            <h1
-              className={`${bebasNeue.className} mb-6  text-6xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:text-8xl z-50 flex items-center justify-center flex-col lg:flex-row  gap-2 `}
-            >
-              <div> 
-              {"ENGINEERING".split("").map((letter, index) => (
-                <span key={index} className="header-letter">
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              ))}
-              </div>
-                <span className="header-letter">  </span>
-                <div className="flex">
-                  
-              <span className="header-letter  rounded-tl-lg   rounded-bl-lg  text-[5rem] px-4 flex items-center justify-center bg-orange-400 text-white">IN</span>
-              <span className="header-letter  border-2 px-4 text-blue-500 text-[5rem] flex items-center justify-center ">D</span>
-              <span className="header-letter  rounded-tr-lg   rounded-br-lg text-[5rem]   border-2 px-4 bg-green-500 text-white flex items-center justify-center  ">AI</span>
+            <div className="leading-[0 ] flex flex-col items-center justify-center">
+              <h1
+                className={`${bebasNeue.className} z-50 mb-6 flex flex-col items-center justify-center gap-2 text-6xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:flex-row lg:text-8xl`}
+              >
+                <div>
+                  {"ENGINEERING".split("").map((letter, index) => (
+                    <span key={index} className="header-letter">
+                      {letter === " " ? "\u00A0" : letter}
+                    </span>
+                  ))}
                 </div>
-            </h1>
-            <h2
-              className={`subtitle ${bebasNeue.className} -mt-6 lg:-mt-10 ml-8   mb-2 w-52 rounded-lg  px-10 py-1 text-6xl font-semibold text-blue-800 sm:text-4xl md:text-5xl lg:text-7xl`}
-            >
-              Ycce
-            </h2>
+                <span className="header-letter"> </span>
+                <div className="flex">
+                  <span className="header-letter flex items-center justify-center rounded-bl-lg rounded-tl-lg bg-orange-400 px-4 text-[5rem] text-white">
+                    IN
+                  </span>
+                  <span className="header-letter flex items-center justify-center border-2 px-4 text-[5rem] text-blue-500">
+                    D
+                  </span>
+                  <span className="header-letter flex items-center justify-center rounded-br-lg rounded-tr-lg border-2 bg-green-500 px-4 text-[5rem] text-white">
+                    AI
+                  </span>
+                </div>
+              </h1>
+              <h2
+                className={`subtitle ${bebasNeue.className} -mt-6 mb-2 ml-8 w-52 rounded-lg px-10 py-1 text-6xl font-semibold text-blue-800 sm:text-4xl md:text-5xl lg:-mt-10 lg:text-7xl`}
+              >
+                Ycce
+              </h2>
             </div>
-
           </motion.h1>
           <motion.p
             className="mt-6 text-lg leading-8 text-muted-foreground"

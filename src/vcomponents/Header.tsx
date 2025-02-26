@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { useTheme } from "next-themes"
-import { motion } from "framer-motion"
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 export default function Header() {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => setMounted(true), []);
 
   return (
     <motion.header
@@ -19,7 +19,10 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        aria-label="Global"
+      >
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Flowers & Saints</span>
@@ -35,7 +38,7 @@ export default function Header() {
             href="https://www.flowersandsaints.com.au"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+            className="text-sm font-semibold leading-6 text-foreground transition-colors hover:text-primary"
           >
             Work
           </Link>
@@ -43,7 +46,7 @@ export default function Header() {
             href="https://www.flowersandsaints.com.au"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+            className="text-sm font-semibold leading-6 text-foreground transition-colors hover:text-primary"
           >
             About
           </Link>
@@ -51,7 +54,7 @@ export default function Header() {
             href="https://www.flowersandsaints.com.au"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold leading-6 text-foreground hover:text-primary transition-colors"
+            className="text-sm font-semibold leading-6 text-foreground transition-colors hover:text-primary"
           >
             Contact
           </Link>
@@ -60,14 +63,17 @@ export default function Header() {
           {mounted && (
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full p-2 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+              className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
             >
-              {theme === "dark" ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
+              {theme === "dark" ? (
+                <SunIcon className="h-5 w-5" />
+              ) : (
+                <MoonIcon className="h-5 w-5" />
+              )}
             </button>
           )}
         </div>
       </nav>
     </motion.header>
-  )
+  );
 }
-

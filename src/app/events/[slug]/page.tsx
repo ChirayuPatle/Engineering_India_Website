@@ -1,25 +1,24 @@
 "use client";
 
-import { useCallback, useState, useEffect } from "react";
+import { EventGallery } from "@/components/events/eventGallery";
+import { FAQAccordion } from "@/components/events/faqAccordian";
+import { PrizeGrid } from "@/components/events/prizeGrid";
+import { TeamGrid } from "@/components/events/team-grid";
+import { Timeline } from "@/components/events/timeline";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
-import { Navigation } from "@/components/events/navigation";
+import {
+  Link2,
+  Linkedin,
+  MessageCircleMore,
+  Share2Icon,
+  Twitter,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { Card } from "@/components/ui/card";
-import { PrizeGrid } from "@/components/events/prizeGrid";
-import { Timeline } from "@/components/events/timeline";
-import { TeamGrid } from "@/components/events/team-grid";
-import { EventGallery } from "@/components/events/eventGallery";
-import { FAQAccordion } from "@/components/events/faqAccordian";
-import {
-  Share2Icon,
-  Linkedin,
-  Twitter,
-  MessageCircleMore,
-  Link2,
-} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 function BlurImage(props: any) {
   const [isLoading, setLoading] = useState(true);

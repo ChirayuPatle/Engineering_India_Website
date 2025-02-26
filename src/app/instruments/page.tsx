@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 export default async function Instruments() {
   // const supabase = await createClient();
 
-  let { data: events, error } = await supabase.from("events").select("*");
+  const { data: events, error } = await supabase.from("events").select("*");
 
   console.log(events);
 

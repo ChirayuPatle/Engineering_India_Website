@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const projects = [
   {
@@ -29,14 +29,16 @@ const projects = [
   {
     id: 4,
     title: "Elegant Digital Campaign",
-    description: "Sophisticated marketing strategy for a luxury automotive brand",
+    description:
+      "Sophisticated marketing strategy for a luxury automotive brand",
     imageUrl: "/placeholder.svg?height=800&width=600",
     category: "Digital Marketing",
   },
   {
     id: 5,
     title: "Refined UI/UX Design",
-    description: "Streamlined user interfaces for a financial services platform",
+    description:
+      "Streamlined user interfaces for a financial services platform",
     imageUrl: "/placeholder.svg?height=600&width=800",
     category: "UI/UX",
   },
@@ -47,36 +49,44 @@ const projects = [
     imageUrl: "/placeholder.svg?height=800&width=600",
     category: "Product Design",
   },
-]
+];
 
-const categories = ["All", ...new Set(projects.map((project) => project.category))]
+const categories = [
+  "All",
+  ...new Set(projects.map((project) => project.category)),
+];
 
 export default function PortfolioGrid() {
-  const [filter, setFilter] = useState("All")
+  const [filter, setFilter] = useState("All");
 
-  const filteredProjects = filter === "All" ? projects : projects.filter((project) => project.category === filter)
+  const filteredProjects =
+    filter === "All"
+      ? projects
+      : projects.filter((project) => project.category === filter);
 
   return (
-    <section className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-background py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-12"
+          className="mb-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Our Work</h2>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
+            Our Work
+          </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             A showcase of our minimalist designs and creative solutions.
           </p>
         </motion.div>
 
-        <div className="flex justify-center space-x-4 mb-8">
+        <div className="mb-8 flex justify-center space-x-4">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setFilter(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
                 filter === category
                   ? "bg-primary text-primary-foreground"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
@@ -87,7 +97,10 @@ export default function PortfolioGrid() {
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          layout
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+        >
           <AnimatePresence>
             {filteredProjects.map((project) => (
               <motion.div
@@ -97,7 +110,7 @@ export default function PortfolioGrid() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-background rounded-3xl shadow-lg overflow-hidden hover-lift transition-all duration-300 ease-in-out border-2 border-transparent hover:border-primary/10"
+                className="hover-lift overflow-hidden rounded-3xl border-2 border-transparent bg-background shadow-lg transition-all duration-300 ease-in-out hover:border-primary/10"
               >
                 <div className="relative h-64 overflow-hidden">
                   <Image
@@ -108,30 +121,41 @@ export default function PortfolioGrid() {
                     className="transition-transform duration-300 ease-in-out group-hover:scale-105"
                   />
                   <motion.div
-                    className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 transition-opacity duration-300"
+                    className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 transition-opacity duration-300"
                     whileHover={{ opacity: 1 }}
                   >
-                    <p className="text-white text-center px-4">{project.description}</p>
+                    <p className="px-4 text-center text-white">
+                      {project.description}
+                    </p>
                   </motion.div>
                 </div>
                 <div className="p-6">
-                  <div className="text-sm font-medium text-primary mb-1">{project.category}</div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{project.title}</h3>
+                  <div className="mb-1 text-sm font-medium text-primary">
+                    {project.category}
+                  </div>
+                  <h3 className="mb-2 text-xl font-semibold text-foreground">
+                    {project.title}
+                  </h3>
                   <a
                     href="https://www.flowersandsaints.com.au"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline inline-flex items-center"
+                    className="inline-flex items-center text-primary hover:underline"
                   >
                     View Project
                     <svg
-                      className="w-4 h-4 ml-2"
+                      className="ml-2 h-4 w-4"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
                     </svg>
                   </a>
                 </div>
@@ -141,6 +165,5 @@ export default function PortfolioGrid() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
-

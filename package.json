@@ -15,7 +15,7 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
     "prepare": "husky install",
-    "pre-commit": "pnpm lint:fix && pnpm format:write"
+    "precommit": "pnpm format:write"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

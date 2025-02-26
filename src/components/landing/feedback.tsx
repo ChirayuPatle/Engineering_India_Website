@@ -44,11 +44,11 @@ export default function Feedback() {
   };
 
   return (
-    <section className="  py-16 md:py-24">
+    <section className="py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl text-zinc-700">
+            <h2 className="mb-4 text-3xl font-bold text-zinc-700 md:text-4xl">
               Share Your Feedback
             </h2>
             <p className="text-muted-foreground">

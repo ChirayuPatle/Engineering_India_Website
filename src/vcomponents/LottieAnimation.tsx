@@ -1,8 +1,7 @@
 export default function LottieAnimation() {
   return (
-    <div className="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center">
-      <p className="text-white text-lg">Lottie Animation Placeholder</p>
+    <div className="flex h-64 w-full items-center justify-center rounded-lg bg-gray-800">
+      <p className="text-lg text-white">Lottie Animation Placeholder</p>
     </div>
-  )
+  );
 }
-

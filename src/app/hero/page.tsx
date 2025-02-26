@@ -8,7 +8,6 @@ import ContactForm from "@/vcomponents/ContactForm";
 import NewsletterSubscribe from "@/vcomponents/NewsletterSubscribe";
 import AboutSection from "@/components/landing/aboutSection";
 
-
 export default function Home() {
   return (
     <>

@@ -1,5 +1,5 @@
 import { supabase } from "../client";
-import { User } from "@supabase/supabase-js";
+import { type User } from "@supabase/supabase-js";
 
 export interface AuthError {
   message: string;
