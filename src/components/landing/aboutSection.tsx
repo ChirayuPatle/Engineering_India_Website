@@ -1,14 +1,55 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from "react";
 
 export default function AboutSection() {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    gsap.from("#text", {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      ease: "power2.out",
+      stagger:0.2,
+      scrollTrigger: {
+        trigger: "#page1",
+        start: "60%",
+        // markers: true,
+        toggleActions: "play none none reverse",
+        scrub:1
+        
+      }
+    });
+
+    gsap.from("#box", {
+      opacity: 0,
+      scale: 0.6,
+      y: 100,
+      duration: 1,
+      ease: "power2",
+      stagger:0.2,
+      scrollTrigger: {
+        trigger: "#page1",
+        start: "70%",
+        // markers: true,
+        toggleActions: "play none none reverse",
+        scrub:3
+        
+      }
+    });
+
+  }, []);
+
   return (
-    <section className=" py-16 md:py-24 text-zinc-700 ">
+    <section id="About" className=" py-16 md:py-24 text-zinc-700 ">
       <div className="container mx-auto px-8">
         <div className="grid items-center gap-12 md:grid-cols-2">
           <div>
-            <h2 className="mb-6 text-3xl font-bold md:text-4xl ">
+            <h2 id="text" className="mb-6 text-3xl font-bold md:text-4xl ">
               About Engineering India
             </h2>
             <p className="mb-6 text-muted-foreground">
@@ -22,18 +63,18 @@ export default function AboutSection() {
               students to develop their technical skills, leadership abilities,
               and social awareness through various activities and initiatives.
             </p>
-            <div className="mb-8 flex flex-wrap gap-8">
-              <div>
+            <div  className=" mb-8 flex flex-wrap gap-8">
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">50+</p>
                 <p className="text-sm text-muted-foreground">
                   Events Organized
                 </p>
               </div>
-              <div>
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">1000+</p>
                 <p className="text-sm text-muted-foreground">Student Members</p>
               </div>
-              <div>
+              <div id="text">
                 <p className="text-4xl font-bold text-primary">20+</p>
                 <p className="text-sm text-muted-foreground">
                   Social Initiatives
@@ -51,24 +92,24 @@ export default function AboutSection() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/10 p-6 border-2">
+              <div id="box" className="flex h-40 items-center justify-center rounded-lg bg-primary/10 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Technical Workshops
                 </h3>
               </div>
-              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/20 p-6 border-2">
+              <div id="box" className="flex h-56 items-center justify-center rounded-lg bg-primary/20 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Social Outreach
                 </h3>
               </div>
             </div>
             <div className="mt-8 space-y-4">
-              <div className="flex h-56 items-center justify-center rounded-lg bg-primary/15 p-6 border-2">
+              <div id="box" className="flex h-56 items-center justify-center rounded-lg bg-primary/15 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Competitions
                 </h3>
               </div>
-              <div className="flex h-40 items-center justify-center rounded-lg bg-primary/5 p-6 border-2">
+              <div id="box" className="flex h-40 items-center justify-center rounded-lg bg-primary/5 p-6 border-2">
                 <h3 className="text-center text-xl font-medium">
                   Industry Visits
                 </h3>

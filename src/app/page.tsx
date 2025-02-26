@@ -24,7 +24,7 @@ export default function HomePage() {
     const lenis = new Lenis({
       duration: 1.2, // Controls the smoothness of scrolling
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
-      smooth: true,
+      smooth : true,
     });
 
     function raf(time:any) {
@@ -105,19 +105,19 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="cursor pointer-events-none fixed left-0 top-0 z-50 h-4 w-4 rounded-full bg-white mix-blend-difference"></div>
+      <div className="cursor pointer-events-none fixed left-0 top-0 z-50 h-4 w-4 rounded-full bg-white mix-blend-difference hidden lg:block "></div>
       {/* <div className="cursor-follower pointer-events-none fixed left-0 top-0 z-50 h-12 w-12 rounded-full bg-white opacity-30 mix-blend-exclusion"></div> */}
       <Section className="relative min-h-screen pb-16 pt-32">
         {/* Mouse Follower */}
 
-        <Container className="min-h-screen w-full">
+        <Container  className="min-h-screen w-full">
           <div className="mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center z-50">
            {/* <div className="h-[70%] w-[70%]  absolute top-20 "> <img className="h-full w-full object-cover rounded-lg z-20"  src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740507612/WhatsApp_Image_2025-02-25_at_11.48.56_PM_gndyjs.jpg " alt="" /></div> */}
             
             <h1
-              className={`${bebasNeue.className} mb-6  text-5xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:text-9xl z-50 flex gap-2 `}
+              className={`${bebasNeue.className} mb-6  text-6xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:text-9xl z-50 flex gap-2 flex-col md:flex-row  `}
             >
-              <div>
+              <div >
               {"ENGINEERING".split("").map((letter, index) => (
                 <span key={index} className="header-letter">
                   {letter === " " ? "\u00A0" : letter}
