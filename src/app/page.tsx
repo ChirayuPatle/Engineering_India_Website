@@ -129,7 +129,7 @@ export default function HomePage() {
                   D
                 </span>
                 <span className="header-letter flex items-center justify-center rounded-br-lg rounded-tr-lg border-2 bg-green-500 px-4 text-8xl text-white">
-                  AI
+                 IA
                 </span>
               </div>
             </h1>
