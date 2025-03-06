@@ -14,24 +14,15 @@ import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP); 
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2, // Controls the smoothness of scrolling
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
-      smoothWheel: true,
-    });
 
-    function raf(time: any) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    // GSAP Animations
+  useGSAP(()=>{
     gsap.from(".header-letter", {
       y: 100,
       scale: 0.6,
@@ -98,7 +89,26 @@ export default function HomePage() {
       gsap.killTweensOf(cursor);
       gsap.killTweensOf(follower);
     };
+  })
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2, // Controls the smoothness of scrolling
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
+      smoothWheel: true,
+    });
+
+    function raf(time: any) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // GSAP Animations
+
   }, []);
+
+
 
   return (
     <>
