@@ -221,18 +221,12 @@ export default function Navbar() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link href="/profile" onClick={() => setIsOpen(false)}>
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link
-                      href="/settings"
-                      onClick={() => setIsOpen(false)}
-                    >
+                    <Link href="/settings" onClick={() => setIsOpen(false)}>
                       Settings
                     </Link>
                   </DropdownMenuItem>

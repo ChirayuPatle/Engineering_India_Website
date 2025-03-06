@@ -30,7 +30,7 @@ const SignupForm = () => {
   if (!isLoaded) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <div className="animate-spin rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-t-4 border-gray-200"></div>
       </div>
     );
   }
@@ -58,7 +58,9 @@ const SignupForm = () => {
     e.preventDefault();
     setError("");
     try {
-      const completeSignup = await signUp!.attemptEmailAddressVerification({ code });
+      const completeSignup = await signUp!.attemptEmailAddressVerification({
+        code,
+      });
       if (completeSignup.status === "complete") {
         await setActive!({ session: completeSignup.createdSessionId });
         router.push("/profile");
@@ -95,12 +97,18 @@ const SignupForm = () => {
                 <form className="p-4 sm:p-6 md:p-8" onSubmit={handleSignup}>
                   <div className="flex flex-col gap-6">
                     <div className="text-center">
-                      <h1 className="text-2xl font-bold sm:text-3xl">Create Account</h1>
+                      <h1 className="text-2xl font-bold sm:text-3xl">
+                        Create Account
+                      </h1>
                       <p className="mt-2 text-sm text-muted-foreground">
                         Sign up for a new account
                       </p>
                     </div>
-                    {error && <p className="text-center text-sm text-red-600">{error}</p>}
+                    {error && (
+                      <p className="text-center text-sm text-red-600">
+                        {error}
+                      </p>
+                    )}
                     <div className="flex flex-col gap-4">
                       <input
                         type="text"
@@ -130,7 +138,11 @@ const SignupForm = () => {
                           onClick={() => setShowPassword(!showPassword)}
                           className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
                         >
-                          {showPassword ? <Eye className="w-5" /> : <EyeOff className="w-5" />}
+                          {showPassword ? (
+                            <Eye className="w-5" />
+                          ) : (
+                            <EyeOff className="w-5" />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -155,15 +167,22 @@ const SignupForm = () => {
             <Card className="overflow-hidden shadow-lg">
               <CardContent className="p-6">
                 <div className="text-center">
-                  <h1 className="text-2xl font-bold sm:text-3xl">Email Verification</h1>
+                  <h1 className="text-2xl font-bold sm:text-3xl">
+                    Email Verification
+                  </h1>
                   <p className="mt-2 text-sm text-muted-foreground">
                     Please enter the OTP sent to your email
                   </p>
                 </div>
                 {error && (
-                  <p className="mt-4 text-center text-sm text-red-600">{error}</p>
+                  <p className="mt-4 text-center text-sm text-red-600">
+                    {error}
+                  </p>
                 )}
-                <form onSubmit={handleVerify} className="mt-6 flex flex-col gap-4">
+                <form
+                  onSubmit={handleVerify}
+                  className="mt-6 flex flex-col gap-4"
+                >
                   <input
                     type="text"
                     placeholder="Enter OTP"

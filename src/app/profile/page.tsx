@@ -5,7 +5,6 @@ import ProfileHeader from "@/components/profile/profileHeader";
 import SkillsSection from "@/components/profile/skillSection";
 
 export default function ProfilePage() {
-
   return (
     <>
       <Navbar />

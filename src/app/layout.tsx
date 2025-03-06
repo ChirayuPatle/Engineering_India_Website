@@ -26,8 +26,8 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={`${dmsans.variable}`}>
         <body className="space">
-            <Navbar />
-            {children}
+          <Navbar />
+          {children}
           <Footer />
         </body>
       </html>

@@ -37,8 +37,7 @@ export function LoginForm({
         redirectUrl: "/sso-callback",
         redirectUrlComplete: "/profile",
       });
-    }
-    catch (err: any) {
+    } catch (err: any) {
       console.error("Error during Google login:", err);
       setError(err.errors ? err.errors[0].message : "Login failed");
     }
@@ -81,7 +80,7 @@ export function LoginForm({
       }
       const result = await signIn.attemptSecondFactor({
         code,
-        strategy: "phone_code"
+        strategy: "phone_code",
       });
       if (result.status === "complete") {
         if (setActive) {
@@ -97,7 +96,7 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <div >
+      <div>
         {!pendingVerification ? (
           <motion.div
             key="login-form"
@@ -118,13 +117,17 @@ export function LoginForm({
                 <form className="p-4 sm:p-6 md:p-8" onSubmit={handleLogin}>
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col items-center text-center">
-                      <h1 className="text-2xl font-bold sm:text-3xl">Welcome 😄!</h1>
+                      <h1 className="text-2xl font-bold sm:text-3xl">
+                        Welcome 😄!
+                      </h1>
                       <p className="text-balance text-sm text-muted-foreground sm:text-base">
                         Login to your account
                       </p>
                     </div>
                     {error && (
-                      <p className="text-center text-sm text-red-600">{error}</p>
+                      <p className="text-center text-sm text-red-600">
+                        {error}
+                      </p>
                     )}
                     <div className="flex flex-col gap-4">
                       <input
@@ -132,7 +135,7 @@ export function LoginForm({
                         placeholder="Email or Username"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                       />
                       <div className="relative">
                         <input
@@ -140,7 +143,7 @@ export function LoginForm({
                           placeholder="Password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="w-full border border-gray-300 rounded px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full rounded border border-gray-300 px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <button
                           type="button"
@@ -229,8 +232,8 @@ export function LoginForm({
         )}
       </div>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our{" "}
-        <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
+        and <a href="#">Privacy Policy</a>.
       </div>
     </div>
   );
