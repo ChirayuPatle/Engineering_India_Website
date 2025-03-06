@@ -32,7 +32,19 @@ export default function Footer() {
           >
             Priyanshu Kayarkar
           </Link>
-          ,Chirayu Patle & Muchkundraje Thote.
+          ,  <Link
+            target="_blank"
+            className="underline hover:text-blue-600"
+            href={"https://github.com/ChirayuPatle"}
+          >
+          Chirayu Patle 
+          </Link> & <Link
+            target="_blank"
+            className="underline hover:text-blue-600"
+            href={"https://github.com/Muchkundraje"}
+          >
+            Muchkundraje Thote
+          </Link> 
         </p>
       </div>
     </footer>
