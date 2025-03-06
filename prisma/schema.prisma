@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RegistrationMode {
+  INDIVIDUAL
+  TEAM
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String
+  registrations Registration[]
+  feedbacks     Feedback[]
+}
+
+model Event {
+  id                       String           @id @default(cuid())
+  title                    String
+  description              String
+  startDate                DateTime
+  endDate                  DateTime
+  venue                    String
+  poster                   String?
+  registrationMode         RegistrationMode @default(INDIVIDUAL)
+  registrations            Registration[]
+  numberOfPeopleRegistered Int              @default(0)
+  teams                    Team[]
+  createdAt                DateTime         @default(now())
+  updatedAt                DateTime         @updatedAt
+  feedbacks                Feedback[]
+}
+
+model Team {
+  id            String         @id @default(cuid())
+  name          String
+  eventId       String
+  event         Event          @relation(fields: [eventId], references: [id])
+  registrations Registration[]
+}
+
+model Registration {
+  id        String    @id @default(cuid())
+  eventId   String
+  userId    String
+  ticket    String
+  qrCode    String?
+  attended  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  event     Event     @relation(fields: [eventId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  teamId    String?
+  team      Team?     @relation(fields: [teamId], references: [id])
+  checkIns  CheckIn[]
+
+  @@unique([eventId, userId])
+}
+
+model CheckIn {
+  id             String       @id @default(cuid())
+  registrationId String
+  scannedAt      DateTime     @default(now())
+  registration   Registration @relation(fields: [registrationId], references: [id])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  eventId   String
+  userId    String
+  feedback  String
+  rating    Int
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+}

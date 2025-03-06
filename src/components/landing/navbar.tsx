@@ -6,9 +6,6 @@ import { usePathname } from "next/navigation";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { useAuth } from "@/context/authContext";
-
-// ShadCN UI components
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,11 +17,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// -----------------------------------
-// Theme Toggle Component
-// -----------------------------------
+import { useUser, useClerk } from "@clerk/nextjs";
+
 function ThemeToggle() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme } = useTheme();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -49,9 +45,6 @@ function ThemeToggle() {
   );
 }
 
-// -----------------------------------
-// Navbar Items
-// -----------------------------------
 const navItems = [
   { name: "Home", href: "/" },
   { name: "Events", href: "/events" },
@@ -61,12 +54,12 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const { user, userDetails } = useAuth();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isSignedIn, user } = useUser();
+  const { signOut } = useClerk();
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Handle scroll for navbar background
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -74,12 +67,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const handleLogout = async () => {
+    await signOut();
+  };
 
-  // Example logout handler (adjust to your auth logic)
-  function handleLogout() {
-    // your logout logic here
-    console.log("Logged out");
-  }
+  if (pathname === "/profile") return null;
 
   return (
     <header
@@ -90,14 +82,12 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-primary">
             Engineering India
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden items-center space-x-6 md:flex">
           {navItems.map((item) => (
             <Link
@@ -113,11 +103,9 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {/* Theme Toggle */}
           <ThemeToggle />
 
-          {/* Profile Dropdown or Get Started */}
-          {user ? (
+          {isSignedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -126,14 +114,14 @@ export default function Navbar() {
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage
-                      src={userDetails?.avatar_url ?? "/default-avatar.png"}
-                      alt={userDetails?.full_name ?? "User"}
+                      src={user?.imageUrl || "/default-avatar.png"}
+                      alt={user?.fullName || "User"}
                     />
                     <AvatarFallback>
-                      {userDetails?.full_name
+                      {user?.fullName
                         ?.split(" ")
                         ?.map((n) => n[0])
-                        ?.join("") ?? "U"}
+                        ?.join("") || "U"}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -142,10 +130,10 @@ export default function Navbar() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {userDetails?.full_name ?? "User"}
+                      {user?.fullName || "User"}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      {userDetails?.email}
+                      {user?.emailAddresses?.[0]?.emailAddress}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -162,13 +150,12 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link href="/auth/">
+            <Link href="/sign-in">
               <Button variant="default">Get Started</Button>
             </Link>
           )}
         </nav>
 
-        {/* Mobile Navigation Button */}
         <div className="flex md:hidden">
           <Button
             variant="default"
@@ -180,7 +167,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden">
           <div className="flex flex-col space-y-4 bg-background px-4 py-6 shadow-md">
@@ -201,7 +187,7 @@ export default function Navbar() {
             <div className="pt-2">
               <ThemeToggle />
             </div>
-            {user ? (
+            {isSignedIn ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -210,14 +196,14 @@ export default function Navbar() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={userDetails?.avatar_url ?? "/default-avatar.png"}
-                        alt={userDetails?.full_name ?? "User"}
+                        src={user?.imageUrl || "/default-avatar.png"}
+                        alt={user?.fullName || "User"}
                       />
                       <AvatarFallback>
-                        {userDetails?.full_name
+                        {user?.fullName
                           ?.split(" ")
                           ?.map((n) => n[0])
-                          ?.join("") ?? "U"}
+                          ?.join("") || "U"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -226,21 +212,27 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {userDetails?.full_name ?? "User"}
+                        {user?.fullName || "User"}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        {userDetails?.email}
+                        {user?.emailAddresses?.[0]?.emailAddress}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" onClick={() => setIsOpen(false)}>
+                    <Link
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                    >
                       Profile
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/settings" onClick={() => setIsOpen(false)}>
+                    <Link
+                      href="/settings"
+                      onClick={() => setIsOpen(false)}
+                    >
                       Settings
                     </Link>
                   </DropdownMenuItem>
@@ -250,7 +242,7 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
+              <Link href="/sign-in" onClick={() => setIsOpen(false)}>
                 <Button variant="default" className="w-full">
                   Get Started
                 </Button>
