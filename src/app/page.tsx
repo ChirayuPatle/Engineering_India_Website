@@ -14,15 +14,14 @@ import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
 import { useEffect } from "react";
-import { useGSAP } from '@gsap/react';
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP); 
+gsap.registerPlugin(useGSAP);
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-
-  useGSAP(()=>{
+  useGSAP(() => {
     gsap.from(".header-letter", {
       y: 100,
       scale: 0.6,
@@ -89,7 +88,7 @@ export default function HomePage() {
       gsap.killTweensOf(cursor);
       gsap.killTweensOf(follower);
     };
-  })
+  });
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -105,10 +104,7 @@ export default function HomePage() {
     requestAnimationFrame(raf);
 
     // GSAP Animations
-
   }, []);
-
-
 
   return (
     <>
@@ -139,7 +135,7 @@ export default function HomePage() {
                   D
                 </span>
                 <span className="header-letter flex items-center justify-center rounded-br-lg rounded-tr-lg border-2 bg-green-500 px-4 text-8xl text-white">
-                 IA
+                  IA
                 </span>
               </div>
             </h1>
