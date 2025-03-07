@@ -17,7 +17,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { useUser, useClerk } from "@clerk/nextjs";
+import { supabase } from "@/utils/supabase/client";
+import { User } from "@supabase/supabase-js";
+
+interface UserMetadata {
+  full_name?: string;
+  avatar_url?: string;
+}
+
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Events", href: "/events" },
+  { name: "About", href: "/about" },
+  { name: "Team", href: "/team" },
+  { name: "Contact", href: "/contact" },
+];
 
 function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -45,21 +59,16 @@ function ThemeToggle() {
   );
 }
 
-const navItems = [
-  { name: "Home", href: "/" },
-  { name: "Events", href: "/events" },
-  { name: "About", href: "/about" },
-  { name: "Team", href: "/team" },
-  { name: "Contact", href: "/contact" },
-];
-
 export default function Navbar() {
-  const { isSignedIn, user } = useUser();
-  const { signOut } = useClerk();
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
+  // Supabase auth state
+  const [user, setUser] = useState<User | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Handle scroll styling
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -67,10 +76,32 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const handleLogout = async () => {
-    await signOut();
+
+  // Get current session
+  useEffect(() => {
+    const getCurrUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.user);
+      }
+      setIsMounted(true);
+    };
+    getCurrUser();
+  }, []);
+
+  // Handle signout
+  const handleSignout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      setUser(null);
+    }
   };
 
+  // Prevent hydration issues
+  if (!isMounted) return null;
+  // Optionally hide navbar on certain routes (e.g. /profile)
   if (pathname === "/profile") return null;
 
   return (
@@ -105,23 +136,28 @@ export default function Navbar() {
 
           <ThemeToggle />
 
-          {isSignedIn ? (
+          {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
-                >
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                   <Avatar className="h-8 w-8">
                     <AvatarImage
-                      src={user?.imageUrl || "/default-avatar.png"}
-                      alt={user?.fullName || "User"}
+                      src={
+                        (user.user_metadata &&
+                          user.user_metadata.avatar_url) ||
+                        "/default-avatar.png"
+                      }
+                      alt={
+                        (user.user_metadata &&
+                          user.user_metadata.full_name) ||
+                        "User"
+                      }
                     />
                     <AvatarFallback>
-                      {user?.fullName
+                        {(user.user_metadata as UserMetadata)?.full_name
                         ?.split(" ")
-                        ?.map((n) => n[0])
-                        ?.join("") || "U"}
+                        .map((n: string) => n[0])
+                        .join("") || "U"}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -130,10 +166,12 @@ export default function Navbar() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {user?.fullName || "User"}
+                      {(user.user_metadata &&
+                        user.user_metadata.full_name) ||
+                        "User"}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
-                      {user?.emailAddresses?.[0]?.emailAddress}
+                      {user.email}
                     </p>
                   </div>
                 </DropdownMenuLabel>
@@ -141,17 +179,22 @@ export default function Navbar() {
                 <DropdownMenuItem asChild>
                   <Link href="/profile">Profile</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings">Settings</Link>
+                <DropdownMenuItem
+                  onClick={() => {
+                    // Replace with your update profile logic if needed
+                    console.log("Update Profile clicked");
+                  }}
+                >
+                  Update Profile
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout}>
-                  Log out
+                <DropdownMenuItem onClick={handleSignout}>
+                  Sign out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link href="/sign-in">
-              <Button variant="default">Get Started</Button>
+            <Link href="/auth">
+              <Button variant="default">Auth</Button>
             </Link>
           )}
         </nav>
@@ -187,23 +230,23 @@ export default function Navbar() {
             <div className="pt-2">
               <ThemeToggle />
             </div>
-            {isSignedIn ? (
+            {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={user?.imageUrl || "/default-avatar.png"}
-                        alt={user?.fullName || "User"}
+                        src={
+                          (user.user_metadata &&
+                            user.user_metadata.avatar_url) ||
+                          "/default-avatar.png"
+                        }
+                        alt={(user.user_metadata && user.user_metadata.full_name) || "User"}
                       />
                       <AvatarFallback>
-                        {user?.fullName
-                          ?.split(" ")
-                          ?.map((n) => n[0])
-                          ?.join("") || "U"}
+                        {(user.user_metadata as UserMetadata)?.full_name?.split(" ")
+                          .map((n: string) => n[0])
+                          .join("") || "U"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -212,33 +255,40 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {user?.fullName || "User"}
+                        {(user.user_metadata &&
+                          user.user_metadata.full_name) ||
+                          "User"}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        {user?.emailAddresses?.[0]?.emailAddress}
+                        {user.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/profile" onClick={() => setIsOpen(false)}>
+                    <Link
+                      href="/profile"
+                      onClick={() => setIsOpen(false)}
+                    >
                       Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/settings" onClick={() => setIsOpen(false)}>
-                      Settings
-                    </Link>
+                  <DropdownMenuItem
+                    onClick={() => {
+                      console.log("Update Profile clicked");
+                    }}
+                  >
+                    Update Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleLogout}>
-                    Log out
+                  <DropdownMenuItem onClick={handleSignout}>
+                    Sign out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Link href="/sign-in" onClick={() => setIsOpen(false)}>
+              <Link href="/auth" onClick={() => setIsOpen(false)}>
                 <Button variant="default" className="w-full">
-                  Get Started
+                  Auth
                 </Button>
               </Link>
             )}

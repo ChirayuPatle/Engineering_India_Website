@@ -1,109 +1,29 @@
 "use client";
 
-import { useState } from "react";
-import { useSignIn } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { Eye, EyeOff } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { loginWithGoogle } from "./action";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const { signIn, setActive } = useSignIn();
+  
   const router = useRouter();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  // OTP verification and error state for login
-  const [pendingVerification, setPendingVerification] = useState(false);
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
 
   const handleGoogleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (!signIn) {
-      setError("Authentication is not available");
-      return;
-    }
-    try {
-      const result = await signIn.authenticateWithRedirect({
-        strategy: "oauth_google",
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/profile",
-      });
-    } catch (err: any) {
-      console.error("Error during Google login:", err);
-      setError(err.errors ? err.errors[0].message : "Login failed");
-    }
-  };
-
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    try {
-      if (!signIn) {
-        setError("Authentication is not available");
-        return;
-      }
-      const result = await signIn.create({
-        identifier: email,
-        password: password,
-      });
-      if (result.status === "complete") {
-        if (setActive) {
-          await setActive({ session: result.createdSessionId });
-        }
-        router.push("/profile");
-      } else if (result.status === "needs_second_factor") {
-        // OTP or second factor is required
-        setPendingVerification(true);
-      }
-    } catch (err: any) {
-      console.error("Error during login:", err);
-      setError(err.errors ? err.errors[0].message : "Login failed");
-    }
-  }
-
-  async function handleVerify(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setError("");
-    try {
-      if (!signIn) {
-        setError("Authentication is not available");
-        return;
-      }
-      const result = await signIn.attemptSecondFactor({
-        code,
-        strategy: "phone_code",
-      });
-      if (result.status === "complete") {
-        if (setActive) {
-          await setActive({ session: result.createdSessionId });
-        }
-        router.push("/profile");
-      }
-    } catch (err: any) {
-      console.error("Error during OTP verification:", err);
-      setError(err.errors ? err.errors[0].message : "Verification error");
-    }
+    await loginWithGoogle();
   }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <div>
-        {!pendingVerification ? (
           <motion.div
             key="login-form"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
           >
             <Card className="overflow-hidden">
               <CardContent className="grid p-0 md:grid-cols-2">
@@ -114,7 +34,7 @@ export function LoginForm({
                     className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                   />
                 </div>
-                <form className="p-4 sm:p-6 md:p-8" onSubmit={handleLogin}>
+                <form className="p-4 sm:p-6 md:p-8" >
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col items-center text-center">
                       <h1 className="text-2xl font-bold sm:text-3xl">
@@ -124,44 +44,13 @@ export function LoginForm({
                         Login to your account
                       </p>
                     </div>
-                    {error && (
+                    {/* TODO: Add error message */}
+                    {/* {error && (
                       <p className="text-center text-sm text-red-600">
                         {error}
                       </p>
-                    )}
+                    )} */}
                     <div className="flex flex-col gap-4">
-                      <input
-                        type="text"
-                        placeholder="Email or Username"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                      <div className="relative">
-                        <input
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          className="w-full rounded border border-gray-300 px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500"
-                        >
-                          {showPassword ? (
-                            <Eye className="w-5" />
-                          ) : (
-                            <EyeOff className="w-5" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                      <Button type="submit" className="w-full">
-                        Login
-                      </Button>
                       <Button
                         type="button"
                         onClick={handleGoogleLogin}
@@ -178,58 +67,17 @@ export function LoginForm({
                             fill="currentColor"
                           />
                         </svg>
-                        <span className="font-medium">
+                        <span  className="font-medium">
                           Continue with Google
                         </span>
-                      </Button>
-                    </div>
+                        </Button>
+                        </div>
                   </div>
                 </form>
               </CardContent>
             </Card>
           </motion.div>
-        ) : (
-          <motion.div
-            key="otp-form"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Card className="overflow-hidden">
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <h1 className="text-2xl font-bold sm:text-3xl">
-                    OTP Verification
-                  </h1>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Please enter the OTP sent to your email
-                  </p>
-                </div>
-                {error && (
-                  <p className="mt-4 text-center text-sm text-red-600">
-                    {error}
-                  </p>
-                )}
-                <form
-                  onSubmit={handleVerify}
-                  className="mt-6 flex flex-col gap-4"
-                >
-                  <input
-                    type="text"
-                    placeholder="Enter OTP"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    className="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                  <Button type="submit" className="w-full">
-                    Verify OTP
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
+        
       </div>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
         By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
