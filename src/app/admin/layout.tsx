@@ -20,10 +20,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-        <main className="space">
-          <div className="px-32 min-h-screens py-20 ">
-          {children}
-          </div>
-        </main>
+    <main className="space">
+      <div className="min-h-screens px-32 py-20">{children}</div>
+    </main>
   );
 }

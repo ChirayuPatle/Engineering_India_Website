@@ -1,14 +1,28 @@
-import { CalendarIcon, Clock, Download, ExternalLink, MapPin } from "lucide-react"
+import {
+  CalendarIcon,
+  Clock,
+  Download,
+  ExternalLink,
+  MapPin,
+} from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const registeredEvents = [
   {
     id: 1,
     title: "Web Development Workshop",
-    description: "Learn the fundamentals of web development with HTML, CSS, and JavaScript.",
+    description:
+      "Learn the fundamentals of web development with HTML, CSS, and JavaScript.",
     date: "March 15, 2025",
     time: "3:00 PM - 5:00 PM",
     location: "Computer Science Building, Room 101",
@@ -19,7 +33,8 @@ const registeredEvents = [
   {
     id: 2,
     title: "Introduction to Machine Learning",
-    description: "A beginner-friendly introduction to machine learning concepts and applications.",
+    description:
+      "A beginner-friendly introduction to machine learning concepts and applications.",
     date: "February 10, 2025",
     time: "4:00 PM - 6:00 PM",
     location: "Computer Science Building, Room 203",
@@ -30,7 +45,8 @@ const registeredEvents = [
   {
     id: 3,
     title: "GitHub Workshop",
-    description: "Learn how to use Git and GitHub for version control and collaboration.",
+    description:
+      "Learn how to use Git and GitHub for version control and collaboration.",
     date: "January 25, 2025",
     time: "2:00 PM - 4:00 PM",
     location: "Computer Science Building, Lab 102",
@@ -38,7 +54,7 @@ const registeredEvents = [
     ticketId: "GHW-2025-9012",
     image: "/placeholder.svg?height=200&width=400",
   },
-]
+];
 
 export default function RegisteredEventsPage() {
   return (
@@ -60,7 +76,9 @@ export default function RegisteredEventsPage() {
                     <div className="flex items-center justify-between">
                       <CardTitle>{event.title}</CardTitle>
                       {event.status === "upcoming" ? (
-                        <Badge className="bg-blue-500 hover:bg-blue-500">Upcoming</Badge>
+                        <Badge className="bg-blue-500 hover:bg-blue-500">
+                          Upcoming
+                        </Badge>
                       ) : (
                         <Badge
                           variant="outline"
@@ -91,17 +109,29 @@ export default function RegisteredEventsPage() {
                     </div>
                   </CardContent>
                   <CardFooter className="flex flex-wrap gap-2">
-                    <Button variant="outline" size="sm" className="flex items-center">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center"
+                    >
                       <Download className="mr-2 h-4 w-4" />
                       Download Ticket
                     </Button>
                     {event.status === "upcoming" ? (
-                      <Button variant="outline" size="sm" className="flex items-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center"
+                      >
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Add to Calendar
                       </Button>
                     ) : (
-                      <Button variant="outline" size="sm" className="flex items-center">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex items-center"
+                      >
                         <Download className="mr-2 h-4 w-4" />
                         Download Certificate
                       </Button>
@@ -119,6 +149,5 @@ export default function RegisteredEventsPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

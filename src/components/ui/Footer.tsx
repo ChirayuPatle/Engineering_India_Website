@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathName = usePathname();
   console.log("PATHNAME", pathName);
-  
+
   if (pathName?.startsWith("/dashboard")) return null;
 
   return (

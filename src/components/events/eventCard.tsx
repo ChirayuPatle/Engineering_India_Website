@@ -26,7 +26,10 @@ export function EventCard({
 }: EventCardProps) {
   const router = useRouter();
   return (
-    <div onClick={() => router.push(href)} className="group relative overflow-hidden rounded-lg border bg-background p-2 transition-all hover:shadow-lg">
+    <div
+      onClick={() => router.push(href)}
+      className="group relative overflow-hidden rounded-lg border bg-background p-2 transition-all hover:shadow-lg"
+    >
       <div className="aspect-[16/9] overflow-hidden rounded-md">
         <Image
           src={imageUrl}

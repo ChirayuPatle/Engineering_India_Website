@@ -32,12 +32,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div
         className={cn(
           "flex flex-1 flex-col transition-all duration-300",
-          sidebarOpen && !isMobile ? "ml-[250px]" : "ml-0"
+          sidebarOpen && !isMobile ? "ml-[250px]" : "ml-0",
         )}
       >
-        <DashboardHeader 
-          sidebarOpen={sidebarOpen} 
-          onSidebarOpenChange={setSidebarOpen} 
+        <DashboardHeader
+          sidebarOpen={sidebarOpen}
+          onSidebarOpenChange={setSidebarOpen}
         />
         <main className="flex-1 p-4 md:p-6 lg:p-8">{children}</main>
       </div>

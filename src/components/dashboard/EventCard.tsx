@@ -1,4 +1,3 @@
-
 import { CalendarDays, Clock, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,39 +43,41 @@ export function EventCard({
   const spotsPercentage = (spotsFilled / spots) * 100;
 
   return (
-    <Card className="overflow-hidden h-full flex flex-col">
+    <Card className="flex h-full flex-col overflow-hidden">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-base sm:text-lg">{title}</CardTitle>
-            <CardDescription className="mt-1 text-xs sm:text-sm">{location}</CardDescription>
+            <CardDescription className="mt-1 text-xs sm:text-sm">
+              {location}
+            </CardDescription>
           </div>
           <Badge variant={category === "Tech" ? "default" : "secondary"}>
             {category}
           </Badge>
         </div>
       </CardHeader>
-      <CardContent className="pb-3 flex-grow">
-        <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-3">{description}</p>
-        <div className="flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm">
+      <CardContent className="flex-grow pb-3">
+        <p className="mb-4 line-clamp-3 text-xs text-muted-foreground sm:text-sm">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-2 text-xs sm:gap-4 sm:text-sm">
           <div className="flex items-center gap-1">
-            <CalendarDays className="h-3 w-3 sm:h-4 sm:w-4 opacity-70" />
+            <CalendarDays className="h-3 w-3 opacity-70 sm:h-4 sm:w-4" />
             <span>{date}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Clock className="h-3 w-3 sm:h-4 sm:w-4 opacity-70" />
+            <Clock className="h-3 w-3 opacity-70 sm:h-4 sm:w-4" />
             <span>{time}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Users className="h-3 w-3 sm:h-4 sm:w-4 opacity-70" />
-            <span>
-              {spotsRemaining} spots left
-            </span>
+            <Users className="h-3 w-3 opacity-70 sm:h-4 sm:w-4" />
+            <span>{spotsRemaining} spots left</span>
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between pt-3 border-t mt-auto">
-        <div className="text-sm sm:text-md font-semibold">
+      <CardFooter className="mt-auto flex items-center justify-between border-t pt-3">
+        <div className="sm:text-md text-sm font-semibold">
           {price === 0 ? "Free" : `$${price.toFixed(2)}`}
         </div>
         {isRegistered ? (
@@ -84,7 +85,9 @@ export function EventCard({
             Registered
           </Button>
         ) : (
-          <Button size="sm" onClick={() => onRegister?.(id)}>Register</Button>
+          <Button size="sm" onClick={() => onRegister?.(id)}>
+            Register
+          </Button>
         )}
       </CardFooter>
     </Card>

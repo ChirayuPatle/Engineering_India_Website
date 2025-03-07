@@ -1,4 +1,3 @@
-
 import { ArrowDownUp, Check, Clock, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +47,7 @@ export function PaymentCard({
           <span className="text-muted-foreground">Transaction ID:</span>
           <span className="font-mono">{transactionId}</span>
         </div>
-        <div className="flex justify-between text-sm mt-1">
+        <div className="mt-1 flex justify-between text-sm">
           <span className="text-muted-foreground">Amount:</span>
           <span className="font-semibold">${amount.toFixed(2)}</span>
         </div>
@@ -74,15 +73,18 @@ function StatusBadge({ status }: { status: PaymentStatus }) {
   switch (status) {
     case "paid":
       icon = <Check className="h-3.5 w-3.5" />;
-      statusClasses = "bg-green-100 text-green-700 dark:bg-green-700/20 dark:text-green-400";
+      statusClasses =
+        "bg-green-100 text-green-700 dark:bg-green-700/20 dark:text-green-400";
       break;
     case "pending":
       icon = <Clock className="h-3.5 w-3.5" />;
-      statusClasses = "bg-yellow-100 text-yellow-700 dark:bg-yellow-700/20 dark:text-yellow-400";
+      statusClasses =
+        "bg-yellow-100 text-yellow-700 dark:bg-yellow-700/20 dark:text-yellow-400";
       break;
     case "failed":
       icon = <X className="h-3.5 w-3.5" />;
-      statusClasses = "bg-red-100 text-red-700 dark:bg-red-700/20 dark:text-red-400";
+      statusClasses =
+        "bg-red-100 text-red-700 dark:bg-red-700/20 dark:text-red-400";
       break;
   }
 
@@ -90,7 +92,7 @@ function StatusBadge({ status }: { status: PaymentStatus }) {
     <div
       className={cn(
         "flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
-        statusClasses
+        statusClasses,
       )}
     >
       {icon}

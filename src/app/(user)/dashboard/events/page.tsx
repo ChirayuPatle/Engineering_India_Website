@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { EventCard } from "@/components/dashboard/EventCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -117,7 +117,6 @@ export default function EventsPage() {
     // });
 
     console.info(`User registered for event with ID: ${id}`);
-
   };
 
   const filteredEvents = events.filter((event) => {
@@ -130,83 +129,83 @@ export default function EventsPage() {
   });
 
   return (
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.push("/dashboard")}
-            className="mr-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            Club Events
-          </h1>
-        </div>
-
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex w-full flex-col md:flex-row md:items-center gap-4">
-            <div className="relative flex-1 w-full md:max-w-sm">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search events..."
-                className="pl-8 w-full"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <Select
-              value={categoryFilter}
-              onValueChange={(value) => setCategoryFilter(value)}
-            >
-              <SelectTrigger className="w-full md:w-[180px]">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="Tech">Tech</SelectItem>
-                <SelectItem value="Workshop">Workshop</SelectItem>
-                <SelectItem value="Competition">Competition</SelectItem>
-                <SelectItem value="Study">Study</SelectItem>
-                <SelectItem value="Career">Career</SelectItem>
-                <SelectItem value="Seminar">Seminar</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {filteredEvents.map((event) => (
-            <EventCard
-              key={event.id}
-              id={event.id}
-              title={event.title}
-              description={event.description}
-              date={event.date}
-              time={event.time}
-              location={event.location}
-              category={event.category}
-              spots={event.spots}
-              spotsFilled={event.spotsFilled}
-              price={event.price}
-              isRegistered={event.isRegistered}
-              onRegister={handleRegister}
-            />
-          ))}
-        </div>
-
-        {filteredEvents.length === 0 && (
-          <div className="flex h-[300px] items-center justify-center rounded-md border border-dashed">
-            <div className="flex flex-col items-center text-center">
-              <h3 className="mt-2 text-xl font-semibold">No events found</h3>
-              <p className="text-sm text-muted-foreground">
-                Try changing your search or filter criteria
-              </p>
-            </div>
-          </div>
-        )}
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.push("/dashboard")}
+          className="mr-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+          Club Events
+        </h1>
       </div>
+
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="flex w-full flex-col gap-4 md:flex-row md:items-center">
+          <div className="relative w-full flex-1 md:max-w-sm">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search events..."
+              className="w-full pl-8"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Select
+            value={categoryFilter}
+            onValueChange={(value) => setCategoryFilter(value)}
+          >
+            <SelectTrigger className="w-full md:w-[180px]">
+              <SelectValue placeholder="All Categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Categories</SelectItem>
+              <SelectItem value="Tech">Tech</SelectItem>
+              <SelectItem value="Workshop">Workshop</SelectItem>
+              <SelectItem value="Competition">Competition</SelectItem>
+              <SelectItem value="Study">Study</SelectItem>
+              <SelectItem value="Career">Career</SelectItem>
+              <SelectItem value="Seminar">Seminar</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {filteredEvents.map((event) => (
+          <EventCard
+            key={event.id}
+            id={event.id}
+            title={event.title}
+            description={event.description}
+            date={event.date}
+            time={event.time}
+            location={event.location}
+            category={event.category}
+            spots={event.spots}
+            spotsFilled={event.spotsFilled}
+            price={event.price}
+            isRegistered={event.isRegistered}
+            onRegister={handleRegister}
+          />
+        ))}
+      </div>
+
+      {filteredEvents.length === 0 && (
+        <div className="flex h-[300px] items-center justify-center rounded-md border border-dashed">
+          <div className="flex flex-col items-center text-center">
+            <h3 className="mt-2 text-xl font-semibold">No events found</h3>
+            <p className="text-sm text-muted-foreground">
+              Try changing your search or filter criteria
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

@@ -1,4 +1,3 @@
-
 import { CalendarClock } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,7 +36,7 @@ export function UpcomingEvents({ events, onViewAll }: UpcomingEventsProps) {
               className="flex items-center justify-between space-x-4"
             >
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/10">
                   <CalendarClock className="h-6 w-6 text-primary" />
                 </div>
                 <div>

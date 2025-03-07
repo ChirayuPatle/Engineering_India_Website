@@ -32,7 +32,6 @@ const navItems = [
   { name: "Contact", href: "/contact" },
 ];
 
-
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +52,6 @@ export default function Navbar() {
 
   // Get current session
   useEffect(() => {
-
     const getCurrUser = async () => {
       const {
         data: { session },
@@ -62,10 +60,10 @@ export default function Navbar() {
         setUser(session.user);
       }
       setIsMounted(true);
-    }
-    
+    };
+
     cache(() => getCurrUser());
-    
+
     getCurrUser();
   }, []);
 
@@ -198,7 +196,7 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            
+
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

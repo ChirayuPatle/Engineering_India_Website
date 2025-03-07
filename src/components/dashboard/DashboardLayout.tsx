@@ -1,4 +1,3 @@
-
 import { type ReactNode, useState, useEffect } from "react";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { DashboardHeader } from "./DashboardHeader";
@@ -19,15 +18,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <DashboardSidebar 
-        open={sidebarOpen} 
-        onOpenChange={setSidebarOpen}
-      />
-      <div className={cn(
-        "flex flex-1 flex-col transition-all duration-300",
-        sidebarOpen && !isMobile ? "ml-[250px]" : "ml-0"
-      )}>
-        <DashboardHeader 
+      <DashboardSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
+      <div
+        className={cn(
+          "flex flex-1 flex-col transition-all duration-300",
+          sidebarOpen && !isMobile ? "ml-[250px]" : "ml-0",
+        )}
+      >
+        <DashboardHeader
           onSidebarOpenChange={(open) => setSidebarOpen(open)}
           sidebarOpen={sidebarOpen}
         />

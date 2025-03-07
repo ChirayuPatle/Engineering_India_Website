@@ -1,4 +1,3 @@
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,7 +25,7 @@ export function DashboardHeader({
 }: DashboardHeaderProps) {
   const isMobile = useIsMobile();
   const { user, loading } = useUser();
-  const router = useRouter()
+  const router = useRouter();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -36,7 +35,6 @@ export function DashboardHeader({
     router.push("/login");
     return null;
   }
-
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -51,7 +49,7 @@ export function DashboardHeader({
           <Menu className="h-5 w-5" />
         </Button>
       )}
-      <div className="md:hidden text-xl font-semibold">Club Portal</div>
+      <div className="text-xl font-semibold md:hidden">Club Portal</div>
       <div className="w-full flex-1 md:grow-0">
         <form className="hidden md:block">
           <div className="relative">
@@ -70,8 +68,7 @@ export function DashboardHeader({
           size="icon"
           className="text-muted-foreground"
           aria-label="Toggle Theme"
-        >
-        </Button>
+        ></Button>
         <Button
           variant="ghost"
           size="icon"
@@ -87,10 +84,10 @@ export function DashboardHeader({
               size="icon"
               className="rounded-full border border-input"
             >
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={user.image} alt={user.name} />
-            <AvatarFallback>{user.name?.charAt(0) ?? 'U'}</AvatarFallback>
-          </Avatar>
+              <Avatar className="h-8 w-8">
+                <AvatarImage src={user.image} alt={user.name} />
+                <AvatarFallback>{user.name?.charAt(0) ?? "U"}</AvatarFallback>
+              </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">

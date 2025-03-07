@@ -1,4 +1,3 @@
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -24,9 +23,7 @@ export function SidebarUserProfile({
   return (
     <div className={cn("flex items-center space-x-3 p-3", className)}>
       <Avatar className="h-9 w-9">
-        {avatarUrl ? (
-          <AvatarImage src={avatarUrl} alt={name} />
-        ) : null}
+        {avatarUrl ? <AvatarImage src={avatarUrl} alt={name} /> : null}
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col">

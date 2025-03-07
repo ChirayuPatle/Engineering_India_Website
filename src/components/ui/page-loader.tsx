@@ -20,9 +20,9 @@ export function PageLoader() {
   if (!loading) return null;
 
   return (
-    <div className="fixed top-0 left-0 w-full z-50">
-      <div className="w-full h-1 overflow-hidden bg-gray-200">
-        <div className="h-full bg-primary animate-indeterminate" />
+    <div className="fixed left-0 top-0 z-50 w-full">
+      <div className="h-1 w-full overflow-hidden bg-gray-200">
+        <div className="animate-indeterminate h-full bg-primary" />
       </div>
     </div>
   );
