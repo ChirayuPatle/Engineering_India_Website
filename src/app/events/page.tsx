@@ -88,7 +88,7 @@ export default function EventsPage() {
   return (
     <>
       {/* <Navigation /> */}
-      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <main className="container mx-auto px-4 mt-[2rem] py-16 sm:px-6 lg:px-8">
         <div className="mb-12">
           <Typography variant="h1" className="mb-6">
             Upcoming Events

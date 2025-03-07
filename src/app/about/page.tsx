@@ -7,7 +7,8 @@ import Image from "next/image";
 export default function AboutPage() {
   return (
     <>
-      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <main className="container mx-auto px-4 py-16 mt-[2rem] sm:px-6 lg:px-8">
+        {/* <div className="my-[4rem]"></div> */}
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
           <div>
             <Typography variant="h1" className="mb-6">
@@ -84,7 +85,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-        <div className="relative h-[400px] overflow-hidden rounded-lg">
+        <div className="relative mt-8 h-[400px] overflow-hidden rounded-lg">
           <Image
             src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4"
             alt="Students collaborating"
