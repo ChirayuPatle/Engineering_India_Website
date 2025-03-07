@@ -32,19 +32,22 @@ export default function Footer() {
           >
             Priyanshu Kayarkar
           </Link>
-          ,  <Link
+          ,{" "}
+          <Link
             target="_blank"
             className="underline hover:text-blue-600"
             href={"https://github.com/ChirayuPatle"}
           >
-          Chirayu Patle 
-          </Link> & <Link
+            Chirayu Patle
+          </Link>{" "}
+          &{" "}
+          <Link
             target="_blank"
             className="underline hover:text-blue-600"
             href={"https://github.com/Muchkundraje"}
           >
             Muchkundraje Thote
-          </Link> 
+          </Link>
         </p>
       </div>
     </footer>

@@ -1,12 +1,11 @@
 import "@/styles/globals.css";
 
+import { ClerkProvider } from "@clerk/nextjs";
 import { DM_Sans } from "next/font/google";
 
-import { AuthProvider } from "@/context/authContext";
-import Header from "@/vcomponents/Header";
-import { type Metadata } from "next";
-import Footer from "@/vcomponents/Footer";
 import Navbar from "@/components/landing/navbar";
+import Footer from "@/vcomponents/Footer";
+import { type Metadata } from "next";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -24,14 +23,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${dmsans.variable}`}>
-      <body className="space">
-        <AuthProvider>
+    <ClerkProvider>
+      <html lang="en" className={`${dmsans.variable}`}>
+        <body className="space">
           <Navbar />
           {children}
-        </AuthProvider>
-        <Footer />
-      </body>
-    </html>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
