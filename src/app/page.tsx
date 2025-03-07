@@ -21,7 +21,6 @@ gsap.registerPlugin(useGSAP);
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-
   useGSAP(()=>{
     gsap.from(".header-letter", {
       y: 100,
