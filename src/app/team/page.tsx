@@ -453,7 +453,8 @@ const TeamPage: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-10">
+    <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
+      <div className="my-[4rem]"></div>
       {teamMembers.map((details, index) => (
         <TeamCard
           key={index}

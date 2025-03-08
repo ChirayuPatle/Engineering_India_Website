@@ -1,6 +1,13 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathName = usePathname();
+  console.log("PATHNAME", pathName);
+
+  if (pathName?.startsWith("/dashboard")) return null;
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">

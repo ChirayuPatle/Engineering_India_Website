@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Moon, Sun, X } from "lucide-react";
-import { useTheme } from "next-themes";
+import { cache, useEffect, useState } from "react";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,10 +15,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import { supabase } from "@/utils/supabase/client";
-import { User } from "@supabase/supabase-js";
+import { type User } from "@supabase/supabase-js";
 
 interface UserMetadata {
   full_name?: string;
@@ -32,32 +31,6 @@ const navItems = [
   { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
 ];
-
-function ThemeToggle() {
-  const { setTheme } = useTheme();
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="default">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -88,6 +61,9 @@ export default function Navbar() {
       }
       setIsMounted(true);
     };
+
+    cache(() => getCurrUser());
+
     getCurrUser();
   }, []);
 
@@ -101,8 +77,8 @@ export default function Navbar() {
 
   // Prevent hydration issues
   if (!isMounted) return null;
-  // Optionally hide navbar on certain routes (e.g. /profile)
-  if (pathname === "/profile") return null;
+  // Optionally hide navbar on certain routes (e.g. /dashboard)
+  if (pathname?.startsWith("/dashboard")) return null;
 
   return (
     <header
@@ -134,27 +110,22 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <ThemeToggle />
-
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-8 w-8 rounded-full"
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarImage
                       src={
-                        (user.user_metadata &&
-                          user.user_metadata.avatar_url) ||
-                        "/default-avatar.png"
+                        user.user_metadata?.avatar_url || "/default-avatar.png"
                       }
-                      alt={
-                        (user.user_metadata &&
-                          user.user_metadata.full_name) ||
-                        "User"
-                      }
+                      alt={user.user_metadata?.full_name || "User"}
                     />
                     <AvatarFallback>
-                        {(user.user_metadata as UserMetadata)?.full_name
+                      {(user.user_metadata as UserMetadata)?.full_name
                         ?.split(" ")
                         .map((n: string) => n[0])
                         .join("") || "U"}
@@ -166,9 +137,7 @@ export default function Navbar() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {(user.user_metadata &&
-                        user.user_metadata.full_name) ||
-                        "User"}
+                      {user.user_metadata?.full_name || "User"}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {user.email}
@@ -177,7 +146,7 @@ export default function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/profile">Profile</Link>
+                  <Link href="/dashboard">Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
@@ -227,24 +196,25 @@ export default function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <div className="pt-2">
-              <ThemeToggle />
-            </div>
+
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
                         src={
-                          (user.user_metadata &&
-                            user.user_metadata.avatar_url) ||
+                          user.user_metadata?.avatar_url ||
                           "/default-avatar.png"
                         }
-                        alt={(user.user_metadata && user.user_metadata.full_name) || "User"}
+                        alt={user.user_metadata?.full_name || "User"}
                       />
                       <AvatarFallback>
-                        {(user.user_metadata as UserMetadata)?.full_name?.split(" ")
+                        {(user.user_metadata as UserMetadata)?.full_name
+                          ?.split(" ")
                           .map((n: string) => n[0])
                           .join("") || "U"}
                       </AvatarFallback>
@@ -255,9 +225,7 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {(user.user_metadata &&
-                          user.user_metadata.full_name) ||
-                          "User"}
+                        {user.user_metadata?.full_name || "User"}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
@@ -266,11 +234,8 @@ export default function Navbar() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Profile
+                    <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                      Dashboard
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem

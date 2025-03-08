@@ -5,6 +5,7 @@ import { Typography } from "@/components/ui/typography";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface EventCardProps {
   title: string;
@@ -23,8 +24,12 @@ export function EventCard({
   imageUrl,
   href,
 }: EventCardProps) {
+  const router = useRouter();
   return (
-    <div className="group relative overflow-hidden rounded-lg border bg-background p-2 transition-all hover:shadow-lg">
+    <div
+      onClick={() => router.push(href)}
+      className="group relative overflow-hidden rounded-lg border bg-background p-2 transition-all hover:shadow-lg"
+    >
       <div className="aspect-[16/9] overflow-hidden rounded-md">
         <Image
           src={imageUrl}
