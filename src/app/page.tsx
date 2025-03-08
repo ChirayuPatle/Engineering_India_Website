@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import AboutSection from "@/components/landing/aboutSection";
 import Container from "@/components/landing/container";
 import EventsGallery from "@/components/landing/eventGallery";
@@ -13,112 +14,118 @@ import gsap from "gsap";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
-import { useEffect } from "react";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(useGSAP);
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-  useGSAP(() => {
-    gsap.from(".header-letter", {
-      y: 100,
-      scale: 0.6,
-      opacity: 0,
-      duration: 1,
-      ease: "back.out(1.7)",
-      stagger: 0.2,
-    });
-
-    gsap.from(".subtitle", {
-      opacity: 0,
-      y: 50,
-      duration: 1,
-      delay: 3,
-      ease: "power2.out",
-    });
-
-    gsap.from(".cta-button", {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      delay: 3,
-      ease: "power2.out",
-    });
-
-    gsap.from(".stat-item", {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      delay: 1,
-      ease: "power2.out",
-      stagger: 0.2,
-    });
-
-    gsap.from(".trusted-by", {
-      opacity: 0,
-      y: 40,
-      duration: 1,
-      delay: 1.5,
-      ease: "power2.out",
-    });
-
-    // GSAP Mouse Follower
-    const cursor = document.querySelector(".cursor");
-    const follower = document.querySelector(".cursor-follower");
-
-    document.addEventListener("mousemove", (e) => {
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
-        ease: "power3",
+  useEffect(() => {
+    if (!sessionStorage.getItem("animationPlayed")) {
+      gsap.from(".header-letter", {
+        y: 100,
+        scale: 0.6,
+        opacity: 0,
+        duration: 1,
+        ease: "back.out(1.7)",
+        stagger: 0.2,
       });
-      gsap.to(follower, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.4,
-        ease: "power1.out",
-      });
-    });
 
-    return () => {
-      // Cleanup to prevent GSAP memory leaks
-      gsap.killTweensOf(cursor);
-      gsap.killTweensOf(follower);
+      gsap.from([".subtitle", ".cta-button"], {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: 3,
+        ease: "power2.out",
+      });
+
+      gsap.from(".stat-item", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        delay: 1,
+        ease: "power2.out",
+        stagger: 0.2,
+      });
+
+      gsap.from(".trusted-by", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        delay: 1.5,
+        ease: "power2.out",
+      });
+
+      sessionStorage.setItem("animationPlayed", "true");
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleRefresh = () => {
+      // Remove animation flag on page refresh
+      sessionStorage.removeItem("animationPlayed");
     };
+
+    window.addEventListener("beforeunload", handleRefresh);
+    return () => window.removeEventListener("beforeunload", handleRefresh);
+  }, []);
+
+useEffect(() => {
+
+
+
+  const cursor = document.querySelector(".cursor");
+  const follower = document.querySelector(".cursor-follower");
+
+  document.addEventListener("mousemove", (e) => {
+    gsap.to(cursor, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.3,
+      ease: "power3",
+    });
+    gsap.to(follower, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.4,
+      ease: "power1.out",
+    });
   });
+
+  return () => {
+    // Cleanup to prevent GSAP memory leaks
+    gsap.killTweensOf(cursor);
+    gsap.killTweensOf(follower);
+  };
+}, []);
+
+ 
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2, // Controls the smoothness of scrolling
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
 
-    function raf(time: any) {
+    const raf = (time: any) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    };
 
-    // GSAP Animations
+    requestAnimationFrame(raf);
+    return () => lenis.destroy(); // Cleanup on unmount
   }, []);
 
   return (
     <>
       <div className="cursor pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
-      {/* <div className="cursor-follower pointer-events-none fixed left-0 top-0 z-50 h-12 w-12 rounded-full bg-white opacity-30 mix-blend-exclusion"></div> */}
+
       <Section className="relative min-h-screen pb-16 pt-32">
-        {/* Mouse Follower */}
         <Container className="min-h-screen w-full">
           <div className="z-50 mt-[4rem] flex min-h-screen flex-col items-center justify-center text-center">
-            {/* <div className="h-[70%] w-[70%]  absolute top-20 "> <img className="h-full w-full object-cover rounded-lg z-20"  src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740507612/WhatsApp_Image_2025-02-25_at_11.48.56_PM_gndyjs.jpg " alt="" /></div> */}
-
             <h1
-              className={`${bebasNeue.className} z-50 mb-6 flex gap-2 text-5xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:text-9xl`}
+              className={`${bebasNeue.className} z-50 mb-6 flex gap-2 text-6xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:text-9xl lg:flex-row flex-col `}
             >
+          
               <div>
                 {"ENGINEERING".split("").map((letter, index) => (
                   <span key={index} className="header-letter">
@@ -147,9 +154,8 @@ export default function HomePage() {
             </h2>
 
             <p className="mx-auto mb-8 max-w-3xl text-base text-zinc-700 sm:text-lg md:text-xl">
-              Engineering India: YCCE's hub for
+              Engineering India: YCCE's hub for{" "}
               <Link href="/docs" className="text-[#0094FF] hover:underline">
-                {" "}
                 creative engineers
               </Link>{" "}
               . We build, learn, and innovate.
@@ -163,87 +169,38 @@ export default function HomePage() {
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
 
-            <p className="text-xs text-gray-400 sm:text-sm">
-              Free Registration
-            </p>
+            <p className="text-xs text-gray-400 sm:text-sm">Free Registration</p>
 
             <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-y-8 px-4 text-zinc-700 sm:grid-cols-3 sm:gap-x-8 sm:px-6">
-              <div className="stat-item flex flex-col items-center gap-y-2 text-center">
-                <Rocket className="h-10 w-10 sm:h-12 sm:w-12" />
-                <div className="leading-snug">
-                  <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
-                    80+
-                  </h1>
-                  <p className="text-sm sm:text-base md:text-lg">
-                    Passionate Engineers & Innovators
-                  </p>
+              {[ 
+                { icon: Rocket, count: "80+", label: "Passionate Engineers & Innovators" },
+                { icon: Building, count: "20+", label: "Tech Workshops & Hackathons" },
+                { icon: Users, count: "500+", label: "Community Members Strong" },
+              ].map(({ icon: Icon, count, label }, index) => (
+                <div key={index} className="stat-item flex flex-col items-center gap-y-2 text-center">
+                  <Icon className="h-10 w-10 sm:h-12 sm:w-12" />
+                  <div className="leading-snug">
+                    <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">{count}</h1>
+                    <p className="text-sm sm:text-base md:text-lg">{label}</p>
+                  </div>
                 </div>
-              </div>
-
-              <div className="stat-item flex flex-col items-center gap-y-2 text-center">
-                <Building className="h-10 w-10 sm:h-12 sm:w-12" />
-                <div className="leading-snug">
-                  <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
-                    20+
-                  </h1>
-                  <p className="text-sm sm:text-base md:text-lg">
-                    Tech Workshops & Hackathons
-                  </p>
-                </div>
-              </div>
-
-              <div className="stat-item col-span-2 flex flex-col items-center gap-y-2 justify-self-center text-center sm:col-span-1">
-                <Users className="h-10 w-10 sm:h-12 sm:w-12" />
-                <div className="leading-snug">
-                  <h1 className="text-2xl font-thin tracking-wide sm:text-3xl md:text-4xl">
-                    500+
-                  </h1>
-                  <p className="text-sm sm:text-base md:text-lg">
-                    Community Members Strong
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
 
             <div className="trusted-by mt-16 w-full max-w-3xl text-center text-zinc-700">
-              <h3 className="mb-6 text-lg font-semibold sm:text-xl md:text-2xl">
-                TRUSTED BY
-              </h3>
+              <h3 className="mb-6 text-lg font-semibold sm:text-xl md:text-2xl">TRUSTED BY</h3>
             </div>
           </div>
         </Container>
       </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <AboutSection />
-        </div>
-      </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <FeatureCarousel />
-        </div>
-      </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <EventsGallery />
-        </div>
-      </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <Feedback />
-        </div>
-      </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <Timeline />
-        </div>
-      </Section>
-      <Section>
-        <div className="min-h-screen w-full">
-          <Faq />
-        </div>
-      </Section>
-      {/* <Footer/> */}
+
+      {[AboutSection, FeatureCarousel, EventsGallery, Feedback, Timeline, Faq].map((Component, index) => (
+        <Section key={index}>
+          <div className="min-h-screen w-full">
+            <Component />
+          </div>
+        </Section>
+      ))}
     </>
   );
 }
