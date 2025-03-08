@@ -106,13 +106,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full px-20 transition-all duration-300 ${
+      className={`fixed top-0 z-50  lg:px-20 w-full transition-all duration-300 ${
         scrolled
           ? "bg-background/80 shadow-sm backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container mx-auto flex h-16 items-center justify-between  px-4">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-primary">
             Engineering India
