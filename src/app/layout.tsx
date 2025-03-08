@@ -26,13 +26,13 @@ export default function RootLayout({
   return (
     <UserProvider>
       <EventProvider>
-      <html lang="en" className={`${dmsans.variable}`}>
-        <body className="space">
-          <Navbar />
-          {children}
-          <Footer />
-        </body>
-      </html>
+        <html lang="en" className={`${dmsans.variable}`}>
+          <body className="space">
+            <Navbar />
+            {children}
+            <Footer />
+          </body>
+        </html>
       </EventProvider>
     </UserProvider>
   );

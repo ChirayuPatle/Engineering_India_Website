@@ -11,7 +11,7 @@ import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 export type User = {
-  id: string,
+  id: string;
   email: string;
   name: string;
   image: string;
@@ -42,11 +42,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
       }
 
       if (session?.user) {
-        const { id,email, user_metadata } = session.user;
+        const { id, email, user_metadata } = session.user;
         const name = user_metadata.full_name || "";
         const image = user_metadata.avatar_url || "/default-avatar.png";
         if (email) {
-          setUser({ email, name, image,id });
+          setUser({ email, name, image, id });
         }
       } else {
         setUser(null);

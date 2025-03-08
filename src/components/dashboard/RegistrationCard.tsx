@@ -48,14 +48,14 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
 
         <div className="flex flex-1 flex-col">
           <CardHeader>
-            <div className="flex items-center gap-3 justify-between">
+            <div className="flex items-center justify-between gap-3">
               <CardTitle>{reg.title}</CardTitle>
               {reg.status === "upcoming" ? (
-                <Badge className="bg-neutral-200/80 border hover:bg-neutral-200 border-zinc-800 text-neutral-800">
+                <Badge className="border border-zinc-800 bg-neutral-200/80 text-neutral-800 hover:bg-neutral-200">
                   Upcoming
                 </Badge>
               ) : reg.status === "pending" ? (
-                <Badge className="bg-yellow-100 border hover:bg-yellow-100 border-yellow-800 text-yellow-800">
+                <Badge className="border border-yellow-800 bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
                   Pending
                 </Badge>
               ) : (
@@ -95,7 +95,7 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto flex items-center"
+                  className="flex w-full items-center sm:w-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   Download Ticket
@@ -103,7 +103,7 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full sm:w-auto flex items-center"
+                  className="flex w-full items-center sm:w-auto"
                 >
                   <ExternalLink className="mr-2 h-4 w-4" />
                   Add to Calendar
@@ -114,7 +114,7 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
                 variant="outline"
                 size="sm"
                 disabled
-                className="w-full sm:w-auto flex items-center opacity-50 cursor-not-allowed"
+                className="flex w-full cursor-not-allowed items-center opacity-50 sm:w-auto"
               >
                 Pending Approval
               </Button>
@@ -122,7 +122,7 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full sm:w-auto flex items-center"
+                className="flex w-full items-center sm:w-auto"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download Certificate

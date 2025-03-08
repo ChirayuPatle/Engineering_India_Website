@@ -10,19 +10,19 @@ import {
 import { supabase } from "@/utils/supabase/client";
 
 export type Event = {
-    id: string;
-    title: string;
-    description: string;
-    start_date: string;
-    end_date?: string;
-    venue: string;
-    category: string;
-    spots: number;
-    spots_filled: number;
-    price: number;
-    isRegistered?: boolean;
-    onRegister?: (id: string) => void;
-    image?: string;
+  id: string;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date?: string;
+  venue: string;
+  category: string;
+  spots: number;
+  spots_filled: number;
+  price: number;
+  isRegistered?: boolean;
+  onRegister?: (id: string) => void;
+  image?: string;
 };
 
 interface EventContextType {

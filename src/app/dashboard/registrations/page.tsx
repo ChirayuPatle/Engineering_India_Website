@@ -3,7 +3,9 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import RegistrationCard, { Registration } from "@/components/dashboard/RegistrationCard";
+import RegistrationCard, {
+  type Registration,
+} from "@/components/dashboard/RegistrationCard";
 import NotFound from "@/components/dashboard/Notfound";
 
 // const registrations: Registration[] = [];
@@ -46,7 +48,6 @@ const registrations: Registration[] = [
     image: "/placeholder.svg?height=200&width=400",
   },
 ];
-
 
 export default function RegistrationsPage() {
   const router = useRouter();

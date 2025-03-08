@@ -76,9 +76,7 @@ export default function EventsPage() {
                   date={event.start_date}
                   location={event.venue}
                   description={event.description}
-                  imageUrl={
-                    event.image || "./notfound.svg"
-                  }
+                  imageUrl={event.image || "./notfound.svg"}
                   category={event.category}
                   href={`/events/${event.id}`}
                 />

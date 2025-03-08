@@ -22,7 +22,7 @@ const NotFound: React.FC<NotFoundProps> = ({
         alt={message}
         width={imageWidth}
         height={imageHeight}
-        className="max-w-full h-auto"
+        className="h-auto max-w-full"
       />
     </div>
   );
