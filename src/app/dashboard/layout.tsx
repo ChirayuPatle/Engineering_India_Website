@@ -15,20 +15,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
-  // Update sidebar state when device type changes
   useEffect(() => {
     setSidebarOpen(!isMobile);
   }, [isMobile]);
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Horizontal Loader at the top */}
       <PageLoader />
-
-      {/* Sidebar on the left */}
       <DashboardSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} />
 
-      {/* Right column: Header + Main Content */}
       <div
         className={cn(
           "flex flex-1 flex-col transition-all duration-300",

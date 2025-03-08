@@ -6,6 +6,7 @@ import Navbar from "@/components/landing/navbar";
 import { UserProvider } from "@/context/userContext";
 import Footer from "@/components/ui/Footer";
 import { type Metadata } from "next";
+import { EventProvider } from "@/context/eventContext";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <UserProvider>
+      <EventProvider>
       <html lang="en" className={`${dmsans.variable}`}>
         <body className="space">
           <Navbar />
@@ -31,6 +33,7 @@ export default function RootLayout({
           <Footer />
         </body>
       </html>
+      </EventProvider>
     </UserProvider>
   );
 }

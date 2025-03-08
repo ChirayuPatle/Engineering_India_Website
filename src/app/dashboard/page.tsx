@@ -7,8 +7,6 @@ import { PaymentCard } from "@/components/dashboard/PaymentCard";
 import { useState } from "react";
 import { Calendar, CreditCard, MessageSquare } from "lucide-react";
 
-// Example data for PaymentCard usage
-
 import { type PaymentStatus } from "@/components/dashboard/PaymentCard";
 
 export interface Payment {
@@ -20,7 +18,6 @@ export interface Payment {
   transactionId: string;
 }
 
-// Instead of "Completed", use "paid"
 const mockRecentPayments: Payment[] = [
   {
     id: "1",
@@ -65,41 +62,30 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex-1 space-y-6 p-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="w-full flex-1 justify-between space-y-6">
+        <div className="flex w-full gap-4">
           <StatCard
             title="Events Attended"
             value="5"
             icon={<Calendar className="h-4 w-4" />}
           />
           <StatCard
-            title="Pending Payments"
-            value="2"
+            title="Registered Events"
+            value="10"
             icon={<CreditCard className="h-4 w-4" />}
-          />
-          {/* Upcoming Events */}
-          <UpcomingEvents
-            events={mockUpcomingEvents}
-            onViewAll={() => console.log("View all events clicked")}
           />
         </div>
 
-        {/* Main content section */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Upcoming Events */}
-          <UpcomingEvents
-            events={mockUpcomingEvents}
-            onViewAll={() => console.log("View all events clicked")}
-          />
-
-          {/* Recent Payments */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold">Recent Payments</h2>
-            <div className="space-y-2">
-              {mockRecentPayments.map((payment) => (
-                <PaymentCard key={payment.id} {...payment} />
-              ))}
-            </div>
+        <UpcomingEvents
+          events={mockUpcomingEvents}
+          onViewAll={() => console.log("View all events clicked")}
+        />
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold">Recent Payments</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {mockRecentPayments.map((payment) => (
+              <PaymentCard key={payment.id} {...payment} />
+            ))}
           </div>
         </div>
       </div>

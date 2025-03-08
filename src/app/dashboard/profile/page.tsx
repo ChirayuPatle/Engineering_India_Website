@@ -24,14 +24,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-// import { useToast } from "@/hooks/use-toast";
 
 export default function ProfilePage() {
   const router = useRouter();
-  // const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
 
-  // Mock user data
   const [userData, setUserData] = useState({
     name: "John Doe",
     email: "john.doe@university.edu",
