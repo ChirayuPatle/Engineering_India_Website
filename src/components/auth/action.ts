@@ -25,8 +25,7 @@ export async function loginWithGoogle() {
     redirect("/error");
   }
 
-  // revalidatePath("/", "layout");
-  redirect("/dashboard");
+  revalidatePath("/dashboard", "layout");
 }
 
 export async function signupWithGoogle() {
