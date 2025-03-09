@@ -37,7 +37,7 @@ Stay tuned for more updates and success stories! 🚀`,"Happy wommen days"
         <div className="min-h-screen md:w-[700px] w-[600px] rounded-xl border-2 p-2 md:p-10 bg-slate-200 shadow-md">
           <h1 className="text-3xl font-bold ml-2 md;ml-0"> Blogs</h1>
           { fulltext.map((text, index) => (
-            <BlogCard key={index} text={text} imgurl={img[index] || ''} header={header[index]} />
+            <BlogCard key={index} text={text} imgurl={img[index] || ''} header={header[index] || ''} />
           ))}
         </div>
         <div className="h-[330px] w-[370px] bg-slate-200 sticky top-20 ml-2  rounded-xl hidden lg:block overflow-hidden">
