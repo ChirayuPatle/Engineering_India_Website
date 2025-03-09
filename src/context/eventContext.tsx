@@ -20,7 +20,7 @@ export type Event = {
   category: string;
   spots: number;
   spots_filled: number;
-  prizes : {
+  prizes: {
     position: string;
     description?: string;
     value?: string;
@@ -40,10 +40,10 @@ export type Event = {
   gallery?: string[];
   registration_mode: "INDIVIDUAL" | "TEAM";
   schedule?: {
-    time: string,
-    activity: string,
-    location: string,
-    speakers?: string[],
+    time: string;
+    activity: string;
+    location: string;
+    speakers?: string[];
   }[];
   tags?: string[];
 };

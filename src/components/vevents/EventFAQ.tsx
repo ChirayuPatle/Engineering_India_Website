@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Accordion,
@@ -20,10 +20,14 @@ const EventFAQ = ({ event }: EventFAQProps) => {
   return (
     <section className="animate-slide-up">
       <h2 className="section-title">Frequently Asked Questions</h2>
-      <Accordion type="single" collapsible className="bg-white rounded-lg shadow-sm">
+      <Accordion
+        type="single"
+        collapsible
+        className="rounded-lg bg-white shadow-sm"
+      >
         {event.faqs.map((faq, index) => (
           <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger className="px-6 text-left text-gray-800 hover:text-event-purple hover:no-underline">
+            <AccordionTrigger className="hover:text-event-purple px-6 text-left text-gray-800 hover:no-underline">
               {faq.question}
             </AccordionTrigger>
             <AccordionContent className="px-6 pb-4 text-gray-600">

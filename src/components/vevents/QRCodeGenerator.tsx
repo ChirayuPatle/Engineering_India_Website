@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCodeSVG } from "qrcode.react";
 
 interface QRCodeGeneratorProps {
   value: string;
@@ -8,7 +8,11 @@ interface QRCodeGeneratorProps {
   className?: string;
 }
 
-const QRCodeGenerator = ({ value, size = 128, className }: QRCodeGeneratorProps) => {
+const QRCodeGenerator = ({
+  value,
+  size = 128,
+  className,
+}: QRCodeGeneratorProps) => {
   return (
     <div className={className}>
       <QRCodeSVG

@@ -1,20 +1,20 @@
-"use client"
-import type { Event } from '@/context/eventContext';
-import { getEvents } from '@/lib/event-mock-data';
-import { useEffect, useState } from 'react';
+"use client";
+import type { Event } from "@/context/eventContext";
+import { getEvents } from "@/lib/event-mock-data";
+import { useEffect, useState } from "react";
 // import { useToast } from '@/hooks/use-toast';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { format } from 'date-fns';
-import { ArrowRight, Calendar, Loader2, MapPin, Users } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { format } from "date-fns";
+import { ArrowRight, Calendar, Loader2, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 
 const EventsPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-//   const { toast } = useToast();
+  //   const { toast } = useToast();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -23,14 +23,14 @@ const EventsPage = () => {
         const data = await getEvents();
         setEvents(data);
       } catch (err: any) {
-        setError('Failed to load events.');
+        setError("Failed to load events.");
         // toast({
         //   title: 'Error',
         //   description: 'Could not load events. Please try again later.',
         //   variant: 'destructive',
         // });
         alert(`Error fetching events: ${err}`);
-        console.error('Error fetching events:', err);
+        console.error("Error fetching events:", err);
       } finally {
         setIsLoading(false);
       }
@@ -41,9 +41,9 @@ const EventsPage = () => {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-16 min-h-screen flex items-center justify-center">
+      <div className="container mx-auto flex min-h-screen items-center justify-center px-4 py-16">
         <div className="text-center">
-          <Loader2 className="h-10 w-10 animate-spin mx-auto text-black" />
+          <Loader2 className="mx-auto h-10 w-10 animate-spin text-black" />
           <p className="mt-4 text-gray-600">Loading events...</p>
         </div>
       </div>
@@ -52,10 +52,14 @@ const EventsPage = () => {
 
   if (error || events.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-16 min-h-screen flex items-center justify-center">
+      <div className="container mx-auto flex min-h-screen items-center justify-center px-4 py-16">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">No Events Found</h2>
-          <p className="text-gray-600 mb-6">{error || 'There are no events available at this time.'}</p>
+          <h2 className="mb-2 text-2xl font-bold text-gray-800">
+            No Events Found
+          </h2>
+          <p className="mb-6 text-gray-600">
+            {error || "There are no events available at this time."}
+          </p>
           <Link href="/" className="text-black hover:underline">
             Return to Home
           </Link>
@@ -65,47 +69,66 @@ const EventsPage = () => {
   }
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Discover Events</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <div className="mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-gray-900">
+            Discover Events
+          </h1>
+          <p className="mx-auto max-w-2xl text-xl text-gray-600">
             Browse and register for upcoming events across various categories
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event) => {
             const startDate = new Date(event.start_date);
             const isUpcoming = startDate > new Date();
-            
+
             return (
-              <Card key={event.id} className="overflow-hidden transition-all duration-300 hover:shadow-lg">
+              <Card
+                key={event.id}
+                className="overflow-hidden transition-all duration-300 hover:shadow-lg"
+              >
                 <div className="relative h-48">
-                  <img 
-                    src={event.image || event.gallery?.[0] || 'https://via.placeholder.com/400x200?text=No+Image'} 
-                    alt={event.title} 
-                    className="w-full h-full object-cover"
+                  <img
+                    src={
+                      event.image ||
+                      event.gallery?.[0] ||
+                      "https://via.placeholder.com/400x200?text=No+Image"
+                    }
+                    alt={event.title}
+                    className="h-full w-full object-cover"
                   />
                   {!isUpcoming && (
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                      <Badge className="bg-white text-black px-4 py-1 text-sm">Event Ended</Badge>
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+                      <Badge className="bg-white px-4 py-1 text-sm text-black">
+                        Event Ended
+                      </Badge>
                     </div>
                   )}
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="mb-4">
                     {isUpcoming && (
-                      <Badge className="bg-black text-white mb-2">Upcoming</Badge>
+                      <Badge className="mb-2 bg-black text-white">
+                        Upcoming
+                      </Badge>
                     )}
-                    <h2 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{event.title}</h2>
-                    <p className="text-gray-600 line-clamp-2 text-sm mb-4">{event.description}</p>
-                    
-                    <div className="space-y-2 mb-4">
+                    <h2 className="mb-2 line-clamp-2 text-xl font-bold text-gray-900">
+                      {event.title}
+                    </h2>
+                    <p className="mb-4 line-clamp-2 text-sm text-gray-600">
+                      {event.description}
+                    </p>
+
+                    <div className="mb-4 space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-700">
                         <Calendar className="h-4 w-4 text-gray-500" />
-                        <span>{format(new Date(event.start_date), 'MMMM d, yyyy')}</span>
+                        <span>
+                          {format(new Date(event.start_date), "MMMM d, yyyy")}
+                        </span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-700">
                         <MapPin className="h-4 w-4 text-gray-500" />
@@ -116,18 +139,22 @@ const EventsPage = () => {
                         <span>{event.spots_filled} registered</span>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <div>
                         {event.fee ? (
-                          <span className="font-semibold text-black">₹{event.fee}</span>
+                          <span className="font-semibold text-black">
+                            ₹{event.fee}
+                          </span>
                         ) : (
-                          <span className="font-semibold text-green-600">Free</span>
+                          <span className="font-semibold text-green-600">
+                            Free
+                          </span>
                         )}
                       </div>
-                      
-                      <Button 
-                        variant="outline" 
+
+                      <Button
+                        variant="outline"
                         className="border-black text-black hover:bg-black hover:text-white"
                         asChild
                       >

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { type UseFormReturn } from "react-hook-form";
 import { Card, CardContent } from "@/components/ui/card";
@@ -40,16 +40,19 @@ const RegistrationForm = ({
   const totalSteps = isPaidEvent ? 3 : 2;
 
   const nextStep = () => {
-    const currentFields = step === 1 
-      ? ['name', 'email', 'phone'] 
-      : step === 2 && isTeamEvent 
-        ? ['teamName'] 
-        : [];
-    
-    const isValid = currentFields.every(field => form.getFieldState(field).invalid === false);
-    
+    const currentFields =
+      step === 1
+        ? ["name", "email", "phone"]
+        : step === 2 && isTeamEvent
+          ? ["teamName"]
+          : [];
+
+    const isValid = currentFields.every(
+      (field) => form.getFieldState(field).invalid === false,
+    );
+
     if (isValid) {
-      setStep(prev => Math.min(prev + 1, totalSteps));
+      setStep((prev) => Math.min(prev + 1, totalSteps));
     } else {
       // Trigger validation
       form.trigger(currentFields as any);
@@ -57,7 +60,7 @@ const RegistrationForm = ({
   };
 
   const prevStep = () => {
-    setStep(prev => Math.max(prev - 1, 1));
+    setStep((prev) => Math.max(prev - 1, 1));
   };
 
   const addTeamMember = () => {
@@ -90,27 +93,27 @@ const RegistrationForm = ({
     <Card className="animate-fade-in">
       <CardContent className="p-6">
         <div className="mb-6">
-          <div className="flex justify-between items-center mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <h3 className="text-xl font-bold text-gray-900">
-              {step === 1 
-                ? "Personal Information" 
-                : step === 2 && isTeamEvent 
-                  ? "Team Information" 
+              {step === 1
+                ? "Personal Information"
+                : step === 2 && isTeamEvent
+                  ? "Team Information"
                   : "Payment Information"}
             </h3>
             <div className="text-sm text-gray-500">
               Step {step} of {totalSteps}
             </div>
           </div>
-          
-          <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
-            <div 
+
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+            <div
               className="bg-event-purple h-full transition-all duration-300 ease-out"
               style={{ width: `${(step / totalSteps) * 100}%` }}
             />
           </div>
         </div>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {step === 1 && (
@@ -128,7 +131,7 @@ const RegistrationForm = ({
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -136,13 +139,17 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="you@example.com" {...field} />
+                        <Input
+                          type="email"
+                          placeholder="you@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="phone"
@@ -158,7 +165,7 @@ const RegistrationForm = ({
                 />
               </div>
             )}
-            
+
             {step === 2 && isTeamEvent && (
               <div className="space-y-6">
                 <FormField
@@ -174,91 +181,95 @@ const RegistrationForm = ({
                     </FormItem>
                   )}
                 />
-                
+
                 <div>
-                  <div className="flex justify-between items-center mb-3">
+                  <div className="mb-3 flex items-center justify-between">
                     <FormLabel>Team Members</FormLabel>
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
                       onClick={addTeamMember}
-                      className="h-8 text-event-purple border-event-purple hover:bg-event-light-purple/50"
+                      className="text-event-purple border-event-purple hover:bg-event-light-purple/50 h-8"
                     >
-                      <Plus className="h-4 w-4 mr-1" />
+                      <Plus className="mr-1 h-4 w-4" />
                       Add Member
                     </Button>
                   </div>
-                  
-                  {form.watch("teamMembers")?.map((_:RegistrationFormProps,index: number) => (
-                    <div key={index} className="space-y-3 mb-4">
-                      {index > 0 && <Separator className="my-4" />}
-                      
-                      <div className="flex justify-between items-center">
-                        <h4 className="font-medium text-sm">Team Member {index + 1}</h4>
-                        {index > 0 && (
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeTeamMember(index)}
-                            className="h-7 w-7 p-0 text-gray-500"
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        )}
-                      </div>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <FormField
-                          control={form.control}
-                          name={`teamMembers.${index}.name`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-xs">Name</FormLabel>
-                              <FormControl>
-                                <Input placeholder="Member name" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
+
+                  {form
+                    .watch("teamMembers")
+                    ?.map((_: RegistrationFormProps, index: number) => (
+                      <div key={index} className="mb-4 space-y-3">
+                        {index > 0 && <Separator className="my-4" />}
+
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-sm font-medium">
+                            Team Member {index + 1}
+                          </h4>
+                          {index > 0 && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeTeamMember(index)}
+                              className="h-7 w-7 p-0 text-gray-500"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
                           )}
-                        />
-                        
-                        <FormField
-                          control={form.control}
-                          name={`teamMembers.${index}.email`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel className="text-xs">Email</FormLabel>
-                              <FormControl>
-                                <Input
-                                  type="email"
-                                  placeholder="member@example.com"
-                                  {...field}
-                                />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                          <FormField
+                            control={form.control}
+                            name={`teamMembers.${index}.name`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-xs">Name</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Member name" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+
+                          <FormField
+                            control={form.control}
+                            name={`teamMembers.${index}.email`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-xs">Email</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="email"
+                                    placeholder="member@example.com"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             )}
-            
+
             {step === (isTeamEvent ? 3 : 2) && isPaidEvent && (
               <div className="space-y-4">
-                <div className="bg-event-light-purple p-4 rounded-lg mb-4">
-                  <div className="flex justify-between items-center">
+                <div className="bg-event-light-purple mb-4 rounded-lg p-4">
+                  <div className="flex items-center justify-between">
                     <div className="font-medium">Total Amount</div>
-                    <div className="text-xl font-bold text-event-purple">
+                    <div className="text-event-purple text-xl font-bold">
                       ${eventPrice.toFixed(2)}
                     </div>
                   </div>
                 </div>
-                
+
                 <FormField
                   control={form.control}
                   name="cardNumber"
@@ -272,7 +283,7 @@ const RegistrationForm = ({
                     </FormItem>
                   )}
                 />
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
@@ -287,7 +298,7 @@ const RegistrationForm = ({
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="cvv"
@@ -302,13 +313,13 @@ const RegistrationForm = ({
                     )}
                   />
                 </div>
-                
+
                 <FormDescription className="text-xs text-gray-500">
                   This is a demo form. No actual payment will be processed.
                 </FormDescription>
               </div>
             )}
-            
+
             <div className="flex justify-between pt-4">
               {step === 1 ? (
                 <Button
@@ -320,15 +331,11 @@ const RegistrationForm = ({
                   Cancel
                 </Button>
               ) : (
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={prevStep}
-                >
+                <Button type="button" variant="outline" onClick={prevStep}>
                   Back
                 </Button>
               )}
-              
+
               {step < totalSteps ? (
                 <Button
                   type="button"

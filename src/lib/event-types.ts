@@ -1,5 +1,4 @@
-
-export type RegistrationMode = 'INDIVIDUAL' | 'TEAM';
+export type RegistrationMode = "INDIVIDUAL" | "TEAM";
 
 export interface Event {
   id: string;

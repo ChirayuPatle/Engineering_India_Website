@@ -54,7 +54,10 @@ export function EventCard({
               <span className="text-sm">{location}</span>
             </div>
           </div>
-          <Typography as="p" className="mt-2 line-clamp-2 text-muted-foreground">
+          <Typography
+            as="p"
+            className="mt-2 line-clamp-2 text-muted-foreground"
+          >
             {description}
           </Typography>
         </div>

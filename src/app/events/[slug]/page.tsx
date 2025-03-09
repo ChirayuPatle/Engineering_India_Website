@@ -89,7 +89,7 @@ function ShareModal({
         <div className="flex flex-col gap-3">
           <a
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              shareUrl
+              shareUrl,
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -100,7 +100,7 @@ function ShareModal({
           </a>
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-              shareUrl
+              shareUrl,
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -192,13 +192,19 @@ export default function EventPage() {
         {/* Example section nav */}
         <nav className="sticky top-0 z-30 mb-8 border-b border-zinc-900/20 bg-white py-4">
           <div className="flex flex-wrap gap-4">
-            <Button variant="outline" onClick={() => handleScrollTo("overview")}>
+            <Button
+              variant="outline"
+              onClick={() => handleScrollTo("overview")}
+            >
               Overview
             </Button>
             <Button variant="outline" onClick={() => handleScrollTo("prizes")}>
               Prizes
             </Button>
-            <Button variant="outline" onClick={() => handleScrollTo("schedule")}>
+            <Button
+              variant="outline"
+              onClick={() => handleScrollTo("schedule")}
+            >
               Schedule
             </Button>
             <Button variant="outline" onClick={() => handleScrollTo("team")}>

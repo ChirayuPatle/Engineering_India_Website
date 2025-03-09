@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { type Event } from "@/context/eventContext";
@@ -21,14 +21,18 @@ const EventPrizes = ({ event }: EventPrizesProps) => {
           <Card key={index} className="card-hover">
             <CardContent className="p-5">
               <div className="flex items-start gap-3">
-                <div className="bg-event-light-purple p-2 rounded-full">
-                  <Trophy className="h-5 w-5 text-event-purple" />
+                <div className="bg-event-light-purple rounded-full p-2">
+                  <Trophy className="text-event-purple h-5 w-5" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-800">{prize.position}</h3>
-                  <p className="text-gray-600 text-sm mt-1">{prize.description}</p>
+                  <p className="mt-1 text-sm text-gray-600">
+                    {prize.description}
+                  </p>
                   {prize.value && (
-                    <p className="text-event-purple font-medium mt-2">{prize.value}</p>
+                    <p className="text-event-purple mt-2 font-medium">
+                      {prize.value}
+                    </p>
                   )}
                 </div>
               </div>
