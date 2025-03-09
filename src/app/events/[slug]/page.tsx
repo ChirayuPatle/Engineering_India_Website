@@ -1,10 +1,11 @@
 "use client";
 
-import { EventGallery } from "@/components/events/eventGallery";
-import { FAQAccordion } from "@/components/events/faqAccordian";
-import { PrizeGrid } from "@/components/events/prizeGrid";
-import { TeamGrid } from "@/components/events/team-grid";
-import { Timeline } from "@/components/events/timeline";
+import { useParams, useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useEvents } from "@/context/eventContext";
+import Image from "next/image";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
@@ -12,13 +13,9 @@ import {
   Link2,
   Linkedin,
   MessageCircleMore,
-  Share2Icon,
+  Share2 as Share2Icon,
   Twitter,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
 
 function BlurImage(props: any) {
   const [isLoading, setLoading] = useState(true);
@@ -92,7 +89,7 @@ function ShareModal({
         <div className="flex flex-col gap-3">
           <a
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              shareUrl,
+              shareUrl
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -103,7 +100,7 @@ function ShareModal({
           </a>
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-              shareUrl,
+              shareUrl
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -140,63 +137,14 @@ function ShareModal({
   );
 }
 
-const allEvents = {
-  "tech-talk-ai": {
-    title: "Tech Talk: Future of AI",
-    date: "March 15, 2024",
-    time: "2:00 PM - 4:00 PM",
-    location: "Main Auditorium",
-    description:
-      "Join us for an exciting discussion about the future of AI. Our panel of experts will explore the latest developments in artificial intelligence and machine learning.",
-    detailedDescription: `Artificial Intelligence (AI) is reshaping our world. In this talk, Dr. Sarah Chen—AI Research Director at TechCorp—will delve into:
-    
-- The evolution of machine learning algorithms.
-- The impact of AI on job markets.
-- Emerging trends and technologies in AI research.
-- Ethical considerations in AI deployment.
-
-Whether you're a student, professional, or tech enthusiast, this session will provide valuable insights and spark engaging discussions.`,
-    images: [
-      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1200&q=80",
-    ],
-    category: "Tech Talk",
-    speaker: "Dr. Sarah Chen",
-    speakerTitle: "AI Research Director at TechCorp",
-    capacity: 200,
-    remainingSeats: 45,
-    completed: true,
-  },
-  "coding-workshop": {
-    title: "Coding Workshop",
-    date: "March 20, 2024",
-    time: "10:00 AM - 3:00 PM",
-    location: "Computer Lab",
-    description:
-      "Learn the basics of web development in this hands-on workshop. We'll cover HTML, CSS, and JavaScript fundamentals.",
-    detailedDescription:
-      "This workshop will cover fundamental web development concepts including HTML structure, CSS styling, and JavaScript programming.",
-    images: [
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-    ],
-    category: "Workshop",
-    speaker: "John Smith",
-    speakerTitle: "Senior Web Developer",
-    capacity: 30,
-    remainingSeats: 8,
-    completed: true,
-  },
-};
-
 export default function EventPage() {
-  const { slug } = useParams();
+  // 1. Declare all hooks up front
   const router = useRouter();
-  const event = allEvents[slug as keyof typeof allEvents];
+  const { slug } = useParams();
+  const { events } = useEvents();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-
+  // 2. Always define useCallback in the same order, whether or not event is found
   const handleScrollTo = useCallback((sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -204,48 +152,53 @@ export default function EventPage() {
     }
   }, []);
 
+  // 3. Identify the event
+  const event = events.find((ev) => ev.id === slug);
+
+  // 4. If not found, conditionally return (AFTER all hooks have been called)
   if (!event) {
     return (
-      <>
-        <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <Typography variant="h1" className="mb-6">
-              Event Not Found
-            </Typography>
-            <Typography className="mb-8 text-muted-foreground">
-              The event you're looking for doesn't exist or has been removed.
-            </Typography>
-            <Button>
-              <Link href="/events">Back to Events</Link>
-            </Button>
-          </div>
-        </main>
-      </>
+      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <Typography variant="h1" className="mb-6">
+            Event Not Found
+          </Typography>
+          <Typography className="mb-8 text-muted-foreground">
+            The event you're looking for doesn't exist or has been removed.
+          </Typography>
+          <Button>
+            <Link href="/events">Back to Events</Link>
+          </Button>
+        </div>
+      </main>
     );
   }
 
+  // 5. Prepare images for the carousel
+  const images = Array.isArray(event.image)
+    ? event.image
+    : [event.image ?? "./notfound.svg"];
+
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+
   return (
     <>
-      <section className="relative mb-12">
-        <AutoCarousel images={event.images} className="min-h-[70vh] w-full" />
+      {/* Top offset so carousel doesn't hide behind navbar */}
+      <section className="relative mb-12 pt-20">
+        <AutoCarousel images={images} className="min-h-[70vh] w-full" />
       </section>
 
       <main className="container mx-auto px-4 py-16 sm:px-6 sm:py-8 lg:px-36">
+        {/* Example section nav */}
         <nav className="sticky top-0 z-30 mb-8 border-b border-zinc-900/20 bg-white py-4">
           <div className="flex flex-wrap gap-4">
-            <Button
-              variant="outline"
-              onClick={() => handleScrollTo("overview")}
-            >
+            <Button variant="outline" onClick={() => handleScrollTo("overview")}>
               Overview
             </Button>
             <Button variant="outline" onClick={() => handleScrollTo("prizes")}>
               Prizes
             </Button>
-            <Button
-              variant="outline"
-              onClick={() => handleScrollTo("schedule")}
-            >
+            <Button variant="outline" onClick={() => handleScrollTo("schedule")}>
               Schedule
             </Button>
             <Button variant="outline" onClick={() => handleScrollTo("team")}>
@@ -266,72 +219,82 @@ export default function EventPage() {
             {/* Overview Section */}
             <section id="overview" className="scroll-mt-20 space-y-6">
               <Card className="p-6">
-                <h2 className="mb-4 text-2xl font-bold">
+                <Typography as="h2" className="mb-4 text-2xl font-bold">
                   {event.title.toUpperCase()}
-                </h2>
-                <div className="prose max-w-none">
-                  <p>{event.description}</p>
-                </div>
+                </Typography>
               </Card>
             </section>
 
-            {/* Detailed Description Section */}
-            {event.detailedDescription && (
+            {/* Additional details if present */}
+            {event.description && (
               <section id="details" className="scroll-mt-20 space-y-6">
                 <Card className="p-6">
-                  <h2 className="mb-4 text-2xl font-bold">About the Event</h2>
+                  <Typography as="h2" className="mb-4 text-2xl font-bold">
+                    About the Event
+                  </Typography>
                   <div className="prose max-w-none whitespace-pre-line">
-                    <p>{event.detailedDescription}</p>
+                    {event.description}
                   </div>
                 </Card>
               </section>
             )}
 
+            {/* Add custom sections for your event (prizes, schedule, team, etc.) */}
             <section id="prizes" className="scroll-mt-20 space-y-6">
-              <h1 className="text-2xl font-bold">Prizes</h1>
-              <PrizeGrid />
+              <Typography as="h1" className="text-2xl font-bold">
+                Prizes
+              </Typography>
+              {/* Insert your <PrizeGrid /> or other components */}
             </section>
 
             <section id="schedule" className="scroll-mt-20 space-y-6">
-              <h1 className="text-2xl font-bold">Timeline and Schedule</h1>
-              <Timeline />
+              <Typography as="h1" className="text-2xl font-bold">
+                Timeline and Schedule
+              </Typography>
+              {/* Insert your <Timeline /> or other components */}
             </section>
 
             <section id="team" className="scroll-mt-20 space-y-6">
-              <h1 className="text-2xl font-bold">Registered Teams</h1>
-              <TeamGrid />
+              <Typography as="h1" className="text-2xl font-bold">
+                Registered Teams
+              </Typography>
+              {/* Insert your <TeamGrid /> or other components */}
             </section>
 
             <section id="gallery" className="scroll-mt-20 space-y-6">
-              <h1 className="text-2xl font-bold">Gallery</h1>
-              <EventGallery />
+              <Typography as="h1" className="text-2xl font-bold">
+                Gallery
+              </Typography>
+              {/* Insert your <EventGallery /> or other components */}
             </section>
 
             <section id="faq" className="scroll-mt-20 space-y-6">
-              <h1 className="text-2xl font-bold">FAQs</h1>
-              <FAQAccordion />
+              <Typography as="h1" className="text-2xl font-bold">
+                FAQs
+              </Typography>
+              {/* Insert your <FAQAccordion /> or other components */}
             </section>
           </div>
 
+          {/* Sidebar */}
           <aside className="sticky top-20 z-20 w-full space-y-6 lg:w-[300px] lg:self-start">
             <Card className="p-4">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-bold">Register Now</h2>
+                <Typography as="h2" className="text-xl font-bold">
+                  Register Now
+                </Typography>
                 <Button
-                  variant={"default"}
+                  variant="outline"
                   onClick={() => setIsShareModalOpen(true)}
-                  className="flex items-center gap-1 border-[1px] border-blue-600 bg-transparent text-blue-600"
+                  className="flex items-center gap-1"
                 >
                   <Share2Icon className="h-5 w-5" />
                   <span className="hidden sm:inline">Share</span>
                 </Button>
               </div>
-              {event.completed ? (
-                <Button
-                  type="button"
-                  disabled
-                  className="w-full border-none bg-red-600"
-                >
+              {/* For demonstration, assume "completed" means event is closed. Adjust as needed. */}
+              {event ? (
+                <Button type="button" disabled className="w-full bg-red-600">
                   Registration Closed
                 </Button>
               ) : (
@@ -346,7 +309,9 @@ export default function EventPage() {
             </Card>
 
             <Card className="p-4">
-              <h3 className="mb-2 font-semibold">Important Dates</h3>
+              <Typography as="h3" className="mb-2 font-semibold">
+                Important Dates
+              </Typography>
               <ul className="space-y-2 text-sm">
                 <li className="flex justify-between">
                   <span>Registration Opens</span>
@@ -358,17 +323,19 @@ export default function EventPage() {
                 </li>
                 <li className="flex justify-between">
                   <span>Event Starts</span>
-                  <span>{event.date}</span>
+                  <span>{event.start_date}</span>
                 </li>
                 <li className="flex justify-between">
                   <span>Event Ends</span>
-                  <span>{event.date}</span>
+                  <span>{event.end_date ?? event.start_date}</span>
                 </li>
               </ul>
             </Card>
 
             <Card className="p-4">
-              <h3 className="mb-2 font-semibold">Contact Organizers</h3>
+              <Typography as="h3" className="mb-2 font-semibold">
+                Contact Organizers
+              </Typography>
               <div className="space-y-2 text-sm">
                 <p>Email: contact@ethdenver.com</p>
                 <p>Discord: ETHDenver Community</p>

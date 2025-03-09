@@ -12,6 +12,7 @@ import { supabase } from "@/utils/supabase/client";
 export type Event = {
   id: string;
   title: string;
+  fee: number;
   description: string;
   start_date: string;
   end_date?: string;
@@ -19,10 +20,32 @@ export type Event = {
   category: string;
   spots: number;
   spots_filled: number;
-  price: number;
+  prizes : {
+    position: string;
+    description?: string;
+    value?: string;
+  }[];
   isRegistered?: boolean;
   onRegister?: (id: string) => void;
   image?: string;
+  organizer?: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  faqs?: {
+    question: string;
+    answer: string;
+  }[];
+  gallery?: string[];
+  registration_mode: "INDIVIDUAL" | "TEAM";
+  schedule?: {
+    time: string,
+    activity: string,
+    location: string,
+    speakers?: string[],
+  }[];
+  tags?: string[];
 };
 
 interface EventContextType {
