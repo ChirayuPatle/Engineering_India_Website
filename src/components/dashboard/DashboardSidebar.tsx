@@ -107,7 +107,7 @@ export function DashboardSidebar({
         )}
       >
         <div className="flex h-full flex-col overflow-hidden">
-          <div className="flex h-14 items-center justify-between border-b px-4">
+          <div className="flex h-16 items-center justify-between border-b px-4">
             <Link href="/">
               <div className="flex items-center">
                 <span className="text-lg font-semibold">
