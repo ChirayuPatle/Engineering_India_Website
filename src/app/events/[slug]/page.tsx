@@ -354,7 +354,7 @@ export default function EventPage() {
               </Button>
             </Card>
 
-            <Card className="p-4 shadow-none">
+            {/* <Card className="p-4 shadow-none">
               <Typography as="h3" className="mb-2 font-semibold">
                 Important Dates
               </Typography>
@@ -376,7 +376,7 @@ export default function EventPage() {
                   <span>{event.event_end_date ?? event.event_start_date}</span>
                 </li>
               </ul>
-            </Card>
+            </Card> */}
 
             <Card className="p-4 shadow-none">
               <Typography as="h3" className="mb-2 font-semibold">
@@ -399,7 +399,7 @@ export default function EventPage() {
                     Email
                   </Button>
                 </div>
-                <p>Email: {event.organizer?.email}</p>
+                <p>Email: {event.organizer?.email || "evetnorg@eiycce.in"}</p>
               </div>
             </Card>
           </aside>
