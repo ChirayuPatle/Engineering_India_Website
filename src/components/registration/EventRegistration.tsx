@@ -51,7 +51,9 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
       phone: "",
       teamName: "",
       teamMembers:
-        event.event_registration_mode === "TEAM" ? [{ name: "", email: "" }] : [],
+        event.event_registration_mode === "TEAM"
+          ? [{ name: "", email: "" }]
+          : [],
     },
   });
 
@@ -60,7 +62,7 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
       setIsSubmitting(true);
       const ticketData = await registerForEvent(data);
       setTicket(ticketData);
-      
+
       toast.success("Registration successful! Your ticket has been generated.");
     } catch (error) {
       toast.error(

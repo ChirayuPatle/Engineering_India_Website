@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { DM_Sans } from "next/font/google";
 
 import Navbar from "@/components/landing/navbar";
-import {Toaster} from "react-hot-toast"
+import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/context/userContext";
 import Footer from "@/components/ui/Footer";
 import { type Metadata } from "next";
@@ -17,7 +17,8 @@ const dmsans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Engineering India | YCCE",
-  description: "A national level club, which aims to foster innovation and social responsibility, focuses on the overall development of students through various technical and social activities.",
+  description:
+    "A national level club, which aims to foster innovation and social responsibility, focuses on the overall development of students through various technical and social activities.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

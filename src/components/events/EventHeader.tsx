@@ -45,8 +45,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
       : event.event_image ||
         "https://drive.google.com/file/d/1SX3OrRZBdMPAICBEB9TLSp6rTRKDOoJT/view?usp=drive_link";
 
-  const shareUrl =
-    typeof window !== "undefined" ? window.location.href : "";
+  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   const handleShareButtonClick = () => {
     if (navigator.share) {
@@ -81,47 +80,51 @@ export default function EventHeader({ event }: EventHeaderProps) {
         {/* Updated Back Button */}
         <button
           onClick={() => router.push("/events")}
-          className="absolute top-4 left-4 z-30 flex items-center gap-2 rounded-md bg-white p-2 shadow transition-colors hover:bg-gray-100"
+          className="absolute left-4 top-4 z-30 flex items-center gap-2 rounded-md bg-white p-2 shadow transition-colors hover:bg-gray-100"
         >
           <ArrowLeft className="h-5 w-5" />
         </button>
 
         <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
-  <div className="container mx-auto max-w-4xl">
-    <div className="flex flex-col items-center justify-center">
-      <h1 className="mb-4 text-5xl font-extrabold text-white sm:text-6xl text-center">
-        {event.event_title}
-      </h1>
-      <div className="flex items-center gap-4 bg-white p-1 px-2 mb-4 rounded-md shadow">
-        <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4" />
-          <span className="text-xs sm:text-sm">{formatDate(startDate)}</span>
+          <div className="container mx-auto max-w-4xl">
+            <div className="flex flex-col items-center justify-center">
+              <h1 className="mb-4 text-center text-5xl font-extrabold text-white sm:text-6xl">
+                {event.event_title}
+              </h1>
+              <div className="mb-4 flex items-center gap-4 rounded-md bg-white p-1 px-2 shadow">
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span className="text-xs sm:text-sm">
+                    {formatDate(startDate)}
+                  </span>
+                </div>
+                <div className="h-4 border-l border-gray-300"></div>
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4" />
+                  <span className="text-xs sm:text-sm">
+                    {event.event_venue}
+                  </span>
+                </div>
+                <div className="h-4 border-l border-gray-300"></div>
+                <Button
+                  variant="ghost"
+                  onClick={handleShareButtonClick}
+                  className="flex items-center gap-1 p-2 text-black"
+                >
+                  <Share2Icon className="h-4 w-4" />
+                  <span className="hidden text-xs sm:inline sm:text-sm">
+                    Share
+                  </span>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="border-l border-gray-300 h-4"></div>
-        <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4" />
-          <span className="text-xs sm:text-sm">{event.event_venue}</span>
-        </div>
-        <div className="border-l border-gray-300 h-4"></div>
-        <Button
-          variant="ghost"
-          onClick={handleShareButtonClick}
-          className="flex items-center gap-1 p-2 text-black"
-        >
-          <Share2Icon className="h-4 w-4" />
-          <span className="hidden sm:inline text-xs sm:text-sm">Share</span>
-        </Button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
       </div>
 
       {/* CONTENT CARD */}
       <div className="container relative z-20 mx-auto -mt-8 max-w-4xl px-4 sm:px-6">
-        <div className="flex flex-col items-start gap-6 rounded-lg bg-white p-6 border border-zinc-200 md:flex-row">
+        <div className="flex flex-col items-start gap-6 rounded-lg border border-zinc-200 bg-white p-6 md:flex-row">
           <div className="w-full overflow-hidden rounded-lg border border-zinc-300 md:w-1/3">
             <img
               src={

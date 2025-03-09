@@ -69,7 +69,7 @@ const EventContactShare = ({ event }: EventContactShareProps) => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
-    
+
     toast.success("Link copied");
   };
 

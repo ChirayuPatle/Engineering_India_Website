@@ -6,14 +6,14 @@ import { useState, useEffect } from "react";
 export default function Footer() {
   const pathName = usePathname();
   const [isMounted, setIsMounted] = useState(false);
-  
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  
+
   // Prevent hydration issues
   if (!isMounted) return null;
-  
+
   // Skip rendering footer on certain pages
   if (pathName?.startsWith("/dashboard")) return null;
   if (pathName?.startsWith("/auth")) return null;

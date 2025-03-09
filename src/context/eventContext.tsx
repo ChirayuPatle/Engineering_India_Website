@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useState, useEffect, useContext, type ReactNode } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  type ReactNode,
+} from "react";
 import { supabase } from "@/utils/supabase/client";
 
 export type Event = {
@@ -44,7 +50,6 @@ export type Event = {
   }[];
   event_tags?: string[];
 };
-
 
 interface EventContextType {
   events: Event[];

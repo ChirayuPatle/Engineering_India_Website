@@ -49,10 +49,10 @@ export async function middleware(request: NextRequest) {
 
   // Protected routes that require authentication
   const protectedRoutes = ["/dashboard", "/profile"];
-  
+
   // Check if the current path is a protected route
   const isProtectedRoute = protectedRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route)
+    request.nextUrl.pathname.startsWith(route),
   );
 
   // Only redirect if the user is trying to access a protected route and is not authenticated

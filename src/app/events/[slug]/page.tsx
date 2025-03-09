@@ -91,7 +91,7 @@ export function ShareModal({
         <div className="flex flex-col gap-3">
           <a
             href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              shareUrl
+              shareUrl,
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -102,7 +102,7 @@ export function ShareModal({
           </a>
           <a
             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-              shareUrl
+              shareUrl,
             )}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -141,7 +141,7 @@ export function ShareModal({
 
 function Spinner() {
   return (
-    <div className="flex h-screen backdrop-blur-md bg-white/10 w-full items-center justify-center">
+    <div className="flex h-screen w-full items-center justify-center bg-white/10 backdrop-blur-md">
       <div className="h-16 w-16 animate-spin rounded-full border-b-4 border-black" />
     </div>
   );
@@ -268,7 +268,7 @@ export default function EventPage() {
                 >
                   {item.label}
                 </Button>
-              ) : null
+              ) : null,
             )}
           </div>
         </nav>
@@ -346,7 +346,7 @@ export default function EventPage() {
               <Button
                 type="button"
                 onClick={() => timeLeft > 0 && router.push("/registration")}
-                className={`w-full ${timeLeft > 0 ? "bg-black": "bg-red-300 hover:bg-red-300 "} `}
+                className={`w-full ${timeLeft > 0 ? "bg-black" : "bg-red-300 hover:bg-red-300"} `}
               >
                 {timeLeft > 0
                   ? `Register Now (${formatTimeLeft(timeLeft)})`
@@ -384,10 +384,18 @@ export default function EventPage() {
               </Typography>
               <div className="space-y-2 text-sm">
                 <div className="mt-4 flex gap-2">
-                  <Button variant="outline" size="sm" className="w-full shadow-none">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full shadow-none"
+                  >
                     Whatsapp
                   </Button>
-                  <Button variant="outline" size="sm" className="w-full shadow-none">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full shadow-none"
+                  >
                     Email
                   </Button>
                 </div>
@@ -403,7 +411,7 @@ export default function EventPage() {
         <Button
           type="button"
           onClick={() => timeLeft > 0 && router.push("/registration")}
-          className={`w-full ${timeLeft > 0 ? "bg-black": "bg-red-300 hover:bg-red-300 "} `}
+          className={`w-full ${timeLeft > 0 ? "bg-black" : "bg-red-300 hover:bg-red-300"} `}
           disabled={timeLeft <= 0}
         >
           {timeLeft > 0

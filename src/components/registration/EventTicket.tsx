@@ -12,9 +12,7 @@ interface EventTicketProps {
 }
 
 const EventTicket = ({ ticket }: EventTicketProps) => {
-
   const handleDownload = () => {
-    
     toast.success("Your ticket is being downloaded.");
   };
 
@@ -31,7 +29,9 @@ const EventTicket = ({ ticket }: EventTicketProps) => {
           console.error("Share failed:", err);
         });
     } else {
-      toast.error("Sharing not supported. Your browser doesn't support sharing.");
+      toast.error(
+        "Sharing not supported. Your browser doesn't support sharing.",
+      );
       alert("Sharing not supported. Your browser doesn't support sharing.");
     }
   };

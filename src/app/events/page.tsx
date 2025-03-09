@@ -43,7 +43,6 @@ export default function EventsPage() {
               className="pl-10"
             />
           </div>
-          
 
           {/* <div className="flex flex-wrap gap-2">
             {categories.map((category) => (

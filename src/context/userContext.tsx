@@ -55,12 +55,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
           }
         } else {
           setUser(null);
-          
+
           // Only redirect to auth if the user is on a protected route
-          const isProtectedRoute = protectedRoutes.some(route => 
-            pathname?.startsWith(route)
+          const isProtectedRoute = protectedRoutes.some((route) =>
+            pathname?.startsWith(route),
           );
-          
+
           if (isProtectedRoute) {
             router.push("/auth");
           }
@@ -73,7 +73,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     fetchUser();
-    
+
     // Set up auth state listener
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -86,17 +86,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
           }
         } else {
           setUser(null);
-          
+
           // Only redirect to auth if the user is on a protected route
-          const isProtectedRoute = protectedRoutes.some(route => 
-            pathname?.startsWith(route)
+          const isProtectedRoute = protectedRoutes.some((route) =>
+            pathname?.startsWith(route),
           );
-          
+
           if (isProtectedRoute) {
             router.push("/auth");
           }
         }
-      }
+      },
     );
 
     return () => {

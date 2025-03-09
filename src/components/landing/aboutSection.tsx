@@ -91,7 +91,15 @@ export default function AboutSection() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
               <div className="flex h-40 items-center justify-center rounded-lg border-2 bg-primary/10 p-6">
-                    <Image className="w-full h-full" height={300} width={300} alt="Rangitallim" src={"https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540106/EI-Events/Rangittalim4/Copy_of_IMG_6327_mmsqki.jpg"} ></Image>
+                <Image
+                  className="h-full w-full"
+                  height={300}
+                  width={300}
+                  alt="Rangitallim"
+                  src={
+                    "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540106/EI-Events/Rangittalim4/Copy_of_IMG_6327_mmsqki.jpg"
+                  }
+                ></Image>
               </div>
               <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/20 p-6">
                 <h3 className="text-center text-xl font-medium">

@@ -66,7 +66,7 @@ export default function Navbar() {
         setIsLoading(false);
         setIsMounted(true);
       }
-    };  
+    };
 
     getCurrUser();
 
@@ -77,7 +77,7 @@ export default function Navbar() {
         } else {
           setUser(null);
         }
-      }
+      },
     );
 
     return () => {
@@ -94,9 +94,9 @@ export default function Navbar() {
   };
 
   if (!isMounted) return null;
-  
+
   if (isLoading) return null;
-  
+
   if (pathname?.startsWith("/dashboard")) return null;
   if (pathname?.startsWith("/events/")) return null;
 
@@ -122,8 +122,9 @@ export default function Navbar() {
               href={item.href}
               className={`text-sm font-semibold transition-colors hover:text-neutral-600 ${
                 pathname === item.href
-                  ? "text-neutral-950 font-semibold"
-                  : "text-muted-foreground"}`}
+                  ? "font-semibold text-neutral-950"
+                  : "text-muted-foreground"
+              }`}
             >
               {item.name}
             </Link>
