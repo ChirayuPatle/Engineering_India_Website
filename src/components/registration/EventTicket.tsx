@@ -5,22 +5,17 @@ import { Check, Download, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import QRCodeGenerator from "./QRCodeGenerator";
 import { type Ticket } from "@/lib/event-types";
-// import { useToast } from "@/hooks/use-toast";
+import toast from "react-hot-toast";
 
 interface EventTicketProps {
   ticket: Ticket;
 }
 
 const EventTicket = ({ ticket }: EventTicketProps) => {
-  // const { toast } = useToast();
 
   const handleDownload = () => {
-    // In a real app, this would generate a PDF or image
-    // toast({
-    //   title: "Download started",
-    //   description: "Your ticket is being downloaded.",
-    // });
-    alert("Download started. Your ticket is being downloaded.");
+    
+    toast.success("Your ticket is being downloaded.");
   };
 
   const handleShare = () => {
@@ -36,10 +31,7 @@ const EventTicket = ({ ticket }: EventTicketProps) => {
           console.error("Share failed:", err);
         });
     } else {
-      // toast({
-      //   title: "Sharing not supported",
-      //   description: "Your browser doesn't support sharing.",
-      // });
+      toast.error("Sharing not supported. Your browser doesn't support sharing.");
       alert("Sharing not supported. Your browser doesn't support sharing.");
     }
   };

@@ -17,11 +17,11 @@ export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const filteredEvents = events.filter((event) => {
-    const matchesSearch = event.title
+    const matchesSearch = event.event_title
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const matchesCategory =
-      selectedCategory === "All" || event.category === selectedCategory;
+      selectedCategory === "All" || event.event_category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -29,7 +29,7 @@ export default function EventsPage() {
     <main className="container mx-auto mt-8 px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-12">
         <Typography variant="h1" className="mb-6">
-          Upcoming Events
+          Our Events
         </Typography>
 
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
@@ -43,8 +43,9 @@ export default function EventsPage() {
               className="pl-10"
             />
           </div>
+          
 
-          <div className="flex flex-wrap gap-2">
+          {/* <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -54,7 +55,7 @@ export default function EventsPage() {
                 {category}
               </Button>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -67,18 +68,18 @@ export default function EventsPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
               <Link
-                key={event.id}
-                href={`/events/${event.id}`}
+                key={event.event_id}
+                href={`/events/${event.event_id}`}
                 className="hover:opacity-90"
               >
                 <EventCard
-                  title={event.title}
-                  date={event.start_date}
-                  location={event.venue}
-                  description={event.description}
-                  imageUrl={event.image || "./notfound.svg"}
-                  category={event.category}
-                  href={`/events/${event.id}`}
+                  title={event.event_title}
+                  date={event.event_start_date}
+                  location={event.event_venue}
+                  description={event.event_description}
+                  imageUrl={event.event_image?.trim() || "./notfound.svg"}
+                  category={event.event_category}
+                  href={`/events/${event.event_id}`}
                 />
               </Link>
             ))}

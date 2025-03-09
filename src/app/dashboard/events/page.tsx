@@ -22,11 +22,11 @@ export default function EventsPage() {
   const [categoryFilter, setCategoryFilter] = useState("all");
 
   const filteredEvents = events.filter((event) => {
-    const matchesSearch = event.title
+    const matchesSearch = event.event_title
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesCategory =
-      categoryFilter === "all" || event.category === categoryFilter;
+      categoryFilter === "all" || event.event_category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
 
@@ -92,20 +92,20 @@ export default function EventsPage() {
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
               <EventCard
-                key={event.id}
-                id={event.id}
-                title={event.title}
-                description={event.description}
-                start_date={event.start_date}
-                end_date={event.end_date}
-                venue={event.venue}
-                category={event.category}
-                spots={event.spots}
-                spotsFilled={event.spots_filled}
-                price={event.price}
+                key={event.event_id}
+                id={event.event_id}
+                title={event.event_title}
+                description={event.event_description}
+                start_date={event.event_start_date}
+                end_date={event.event_end_date}
+                venue={event.event_venue}
+                category={event.event_category}
+                spots={event.event_spots}
+                spotsFilled={event.event_spots_filled}
+                price={event.registration_fee}
                 isRegistered={event.isRegistered}
                 onRegister={handleRegister}
-                image={event.image}
+                image={event.event_image}
               />
             ))}
           </div>

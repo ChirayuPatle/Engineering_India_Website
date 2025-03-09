@@ -1,4 +1,6 @@
 "use client";
+
+import { toast } from "react-hot-toast";
 import { useState, useEffect } from "react";
 import {
   Mail,
@@ -45,7 +47,7 @@ const EventContactShare = ({ event }: EventContactShareProps) => {
   }, []);
 
   const shareUrl = window.location.href;
-  const eventHasPassed = new Date(event.end_date || "") < new Date();
+  const eventHasPassed = new Date(event.event_end_date || "") < new Date();
 
   const shareLinks = [
     {
@@ -56,22 +58,19 @@ const EventContactShare = ({ event }: EventContactShareProps) => {
     {
       name: "X (Twitter)",
       icon: Twitter,
-      url: `https://twitter.com/intent/tweet?text=Check out this event: ${encodeURIComponent(event.title)}&url=${encodeURIComponent(shareUrl)}`,
+      url: `https://twitter.com/intent/tweet?text=Check out this event: ${encodeURIComponent(event.event_title)}&url=${encodeURIComponent(shareUrl)}`,
     },
     {
       name: "WhatsApp",
       icon: MessageSquare,
-      url: `https://wa.me/?text=${encodeURIComponent(`Check out this event: ${event.title} ${shareUrl}`)}`,
+      url: `https://wa.me/?text=${encodeURIComponent(`Check out this event: ${event.event_title} ${shareUrl}`)}`,
     },
   ];
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(shareUrl);
-    // toast({
-    //   title: 'Link copied',
-    //   description: 'Event link has been copied to clipboard.',
-    // });
-    alert("Link copied");
+    
+    toast.success("Link copied");
   };
 
   if (!event.organizer) {

@@ -2,8 +2,8 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cache, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -36,12 +36,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
-  // Supabase auth state
   const [user, setUser] = useState<User | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Handle scroll styling
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -50,35 +50,55 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Get current session
   useEffect(() => {
     const getCurrUser = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        setUser(session.user);
+      setIsLoading(true);
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) {
+          setUser(session.user);
+        }
+      } catch (error) {
+        console.error("Error fetching user session:", error);
+      } finally {
+        setIsLoading(false);
+        setIsMounted(true);
       }
-      setIsMounted(true);
-    };
-
-    cache(() => getCurrUser());
+    };  
 
     getCurrUser();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (session) {
+          setUser(session.user);
+        } else {
+          setUser(null);
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
-  // Handle signout
   const handleSignout = async () => {
     const { error } = await supabase.auth.signOut();
     if (!error) {
       setUser(null);
+      router.push("/");
     }
   };
 
-  // Prevent hydration issues
   if (!isMounted) return null;
-  // Optionally hide navbar on certain routes (e.g. /dashboard)
+  
+  if (isLoading) return null;
+  
   if (pathname?.startsWith("/dashboard")) return null;
+  if (pathname?.startsWith("/events/")) return null;
 
   return (
     <header
@@ -100,11 +120,10 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+              className={`text-sm font-semibold transition-colors hover:text-neutral-600 ${
                 pathname === item.href
-                  ? "text-blue-600"
-                  : "text-muted-foreground"
-              }`}
+                  ? "text-neutral-950 font-semibold"
+                  : "text-muted-foreground"}`}
             >
               {item.name}
             </Link>
@@ -163,7 +182,7 @@ export default function Navbar() {
             </DropdownMenu>
           ) : (
             <Link href="/auth">
-              <Button variant="default">Auth</Button>
+              <Button variant="default">Login</Button>
             </Link>
           )}
         </nav>
@@ -253,7 +272,7 @@ export default function Navbar() {
             ) : (
               <Link href="/auth" onClick={() => setIsOpen(false)}>
                 <Button variant="default" className="w-full">
-                  Auth
+                  Login
                 </Button>
               </Link>
             )}

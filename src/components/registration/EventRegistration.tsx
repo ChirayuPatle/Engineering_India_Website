@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { registerForEvent } from "@/lib/event-mock-data";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 // import { useToast } from "@/hooks/use-toast";
-import RegistrationForm from "./RegistrationForm";
-import EventTicket from "./EventTicket";
 import { type Event } from "@/context/eventContext";
+import toast from "react-hot-toast";
+import EventTicket from "./EventTicket";
+import RegistrationForm from "./RegistrationForm";
 
 interface EventRegistrationProps {
   event: Event;
@@ -50,7 +51,7 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
       phone: "",
       teamName: "",
       teamMembers:
-        event.registration_mode === "TEAM" ? [{ name: "", email: "" }] : [],
+        event.event_registration_mode === "TEAM" ? [{ name: "", email: "" }] : [],
     },
   });
 
@@ -59,18 +60,10 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
       setIsSubmitting(true);
       const ticketData = await registerForEvent(data);
       setTicket(ticketData);
-      // toast({
-      //   title: "Registration successful!",
-      //   description: "Your ticket has been generated.",
-      // });
-      alert("Registration successful! Your ticket has been generated.");
+      
+      toast.success("Registration successful! Your ticket has been generated.");
     } catch (error) {
-      // toast({
-      //   title: "Registration failed",
-      //   description: "There was an error processing your registration. Please try again.",
-      //   variant: "destructive",
-      // });
-      alert(
+      toast.error(
         "Registration failed. There was an error processing your registration. Please try again.",
       );
       console.error("Registration error:", error);
@@ -80,7 +73,7 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
   };
 
   // Check if event has passed
-  const eventHasPassed = new Date(event.end_date || "") < new Date();
+  const eventHasPassed = new Date(event.event_end_date || "") < new Date();
 
   if (eventHasPassed) {
     return (
@@ -105,7 +98,7 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
             Join this event
           </h3>
           <p className="mb-6 text-gray-600">
-            {event.registration_mode === "TEAM"
+            {event.event_registration_mode === "TEAM"
               ? "Register with your team and be part of this amazing experience!"
               : "Secure your spot for this event now!"}
           </p>
@@ -121,9 +114,9 @@ const EventRegistration = ({ event }: EventRegistrationProps) => {
       {showForm && !ticket && (
         <RegistrationForm
           form={form}
-          isTeamEvent={event.registration_mode === "TEAM"}
-          isPaidEvent={!!event.fee}
-          eventPrice={event.fee || 0}
+          isTeamEvent={event.event_registration_mode === "TEAM"}
+          isPaidEvent={!!event.registration_fee}
+          eventPrice={event.registration_fee || 0}
           isSubmitting={isSubmitting}
           onSubmit={onSubmit}
           onCancel={() => setShowForm(false)}

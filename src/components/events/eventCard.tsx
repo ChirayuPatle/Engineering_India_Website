@@ -65,7 +65,7 @@ export function EventCard({
         {/* Bottom: Button */}
         <div className="mt-4">
           <Button variant="default" className="w-full">
-            Learn More
+            Explore
           </Button>
         </div>
       </div>

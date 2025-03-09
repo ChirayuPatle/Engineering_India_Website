@@ -2,11 +2,7 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
+  let response = NextResponse.next();
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -22,11 +18,7 @@ export async function middleware(request: NextRequest) {
             value,
             ...options,
           });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
+          response = NextResponse.next();
           response.cookies.set({
             name,
             value,
@@ -39,11 +31,7 @@ export async function middleware(request: NextRequest) {
             value: "",
             ...options,
           });
-          response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
-          });
+          response = NextResponse.next();
           response.cookies.set({
             name,
             value: "",
@@ -54,20 +42,28 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  await supabase.auth.getUser();
+  // Get the current user
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Protected routes that require authentication
+  const protectedRoutes = ["/dashboard", "/profile"];
+  
+  // Check if the current path is a protected route
+  const isProtectedRoute = protectedRoutes.some((route) =>
+    request.nextUrl.pathname.startsWith(route)
+  );
+
+  // Only redirect if the user is trying to access a protected route and is not authenticated
+  if (isProtectedRoute && !user) {
+    return NextResponse.redirect(new URL("/auth", request.url));
+  }
 
   return response;
 }
 
+// Important: Only run middleware on protected routes
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/dashboard/:path*", "/profile/:path*"],
 };

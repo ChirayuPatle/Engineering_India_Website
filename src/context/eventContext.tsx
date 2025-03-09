@@ -1,52 +1,50 @@
 "use client";
 
-import {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  type ReactNode,
-} from "react";
+import { createContext, useState, useEffect, useContext, type ReactNode } from "react";
 import { supabase } from "@/utils/supabase/client";
 
 export type Event = {
-  id: string;
-  title: string;
-  fee: number;
-  description: string;
-  start_date: string;
-  end_date?: string;
-  venue: string;
-  category: string;
-  spots: number;
-  spots_filled: number;
-  prizes: {
-    position: string;
-    description?: string;
-    value?: string;
+  event_id: string;
+  event_title: string;
+  registration_fee: number;
+  event_description: string;
+  event_start_date: string;
+  event_end_date?: string;
+  // New fields added:
+  registration_opens: string;
+  registration_closes: string;
+  event_venue: string;
+  event_category: string;
+  event_spots: number;
+  event_spots_filled: number;
+  prizes?: {
+    prize_position: string;
+    prize_description?: string;
+    prize_value?: string;
   }[];
   isRegistered?: boolean;
   onRegister?: (id: string) => void;
-  image?: string;
+  event_image?: string;
   organizer?: {
     name: string;
     email: string;
     phone: string;
   };
   faqs?: {
-    question: string;
-    answer: string;
+    faq_question: string;
+    faq_answer: string;
   }[];
   gallery?: string[];
-  registration_mode: "INDIVIDUAL" | "TEAM";
+  event_registration_mode: "INDIVIDUAL" | "TEAM";
   schedule?: {
-    time: string;
-    activity: string;
-    location: string;
-    speakers?: string[];
+    schedule_time: string;
+    schedule_activity: string;
+    schedule_location?: string;
+    schedule_speakers?: string[];
   }[];
-  tags?: string[];
+  event_tags?: string[];
 };
+
 
 interface EventContextType {
   events: Event[];
@@ -68,7 +66,7 @@ export function EventProvider({ children }: { children: ReactNode }) {
       const { data, error } = await supabase
         .from("events")
         .select("*")
-        .order("created_at", { ascending: true });
+        .order("event_created_at", { ascending: true });
       if (error) {
         console.error("Error fetching events:", error.message);
         setError(error.message);
