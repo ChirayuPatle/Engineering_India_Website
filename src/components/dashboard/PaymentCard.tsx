@@ -1,4 +1,4 @@
-import { ArrowDownUp, Check, Clock, X } from "lucide-react";
+import { Check, Clock, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -32,31 +32,40 @@ export function PaymentCard({
   onViewDetails,
 }: PaymentCardProps) {
   return (
-    <Card>
-      <CardHeader className="pb-2">
-        <div className="flex justify-between">
+    <Card className="w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
+      <CardHeader className="w-full border-b border-gray-200 pb-3 dark:border-gray-700">
+        <div className="flex items-center justify-between gap-x-5">
           <div>
-            <CardTitle className="text-base">{eventName}</CardTitle>
-            <CardDescription className="text-xs">{date}</CardDescription>
+            <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              {eventName}
+            </CardTitle>
+            <CardDescription className="text-sm text-gray-600 dark:text-gray-400">
+              {date}
+            </CardDescription>
           </div>
           <StatusBadge status={status} />
         </div>
       </CardHeader>
-      <CardContent className="pb-2">
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Transaction ID:</span>
-          <span className="font-mono">{transactionId}</span>
+      <CardContent className="py-4">
+        <div className="flex justify-between text-base">
+          <span className="text-gray-600 dark:text-gray-400">
+            Transaction ID:
+          </span>
+          <span className="font-mono text-gray-800 dark:text-gray-200">
+            {transactionId}
+          </span>
         </div>
-        <div className="mt-1 flex justify-between text-sm">
-          <span className="text-muted-foreground">Amount:</span>
-          <span className="font-semibold">${amount.toFixed(2)}</span>
+        <div className="mt-3 flex justify-between text-lg">
+          <span className="text-gray-600 dark:text-gray-400">Amount:</span>
+          <span className="font-bold text-gray-900 dark:text-gray-100">
+            ₹{amount}
+          </span>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="border-t border-gray-200 pt-3 dark:border-gray-700">
         <Button
-          variant="ghost"
-          size="sm"
-          className="ml-auto"
+          size="lg"
+          className="w-full transition duration-200 ease-in-out hover:opacity-80 active:opacity-40"
           onClick={() => onViewDetails?.(id)}
         >
           View Details
@@ -72,17 +81,17 @@ function StatusBadge({ status }: { status: PaymentStatus }) {
 
   switch (status) {
     case "paid":
-      icon = <Check className="h-3.5 w-3.5" />;
+      icon = <Check className="h-4 w-4" />;
       statusClasses =
         "bg-green-100 text-green-700 dark:bg-green-700/20 dark:text-green-400";
       break;
     case "pending":
-      icon = <Clock className="h-3.5 w-3.5" />;
+      icon = <Clock className="h-4 w-4" />;
       statusClasses =
         "bg-yellow-100 text-yellow-700 dark:bg-yellow-700/20 dark:text-yellow-400";
       break;
     case "failed":
-      icon = <X className="h-3.5 w-3.5" />;
+      icon = <X className="h-4 w-4" />;
       statusClasses =
         "bg-red-100 text-red-700 dark:bg-red-700/20 dark:text-red-400";
       break;
@@ -91,7 +100,7 @@ function StatusBadge({ status }: { status: PaymentStatus }) {
   return (
     <div
       className={cn(
-        "flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
+        "flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium",
         statusClasses,
       )}
     >

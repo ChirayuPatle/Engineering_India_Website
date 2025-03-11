@@ -3,7 +3,15 @@ import { Heart, MessageCircle, Share } from "lucide-react";
 import React, { useState } from "react";
 
 // Accepting props properly
-function BlogCard({ text, imgurl,header }: { text: string; imgurl: string ,header:string}) {
+function BlogCard({
+  text,
+  imgurl,
+  header,
+}: {
+  text: string;
+  imgurl: string;
+  header: string;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (!text) return null; // Handle case when text is undefined
@@ -17,7 +25,7 @@ function BlogCard({ text, imgurl,header }: { text: string; imgurl: string ,heade
     if (navigator.share) {
       try {
         await navigator.share({
-          title: {header},
+          title: { header },
           text: fullText.slice(0, 100) + "...", // Short preview of the text
           url: window.location.href, // Current page URL
         });
@@ -30,49 +38,45 @@ function BlogCard({ text, imgurl,header }: { text: string; imgurl: string ,heade
   };
 
   return (
-    <div className="mt-5 w-full rounded-xl bg-white p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
+    <div className="mt-5 w-full rounded-xl bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
       {/* Header */}
-      <div className="mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-2">
+      <div className="mb-4 flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
         <h1 className="text-2xl font-bold text-gray-800">{header}</h1>
-        <p className="text-zinc-400 text-sm">23 Mar 9:00 PM</p>
+        <p className="text-sm text-zinc-400">23 Mar 9:00 PM</p>
       </div>
 
       {/* Description */}
-      <p className="text-gray-600 leading-relaxed">
+      <p className="leading-relaxed text-gray-600">
         {content}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-blue-500 ml-1 hover:underline"
+          className="ml-1 text-blue-500 hover:underline"
         >
           {isExpanded ? "See Less" : "Read More"}
         </button>
       </p>
 
       {/* Image */}
-      <div className="w-full mt-4 rounded-xl overflow-hidden">
-        <img
-          src={imgurl || ""}
-          alt=""
-          className="h-full w-full object-cover"
-        />
+      <div className="mt-4 w-full overflow-hidden rounded-xl">
+        <img src={imgurl || ""} alt="" className="h-full w-full object-cover" />
       </div>
 
       {/* Divider */}
-      <hr className="border-gray-200 my-4" />
+      <hr className="my-4 border-gray-200" />
 
       {/* Actions */}
       <div className="flex justify-between text-gray-700">
-        <button className="flex-1 py-2 flex items-center justify-center gap-2 hover:bg-gray-200 rounded-md transition duration-200">
+        <button className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200">
           <Heart />
           <span className="hidden md:inline">Likes</span>
         </button>
-        <button className="flex-1 py-2 flex items-center justify-center gap-2 hover:bg-gray-200 rounded-md transition duration-200">
+        <button className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200">
           <MessageCircle />
           <span className="hidden md:inline">Comments</span>
         </button>
         <button
           onClick={handleShare}
-          className="flex-1 py-2 flex items-center justify-center gap-2 hover:bg-gray-200 rounded-md transition duration-200"
+          className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200"
         >
           <Share />
           <span className="hidden md:inline">Share</span>
