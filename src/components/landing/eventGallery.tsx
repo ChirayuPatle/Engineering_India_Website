@@ -3,19 +3,34 @@ import Link from "next/link";
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1713687552559-5a6ec044027f?w=600&auto=format&fit=crop&q=60",
-    alt: "Technical Workshop",
-    title: "Technical Workshop 2023",
+    src: "/image/DonationEvent.JPG",
+    alt: "",
+    title: "Donation Drive",
   },
   {
-    src: "https://images.unsplash.com/photo-1713687552559-5a6ec044027f?w=600&auto=format&fit=crop&q=60",
+    src: "/image/ust-event2.jpg",
     alt: "Coding Competition",
-    title: "Annual Hackathon",
+    title: "Ultimate Social Technocart",
   },
   {
-    src: "https://images.unsplash.com/photo-1713687552559-5a6ec044027f?w=600&auto=format&fit=crop&q=60",
+    src: "/image/Rangataleem.JPG",
     alt: "Social Initiative",
-    title: "Tree Plantation Drive",
+    title: "Rangittalim",
+  },
+  {
+    src: "/image/Chitrankan.JPG",
+    alt: "Social Initiative",
+    title: "Chitrankan",
+  },
+  {
+    src: "/image/Abhudaya.JPG",
+    alt: "Social Initiative",
+    title: "Abhyudhaya 24.0",
+  },
+  {
+    src: "/image/Shiv-2.JPG",
+    alt: "Social Initiative",
+    title: "Shivaji Jayanti",
   },
 ];
 

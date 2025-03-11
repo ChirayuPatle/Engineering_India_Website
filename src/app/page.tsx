@@ -227,7 +227,7 @@ useEffect(() => {
         </Container>
       </Section>
 
-      {[AboutSection, FeatureCarousel, EventsGallery, Feedback, Timeline, Faq].map((Component, index) => (
+      {[AboutSection, EventsGallery, Timeline, Faq, Feedback].map((Component, index) => (
         <Section key={index}>
           <div className="min-h-screen w-full">
             <Component />

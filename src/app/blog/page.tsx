@@ -47,7 +47,7 @@ Stay tuned for more updates and success stories! 🚀`,"Happy wommen days"
             <h1 className="text-xl" ><b> What is Engineering India Blogs ?</b></h1>
           <p >Engineering India Blogs keeps the engineering community updated on events, guides, and current affairs, fostering innovation and technical excellence.</p>
            </div>
-          <img  src="https://res-console.cloudinary.com/dzryfm8cb/thumbnails/v1/image/upload/v1741531453/U2NyZWVuc2hvdF8yMDI1LTAzLTA5XzIwMDcyMl96dGVrZHg=/drilldown" alt="" />
+          <img  src="/image/logo.png" alt="" />
            <hr />
            <div className="w-full  flex items-center mt-2 justify-around">
             <Heart/>
