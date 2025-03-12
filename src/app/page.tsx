@@ -246,11 +246,6 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="trusted-by mt-16 w-full max-w-3xl text-center text-zinc-700">
-              <h3 className="mb-6 text-lg font-semibold sm:text-xl md:text-2xl">
-                TRUSTED BY
-              </h3>
-            </div>
           </div>
         </Container>
       </Section>

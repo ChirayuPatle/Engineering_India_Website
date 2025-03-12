@@ -25,8 +25,7 @@ const faqs = [
   {
     question: "Are there any membership fees?",
     answer:
-      "Yes, there is a nominal annual membership fee that helps us fund our activities and events. The exact amount is announced during the membership drive each year.",
-  },
+    "No, there are no membership fees. Our club is open to everyone without any financial requirements. We believe in inclusivity and passion over payments, so you can join and participate in all activities and events for free!"  },
   {
     question: "Can first-year students join the club?",
     answer:
