@@ -90,33 +90,24 @@ export default function AboutSection() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <div className="flex h-40 items-center justify-center rounded-lg border-2 bg-primary/10 p-6">
-                <Image
-                  className="h-full w-full"
-                  height={300}
-                  width={300}
-                  alt="Rangitallim"
-                  src={
-                    "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540106/EI-Events/Rangittalim4/Copy_of_IMG_6327_mmsqki.jpg"
-                  }
-                ></Image>
-              </div>
-              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/20 p-6">
-                <h3 className="text-center text-xl font-medium">
-                  Social Outreach
-                </h3>
+
+              <div className="flex h-44  items-center justify-center rounded-lg border-2 bg-primary/10 overflow-hidden ">
+                <img src="/image/UST.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+                         </div>
+              <div className="flex h-56  items-center justify-center rounded-lg border-2 bg-primary/20 ">
+              <img src="/image/Donation.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+              
+
               </div>
             </div>
             <div className="mt-8 space-y-4">
-              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/15 p-6">
-                <h3 className="text-center text-xl font-medium">
-                  Competitions
-                </h3>
+              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/15 ">
+                
+                <img src="/image/Ust-event1-1.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+              
               </div>
-              <div className="flex h-40 items-center justify-center rounded-lg border-2 bg-primary/5 p-6">
-                <h3 className="text-center text-xl font-medium">
-                  Industry Visits
-                </h3>
+              <div className="flex h-44 items-center justify-center rounded-lg border-2 bg-primary/5  overflow-hidden">
+              <img src="/image/Team.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
               </div>
             </div>
           </div>

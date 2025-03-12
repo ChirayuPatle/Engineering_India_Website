@@ -25,9 +25,9 @@ interface UserMetadata {
 }
 
 const navItems = [
-  { name: "Home", href: "/" },
   { name: "Events", href: "/events" },
   { name: "About", href: "/about" },
+  { name: "Blogs", href: "/blog" },
   { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
   { name: "Blogs", href: "/blog" },
