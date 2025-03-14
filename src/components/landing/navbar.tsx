@@ -30,7 +30,6 @@ const navItems = [
   { name: "Blogs", href: "/blog" },
   { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
-  
 ];
 
 export default function Navbar() {
@@ -57,7 +56,11 @@ export default function Navbar() {
       try {
         const {
           data: { session },
+          error,
         } = await supabase.auth.getSession();
+
+        if (error) throw error;
+
         if (session) {
           setUser(session.user);
         }
@@ -73,11 +76,7 @@ export default function Navbar() {
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (event, session) => {
-        if (session) {
-          setUser(session.user);
-        } else {
-          setUser(null);
-        }
+        setUser(session ? session.user : null);
       },
     );
 

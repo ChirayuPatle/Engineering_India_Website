@@ -79,7 +79,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
 
         {/* Updated Back Button */}
         <button
-          onClick={() => router.push("/events")}
+          onClick={() => window.history.back()}
           className="absolute left-4 top-4 z-30 flex items-center gap-2 rounded-md bg-white p-2 shadow transition-colors hover:bg-gray-100"
         >
           <ArrowLeft className="h-5 w-5" />

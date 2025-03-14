@@ -245,22 +245,19 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-
           </div>
         </Container>
       </Section>
 
-
-      {[AboutSection, EventsGallery, Timeline, Faq, Feedback].map((Component, index) => (
-
- 
-
-        <Section key={index}>
-          <div className="min-h-screen w-full">
-            <Component />
-          </div>
-        </Section>
-      ))}
+      {[AboutSection, EventsGallery, Timeline, Faq, Feedback].map(
+        (Component, index) => (
+          <Section key={index}>
+            <div className="min-h-screen w-full">
+              <Component />
+            </div>
+          </Section>
+        ),
+      )}
     </>
   );
 }

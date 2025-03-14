@@ -45,22 +45,24 @@ Stay tuned for more updates and success stories! 🚀`,
           ))}
         </div>
 
-        <div className="h-[330px] w-[370px] bg-slate-200 sticky top-20 ml-2  rounded-xl hidden lg:block overflow-hidden">
-          
-           
-           <div className=" w-full p-3">
-            <h1 className="text-xl" ><b> What is Engineering India Blogs ?</b></h1>
-          <p >Engineering India Blogs keeps the engineering community updated on events, guides, and current affairs, fostering innovation and technical excellence.</p>
-           </div>
-          <img  src="/image/logo.png" alt="" />
-           <hr />
-           <div className="w-full  flex items-center mt-2 justify-around">
-            <Heart/>
-            <MessageCircle/>
-            <Share/>
-            </div>
-
- 
+        <div className="sticky top-20 ml-2 hidden h-[330px] w-[370px] overflow-hidden rounded-xl bg-slate-200 lg:block">
+          <div className="w-full p-3">
+            <h1 className="text-xl">
+              <b> What is Engineering India Blogs ?</b>
+            </h1>
+            <p>
+              Engineering India Blogs keeps the engineering community updated on
+              events, guides, and current affairs, fostering innovation and
+              technical excellence.
+            </p>
+          </div>
+          <img src="/image/logo.png" alt="" />
+          <hr />
+          <div className="mt-2 flex w-full items-center justify-around">
+            <Heart />
+            <MessageCircle />
+            <Share />
+          </div>
         </div>
       </div>
     </>
