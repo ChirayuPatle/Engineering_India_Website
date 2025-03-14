@@ -64,7 +64,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-7">
-        <Card className="shadow-none md:col-span-2">
+        <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Profile</CardTitle>
             <CardDescription>

@@ -48,7 +48,7 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   // Protected routes that require authentication
-  const protectedRoutes = ["/dashboard", "/profile", "/event/register"];
+  const protectedRoutes = ["/dashboard", "/profile"];
 
   // Check if the current path is a protected route
   const isProtectedRoute = protectedRoutes.some((route) =>
@@ -65,5 +65,5 @@ export async function middleware(request: NextRequest) {
 
 // Important: Only run middleware on protected routes
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/event/:path/register"],
+  matcher: ["/dashboard/:path*", "/profile/:path*"],
 };
