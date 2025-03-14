@@ -94,7 +94,10 @@ export default function Timeline() {
   });
 
   return (
-    <section ref={containerRef} className="overflow-hidden bg-background py-20 -mt-10 md-mt-0">
+    <section
+      ref={containerRef}
+      className="md-mt-0 -mt-10 overflow-hidden bg-background py-20"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           className="mb-12 text-center"

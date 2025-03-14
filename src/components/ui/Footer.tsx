@@ -17,6 +17,8 @@ export default function Footer() {
   // Skip rendering footer on certain pages
   if (pathName?.startsWith("/dashboard")) return null;
   if (pathName?.startsWith("/auth")) return null;
+  if (pathName?.endsWith("/register")) return null;
+  if (pathName?.endsWith("/ticket")) return null;
 
   return (
     <footer className="border-t border-border bg-background">
