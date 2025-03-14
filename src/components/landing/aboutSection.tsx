@@ -90,35 +90,24 @@ export default function AboutSection() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <div className="flex h-44 items-center justify-center overflow-hidden rounded-lg border-2 bg-primary/10">
-                <img
-                  src="/image/UST.JPG"
-                  alt="UST Image"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/20">
-                <img
-                  src="/image/Donation.JPG"
-                  alt="UST Image"
-                  className="h-full w-full object-cover"
-                />
+
+              <div className="flex h-44  items-center justify-center rounded-lg border-2 bg-primary/10 overflow-hidden ">
+                <img src="/image/UST.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+                         </div>
+              <div className="flex h-56  items-center justify-center rounded-lg border-2 bg-primary/20 ">
+              <img src="/image/Donation.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+              
+
               </div>
             </div>
             <div className="mt-8 space-y-4">
-              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/15">
-                <img
-                  src="/image/Ust-event1-1.JPG"
-                  alt="UST Image"
-                  className="h-full w-full object-cover"
-                />
+              <div className="flex h-56 items-center justify-center rounded-lg border-2 bg-primary/15 ">
+                
+                <img src="/image/Ust-event1-1.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
+              
               </div>
-              <div className="flex h-44 items-center justify-center overflow-hidden rounded-lg border-2 bg-primary/5">
-                <img
-                  src="/image/Team.JPG"
-                  alt="UST Image"
-                  className="h-full w-full object-cover"
-                />
+              <div className="flex h-44 items-center justify-center rounded-lg border-2 bg-primary/5  overflow-hidden">
+              <img src="/image/Team.JPG" alt="UST Image"  className="h-full w-full object-cover "/>
               </div>
             </div>
           </div>

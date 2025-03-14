@@ -25,8 +25,7 @@ const faqs = [
   {
     question: "Are there any membership fees?",
     answer:
-      "No, there are no membership fees. Our club is open to everyone without any financial requirements. We believe in inclusivity and passion over payments, so you can join and participate in all activities and events for free!",
-  },
+    "No, there are no membership fees. Our club is open to everyone without any financial requirements. We believe in inclusivity and passion over payments, so you can join and participate in all activities and events for free!"  },
   {
     question: "Can first-year students join the club?",
     answer:

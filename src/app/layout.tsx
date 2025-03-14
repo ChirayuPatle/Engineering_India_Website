@@ -26,15 +26,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <EventProvider>
-      <html lang="en" className={`${dmsans.variable}`}>
-        <body className="space">
-          <Navbar />
-          <Toaster position="top-center" />
-          <UserProvider>{children}</UserProvider>
-          <Footer />
-        </body>
-      </html>
-    </EventProvider>
+    <UserProvider>
+      <EventProvider>
+        <html lang="en" className={`${dmsans.variable}`}>
+          <body className="space">
+            <Navbar />
+            <Toaster position="top-center" />
+            {children}
+            <Footer />
+          </body>
+        </html>
+      </EventProvider>
+    </UserProvider>
   );
 }

@@ -114,7 +114,7 @@ export default function RegistrationsPage() {
           {registrations.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">
               {registrations.map((reg) => (
-                <Card className="shadow-none" key={reg.id}>
+                <Card key={reg.id}>
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div>
