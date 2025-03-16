@@ -100,10 +100,11 @@ export default function Navbar() {
 
   if (pathname?.startsWith("/dashboard")) return null;
   if (pathname?.startsWith("/events/")) return null;
+  if (pathname?.startsWith("/auth")) return null;
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 lg:px-20 ${
+      className={`fixed top-0 z-50 w-full transition-all py-4 duration-300 lg:px-20 ${
         scrolled
           ? "bg-background/80 shadow-sm backdrop-blur-md"
           : "bg-transparent"
@@ -111,9 +112,10 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold text-primary">
+        <img src="./logo1.png" className="w-[3.8rem]" alt="" />
+          {/* <span className="text-2xl font-bold text-primary">
             Engineering India
-          </span>
+          </span> */}
         </Link>
 
         <nav className="hidden items-center space-x-6 md:flex">
@@ -154,7 +156,7 @@ export default function Navbar() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
+              {/* <DropdownMenuContent className="w-56" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
@@ -180,7 +182,7 @@ export default function Navbar() {
                 <DropdownMenuItem onClick={handleSignout}>
                   Sign out
                 </DropdownMenuItem>
-              </DropdownMenuContent>
+              </DropdownMenuContent> */}
             </DropdownMenu>
           ) : (
             <Link href="/auth">
@@ -242,7 +244,7 @@ export default function Navbar() {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                {/* <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
@@ -269,7 +271,7 @@ export default function Navbar() {
                   <DropdownMenuItem onClick={handleSignout}>
                     Sign out
                   </DropdownMenuItem>
-                </DropdownMenuContent>
+                </DropdownMenuContent> */}
               </DropdownMenu>
             ) : (
               <Link href="/auth" onClick={() => setIsOpen(false)}>
