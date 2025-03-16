@@ -2,6 +2,7 @@
 import { Heart, MessageCircle, Share } from "lucide-react";
 import React, { useState } from "react";
 
+
 // Accepting props properly
 function BlogCard({
   text,
@@ -25,7 +26,7 @@ function BlogCard({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: { header },
+          title: header,
           text: fullText.slice(0, 100) + "...", // Short preview of the text
           url: window.location.href, // Current page URL
         });
@@ -70,10 +71,7 @@ function BlogCard({
           <Heart />
           <span className="hidden md:inline">Likes</span>
         </button>
-        <button className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200">
-          <MessageCircle />
-          <span className="hidden md:inline">Comments</span>
-        </button>
+     
         <button
           onClick={handleShare}
           className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200"

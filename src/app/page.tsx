@@ -12,6 +12,7 @@ import Timeline from "@/components/ui/Timeline";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
+import magzine from "@/components/landing/magzine";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
 
@@ -251,7 +252,7 @@ export default function HomePage() {
       </Section>
 
 
-      {[AboutSection, EventsGallery, Timeline, Faq, Feedback].map((Component, index) => (
+      {[AboutSection, EventsGallery, Timeline ,magzine,Faq, Feedback].map((Component, index) => (
 
  
 
