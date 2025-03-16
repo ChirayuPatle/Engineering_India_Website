@@ -11,51 +11,47 @@ import {
 
 const timelineEvents = [
   {
-    year: 2018,
-    title: "Flowers & Saints Founded",
+    year: "2022 | August 23",
+    title: "Establishment of Engineering India, YCCE & Uttishtha Bharat",
     description:
-      "Our journey began with a passion for minimal design and floral artistry.",
-    details:
-      "Founded by Jane Doe and John Smith, Flowers & Saints started as a small studio in Sydney's Surry Hills, combining their love for minimalist design and botanical beauty.",
+      "Founded to promote technical and social engagement, Engineering India, YCCE hosted its first event, Uttishtha Bharat, celebrating 75 years of independence with inspiring speeches and a Tiranga Rally."
   },
   {
-    year: 2019,
-    title: "First Major Exhibition",
+    year: "2023 | May 8-10",
+    title: "Avyanna – Self-Defence Workshop",
     description:
-      "Showcased our unique blend of digital art and floral arrangements at the Sydney Design Festival.",
-    details:
-      "Our exhibition 'Digital Bloom' attracted over 10,000 visitors and received critical acclaim for its innovative approach to merging technology with natural elements.",
+      "A three-day workshop on Yeshti techniques and Prahar training empowered 60 participants with essential self-defense skills and awareness."
   },
   {
-    year: 2020,
-    title: "Launch of Online Store",
+    year: "2024 | January 3",
+    title: "New Year Donation Drive",
     description:
-      "Expanded our reach by bringing our creations to the digital world.",
-    details:
-      "In response to global changes, we pivoted to e-commerce, offering our unique designs and virtual floral workshops to a worldwide audience.",
+      "Volunteers distributed food, clothing, and toys, spreading joy and fostering compassion in the community."
   },
   {
-    year: 2021,
-    title: "Collaboration with Top Brands",
+    year: "2024 | March 2",
+    title: "Shivaji Maharaj Jayanti Celebration",
     description:
-      "Partnered with leading lifestyle brands to create exclusive collections.",
-    details:
-      "Our collaborations included limited edition prints with Australian fashion label Zimmermann and a bespoke fragrance line with Aesop.",
+      "Held at SDM Auditorium, this event featured Shivgoshna, Godhal dance, and an inspiring speech by Ram Wagh Sir, honoring Shivaji Maharaj’s legacy and fostering pride."
   },
   {
-    year: 2022,
-    title: "International Recognition",
-    description: "Received the prestigious International Floral Design Award.",
-    details:
-      "Our 'Ethereal Echoes' installation, which combined holographic projections with live flowers, won the gold medal at the Chelsea Flower Show.",
+    year: "2024 | April 27",
+    title: "वाक् यज्ञः – Speech Competition",
+    description:
+      "An intercollegiate event where 27 participants showcased their ideas. Winners were awarded certificates and cash prizes, promoting teamwork and a competitive spirit."
   },
   {
-    year: 2023,
-    title: "Expansion to Physical Stores",
-    description: "Opened our first flagship store in the heart of Sydney.",
-    details:
-      "Our Bondi Beach location features an immersive retail experience, blending digital installations with a curated selection of floral arrangements and lifestyle products.",
+    year: "2024 | August 10",
+    title: "Rangeet Talim 4.0",
+    description:
+      "Held at Omkar Nagar, Nagpur, this social initiative engaged slum children in education and cultural activities. With 70 volunteers, it fostered learning and community spirit."
   },
+  {
+    year: "2025 | February 10",
+    title: "Ultimate Socio-Technocrat – Social Hackathon",
+    description:
+      "As part of YASH 25.0, this offline hackathon at YCCE saw 75+ participants tackle real-world issues in Slum Development, Women Empowerment, and Carbon Footprint. Collaborating with NGOs, participants presented innovative solutions, with judges selecting the best."
+  }
 ];
 
 const FlowerIcon = ({ progress }: { progress: number }) => (
@@ -122,9 +118,7 @@ export default function Timeline() {
             className="sticky left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-primary"
             style={{ y: useTransform(scrollYProgress, [0, 1], [0, 100]) }}
           >
-            <FlowerIcon
-              progress={useTransform(scrollYProgress, [0, 1], [0.5, 1]) as any}
-            />
+           
           </motion.div>
 
           {timelineEvents.map((event, index) => (
@@ -191,9 +185,7 @@ function TimelineEvent({
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="mt-2 text-sm text-muted-foreground">
-              {event.details}
-            </p>
+           
           </motion.div>
         </div>
       </motion.div>

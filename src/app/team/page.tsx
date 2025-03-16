@@ -1,19 +1,18 @@
-type TeamMember = {
-  name: string;
-  branch: string;
-  year: string;
-  image: string;
-};
-
+"use client"
+import teamMembers from "@/team-info";
+import { useRouter } from "next/navigation";
 type TeamCardProps = {
   name: string;
-  branch: string;
-  year: string;
+  position: string;
+  teamId:number;
+  
 };
 
-const TeamCard: React.FC<TeamCardProps> = ({ name, branch, year }) => {
+const TeamCard: React.FC<TeamCardProps> = ({ name, position,teamId}) => {
+  const router = useRouter();
   return (
-    <div className="perspective-1000 hover:rotate-x-3 hover:rotate-y-3 group relative flex h-96 w-72 transform flex-col items-center rounded-2xl border border-gray-300 bg-gray-100 p-6 shadow-xl transition-all duration-500 ease-out hover:shadow-2xl md:mt-10">
+    <div    onClick={() => router.push(`/team-info/${teamId}`)}
+     className="perspective-1000 hover:rotate-x-3 hover:rotate-y-3 group relative flex h-96 w-72 transform flex-col cursor-pointer items-center rounded-2xl border border-gray-300 bg-gray-100 p-6 shadow-xl transition-all duration-500 ease-out hover:shadow-2xl md:mt-10">
       {/* Background Gradient */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500 to-green-500 opacity-20 transition-opacity duration-500 group-hover:opacity-40" />
 
@@ -26,444 +25,31 @@ const TeamCard: React.FC<TeamCardProps> = ({ name, branch, year }) => {
 
       {/* Member Details */}
       <div className="relative z-10 mt-4 text-center">
+       
         <h2 className="text-2xl font-semibold text-gray-900">{name}</h2>
-        <p className="text-md py-3 text-lg text-gray-600"> {branch} </p>
-        <p className="text-xl font-bold text-gray-500"> {year} year</p>
+        <p className="text-md py-3 text-lg text-gray-600"> {position} </p>
+       
       </div>
     </div>
   );
 };
 
 const TeamPage: React.FC = () => {
-  const teamMembers: TeamMember[] = [
-    {
-      name: "Aayush Kapale",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "",
-    },
-    {
-      name: "Abhinav Tomar",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    },
-    {
-      name: "Aliya Sayyed",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Gauri Ganeshrao Lokhande",
-      branch: "INFORMATION TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Harsh Kapte",
-      branch: "ELECTRONICS AND TELECOMMUNICATION",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Manasvi Totewar",
-      branch: "VLSI",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mansi Belekar",
-      branch: "ELECTRONICS AND TELECOMMUNICATION",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mayur Rasik Buddhe",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Milind Anil Late",
-      branch: "CSE (AIML)",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mrunmayee Panhalkar",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Omkar Suhas Akojwar",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Pragati Pradeep Khandre",
-      branch: "ELECTRONICS ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Saakshi Krishnani",
-      branch: "COMPUTER TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sakshi Vairagade",
-      branch: "ELECTRONICS AND TELECOMMUNICATION",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sandesh Pakhidde",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shraddha dinesh shingnapure",
-      branch: "INFORMATION TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shravani Prashant Aney",
-      branch: "COMPUTER TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shrawani Hedaoo",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Tejaswini Tingase",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Aditya Rajendra Thakare",
-      branch: "ELECTRONICS AND TELECOMMUNICATION",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Aarya kothe",
-      branch: "ELECTRONICS ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Adwait Manish Shardul",
-      branch: "ETC",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "atharva kangali",
-      branch: "MECHANICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Charvi Kadbe",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Dnyanata Wakode",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Ishika Lanjewar",
-      branch: "INFORMATION TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mansi jalandhar",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Muchkundraje thote",
-      branch: "ARTIFICIAL INTELLIGENCE AND DATA SCIENCE (AIDS)",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Prasanna Dhotarkar",
-      branch: "CSE (AIML)",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "RUTUJA NARESHRAO GONDANE",
-      branch: "CSE (IOT)",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Vaibhav Dhyani",
-      branch: "COMPUTER TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Bhagyashri Vaidya",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sanskruti Sanjay Moundekar",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sujal Sawalkar",
-      branch: "COMPUTER TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Akanksha Sawant",
-      branch: "ELECTRONICS ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Saurabh Kulavi",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Parth Dehare",
-      branch: "CSE (AIML)",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Rudresh Bokade",
-      branch: "MECHANICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Lakshya kumar gupta",
-      branch: "CIVIL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Himanshu chaudhari",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Lavanya ukey",
-      branch: "ELECTRICAL ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Samyak umathe",
-      branch: "INFORMATION TECHNOLOGY",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shravani Gadhave",
-      branch: "ELECTRONICS ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Soukhya Sasankar",
-      branch: "COMPUTER SCIENCE AND ENGINEERING",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Aman Kolhe",
-      branch: "CSD",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Prathamesh Mandhane",
-      branch: "AIDS",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Ashleshaa Pohekar",
-      branch: "EL-VSL",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Vidhi Lonarkar",
-      branch: "CSE",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Parth Dhurve",
-      branch: "CTECH",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Vedang Kulkarni",
-      branch: "CTECH",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sia Khurana",
-      branch: "IT",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shelja Patle",
-      branch: "CTECH",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sayali Padmane",
-      branch: "CTECH",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Khushi Chaudhary",
-      branch: "EE",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Anondi thakre",
-      branch: "ETC",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "divya dhule",
-      branch: "C tech",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "payal dongre",
-      branch: "Ctech",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Kashish buddhe",
-      branch: "Electrical",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mihir Thakre",
-      branch: "EE",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Rutvik Gusarkar",
-      branch: "AIDS",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Sakshi Kadu",
-      branch: "CSE",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Piyush Meshram",
-      branch: "IT",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Pavitra",
-      branch: "ETC",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Chirayu Jiyalal patle",
-      branch: "CSD",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Muskan Dhengre",
-      branch: "ETC",
-      year: "2nd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Mayur Choudhary",
-      branch: "MECHANICAL",
-      year: "3rd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Dnyaneshwar Itankar",
-      branch: "CSE",
-      year: "3rd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Shweta Sorte",
-      branch: "IOT",
-      year: "3rd",
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      name: "Janvi Shinde",
-      branch: "IOT",
-      year: "3rd",
-      image: "https://via.placeholder.com/150",
-    },
-  ];
-
   return (
+    <>
+      <h1 className="font-bold text-4xl text-center -mb-10 mt-20 text-zinc-600 ">Our Team Leads</h1>
     <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
       <div className="my-[4rem]"></div>
       {teamMembers.map((details, index) => (
         <TeamCard
           key={index}
           name={details.name}
-          year={details.year}
-          branch={details.branch}
+          position={details.position}
+          teamId={details.teamId}
         />
       ))}
     </div>
+    </>
   );
 };
 
