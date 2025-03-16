@@ -21,9 +21,9 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8 text-center">
+      <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 text-center sm:py-24 lg:px-8">
         {/* Brand Logo */}
-        <div className="flex justify-center mb-6">
+        <div className="mb-6 flex justify-center">
           <Image
             src="/logo1.png"
             alt="Brand Logo"
