@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     // 2. Insert new feedback
     const { data, error: insertError } = await supabase
-      .from("feedbacks")
+      .from("general_feedbacks")
       .insert({
         name,
         email,

@@ -12,13 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
 import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
   const { user } = useUser();
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name ?? "",
     email: user?.email ?? "",
@@ -35,6 +36,7 @@ export default function Feedback() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
+    setIsLoading(true);
 
     try {
       // Call our Next.js API Route
@@ -63,6 +65,8 @@ export default function Feedback() {
     } catch (err: any) {
       console.error("Submission error:", err);
       setErrorMessage("An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -151,8 +155,15 @@ export default function Feedback() {
                     />
                   </div>
 
-                  <Button type="submit" className="w-full">
-                    Submit Feedback
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Loading...</span>
+                      </div>
+                    ) : (
+                      "Submit Feedback"
+                    )}
                   </Button>
                 </form>
               )}

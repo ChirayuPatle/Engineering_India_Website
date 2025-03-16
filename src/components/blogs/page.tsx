@@ -2,7 +2,6 @@
 import { Heart, MessageCircle, Share } from "lucide-react";
 import React, { useState } from "react";
 
-
 // Accepting props properly
 function BlogCard({
   text,
@@ -71,7 +70,7 @@ function BlogCard({
           <Heart />
           <span className="hidden md:inline">Likes</span>
         </button>
-     
+
         <button
           onClick={handleShare}
           className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200"

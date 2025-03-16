@@ -28,9 +28,8 @@ const navItems = [
   { name: "Events", href: "/events" },
   { name: "About", href: "/about" },
   { name: "Blogs", href: "/blog" },
-  { name: "Team", href: "/team" },
+  // { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
-  
 ];
 
 export default function Navbar() {
@@ -112,7 +111,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <img src="./logo1.png" className="w-[3.8rem]" alt="" />
+          <img src="./logo1.png" className="w-[2.2rem] md:w-[3.8rem]" alt="" />
           {/* <span className="text-2xl font-bold text-primary">
             Engineering India
           </span> */}
@@ -186,7 +185,9 @@ export default function Navbar() {
             </DropdownMenu>
           ) : (
             <Link href="/auth">
-              <Button variant="default">Login</Button>
+              <Button variant="default" className="">
+                Login
+              </Button>
             </Link>
           )}
         </nav>
