@@ -26,7 +26,7 @@ export default function EventsPage() {
   });
 
   return (
-    <main className="container mx-auto mt-8 px-4 py-16 sm:px-6 lg:px-8">
+    <main className="container mx-auto mt-[3rem] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-12">
         <Typography variant="h1" className="mb-6">
           Our Events

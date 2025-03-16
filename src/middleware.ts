@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
-// Important: Only run middleware on protected routes
+// Only run middleware on protected routes
 export const config = {
   matcher: ["/dashboard/:path*", "/profile/:path*"],
 };

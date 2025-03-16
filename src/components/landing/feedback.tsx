@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,13 +12,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Loader2 } from "lucide-react";
+import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
+  const { user } = useUser();
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: user?.name ?? "",
+    email: user?.email ?? "",
     message: "",
   });
 
@@ -30,17 +33,41 @@ export default function Feedback() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
+    setErrorMessage("");
+    setIsLoading(true);
 
-    // Reset form after submission
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 3000);
+    try {
+      // Call our Next.js API Route
+      const res = await fetch("/api/v1/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        // If the response is not OK, set error message
+        setErrorMessage(data.error || "Failed to submit feedback.");
+        return;
+      }
+
+      // If success
+      setSubmitted(true);
+
+      // Reset form after a short delay
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: "", email: "", message: "" });
+      }, 3000);
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setErrorMessage("An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -76,6 +103,12 @@ export default function Feedback() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {errorMessage && (
+                    <div className="rounded-md bg-red-100 p-3 text-red-600">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-sm font-medium">
@@ -105,6 +138,7 @@ export default function Feedback() {
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-sm font-medium">
                       Message
@@ -120,8 +154,16 @@ export default function Feedback() {
                       className="min-h-[120px]"
                     />
                   </div>
-                  <Button type="submit" className="w-full">
-                    Submit Feedback
+
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? (
+                      <div className="flex items-center justify-center space-x-2">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Loading...</span>
+                      </div>
+                    ) : (
+                      "Submit Feedback"
+                    )}
                   </Button>
                 </form>
               )}

@@ -25,19 +25,23 @@ export default function Footer() {
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          {["About", "Events", "Blog", "Team", "Contact"].map(
-            (item) => (
-              <div key={item} className="pb-6">
-                <Link
-                  href={`/${item.toLowerCase()}`}
-                  rel="noopener noreferrer"
-                  className="text-sm leading-6 text-muted-foreground hover:text-foreground"
-                >
-                  {item}
-                </Link>
-              </div>
-            ),
-          )}
+          {[
+            "About",
+            "Events",
+            "Blog",
+            // "Team",
+            "Contact",
+          ].map((item) => (
+            <div key={item} className="pb-6">
+              <Link
+                href={`/${item.toLowerCase()}`}
+                rel="noopener noreferrer"
+                className="text-sm leading-6 text-muted-foreground hover:text-foreground"
+              >
+                {item}
+              </Link>
+            </div>
+          ))}
         </nav>
         <p className="mt-10 text-center text-sm leading-5 text-muted-foreground">
           Designed & Developed with ❤️ by{" "}

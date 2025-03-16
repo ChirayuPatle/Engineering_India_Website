@@ -14,44 +14,44 @@ const timelineEvents = [
     year: "2022 | August 23",
     title: "Establishment of Engineering India, YCCE & Uttishtha Bharat",
     description:
-      "Founded to promote technical and social engagement, Engineering India, YCCE hosted its first event, Uttishtha Bharat, celebrating 75 years of independence with inspiring speeches and a Tiranga Rally."
+      "Founded to promote technical and social engagement, Engineering India, YCCE hosted its first event, Uttishtha Bharat, celebrating 75 years of independence with inspiring speeches and a Tiranga Rally.",
   },
   {
     year: "2023 | May 8-10",
     title: "Avyanna – Self-Defence Workshop",
     description:
-      "A three-day workshop on Yeshti techniques and Prahar training empowered 60 participants with essential self-defense skills and awareness."
+      "A three-day workshop on Yeshti techniques and Prahar training empowered 60 participants with essential self-defense skills and awareness.",
   },
   {
     year: "2024 | January 3",
     title: "New Year Donation Drive",
     description:
-      "Volunteers distributed food, clothing, and toys, spreading joy and fostering compassion in the community."
+      "Volunteers distributed food, clothing, and toys, spreading joy and fostering compassion in the community.",
   },
   {
     year: "2024 | March 2",
     title: "Shivaji Maharaj Jayanti Celebration",
     description:
-      "Held at SDM Auditorium, this event featured Shivgoshna, Godhal dance, and an inspiring speech by Ram Wagh Sir, honoring Shivaji Maharaj’s legacy and fostering pride."
+      "Held at SDM Auditorium, this event featured Shivgoshna, Godhal dance, and an inspiring speech by Ram Wagh Sir, honoring Shivaji Maharaj’s legacy and fostering pride.",
   },
   {
     year: "2024 | April 27",
     title: "वाक् यज्ञः – Speech Competition",
     description:
-      "An intercollegiate event where 27 participants showcased their ideas. Winners were awarded certificates and cash prizes, promoting teamwork and a competitive spirit."
+      "An intercollegiate event where 27 participants showcased their ideas. Winners were awarded certificates and cash prizes, promoting teamwork and a competitive spirit.",
   },
   {
     year: "2024 | August 10",
     title: "Rangeet Talim 4.0",
     description:
-      "Held at Omkar Nagar, Nagpur, this social initiative engaged slum children in education and cultural activities. With 70 volunteers, it fostered learning and community spirit."
+      "Held at Omkar Nagar, Nagpur, this social initiative engaged slum children in education and cultural activities. With 70 volunteers, it fostered learning and community spirit.",
   },
   {
     year: "2025 | February 10",
     title: "Ultimate Socio-Technocrat – Social Hackathon",
     description:
-      "As part of YASH 25.0, this offline hackathon at YCCE saw 75+ participants tackle real-world issues in Slum Development, Women Empowerment, and Carbon Footprint. Collaborating with NGOs, participants presented innovative solutions, with judges selecting the best."
-  }
+      "As part of YASH 25.0, this offline hackathon at YCCE saw 75+ participants tackle real-world issues in Slum Development, Women Empowerment, and Carbon Footprint. Collaborating with NGOs, participants presented innovative solutions, with judges selecting the best.",
+  },
 ];
 
 const FlowerIcon = ({ progress }: { progress: number }) => (
@@ -90,7 +90,10 @@ export default function Timeline() {
   });
 
   return (
-    <section ref={containerRef} className="overflow-hidden bg-background py-20 -mt-10 md-mt-0">
+    <section
+      ref={containerRef}
+      className="md-mt-0 -mt-10 overflow-hidden bg-background py-20"
+    >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           className="mb-12 text-center"
@@ -117,9 +120,7 @@ export default function Timeline() {
           <motion.div
             className="sticky left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-primary"
             style={{ y: useTransform(scrollYProgress, [0, 1], [0, 100]) }}
-          >
-           
-          </motion.div>
+          ></motion.div>
 
           {timelineEvents.map((event, index) => (
             <TimelineEvent
@@ -184,9 +185,7 @@ function TimelineEvent({
             }}
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
-          >
-           
-          </motion.div>
+          ></motion.div>
         </div>
       </motion.div>
     </motion.div>
