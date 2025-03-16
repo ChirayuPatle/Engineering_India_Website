@@ -1,5 +1,5 @@
 // app/api/feedback/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { supabase } from "@/utils/supabase/client";
 

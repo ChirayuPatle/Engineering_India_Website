@@ -18,7 +18,7 @@ export function LoginForm({
   };
 
   return (
-    <div className={cn("max-w-sm w-full", className)} {...props}>
+    <div className={cn("w-full max-w-sm", className)} {...props}>
       <motion.div
         key="login-form"
         initial={{ opacity: 0 }}

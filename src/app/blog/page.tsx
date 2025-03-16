@@ -25,7 +25,7 @@ Stay tuned for more updates and success stories! 🚀`,
         id="main"
         className="flex min-h-screen w-full items-start justify-center gap-3 bg-gray-100 py-14"
       >
-        <div className="min-h-30 sticky top-20 hidden w-[250px] pt-[3rem] gap-7 rounded-xl bg-slate-200 py-10 shadow-md lg:block">
+        <div className="min-h-30 sticky top-20 hidden w-[250px] gap-7 rounded-xl bg-slate-200 py-10 pt-[3rem] shadow-md lg:block">
           <div className="m-wun flex w-full items-center justify-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-300">
               MT

@@ -7,13 +7,15 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* Left side: hidden on smaller screens */}
-      <div className="hidden relative w-1/2 bg-black text-white md:flex flex-col justify-center p-12">
-        <h1 className="text-5xl w-full absolute inset-0 top-40 left-16 font-bold mb-4">Join The Community !</h1>
+      <div className="relative hidden w-1/2 flex-col justify-center bg-black p-12 text-white md:flex">
+        <h1 className="absolute inset-0 left-16 top-40 mb-4 w-full text-5xl font-bold">
+          Join The Community !
+        </h1>
         <img src="./auth-2.svg" alt="" />
       </div>
 
       {/* Right side: login form */}
-      <div className="flex w-full md:w-1/2 items-center justify-center bg-white p-8">
+      <div className="flex w-full items-center justify-center bg-white p-8 md:w-1/2">
         <LoginForm />
       </div>
     </div>

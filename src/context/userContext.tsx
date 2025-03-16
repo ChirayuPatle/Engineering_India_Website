@@ -86,6 +86,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
           }
         } else {
           setUser(null);
+<<<<<<< HEAD
 
           // Only redirect to auth if the user is on a protected route
           const isProtectedRoute = protectedRoutes.some((route) =>
@@ -93,6 +94,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
           );
 
           if (isProtectedRoute) {
+=======
+          setUserEvents([]);
+          setUserPayments([]);
+          localStorage.removeItem(USER_CACHE_KEY);
+          if (
+            pathname.startsWith("/dashboard") ||
+            pathname.startsWith("/profile") ||
+            pathname.startsWith("/registration") ||
+            pathname.endsWith("/register") ||
+            pathname.endsWith("/ticket")
+          ) {
+>>>>>>> 892e0df (fix: linting issues)
             router.push("/auth");
           }
         }

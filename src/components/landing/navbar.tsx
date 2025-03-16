@@ -104,7 +104,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all py-4 duration-300 lg:px-20 ${
+      className={`fixed top-0 z-50 w-full py-4 transition-all duration-300 lg:px-20 ${
         scrolled
           ? "bg-background/80 shadow-sm backdrop-blur-md"
           : "bg-transparent"
@@ -112,7 +112,7 @@ export default function Navbar() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-        <img src="./logo1.png" className="w-[3.8rem]" alt="" />
+          <img src="./logo1.png" className="w-[3.8rem]" alt="" />
           {/* <span className="text-2xl font-bold text-primary">
             Engineering India
           </span> */}

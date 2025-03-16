@@ -16,18 +16,21 @@ import { CheckCircle } from "lucide-react";
 import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
-  const  {user} = useUser()
+  const { user } = useUser();
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [formData, setFormData] = useState({ name: user?.name ?? "", email: user?.email ?? "", message: "" });
+  const [formData, setFormData] = useState({
+    name: user?.name ?? "",
+    email: user?.email ?? "",
+    message: "",
+  });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
