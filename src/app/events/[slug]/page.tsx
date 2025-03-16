@@ -399,7 +399,7 @@ export default function EventPage() {
                     Email
                   </Button>
                 </div>
-                <p>Email: {event.organizer?.email || "evetnorg@eiycce.in"}</p>
+                {/* <p>Email: {event.organizer?.email || "evetnorg@eiycce.in"}</p> */}
               </div>
             </Card>
           </aside>

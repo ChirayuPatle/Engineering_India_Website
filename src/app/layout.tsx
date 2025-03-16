@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: "Engineering India | YCCE",
   description:
     "A national level club, which aims to foster innovation and social responsibility, focuses on the overall development of students through various technical and social activities.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/logo1.png" }],
 };
 
 export default function RootLayout({
