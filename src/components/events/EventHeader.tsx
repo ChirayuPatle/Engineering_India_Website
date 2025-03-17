@@ -23,6 +23,8 @@ interface EventHeaderProps {
     event_image?: string;
     registration_fee?: number;
     event_description: string;
+    co_organized_by?: string;
+    organized_by?: string;
   };
 }
 
@@ -113,11 +115,17 @@ export default function EventHeader({ event }: EventHeaderProps) {
               {event.registration_fee ? (
                 <Badge
                   variant="outline"
-                  className="border-black px-3 py-1 text-lg text-black"
+                  className="border-orange-500 px-3 py-1 text-lg text-orange-500"
                 >
-                  ₹ {event.registration_fee.toLocaleString()}
+                  Paid
                 </Badge>
               ) : (
+                // <Badge
+                //   variant="outline"
+                //   className="border-black px-3 py-1 text-lg text-black"
+                // >
+                //   ₹ {event.registration_fee.toLocaleString()}
+                // </Badge>
                 <Badge
                   variant="outline"
                   className="border-green-500 px-3 py-1 text-lg text-green-500"
@@ -132,7 +140,15 @@ export default function EventHeader({ event }: EventHeaderProps) {
             <div className="pt-2">
               <span className="flex gap-1 text-sm">
                 Organized by:
-                <h1 className="font-bold">Team EI</h1>
+                <h1 className="font-bold">{event.organized_by}</h1>
+              </span>
+              <span className="flex gap-1 text-sm">
+                {event.co_organized_by && (
+                  <>
+                    Co-Organized by:
+                    <h1 className="font-bold">{event.co_organized_by}</h1>
+                  </>
+                )}
               </span>
             </div>
           </div>

@@ -16,6 +16,8 @@ export type Event = {
   event_description: string;
   event_start_date: string;
   event_end_date?: string;
+  organized_by?: string;
+  co_organized_by?: string;
   // New fields added:
   registration_opens: string;
   registration_closes: string;
