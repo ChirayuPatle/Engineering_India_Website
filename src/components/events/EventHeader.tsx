@@ -140,7 +140,13 @@ export default function EventHeader({ event }: EventHeaderProps) {
             <div className="pt-2">
               <span className="flex gap-1 text-sm">
                 Organized by:
-                <h1 className="font-bold">{event.organized_by}</h1>
+                {
+                  event.organized_by ? (
+                    <h1 className="font-bold">{event.organized_by}</h1>
+                  ): (
+                    <h1 className="font-bold">Team EI</h1>
+                  )
+                }
               </span>
               <span className="flex gap-1 text-sm">
                 {event.co_organized_by && (
