@@ -1,7 +1,5 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,19 +10,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Typography } from "@/components/ui/typography";
 import { CheckCircle, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
   const { user } = useUser();
+  const [formData, setFormData] = useState({
+    name: user?.name || "",
+    email: user?.email || "",
+    message: "",
+  });
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: user?.name ?? "",
-    email: user?.email ?? "",
-    message: "",
-  });
+
+  // Update the auto-filled fields if user context changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      name: user?.name || "",
+      email: user?.email || "",
+    }));
+  }, [user]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,7 +48,6 @@ export default function Feedback() {
     setIsLoading(true);
 
     try {
-      // Call our Next.js API Route
       const res = await fetch("/api/v1/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -49,18 +57,20 @@ export default function Feedback() {
       const data = await res.json();
 
       if (!res.ok) {
-        // If the response is not OK, set error message
         setErrorMessage(data.error || "Failed to submit feedback.");
         return;
       }
 
-      // If success
       setSubmitted(true);
 
-      // Reset form after a short delay
+      // Reset only the message after submission, keeping the auto-filled name and email
       setTimeout(() => {
         setSubmitted(false);
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({
+          name: user?.name || "",
+          email: user?.email || "",
+          message: "",
+        });
       }, 3000);
     } catch (err: any) {
       console.error("Submission error:", err);
@@ -75,15 +85,17 @@ export default function Feedback() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-zinc-700 md:text-4xl">
+            <Typography
+              variant="h2"
+              className="mb-4 text-3xl font-bold text-zinc-700 md:text-4xl"
+            >
               Share Your Feedback
-            </h2>
-            <p className="text-muted-foreground">
+            </Typography>
+            <Typography className="text-muted-foreground">
               We value your opinions and suggestions. Let us know how we can
               improve our club activities.
-            </p>
+            </Typography>
           </div>
-
           <Card>
             <CardHeader>
               <CardTitle>Feedback Form</CardTitle>
