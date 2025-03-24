@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import teamMembers from "@/team-info";
+import {teamMembers} from "@/team-info";
 import { useState } from "react";
 import {
   Github,

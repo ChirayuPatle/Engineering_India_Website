@@ -47,7 +47,7 @@ function BlogCard({
 
       {/* Description */}
       <p className="leading-relaxed text-gray-600">
-        {content}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="ml-1 text-blue-500 hover:underline"

@@ -28,7 +28,7 @@ const navItems = [
   { name: "Events", href: "/events" },
   { name: "About", href: "/about" },
   { name: "Blogs", href: "/blog" },
-  // { name: "Team", href: "/team" },
+  { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -109,9 +109,11 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container  mx-auto flex h-10  items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
-          <img src="./logo1.png" className="w-[2.2rem] md:w-[3.8rem]" alt="" />
+        <div className="w-[2.2rem] md:w-[3.0rem]">
+          <img src="./logo1.png"  className="h-full w-full object-cover" alt="" />
+        </div>
           {/* <span className="text-2xl font-bold text-primary">
             Engineering India
           </span> */}

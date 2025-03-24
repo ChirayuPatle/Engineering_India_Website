@@ -1,5 +1,5 @@
 "use client";
-import teamMembers from "@/team-info";
+import { teamMembers, SecondYear, ThridYear, Devlopers } from "@/team-info";
 import { useRouter } from "next/navigation";
 type TeamCardProps = {
   name: string;
@@ -36,19 +36,69 @@ const TeamCard: React.FC<TeamCardProps> = ({ name, position, teamId }) => {
 const TeamPage: React.FC = () => {
   return (
     <>
-      <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
-        Our Team Leads
-      </h1>
-      <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
-        <div className="my-[4rem]"></div>
-        {teamMembers.map((details, index) => (
-          <TeamCard
-            key={index}
-            name={details.name}
-            position={details.position}
-            teamId={details.teamId}
-          />
-        ))}
+      <div>
+        <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
+          Our Team Leads
+        </h1>
+        <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
+          <div className="my-[4rem]"></div>
+          {teamMembers.map((details, index) => (
+            <TeamCard
+              key={index}
+              name={details.name}
+              position={details.position}
+              teamId={details.teamId}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
+          2rd Year Coordinators
+        </h1>
+        <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
+          <div className="my-[4rem]"></div>
+          {SecondYear.map((details, index) => (
+            <TeamCard
+              key={index}
+              name={details.name}
+              position={details.position}
+              teamId={details.teamId}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
+          3rd Year Coordinators
+        </h1>
+        <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
+          <div className="my-[4rem]"></div>
+          {ThridYear.map((details, index) => (
+            <TeamCard
+              key={index}
+              name={details.name}
+              position={details.position}
+              teamId={details.teamId}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
+          Devlopers
+        </h1>
+        <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
+          <div className="my-[4rem]"></div>
+          {Devlopers.map((details, index) => (
+            <TeamCard
+              key={index}
+              name={details.name}
+              position={details.position}
+              teamId={details.teamId}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
