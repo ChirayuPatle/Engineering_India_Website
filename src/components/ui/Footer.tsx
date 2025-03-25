@@ -37,7 +37,7 @@ export default function Footer() {
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          {["About", "Events", "Blog", "Contact"].map((item) => (
+          {["About", "Events", "Blog","Team", "Contact"].map((item) => (
             <div key={item} className="pb-6">
               <Link
                 href={`/${item.toLowerCase()}`}

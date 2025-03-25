@@ -2,6 +2,7 @@ import BlogCard from "@/components/blogs/page";
 import { Heart, MessageCircle, Share } from "lucide-react";
 
 function blog() {
+  // Blog Data
   const blogContainer = [
     {
       img: "./image/Veer vandana.jpg",
