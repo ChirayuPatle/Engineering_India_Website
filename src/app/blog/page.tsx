@@ -2,22 +2,45 @@ import BlogCard from "@/components/blogs/page";
 import { Heart, MessageCircle, Share } from "lucide-react";
 
 function blog() {
-  const img = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSut9HYsccLxpMYIn7lt6dOrYiVpB_9R3MjEg&s",
-    "https://thumbs.dreamstime.com/b/special-day-modern-calligraphy-quote-decorative-elements-white-ink-vector-illustration-170638472.jpg",
-    "https://marketplace.canva.com/EAFap1V35Zg/1/0/1600w/canva-blue-illustrative-simple-8-march-international-womens-day-instagram-post-9Aa_0jK1Nd8.jpg",
+  // Blog Data
+  const blogContainer = [
+    {
+      img: "./image/Veer vandana.jpg",
+      fulltext: `
+     <b> On 18th January 2025, Vinayakrao Deshmukh High School & Science Junior College, Nagpur </b> witnessed an unforgettable event <b> Veer Vandan!</b> Organized by <b> IMCTF, Nagpur</b> this patriotic event aimed to ignite the spirit of nationalism among the youth.
+     <br>
+      ✨ The highlight of the event was the presence of Param Veer Chakra Awardee, Grenadier Yogendra Singh Yadav. His inspiring journey left over <b>4,000 students from 30+ schools </b> in awe, instilling deep respect for our brave soldiers.
+      <br>
+      🚀<b> From 9:30 AM to 12:00 PM </b>, students reflected on the sacrifices that won us independence and the courage that keeps our nation strong. The event, passionately organized by Engineering India, wasn’t just a gathering—it was a powerful reminder of India's rich history of valor and sacrifice.
+      
+      🇮🇳 Veer Vandan was more than an event—it was an emotion! A day filled with pride, patriotism, and learning that left an indelible mark on every participant’s heart.`,
+      header: "VEER VANDANA",
+    },
+    {
+      img: "./image/RASHTRABHIMAN.png",
+      fulltext: `
+ On <b>26th January 2025</b>, we celebrated the Republic Day of India to commemorate the sacrifices of freedom fighters, soldiers, and many others, because of whom we attained independence and became a Republic. <br><br>
+
+📍 <b>Location:</b> Traffic Park, Dharampeth, Nagpur <br>
+🎓 <b>Organized by:</b> 7 prestigious colleges: <br>
+- Yeshwantrao Chavan College of Engineering (YCCE) <br>
+- Shri Ramdeobaba University <br>
+- G H Raisoni College of Engineering <br>
+- Priyadarshini College of Engineering <br>
+- Cummins College of Engineering for Women <br>
+- KDK College of Engineering <br><br>
+
+<b>🌟 Rashtrabhiman Event Highlights:</b><br>
+✅ <b>150+ volunteers</b> from these colleges joined hands to make this event a grand success. <br>
+✅ The Chief Guests were welcomed with a <b>memento & sapling</b> as a token of appreciation. 🌱<br>
+✅ A mesmerizing dance performance on <b>'Ae Watan'</b> by a student of St. Vincent Pallotti College of Engineering and Technology. 💃<br>
+✅ A <b>tear-jerking skit</b> by students of Shri Ramdeobaba University, portraying the sacrifices of our brave soldiers. 🎭❤️<br>
+✅ The performance left everyone in awe and was the most applauded moment of the event. 👏🔥<br><br>
+
+      <b>🇮🇳 Jai Hind! 🇮🇳</b><br><br>`,
+      header: "RASHTRABHIMAN",
+    },
   ];
-  const fulltext = [
-    "We are thrilled to announce an exciting placement opportunity at YCCE! This is your chance to join a dynamic and innovative team, where you can grow your skills and build a successful career. The placement drive will be held on [Insert Date] at [Insert Time] in [Insert Location]. Don’t miss this opportunity to showcase your talents and take the next step toward a bright future. Make sure to prepare thoroughly and bring all necessary documents. We look forward to seeing you there!",
-    `Today is a special day! 🎉 We are thrilled to announce that YCCE has achieved a remarkable milestone in campus placements this year. With record-breaking job offers from top multinational companies, students have secured roles in AI, Data Science, and Software Development. 
-
-In addition to placements, the college has introduced new training programs to upskill students in cutting-edge technologies. Dont miss out on our upcoming career counseling session to boost your job prospects.
-
-Stay tuned for more updates and success stories! 🚀`,
-    "Happy wommen days",
-  ];
-
-  const header = ["Placement at YCCE 🚨", "Special day", " Happy Women day"];
 
   return (
     <>
@@ -35,12 +58,12 @@ Stay tuned for more updates and success stories! 🚀`,
         </div>
         <div className="min-h-screen w-[600px] rounded-xl border-2 bg-slate-200 p-2 shadow-md md:w-[700px] md:p-10">
           <h1 className="md;ml-0 ml-2 text-3xl font-bold"> Blogs</h1>
-          {fulltext.map((text, index) => (
+          {blogContainer.map((blog, index: number) => (
             <BlogCard
               key={index}
-              text={text}
-              imgurl={img[index] || ""}
-              header={header[index] || ""}
+              text={blog.fulltext || ""}
+              imgurl={blog.img || ""}
+              header={blog.header || ""}
             />
           ))}
         </div>

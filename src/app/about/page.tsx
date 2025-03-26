@@ -31,9 +31,9 @@ export default function AboutPage() {
               experts.
             </Typography>
           </div>
-          <div className="relative h-[400px] overflow-hidden rounded-lg">
+          <div className="relative h-[400px] overflow-hidden rounded-lg border-2">
             <Image
-              src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1740506794/WhatsApp_Image_2025-02-25_at_11.35.13_PM_fxxfc9.jpg"
+              src="/image/IMG_6124 (1).JPG"
               alt="Students collaborating"
               fill
               className="object-cover"
