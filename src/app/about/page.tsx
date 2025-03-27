@@ -12,7 +12,7 @@ export default function AboutPage() {
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-8">
           <div>
             <Typography variant="h1" className="mb-6">
-              About {siteConfig.name}
+              About {siteConfig.name} | YCCE
             </Typography>
             <Typography className="mb-4">
               Welcome to {siteConfig.name}, where technology meets community. We
@@ -25,7 +25,7 @@ export default function AboutPage() {
               building meaningful connections with fellow tech enthusiasts.
             </Typography>
             <Typography className="mb-4">
-              Founded in 2022, we've grown into a vibrant community of over 500
+              Founded in 2022, we've grown into a vibrant community of over 250
               members, hosting regular workshops, hackathons, and networking
               events that bring together students, professionals, and industry
               experts.
@@ -33,7 +33,7 @@ export default function AboutPage() {
           </div>
           <div className="relative h-[400px] overflow-hidden rounded-lg border-2">
             <Image
-              src="/image/IMG_6124 (1).JPG"
+              src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA"
               alt="Students collaborating"
               fill
               className="object-cover"

@@ -69,11 +69,11 @@ export default function AboutSection() {
                 </p>
               </div>
               <div id="text">
-                <p className="text-4xl font-bold text-primary">1000+</p>
+                <p className="text-4xl font-bold text-primary">250+</p>
                 <p className="text-sm text-muted-foreground">Student Members</p>
               </div>
               <div id="text">
-                <p className="text-4xl font-bold text-primary">20+</p>
+                <p className="text-4xl font-bold text-primary">8+</p>
                 <p className="text-sm text-muted-foreground">
                   Social Initiatives
                 </p>

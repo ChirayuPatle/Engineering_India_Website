@@ -223,12 +223,12 @@ export default function HomePage() {
                 },
                 {
                   icon: Building,
-                  count: "20+",
+                  count: "10+",
                   label: "Tech Workshops & Hackathons",
                 },
                 {
                   icon: Users,
-                  count: "500+",
+                  count: "200+",
                   label: "Community Members Strong",
                 },
               ].map(({ icon: Icon, count, label }, index) => (
