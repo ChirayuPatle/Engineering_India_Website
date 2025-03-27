@@ -340,11 +340,12 @@ export default function EventPage() {
             <Card className="p-4 shadow-none">
               <div className="mb-4 flex items-center justify-between">
                 <Typography as="h2" className="text-xl font-bold">
-                  {timeLeft > 0 ? "Register Now 🚀" : "Event Ended 🥺"}
+                  {timeLeft > 0 ? "Register Now 🚀" : "Event Ended"}
                 </Typography>
               </div>
               <Button
                 type="button"
+                disabled={timeLeft < 0}
                 onClick={() => timeLeft > 0 && router.push("/registration")}
                 className={`w-full ${timeLeft > 0 ? "bg-black" : "bg-red-300 hover:bg-red-300"} `}
               >
@@ -378,7 +379,7 @@ export default function EventPage() {
               </ul>
             </Card> */}
 
-            <Card className="p-4 shadow-none">
+            {/* <Card className="p-4 shadow-none">
               <Typography as="h3" className="mb-2 font-semibold">
                 Contact Organizers
               </Typography>
@@ -401,7 +402,7 @@ export default function EventPage() {
                 </div>
                 <p>Email: {event.organizer?.email || "evetnorg@eiycce.in"}</p>
               </div>
-            </Card>
+            </Card> */}
           </aside>
         </div>
       </main>
