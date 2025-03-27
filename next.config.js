@@ -28,6 +28,10 @@ const config = {
         protocol: "https",
         hostname: "media.istockphoto.com",
       },
+      {
+        protocol: "https",
+        hostname: "hmrvazaoddsexmrgydqx.supabase.co",
+      },
     ],
   },
 };

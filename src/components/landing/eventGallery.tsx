@@ -3,27 +3,27 @@ import Link from "next/link";
 
 const galleryImages = [
   {
-    src: "/image/DonationEvent.JPG",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/DonationEvent.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvRG9uYXRpb25FdmVudC5KUEciLCJpYXQiOjE3NDMwOTU3MzAsImV4cCI6MjA1ODQ1NTczMH0.akR4Yj4m57u8zSqSmwSC9na0dW3k33_9YDc04sGF2tA",
     alt: "",
     title: "Donation Drive",
   },
   {
-    src: "/image/ust-event2.jpg",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/ust-event2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvdXN0LWV2ZW50Mi5KUEciLCJpYXQiOjE3NDMwOTU3NTMsImV4cCI6MjA1ODQ1NTc1M30.KIRG0liJ_2EVP9HiJ2XKLqzCPx7ALe11Mdxea4B8rGw",
     alt: "Coding Competition",
     title: "Ultimate Social Technocart",
   },
   {
-    src: "/image/Rangataleem.JPG",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Rangataleem.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvUmFuZ2F0YWxlZW0uanBnIiwiaWF0IjoxNzQzMDk1Nzc1LCJleHAiOjIwNTg0NTU3NzV9.WIZg-JIh9acvYoKBYd3192H95xoSwE1d8ZW3hz0ASBs",
     alt: "Social Initiative",
     title: "Rangittalim",
   },
   {
-    src: "/image/Chitrankan.JPG",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Chitrankan.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvQ2hpdHJhbmthbi5qcGciLCJpYXQiOjE3NDMwOTU3OTksImV4cCI6MjA1ODQ1NTc5OX0.NO4w2LnmTNAFdQQwC2w0Oq3-mzOG8AeQWxrECW03KoE",
     alt: "Social Initiative",
     title: "Chitrankan",
   },
   {
-    src: "/image/Abhudaya.JPG",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Abhudaya.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvQWJodWRheWEuSlBHIiwiaWF0IjoxNzQzMDk1Njg4LCJleHAiOjIwNTg0NTU2ODh9.u9i0WElVv4V1np6uKhcDHhHt1PzgX6dk0IgBv_fkK9Y",
     alt: "Social Initiative",
     title: "Abhyudhaya 24.0",
   },
