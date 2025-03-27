@@ -25,7 +25,7 @@ export default function AboutPage() {
               building meaningful connections with fellow tech enthusiasts.
             </Typography>
             <Typography className="mb-4">
-              Founded in 2024, we've grown into a vibrant community of over 500
+              Founded in 2022, we've grown into a vibrant community of over 500
               members, hosting regular workshops, hackathons, and networking
               events that bring together students, professionals, and industry
               experts.
@@ -87,7 +87,7 @@ export default function AboutPage() {
         </div>
         <div className="relative mt-8 h-[400px] overflow-hidden rounded-lg">
           <Image
-            src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4"
+            src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA"
             alt="Students collaborating"
             fill
             className="object-cover"

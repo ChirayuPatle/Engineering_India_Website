@@ -68,7 +68,7 @@ export default function Faq() {
           <div className="mt-8 text-center">
             <p className="text-muted-foreground">
               Still have questions?{" "}
-              <a href="/contact" className="text-primary hover:underline">
+              <a href="/contact" className="text-blue-700 hover:underline">
                 Contact us
               </a>{" "}
               for more information.
