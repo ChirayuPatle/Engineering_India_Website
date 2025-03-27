@@ -28,7 +28,7 @@ const galleryImages = [
     title: "Abhyudhaya 24.0",
   },
   {
-    src: "/image/Shiv-2.JPG",
+    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/ShivajiJayant.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvU2hpdmFqaUpheWFudC5qcGciLCJpYXQiOjE3NDMwOTYzMjgsImV4cCI6MjA1ODQ1NjMyOH0.Alv3S78o-QYoKV5eDgFKwZy-Vk4FCXR3Se0-AVfmS14",
     alt: "Social Initiative",
     title: "Shivaji Jayanti",
   },
