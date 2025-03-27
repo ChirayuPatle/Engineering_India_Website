@@ -176,7 +176,7 @@ function TimelineEvent({
         <div className="rounded-lg border border-primary/10 bg-background p-4 shadow-md">
           <span className="font-bold text-primary">{event.year}</span>
           <h3 className="mb-1 text-lg font-semibold">{event.title}</h3>
-          <p className="text-muted-foreground">{event.description}</p>
+          <p className="hidden md:flex text-muted-foreground">{event.description}</p>
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
