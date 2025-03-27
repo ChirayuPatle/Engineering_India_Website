@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import {teamMembers,SecondYear,ThridYear,Devlopers} from "@/team-info";
+import { teamMembers, SecondYear, ThridYear, Devlopers } from "@/team-info";
 import { useState } from "react";
 import {
   Github,
@@ -30,7 +30,7 @@ function TeamInfoPage(): JSX.Element {
             <img
               className="h-full w-full object-cover"
               src={`${
-               SecondYear[userid] ?SecondYear[userid].image : "not found"
+                SecondYear[userid] ? SecondYear[userid].image : "not found"
               }`}
               alt=""
             />
@@ -38,12 +38,12 @@ function TeamInfoPage(): JSX.Element {
           <div className="leading-2 flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold text-white">
               {teamMembers[userid]
-                ?SecondYear[userid]?.name
+                ? SecondYear[userid]?.name
                 : "Member not found"}
             </h1>
             <h1 className="text-md font-bold text-zinc-200">
               {teamMembers[userid]
-                ?SecondYear[userid]?.position
+                ? SecondYear[userid]?.position
                 : "Member not found"}
             </h1>
           </div>

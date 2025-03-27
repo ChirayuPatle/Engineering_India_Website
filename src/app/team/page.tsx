@@ -9,7 +9,13 @@ type TeamCardProps = {
   onClick?: () => void;
 };
 
-const TeamCard: React.FC<TeamCardProps> = ({ name, position, teamId, image, onClick }) => {
+const TeamCard: React.FC<TeamCardProps> = ({
+  name,
+  position,
+  teamId,
+  image,
+  onClick,
+}) => {
   return (
     <div
       onClick={onClick}
@@ -45,7 +51,7 @@ const TeamPage: React.FC = () => {
         <div className="mt-[2rem] flex flex-wrap justify-center gap-6 p-10">
           <div className="my-[4rem]"></div>
           {teamMembers.map((details, index) => (
-            <TeamCard  
+            <TeamCard
               onClick={() => router.push(`/team-info/leads/${details.teamId}`)}
               key={index}
               name={details.name}
@@ -64,7 +70,7 @@ const TeamPage: React.FC = () => {
           <div className="my-[4rem]"></div>
           {SecondYear.map((details, index) => (
             <TeamCard
-            onClick={() => router.push(`/team-info/second/${details.teamId}`)}
+              onClick={() => router.push(`/team-info/second/${details.teamId}`)}
               key={index}
               name={details.name}
               position={details.position}
@@ -82,7 +88,7 @@ const TeamPage: React.FC = () => {
           <div className="my-[4rem]"></div>
           {ThridYear.map((details, index) => (
             <TeamCard
-            onClick={() => router.push(`/team-info/Third/${details.teamId}`)}
+              onClick={() => router.push(`/team-info/Third/${details.teamId}`)}
               key={index}
               name={details.name}
               position={details.position}
@@ -100,7 +106,9 @@ const TeamPage: React.FC = () => {
           <div className="my-[4rem]"></div>
           {Devlopers.map((details, index) => (
             <TeamCard
-            onClick={() => router.push(`/team-info/developers/${details.teamId}`)}
+              onClick={() =>
+                router.push(`/team-info/developers/${details.teamId}`)
+              }
               key={index}
               name={details.name}
               position={details.position}
