@@ -99,7 +99,7 @@ const teamMembers: TeamMember[] = [
   {
     teamId: 16,
     name: "Romi Pun",
-    position: "Co-ordinator",
+    position: "IT Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
   },
   {
@@ -124,18 +124,6 @@ const teamMembers: TeamMember[] = [
     teamId: 20,
     name: "Atharva Pophali",
     position: "C-Tech Departmental Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-  },
-  {
-    teamId: 21,
-    name: "Aditya Dharpure",
-    position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-  },
-  {
-    teamId: 22,
-    name: "Om Bhate",
-    position: "Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
   },
 ];
@@ -233,7 +221,7 @@ const SecondYear: TeamMember[] = [
   {
     teamId: 16,
     name: "Romi Pun",
-    position: "Co-ordinator",
+    position: "IT Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
   },
   {
@@ -260,18 +248,18 @@ const SecondYear: TeamMember[] = [
     position: "C-Tech Departmental Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
   },
-  {
-    teamId: 21,
-    name: "Aditya Dharpure",
-    position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-  },
-  {
-    teamId: 22,
-    name: "Om Bhate",
-    position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-  },
+  // {
+  //   teamId: 21,
+  //   name: "Aditya Dharpure",
+  //   position: "Co-ordinator",
+  //   image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+  // },
+  // {
+  //   teamId: 22,
+  //   name: "Om Bhate",
+  //   position: "Co-ordinator",
+  //   image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+  // },
 ];
 const ThridYear: TeamMember[] = [
   {
@@ -367,7 +355,7 @@ const ThridYear: TeamMember[] = [
   {
     teamId: 16,
     name: "Romi Pun",
-    position: "Co-ordinator",
+    position: "IT Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
   },
   {
