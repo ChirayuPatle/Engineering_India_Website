@@ -20,12 +20,12 @@ const faqs = [
   {
     question: "What types of events does the club organize?",
     answer:
-      "We organize a wide range of events including technical workshops, coding competitions, hackathons, guest lectures, industry visits, cultural events, and social outreach programs.",
+      "We organize a wide range of events including cultural events, technical workshops, coding competitions, hackathons, guest lectures, industry visits and social outreach programs.",
   },
   {
     question: "Are there any membership fees?",
     answer:
-      "No, there are no membership fees. Our club is open to everyone without any financial requirements. We believe in inclusivity and passion over payments, so you can join and participate in all activities and events for free!",
+      "No, our club is open to everyone. We believe in inclusivity, so you can join and participate in all activities and events for free!",
   },
   {
     question: "Can first-year students join the club?",
@@ -33,9 +33,9 @@ const faqs = [
       "We encourage first-year students to join and participate in our activities. It's a great way to build skills, network, and enhance your college experience from the beginning.",
   },
   {
-    question: "How can I volunteer for club activities?",
+    question: "In what domain I can volunteer ?",
     answer:
-      "Members can volunteer for various roles in event organization, technical teams, content creation, and more. Just reach out to any of the club heads or coordinators to express your interest.",
+      "Members can volunteer for various roles in event organization, technical teams, literature, photography, designing and more. Just reach out to any of the club heads or coordinators to express your interest.",
   },
 ];
 

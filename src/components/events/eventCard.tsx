@@ -7,7 +7,7 @@ import Image from "next/image";
 
 interface EventCardProps {
   title: string;
-  date: string;
+  date: Date;
   location: string;
   description: string;
   imageUrl: string;
@@ -47,7 +47,7 @@ export function EventCard({
           <div className="mt-2 flex flex-wrap items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-1">
               <CalendarIcon className="h-4 w-4" />
-              <span className="text-sm">{date}</span>
+              <span className="text-sm">{date.toLocaleDateString()}</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPinIcon className="h-4 w-4" />
