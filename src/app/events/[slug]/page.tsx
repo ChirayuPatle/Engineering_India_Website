@@ -223,8 +223,8 @@ export default function EventPage() {
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
   const handleShare = () => {
-    window.navigator.share()
-  }
+    window.navigator.share();
+  };
 
   // Dynamic nav items based on event data using new schema fields
   const navItems = [

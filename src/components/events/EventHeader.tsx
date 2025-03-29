@@ -94,10 +94,10 @@ export default function EventHeader({ event }: EventHeaderProps) {
                 variant="ghost"
                 onClick={async () => {
                   await navigator.share({
-                      title: event.event_title,
-                      text: "Look this exciting event",
-                      url: window.location.href,
-                  });   
+                    title: event.event_title,
+                    text: "Look this exciting event",
+                    url: window.location.href,
+                  });
                 }}
                 className="flex items-center gap-1 p-2 text-black"
               >

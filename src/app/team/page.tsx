@@ -25,12 +25,12 @@ const TeamCard: React.FC<TeamCardProps> = ({
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500 to-green-500 opacity-20 transition-opacity duration-500 group-hover:opacity-40" />
 
       {/* Profile Image */}
-      <div  className="w-44 flex items-center justify-center ">
-      <img
-        src={image}
-        alt="Profile"
-        className="mt-6 h-36 w-36 rounded-full border-4 border-black object-cover p-1 shadow-lg"
-      />
+      <div className="flex w-44 items-center justify-center">
+        <img
+          src={image}
+          alt="Profile"
+          className="mt-6 h-36 w-36 rounded-full border-4 border-black object-cover p-1 shadow-lg"
+        />
       </div>
 
       {/* Member Details */}
@@ -46,12 +46,11 @@ const TeamPage: React.FC = () => {
   const router = useRouter();
   return (
     <>
-      <div className="w-full h-full ">
+      <div className="h-full w-full">
         <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
           Our Team Leads
         </h1>
-        <div className=" lg:ml-0 mt-[2rem] flex items-start  md:flex-wrap  overflow-auto md:overflow-hidden  justify-start  md:justify-center gap-6 p-10">
-       
+        <div className="mt-[2rem] flex items-start justify-start gap-6 overflow-auto p-10 md:flex-wrap md:justify-center md:overflow-hidden lg:ml-0">
           {teamMembers.map((details, index) => (
             <TeamCard
               onClick={() => router.push(`/team-info/leads/${details.teamId}`)}
@@ -104,7 +103,7 @@ const TeamPage: React.FC = () => {
         <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
           Devlopers
         </h1>
-        <div className=" lg:ml-0 mt-[2rem] flex items-start  md:flex-wrap  overflow-auto md:overflow-hidden  justify-start  md:justify-center gap-6 p-10">
+        <div className="mt-[2rem] flex items-start justify-start gap-6 overflow-auto p-10 md:flex-wrap md:justify-center md:overflow-hidden lg:ml-0">
           <div className="my-[4rem]"></div>
           {Devlopers.map((details, index) => (
             <TeamCard

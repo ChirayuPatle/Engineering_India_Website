@@ -41,7 +41,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        
         <div className="relative mt-8 min-h-[800px] overflow-hidden rounded-lg">
           <Image
             src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/aboutpage.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvYWJvdXRwYWdlLkpQRyIsImlhdCI6MTc0MzE3OTc2MiwiZXhwIjoyMDU4NTM5NzYyfQ.AJPbrx-_EfKnLs0R_EhE2KeLXMfXrRSzUGCXdmJzr_M"
