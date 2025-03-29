@@ -73,7 +73,7 @@ export default function EventsPage() {
               >
                 <EventCard
                   title={event.event_title}
-                  date={event.event_start_date}
+                  date={new Date(event.event_start_date)}
                   location={event.event_venue}
                   description={event.event_description}
                   imageUrl={event.event_image?.trim() || "./notfound.svg"}

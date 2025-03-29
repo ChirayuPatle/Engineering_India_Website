@@ -64,7 +64,7 @@ const TeamPage: React.FC = () => {
           ))}
         </div>
       </div>
-      <div>
+      {/* <div>
         <h1 className="-mb-10 mt-20 text-center text-3xl font-bold text-zinc-600  lg:text-4xl">
           2rd Year Coordinators
         </h1>
@@ -81,8 +81,8 @@ const TeamPage: React.FC = () => {
             />
           ))}
         </div>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <h1 className="-mb-10 mt-20 text-center text-3xl lg:text-4xl  font-bold text-zinc-600">
           3rd Year Coordinators
         </h1>
@@ -99,7 +99,7 @@ const TeamPage: React.FC = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
       <div>
         <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
           Devlopers

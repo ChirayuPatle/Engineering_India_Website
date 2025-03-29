@@ -222,6 +222,10 @@ export default function EventPage() {
     : [event.event_image ?? "./notfound.svg"];
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
+  const handleShare = () => {
+    window.navigator.share()
+  }
+
   // Dynamic nav items based on event data using new schema fields
   const navItems = [
     { id: "overview", label: "Overview", condition: true },
@@ -421,11 +425,11 @@ export default function EventPage() {
         </Button>
       </div>
 
-      <ShareModal
+      {/* <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         shareUrl={shareUrl}
-      />
+      /> */}
     </>
   );
 }
