@@ -28,7 +28,8 @@ const teamMembers: TeamMember[] = [
     teamId: 4,
     name: "Piyush Piprewar",
     position: "Database Head",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PiyushPiprewar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QaXl1c2hQaXByZXdhci5wbmciLCJpYXQiOjE3NDMyNzQ0MTIsImV4cCI6MjA1ODYzNDQxMn0.902TUHwkaODtcPHrOF5of3f6OFmzpt34tWaaGMRTLeI",
   },
   {
     teamId: 5,
@@ -64,7 +65,8 @@ const teamMembers: TeamMember[] = [
     teamId: 10,
     name: "Shivam Saraf",
     position: "Social Media and Photography Head",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Shivam.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TaGl2YW0uanBlZyIsImlhdCI6MTc0MzI3NDQ2NywiZXhwIjoyMDU4NjM0NDY3fQ.4qjT5LmXOhn8EPnLLu-T6N-ZuYof9LVJZsSlWiyGBb4",
   },
   {
     teamId: 11,
