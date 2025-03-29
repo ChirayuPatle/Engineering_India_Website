@@ -8,7 +8,7 @@ const galleryImages = [
     title: "Donation Drive",
   },
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/ust-event2.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvdXN0LWV2ZW50Mi5KUEciLCJpYXQiOjE3NDMwOTU3NTMsImV4cCI6MjA1ODQ1NTc1M30.KIRG0liJ_2EVP9HiJ2XKLqzCPx7ALe11Mdxea4B8rGw",
+    src: "https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217526/UST-Home_page_rnhpsv.jpg",
     alt: "Coding Competition",
     title: "Ultimate Social Technocart",
   },
@@ -18,17 +18,17 @@ const galleryImages = [
     title: "Rangittalim",
   },
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Chitrankan.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvQ2hpdHJhbmthbi5qcGciLCJpYXQiOjE3NDMwOTU3OTksImV4cCI6MjA1ODQ1NTc5OX0.NO4w2LnmTNAFdQQwC2w0Oq3-mzOG8AeQWxrECW03KoE",
+    src: "/image/Speech Compitaion.jpg",
     alt: "Social Initiative",
-    title: "Chitrankan",
+    title: "Speech Competition",
   },
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Abhudaya.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvQWJodWRheWEuSlBHIiwiaWF0IjoxNzQzMDk1Njg4LCJleHAiOjIwNTg0NTU2ODh9.u9i0WElVv4V1np6uKhcDHhHt1PzgX6dk0IgBv_fkK9Y",
+    src: "https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217795/abhudaya_tt2su2.jpg",
     alt: "Social Initiative",
     title: "Abhyudhaya 24.0",
   },
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/ShivajiJayant.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvU2hpdmFqaUpheWFudC5qcGciLCJpYXQiOjE3NDMwOTYzMjgsImV4cCI6MjA1ODQ1NjMyOH0.Alv3S78o-QYoKV5eDgFKwZy-Vk4FCXR3Se0-AVfmS14",
+    src: "https://res.cloudinary.com/dzryfm8cb/image/upload/v1743218190/Shivaji_Jayanti_rpkzzf.jpg",
     alt: "Social Initiative",
     title: "Shivaji Jayanti",
   },

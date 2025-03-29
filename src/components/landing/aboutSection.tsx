@@ -92,7 +92,7 @@ export default function AboutSection() {
             <div className="space-y-4">
               <div className="flex h-44 items-center justify-center overflow-hidden rounded-lg border-2 bg-primary/10">
                 <img
-                  src="/image/UST.JPG"
+                  src="https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217195/Defences_uvgzwe.jpg"
                   alt="UST Image"
                   className="h-full w-full object-cover"
                 />
