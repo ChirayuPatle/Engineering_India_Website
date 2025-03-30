@@ -32,7 +32,9 @@ export default function RootLayout({
           <body className="space">
             <Navbar />
             <Toaster position="top-center" />
+            {/* <div className="px-2"> */}
             {children}
+            {/* </div> */}
             <SpeedInsights />
             <Footer />
           </body>

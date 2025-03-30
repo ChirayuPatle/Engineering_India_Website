@@ -3,11 +3,10 @@ import HTMLFlipBook from "react-pageflip";
 
 function magzine() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-10">
-      <h1 className="mt-10 text-4xl font-semibold text-zinc-700">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-10 px-4">
+      <h1 className="mt-10 text-nowrap text-2xl font-semibold text-zinc-800">
         Check out Our EI Magazine
       </h1>
-
       <HTMLFlipBook
         width={400}
         height={600}

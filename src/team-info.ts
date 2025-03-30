@@ -41,7 +41,7 @@ const teamMembers: TeamMember[] = [
     name: "Piyush Piprewar",
     position: "Database Head",
     image:
-      "https://res.cloudinary.com/dzryfm8cb/image/upload/v1743312185/Pyusih-bhai_ojbxwi.png",
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PiyushPiprewar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QaXl1c2hQaXByZXdhci5wbmciLCJpYXQiOjE3NDMzNTI3NzMsImV4cCI6MjA1ODcxMjc3M30.336VFziEQj0nYlihIEiLyE9LJLKsRnHEMnrBiyAh7us",
     Email: "piyushnpiprewar07@gmail.com",
     linkedin: "https://www.linkedin.com/in/piyush-piprewar/",
   },
@@ -77,7 +77,8 @@ const teamMembers: TeamMember[] = [
     teamId: 8,
     name: "Surbhi Ninawe",
     position: "Secretary - Other Colleges Co-ordination",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/SurbhiNinawe.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TdXJiaGlOaW5hd2UuanBlZyIsImlhdCI6MTc0MzM1NTg5MSwiZXhwIjoyMDU4NzE1ODkxfQ.N4TGaxcTIS94zsHwO3Qf_2uNTi_2p--75NKsvcA5JSY",
     Email: "",
     linkedin: "",
   },
@@ -85,7 +86,8 @@ const teamMembers: TeamMember[] = [
     teamId: 9,
     name: "Sejula Chopde",
     position: "Joint Secretary",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Sejula.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TZWp1bGEuSlBHIiwiaWF0IjoxNzQzMzUyNjgwLCJleHAiOjIwNTg3MTI2ODB9.LuTfPU9KNvBpgK5C0rfmzegYVGxtsrNqTt7gGBpzmfM",
     Email: "",
     linkedin: "https://www.linkedin.com/in/sejula-chopde/",
   },
@@ -93,7 +95,8 @@ const teamMembers: TeamMember[] = [
     teamId: 10,
     name: "Shivam Saraf",
     position: "Social Media and Photography Head",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Shivam.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TaGl2YW0uanBlZyIsImlhdCI6MTc0MzM1MjY1MCwiZXhwIjoyMDU4NzEyNjUwfQ.XNrx33-h0u9LbvTE6C7EpcaDo_a1bwjTC3M7BfgJfQA",
     Email: "",
     linkedin: "https://www.linkedin.com/in/shivam-saraf-342707288/",
   },
@@ -157,7 +160,8 @@ const teamMembers: TeamMember[] = [
     teamId: 17,
     name: "Vaideesh Deshmukh",
     position: "CSE Departmental Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Vaidesh.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9WYWlkZXNoLnBuZyIsImlhdCI6MTc0MzM1MjczMywiZXhwIjoyMDU4NzEyNzMzfQ.b8JN5whXjGblnSm9uIxol9kwUYTI7AYGvD5rK-nmpQM",
     Email: "",
     linkedin: "https://www.linkedin.com/in/vaideesh-deshmukh/",
   },
@@ -165,7 +169,8 @@ const teamMembers: TeamMember[] = [
     teamId: 18,
     name: "Pratik Borkar",
     position: "Mechanical Department Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PratikBorkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QcmF0aWtCb3JrYXIucG5nIiwiaWF0IjoxNzQzMzUyNzAxLCJleHAiOjIwNTg3MTI3MDF9.z66MiqiTPUoLUnUNurLOb5XoSTdv7qaE4UhqrFQEGyI",
     Email: "pratikborkar1507@gmail.com",
     linkedin:
       "https://www.linkedin.com/in/pratik-borkar-83a203280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -619,17 +624,19 @@ const Devlopers: TeamMember[] = [
     teamId: 1,
     name: "Priyanshu Kayarkar",
     position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/PriyanshuKayarkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1ByaXlhbnNodUtheWFya2FyLnBuZyIsImlhdCI6MTc0MzM1NDU5MSwiZXhwIjoyMDU4NzE0NTkxfQ.688wSsq0XWzsmmPd_dRPFKam8zq_BtmqgRKP2J3FqJc",
+    linkedin: "https://www.linkedin.com/in/priyanshu-li/",
+    Email: "priyanshu.kayarkar009@gmail.com",
   },
   {
     teamId: 2,
     name: "Chirayu Patel",
     position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/ChirayuPatle.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL0NoaXJheXVQYXRsZS5qcGVnIiwiaWF0IjoxNzQzMzU0NjEwLCJleHAiOjIwNTg3MTQ2MTB9.RLwY6x6oo76SEhVg7Ixka9I64JkR4gkBwgX9QmDjWzo",
+    linkedin: "https://www.linkedin.com/in/chirayu-patle-a78502290/",
+    Email: "chirayupatle2@gmail.com",
   },
   {
     teamId: 3,
@@ -644,9 +651,10 @@ const Devlopers: TeamMember[] = [
     teamId: 4,
     name: "Samyak Umathe",
     position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/SamyakUmathe.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1NhbXlha1VtYXRoZS5qcGVnIiwiaWF0IjoxNzQzMzU0NzA1LCJleHAiOjIwNTg3MTQ3MDV9.Rj5V06cg9dJjrJbpCRemMs5gnmarh4HHYm2vwBT9F-Y",
+    linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
+    Email: "samyakumathe@gmail.com",
   },
 ];
 export { teamMembers, Devlopers };

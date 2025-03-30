@@ -18,7 +18,7 @@ export async function loginWithGoogle() {
   });
 
   if (data.url) {
-    redirect(data.url);
+    return redirect(data.url);
   }
 
   if (error) {

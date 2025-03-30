@@ -174,11 +174,13 @@ function TimelineEvent({
         onClick={onToggle}
       >
         <div className="rounded-lg border border-primary/10 bg-background p-4 shadow-md">
-          <span className="font-bold text-primary">{event.year}</span>
-          <h3 className="mb-1 text-lg font-semibold">{event.title}</h3>
-          <p className="hidden text-muted-foreground md:flex">
-            {event.description}
-          </p>
+          <span className="text-xs font-bold text-primary md:text-lg">
+            {event.year}
+          </span>
+          <h3 className="mb-1 text-sm font-semibold text-neutral-600 md:text-lg">
+            {event.title}
+          </h3>
+          <p className="hidden md:flex">{event.description}</p>
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{
