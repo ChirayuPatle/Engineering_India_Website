@@ -17,10 +17,6 @@ const TeamCard: React.FC<TeamCardProps> = ({
   image,
   onClick,
 }) => {
-
-
-
-
   return (
     <div
       onClick={onClick}

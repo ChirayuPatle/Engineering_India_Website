@@ -39,7 +39,6 @@ function BlogCard({
 
   return (
     <div className="mt-5 w-full rounded-xl bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
-    
       {/* Header */}
       <div className="mb-4 flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
         <h1 className="text-2xl font-bold text-gray-800">{header}</h1>
