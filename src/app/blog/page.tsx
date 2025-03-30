@@ -61,7 +61,24 @@ const Blog = () => {
     return () => lenis.destroy(); // Cleanup on unmount
   }, []);
 
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+
+    const raf = (time: any) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    requestAnimationFrame(raf);
+    return () => lenis.destroy(); // Cleanup on unmount
+  }, []);
+
   return (
+    
     <>
       <div
         id="main"
@@ -71,9 +88,9 @@ const Blog = () => {
           <div className="m-wun flex w-full items-center justify-center gap-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-300">
               MT
-            </div>
-            <h1>Muchkund Thote</h1>
-          </div>
+            </div> 
+        <h1>Muchkund Thote</h1>
+        </div>
         </div>
         <div className="min-h-screen w-[600px] rounded-xl border-2 bg-slate-200 p-2 shadow-md md:w-[700px] md:p-10">
           <h1 className="md;ml-0 ml-2 text-3xl font-bold"> Blogs</h1>

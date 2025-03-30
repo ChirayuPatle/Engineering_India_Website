@@ -85,8 +85,7 @@ const teamMembers: TeamMember[] = [
     teamId: 9,
     name: "Sejula Chopde",
     position: "Joint Secretary",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Sejula.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TZWp1bGEuSlBHIiwiaWF0IjoxNzQzMzI4OTk1LCJleHAiOjIwNTg2ODg5OTV9.GqaebYQVxc84Y296geOxa_OcJgV0wXIGuEkkEA1D3uo",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     Email: "",
     linkedin: "https://www.linkedin.com/in/sejula-chopde/",
   },
@@ -94,8 +93,7 @@ const teamMembers: TeamMember[] = [
     teamId: 10,
     name: "Shivam Saraf",
     position: "Social Media and Photography Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Shivam.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TaGl2YW0uanBlZyIsImlhdCI6MTc0MzMyOTAzMiwiZXhwIjoyMDU4Njg5MDMyfQ.7ykNz4G-Y4IjJCPWenR8KR9s45VMt1PomlgIH37Gqhs",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     Email: "",
     linkedin: "https://www.linkedin.com/in/shivam-saraf-342707288/",
   },
@@ -159,8 +157,7 @@ const teamMembers: TeamMember[] = [
     teamId: 17,
     name: "Vaideesh Deshmukh",
     position: "CSE Departmental Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Vaidesh.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9WYWlkZXNoLnBuZyIsImlhdCI6MTc0MzMyOTA2NywiZXhwIjoyMDU4Njg5MDY3fQ.CqkoQUsGZLcc5HIOGR-83fkrtox3o8dHmR6TSJq4f-w",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     Email: "",
     linkedin: "https://www.linkedin.com/in/vaideesh-deshmukh/",
   },
@@ -168,8 +165,7 @@ const teamMembers: TeamMember[] = [
     teamId: 18,
     name: "Pratik Borkar",
     position: "Mechanical Department Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PratikBorkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QcmF0aWtCb3JrYXIucG5nIiwiaWF0IjoxNzQzMzI5Mjc1LCJleHAiOjIwNTg2ODkyNzV9.4HGwQDhmnsdhIyt5B6lVOOKFUym3eFku4hwnLXB31KU",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     Email: "pratikborkar1507@gmail.com",
     linkedin:
       "https://www.linkedin.com/in/pratik-borkar-83a203280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -623,18 +619,17 @@ const Devlopers: TeamMember[] = [
     teamId: 1,
     name: "Priyanshu Kayarkar",
     position: "Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/PriyanshuKayarkar.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1ByaXlhbnNodUtheWFya2FyLmpwZWciLCJpYXQiOjE3NDMzMjk1MjUsImV4cCI6MjA1ODY4OTUyNX0.WdYVLgEiJOmyehk1Czultn2-ucYBqlzVa32RUWsBQtM",
-    linkedin: "https://www.linkedin.com/in/priyanshu-li/",
-    Email: "priyanshu.kayarkar009@gmail.com",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 2,
     name: "Chirayu Patel",
     position: "Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "https://www.linkedin.com/in/chirayu-patle-a78502290/",
-    Email: "chirayupatle2@gmail.com",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 3,
@@ -650,7 +645,7 @@ const Devlopers: TeamMember[] = [
     name: "Samyak Umathe",
     position: "Co-ordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
+    linkedin: "",
     Email: "",
   },
 ];
