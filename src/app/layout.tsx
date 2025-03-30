@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans } from "next/font/google";
 
 import Navbar from "@/components/landing/navbar";
@@ -33,6 +33,7 @@ export default function RootLayout({
             <Navbar />
             <Toaster position="top-center" />
             {children}
+            <SpeedInsights />
             <Footer />
           </body>
         </html>
