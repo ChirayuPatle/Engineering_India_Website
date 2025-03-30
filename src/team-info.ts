@@ -79,8 +79,8 @@ const teamMembers: TeamMember[] = [
     position: "Secretary - Other Colleges Co-ordination",
     image:
       "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/SurbhiNinawe.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TdXJiaGlOaW5hd2UuanBlZyIsImlhdCI6MTc0MzM1NTg5MSwiZXhwIjoyMDU4NzE1ODkxfQ.N4TGaxcTIS94zsHwO3Qf_2uNTi_2p--75NKsvcA5JSY",
-    Email: "",
-    linkedin: "",
+    Email: " surbhininave7@gmail.com",
+    linkedin: "https://www.linkedin.com/in/surbhi-ninave/",
   },
   {
     teamId: 9,
