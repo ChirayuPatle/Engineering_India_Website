@@ -59,9 +59,9 @@ function TeamInfoPage(): JSX.Element {
           <div className="mt-3 flex flex-col gap-1">
             <div className="flex items-center justify-center gap-1 text-zinc-600">
               {logo[1]}
-              <Link href={`${Devlopers[userid]?.linkedin}`}>
+                <Link target="_blank" href={`${Devlopers[userid]?.linkedin}`}>
                 <h1 className="cursor-pointer text-xl">Linkedin</h1>
-              </Link>
+                </Link>
             </div>
             {Devlopers[userid]?.Email !== "" && (
               <div className="flex items-center justify-center gap-1 text-zinc-600">
