@@ -340,7 +340,7 @@ export default function EventPage() {
           </div>
 
           {/* Sidebar */}
-          <aside className="sticky top-20 z-20 w-full space-y-6 lg:w-[300px] lg:self-start">
+          <aside className="sticky top-20 z-20 hidden w-full space-y-6 md:block lg:w-[300px] lg:self-start">
             <Card className="p-4 shadow-none">
               <div className="mb-4 flex items-center justify-between">
                 <Typography as="h2" className="text-xl font-bold">

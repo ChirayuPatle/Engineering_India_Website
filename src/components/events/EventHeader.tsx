@@ -76,11 +76,11 @@ export default function EventHeader({ event }: EventHeaderProps) {
           <ArrowLeft className="h-5 w-5" />
         </button>
         <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
-          <div className="container mx-auto max-w-4xl text-center">
+          <div className="container mx-auto flex max-w-4xl flex-col text-center">
             <h1 className="mb-4 text-5xl font-extrabold text-white sm:text-6xl">
               {event.event_title}
             </h1>
-            <div className="mb-4 flex items-center justify-center gap-4 rounded-md bg-white p-2 shadow">
+            <div className="mb-4 flex max-w-lg items-center justify-center gap-4 self-center rounded-md bg-white p-2 px-3 shadow md:px-8">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
                 <span className="text-sm">{formatDate(startDate)}</span>
