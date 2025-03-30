@@ -1,6 +1,7 @@
 "use client";
-import { teamMembers, SecondYear, ThridYear, Devlopers } from "@/team-info";
+import { teamMembers, Devlopers } from "@/team-info";
 import { useRouter } from "next/navigation";
+
 type TeamCardProps = {
   name: string;
   position: string;
@@ -16,6 +17,10 @@ const TeamCard: React.FC<TeamCardProps> = ({
   image,
   onClick,
 }) => {
+
+
+
+
   return (
     <div
       onClick={onClick}
@@ -44,6 +49,8 @@ const TeamCard: React.FC<TeamCardProps> = ({
 
 const TeamPage: React.FC = () => {
   const router = useRouter();
+
+
   return (
     <>
       <div className="h-full w-full">

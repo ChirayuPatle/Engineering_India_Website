@@ -13,8 +13,9 @@ function BlogCard({
   header: string;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
+ const [liketoggle, setliketoggle] = useState(false);
   if (!text) return null; // Handle case when text is undefined
+  
 
   const fullText = text;
   // Truncate content
@@ -39,6 +40,7 @@ function BlogCard({
 
   return (
     <div className="mt-5 w-full rounded-xl bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
+    
       {/* Header */}
       <div className="mb-4 flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
         <h1 className="text-2xl font-bold text-gray-800">{header}</h1>
@@ -65,9 +67,10 @@ function BlogCard({
       <hr className="my-4 border-gray-200" />
 
       {/* Actions */}
-      <div className="flex justify-between text-gray-700">
-        <button className="flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200">
-          <Heart />
+      <div onClick={()=>{setliketoggle((prev)=>!prev)}} className="flex justify-between text-gray-700">
+        <button className={`flex flex-1 items-center justify-center gap-2 rounded-md py-2 transition duration-200 hover:bg-gray-200 `}>
+          <Heart className={`${liketoggle ? "text-pink-600": "text-grey-100"}`} />
+       
           <span className="hidden md:inline">Likes</span>
         </button>
 

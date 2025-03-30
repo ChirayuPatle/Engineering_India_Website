@@ -1,7 +1,8 @@
 "use client";
 import { useParams } from "next/navigation";
-import { teamMembers, SecondYear, ThridYear, Devlopers } from "@/team-info";
+import { teamMembers, Devlopers } from "@/team-info";
 import { useState } from "react";
+import Link from "next/link";
 import {
   Github,
   Instagram,
@@ -56,17 +57,18 @@ function TeamInfoPage(): JSX.Element {
         <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
           <h1 className="text-2xl">Connect with Our Team</h1>
           <div className="mt-3 flex flex-col gap-1">
-            {["Linkedin", "Instagram", "X", "Github", "Email"].map(
-              (item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-start gap-1 text-zinc-600"
-                >
-                  {logo[index]}
-                  <h1 className="cursor-pointer text-xl">{item}</h1>
-                </div>
-              ),
-            )}
+            <div className="flex items-center justify-center gap-1 text-zinc-600">
+              {logo[1]}
+              <Link href={`${teamMembers[userid]?.linkedin}`}>
+              <h1 className="cursor-pointer text-xl">Linkedin</h1>
+              </Link>
+            </div>
+            {teamMembers[userid]?.Email !== "" && (
+  <div className="flex items-center justify-center gap-1 text-zinc-600">
+    {logo[4]}
+    <h1 className="cursor-pointer text-xl">{teamMembers[userid]?.Email}</h1>
+  </div>
+)}
           </div>
         </div>
       </div>
