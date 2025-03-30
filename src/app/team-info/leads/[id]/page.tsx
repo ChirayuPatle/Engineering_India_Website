@@ -60,15 +60,17 @@ function TeamInfoPage(): JSX.Element {
             <div className="flex items-center justify-center gap-1 text-zinc-600">
               {logo[1]}
               <Link href={`${teamMembers[userid]?.linkedin}`}>
-              <h1 className="cursor-pointer text-xl">Linkedin</h1>
+                <h1 className="cursor-pointer text-xl">Linkedin</h1>
               </Link>
             </div>
             {teamMembers[userid]?.Email !== "" && (
-  <div className="flex items-center justify-center gap-1 text-zinc-600">
-    {logo[4]}
-    <h1 className="cursor-pointer text-xl">{teamMembers[userid]?.Email}</h1>
-  </div>
-)}
+              <div className="flex items-center justify-center gap-1 text-zinc-600">
+                {logo[4]}
+                <h1 className="cursor-pointer text-xl">
+                  {teamMembers[userid]?.Email}
+                </h1>
+              </div>
+            )}
           </div>
         </div>
       </div>

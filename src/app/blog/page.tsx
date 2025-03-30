@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import BlogCard from "@/components/blogs/page";
 import { Heart, MessageCircle, Share } from "lucide-react";
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 
-function blog() {
+const Blog = () => {
   // Blog Data
   const blogContainer = [
     {
@@ -62,19 +62,18 @@ function blog() {
   }, []);
 
   return (
-    
     <>
       <div
         id="main"
         className="flex min-h-screen w-full items-start justify-center gap-3 bg-gray-100 py-14"
       >
-         <div className="min-h-30 sticky top-20 hidden w-[250px] gap-7 rounded-xl bg-slate-200 py-10 pt-[3rem] shadow-md lg:block opacity-0"> 
-         <div className="m-wun flex w-full items-center justify-center gap-2"> 
-         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-300">
+        <div className="min-h-30 sticky top-20 hidden w-[250px] gap-7 rounded-xl bg-slate-200 py-10 pt-[3rem] opacity-0 shadow-md lg:block">
+          <div className="m-wun flex w-full items-center justify-center gap-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-300">
               MT
-            </div> 
-        <h1>Muchkund Thote</h1>
-        </div>
+            </div>
+            <h1>Muchkund Thote</h1>
+          </div>
         </div>
         <div className="min-h-screen w-[600px] rounded-xl border-2 bg-slate-200 p-2 shadow-md md:w-[700px] md:p-10">
           <h1 className="md;ml-0 ml-2 text-3xl font-bold"> Blogs</h1>
@@ -110,6 +109,6 @@ function blog() {
       </div>
     </>
   );
-}
+};
 
-export default blog;
+export default Blog;

@@ -17,10 +17,6 @@ const TeamCard: React.FC<TeamCardProps> = ({
   image,
   onClick,
 }) => {
-
-
-
-
   return (
     <div
       onClick={onClick}
@@ -49,7 +45,6 @@ const TeamCard: React.FC<TeamCardProps> = ({
 
 const TeamPage: React.FC = () => {
   const router = useRouter();
-
 
   return (
     <>

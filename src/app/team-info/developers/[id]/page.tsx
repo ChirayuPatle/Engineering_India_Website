@@ -57,19 +57,20 @@ function TeamInfoPage(): JSX.Element {
         <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
           <h1 className="text-2xl">Connect with Our Team</h1>
           <div className="mt-3 flex flex-col gap-1">
-          <div className="flex items-center justify-center gap-1 text-zinc-600">
+            <div className="flex items-center justify-center gap-1 text-zinc-600">
               {logo[1]}
               <Link href={`${Devlopers[userid]?.linkedin}`}>
-              <h1 className="cursor-pointer text-xl">Linkedin</h1>
+                <h1 className="cursor-pointer text-xl">Linkedin</h1>
               </Link>
             </div>
             {Devlopers[userid]?.Email !== "" && (
-  <div className="flex items-center justify-center gap-1 text-zinc-600">
-    {logo[4]}
-    <h1 className="cursor-pointer text-xl">{Devlopers[userid]?.Email}</h1>
-  </div>
-)}
-          
+              <div className="flex items-center justify-center gap-1 text-zinc-600">
+                {logo[4]}
+                <h1 className="cursor-pointer text-xl">
+                  {Devlopers[userid]?.Email}
+                </h1>
+              </div>
+            )}
           </div>
         </div>
       </div>
