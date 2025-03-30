@@ -38,11 +38,11 @@ const timelineEvents = [
     year: "2024 | April 27",
     title: "वाक् यज्ञः – Speech Competition",
     description:
-      "An intercollegiate event where 27 participants showcased their ideas. Winners were awarded certificates and cash prizes, promoting teamwork and a competitive spirit.",
+      "An intercollegiate event where participants showcased their ideas. Winners were awarded certificates and cash prizes, promoting teamwork and a competitive spirit.",
   },
   {
     year: "2024 | August 10",
-    title: "Rangeet Talim 4.0",
+    title: "Rangeettalim 4.0",
     description:
       "Held at Omkar Nagar, Nagpur, this social initiative engaged slum children in education and cultural activities. With 70 volunteers, it fostered learning and community spirit.",
   },
@@ -176,7 +176,9 @@ function TimelineEvent({
         <div className="rounded-lg border border-primary/10 bg-background p-4 shadow-md">
           <span className="font-bold text-primary">{event.year}</span>
           <h3 className="mb-1 text-lg font-semibold">{event.title}</h3>
-          <p className="hidden md:flex text-muted-foreground">{event.description}</p>
+          <p className="hidden text-muted-foreground md:flex">
+            {event.description}
+          </p>
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{

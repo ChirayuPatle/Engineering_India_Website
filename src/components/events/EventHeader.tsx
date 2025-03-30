@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
 import toast from "react-hot-toast";
 import events from "@/event-grallery";
+import { title } from "process";
 
 interface EventHeaderProps {
   event: {
@@ -91,7 +92,13 @@ export default function EventHeader({ event }: EventHeaderProps) {
               </div>
               <Button
                 variant="ghost"
-                onClick={() => toast.success("Shared successfully!")}
+                onClick={async () => {
+                  await navigator.share({
+                    title: event.event_title,
+                    text: "Look this exciting event",
+                    url: window.location.href,
+                  });
+                }}
                 className="flex items-center gap-1 p-2 text-black"
               >
                 <Share2Icon className="h-4 w-4" />

@@ -85,7 +85,7 @@ export default function ContactPage() {
                 <div>
                   <Typography variant="h4">Email</Typography>
                   <Typography className="text-muted-foreground">
-                    engineeringindiaycce@gmail.com
+                    engineeringindia047@gmail.com
                   </Typography>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default function ContactPage() {
                 <div>
                   <Typography variant="h4">Phone</Typography>
                   <Typography className="text-muted-foreground">
-                    (+91) 7066562938
+                    (+91) 96236 12124 & (+91) 7066562938
                   </Typography>
                 </div>
               </div>
