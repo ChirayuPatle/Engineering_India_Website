@@ -3,11 +3,12 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans } from "next/font/google";
 
 import Navbar from "@/components/landing/navbar";
-import { Toaster } from "react-hot-toast";
-import { UserProvider } from "@/context/userContext";
 import Footer from "@/components/ui/Footer";
-import { type Metadata } from "next";
 import { EventProvider } from "@/context/eventContext";
+import { UserProvider } from "@/context/userContext";
+import { Analytics } from "@vercel/analytics/react";
+import { type Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -32,9 +33,17 @@ export default function RootLayout({
           <body className="space">
             <Navbar />
             <Toaster position="top-center" />
-            {/* <div className="px-2"> */}
             {children}
-            {/* </div> */}
+            <Analytics
+            //  beforeSend={(e) => {
+            //   const url = new URL(e.url);
+            //   url.searchParams.delete('secret');
+            //   return {
+            //     ...e,
+            //     url: url.toString(),
+            //   }
+            // }}
+            />
             <SpeedInsights />
             <Footer />
           </body>
