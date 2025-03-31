@@ -13,7 +13,7 @@ const teamMembers: TeamMember[] = [
     name: "Laxmikant Dhawade",
     position: "College Co-ordinator",
     image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Laxmikantdhawande.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9MYXhtaWthbnRkaGF3YW5kZS5KUEciLCJpYXQiOjE3NDMyNzI2NTMsImV4cCI6MjA1ODYzMjY1M30.K7OyrIXQoB0xN5I6HMOXO_gX6vtjOdRHaZs1-pXbs7w",
+      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/LaxmikantDhawande.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9MYXhtaWthbnREaGF3YW5kZS5qcGciLCJpYXQiOjE3NDM0MzM3MDEsImV4cCI6MjA1ODc5MzcwMX0.WnU4mIIkhJZWXSHEWP-NsNAitfE-cVERObIuyRJN6js",
     Email: "",
     linkedin: "https://www.linkedin.com/in/laxmikant-dhawade/",
   },
