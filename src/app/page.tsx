@@ -1,24 +1,29 @@
 "use client";
-
-import { useEffect } from "react";
+import Img from "next/image";
 import AboutSection from "@/components/landing/aboutSection";
 import Container from "@/components/landing/container";
 import EventsGallery from "@/components/landing/eventGallery";
 import Faq from "@/components/landing/faq";
 import Feedback from "@/components/landing/feedback";
+import magzine from "@/components/landing/magzine";
 import Section from "@/components/landing/section";
-import FeatureCarousel from "@/components/ui/FeatureCarousel";
 import Timeline from "@/components/ui/Timeline";
 import Lenis from "@studio-freight/lenis";
 import gsap from "gsap";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
-import magzine from "@/components/landing/magzine";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import Image from "@/components/Image";
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
+  const [isNavigating, setIsNavigating] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     if (!sessionStorage.getItem("animationPlayed")) {
       gsap.from(".header-letter", {
@@ -116,7 +121,7 @@ export default function HomePage() {
     };
 
     requestAnimationFrame(raf);
-    return () => lenis.destroy(); // Cleanup on unmount
+    return () => lenis.destroy();
   }, []);
 
   return (
@@ -128,34 +133,54 @@ export default function HomePage() {
           {/* upper - part */}
           <div className="relative z-0 h-72 w-96">
             <div className="absolute right-32 top-24 z-10 h-32 w-32 scale-50 lg:right-16 lg:scale-100">
-              <img
+              <Image
+                onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                  e.currentTarget.classList.add("loaded")
+                }
                 className="circle"
-                src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjE0MyIgdmlld0JveD0iMCAwIDE0MyAxNDMiIHdpZHRoPSIxNDMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTEyNi4xIDExNC0xMy45LTMuOWMtMi41LS43LTQuOSAxLjUtNC4zIDQuMWwzLjEgMTQuMWMuNyAzLjItMyA1LjUtNS41IDMuNWwtMTEuNC04LjljLTIuMS0xLjYtNS4xLS41LTUuNSAyLjFsLTIuNiAxNC4zYy0uNiAzLjItNC44IDMuOS02LjQgMS4xbC03LjEtMTIuNmMtMS4zLTIuMy00LjUtMi40LTUuOS0uMmwtNy44IDEyLjJjLTEuNyAyLjctNiAxLjgtNi40LTEuNGwtMS43LTE0LjRjLS4zLTIuNi0zLjMtMy45LTUuNC0yLjRsLTExLjggOC4zYy0yLjcgMS45LTYuMi0uNi01LjMtMy44bDMuOS0xMy45Yy43LTIuNS0xLjUtNC45LTQuMS00LjNsLTE0LjIgMy4xYy0zLjIuNy01LjQ5OTk4LTMtMy41LTUuNWw4LjktMTEuNGMxLjYtMi4xLjUtNS4xLTIuMS01LjVsLTE0LjE5OTk4LTIuNmMtMy4yMDAwMDQtLjYtMy45MDAwMDUtNC44LTEuMS02LjRsMTIuNTk5OTgtNy4xYzIuMy0xLjMgMi40LTQuNS4yLTUuOWwtMTIuMjk5OTgtNy44Yy0yLjcwMDAwNS0xLjctMS44MDAwMDUtNiAxLjQtNi40bDE0LjM5OTk4LTEuN2MyLjYtLjMgMy45LTMuMyAyLjQtNS40bC04LjMtMTEuOGMtMS45LTIuNy42LTYuMiAzLjgtNS4zbDEzLjkgMy44YzIuNS43IDQuOS0xLjUgNC4zLTQuMWwtMy4xLTE0LjFjLS43LTMuMiAzLTUuNDk5OTggNS41LTMuNWwxMS40IDguOWMyLjEgMS42IDUuMS41IDUuNS0yLjFsMi41LTE0LjE5OTk4Yy42LTMuMjAwMDA0IDQuOC0zLjkwMDAwNSA2LjQtMS4xbDcuMSAxMi41OTk5OGMxLjMgMi4zIDQuNSAyLjQgNS45LjJsNy44LTEyLjE5OTk4YzEuNy0yLjcwMDAwNCA2LTEuODAwMDA1IDYuNCAxLjRsMS43IDE0LjM5OTk4Yy4zIDIuNiAzLjMgMy45IDUuNCAyLjRsMTEuOC04LjNjMi43LTEuOSA2LjIuNiA1LjMgMy44bC0zLjkgMTMuOWMtLjcgMi41IDEuNSA0LjkgNC4xIDQuM2wxNC4xLTMuMWMzLjItLjcgNS41IDMgMy41IDUuNWwtOC43IDExLjNjLTEuNiAyLjEtLjUgNS4xIDIuMSA1LjVsMTQuMiAyLjVjMy4yLjYgMy45IDQuOCAxLjEgNi40bC0xMi42IDcuMWMtMi4zIDEuMy0yLjQgNC41LS4yIDUuOWwxMi4yIDcuOGMyLjcgMS43IDEuOCA2LTEuNCA2LjRsLTE0LjMgMS44Yy0yLjYuMy0zLjkgMy4zLTIuNCA1LjRsOC4zIDExLjhjMS44IDIuOC0uNyA2LjMtMy44IDUuNHoiIGZpbGw9IiNmMGVhY2YiLz48L3N2Zz4="
-                alt=""
+                path="star-1.svg"
+                width={128}
+                height={128}
+                alt="Star"
               />
             </div>
             <div className="absolute z-0 scale-[70%] lg:scale-100">
-              <img
+              <Image
+                onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                  e.currentTarget.classList.add("loaded")
+                }
                 className="circle"
-                src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjIwNCIgdmlld0JveD0iMCAwIDIwNCAyMDQiIHdpZHRoPSIyMDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTE4MS4wODYgMTYzLjU4Ny0xOS45NjktNS41OThjLTMuNTkyLTEuMDA1LTcuMDQgMi4xNTMtNi4xNzggNS44ODZsNC40NTQgMjAuMjQyYzEuMDA1IDQuNTk0LTQuMzEgNy44OTUtNy45MDIgNS4wMjRsLTE2LjM3Ny0xMi43NzdjLTMuMDE3LTIuMjk3LTcuMzI3LS43MTctNy45MDEgMy4wMTVsLTMuNzM2IDIwLjUyOWMtLjg2MiA0LjU5NC02Ljg5NSA1LjU5OS05LjE5NCAxLjU3OWwtMTAuMi0xOC4wODhjLTEuODY4LTMuMzAyLTYuNDY0Ny0zLjQ0Ni04LjQ3Ni0uMjg3bC0xMS4yMDU1IDE3LjUxNGMtMi40NDIzIDMuODc2LTguNjE5NyAyLjU4NC05LjE5NDQtMi4wMWwtMi40NDIyLTIwLjY3M2MtLjQzMS0zLjczMi00Ljc0MDktNS41OTgtNy43NTc4LTMuNDQ1bC0xNi45NTIgMTEuOTE2Yy0zLjg3ODkgMi43MjctOC45MDctLjg2Mi03LjYxNDEtNS40NTZsNS42MDI4LTE5Ljk1NWMxLjAwNTctMy41ODktMi4xNTQ5LTcuMDM0LTUuODkwMS02LjE3M2wtMjAuMzk5OSA0LjQ1MWMtNC41OTcyIDEuMDA1LTcuOTAxNC00LjMwNy01LjAyODItNy44OTZsMTIuNzg1OS0xNi4zNjZjMi4yOTg2LTMuMDE1LjcxODMtNy4zMjItMy4wMTY5LTcuODk2bC0yMC4zOTk5NC0zLjczMmMtNC41OTcxNzItLjg2Mi01LjYwMjgtNi44OTEtMS41ODAyOC05LjE4OGwxOC4xMDEzMi0xMC4xOTNjMy4zMDQyLTEuODY2IDMuNDQ3OS02LjQ2MDQuMjg3NC04LjQ3MDJsLTE3LjY3MDQxLTExLjE5NzdjLTMuODc4ODY0LTIuNDQwNi0yLjU4NTkxLTguNjEzNyAyLjAxMTI2LTkuMTg3OWwyMC42ODcyNS0yLjQ0MDVjMy43MzUyLS40MzA3IDUuNjAyOC00LjczNzUgMy40NDc5LTcuNzUyM2wtMTEuOTIzOS0xNi45NDAxYy0yLjcyOTYtMy44NzYyLjg2MTktOC45MDA4IDUuNDU5MS03LjYwODdsMTkuOTY5IDUuNDU1M2MzLjU5MTUgMS4wMDQ5IDcuMDM5NC0yLjE1MzQgNi4xNzc0LTUuODg2bC00LjQ1MzUtMjAuMjQyYy0xLjAwNTYtNC41OTQgNC4zMDk5LTcuODk1OSA3LjkwMTQtNS4wMjQ3bDE2LjM3NzQgMTIuNzc2OWMzLjAxNjkgMi4yOTcgNy4zMjY3LjcxNzggNy45MDE0LTMuMDE0N2wzLjU5MTUtMjAuMzg1NjJjLjg2Mi00LjU5MzkzOSA2Ljg5NTgtNS41OTg4NiA5LjE5NDQtMS41NzkxN2wxMC4xOTk5IDE4LjA4ODU5YzEuODY3OCAzLjMwMTkgNi40NjQ4IDMuNDQ1NSA4LjQ3NTguMjg3MWwxMS4yMDYtMTcuNTE0MzNjMi40NDItMy44NzYxMjkgOC42Mi0yLjU4NDA4NSA5LjE5NCAyLjAwOTg1bDIuNDQyIDIwLjY3MjY4Yy40MzEgMy43MzI2IDQuNzQxIDUuNTk4OSA3Ljc1OCAzLjQ0NTVsMTYuOTUyLTExLjkxNTVjMy44NzktMi43Mjc3IDguOTA3Ljg2MTMgNy42MTQgNS40NTUzbC01LjYwMyAxOS45NTQ5Yy0xLjAwNSAzLjU4OSAyLjE1NSA3LjAzNDQgNS44OTEgNi4xNzMxbDIwLjI1Ni00LjQ1MDRjNC41OTctMS4wMDQ5IDcuOTAxIDQuMzA2OCA1LjAyOCA3Ljg5NThsLTEyLjQ5OSAxNi4yMjIzYy0yLjI5OCAzLjAxNDgtLjcxOCA3LjMyMTYgMy4wMTcgNy44OTU5bDIwLjQgMy41ODljNC41OTcuODYxMyA1LjYwMyA2Ljg5MDkgMS41ODEgOS4xODc4bC0xOC4xMDIgMTAuMTkyOGMtMy4zMDQgMS44NjYtMy40NDggNi40Ni0uMjg3IDguNDdsMTcuNTI3IDExLjE5OGMzLjg3OCAyLjQ0IDIuNTg2IDguNjEzLTIuMDEyIDkuMTg4bC0yMC41NDMgMi41ODRjLTMuNzM1LjQzLTUuNjAzIDQuNzM3LTMuNDQ4IDcuNzUybDExLjkyNCAxNi45NGMyLjU4NiA0LjAyLTEuMDA2IDkuMDQ0LTUuNDU5IDcuNzUyeiIgZmlsbD0iIzgxYTJlZiIvPjwvc3ZnPg=="
-                alt=""
+                path="star-2.svg"
+                width={200}
+                height={200}
+                alt="Star"
               />
             </div>
           </div>
           {/* uppper - part end  */}
           <div className="relative -right-20 z-0 h-72 w-full scale-50 md:right-0 md:scale-100">
             <div className="absolute right-32 top-48 z-10 h-32 w-32">
-              <img
+              <Image
+                onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                  e.currentTarget.classList.add("loaded")
+                }
                 className="circle"
-                src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjE0MyIgdmlld0JveD0iMCAwIDE0MyAxNDMiIHdpZHRoPSIxNDMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTEyNi4xIDExNC0xMy45LTMuOWMtMi41LS43LTQuOSAxLjUtNC4zIDQuMWwzLjEgMTQuMWMuNyAzLjItMyA1LjUtNS41IDMuNWwtMTEuNC04LjljLTIuMS0xLjYtNS4xLS41LTUuNSAyLjFsLTIuNiAxNC4zYy0uNiAzLjItNC44IDMuOS02LjQgMS4xbC03LjEtMTIuNmMtMS4zLTIuMy00LjUtMi40LTUuOS0uMmwtNy44IDEyLjJjLTEuNyAyLjctNiAxLjgtNi40LTEuNGwtMS43LTE0LjRjLS4zLTIuNi0zLjMtMy45LTUuNC0yLjRsLTExLjggOC4zYy0yLjcgMS45LTYuMi0uNi01LjMtMy44bDMuOS0xMy45Yy43LTIuNS0xLjUtNC45LTQuMS00LjNsLTE0LjIgMy4xYy0zLjIuNy01LjQ5OTk4LTMtMy41LTUuNWw4LjktMTEuNGMxLjYtMi4xLjUtNS4xLTIuMS01LjVsLTE0LjE5OTk4LTIuNmMtMy4yMDAwMDQtLjYtMy45MDAwMDUtNC44LTEuMS02LjRsMTIuNTk5OTgtNy4xYzIuMy0xLjMgMi40LTQuNS4yLTUuOWwtMTIuMjk5OTgtNy44Yy0yLjcwMDAwNS0xLjctMS44MDAwMDUtNiAxLjQtNi40bDE0LjM5OTk4LTEuN2MyLjYtLjMgMy45LTMuMyAyLjQtNS40bC04LjMtMTEuOGMtMS45LTIuNy42LTYuMiAzLjgtNS4zbDEzLjkgMy44YzIuNS43IDQuOS0xLjUgNC4zLTQuMWwtMy4xLTE0LjFjLS43LTMuMiAzLTUuNDk5OTggNS41LTMuNWwxMS40IDguOWMyLjEgMS42IDUuMS41IDUuNS0yLjFsMi41LTE0LjE5OTk4Yy42LTMuMjAwMDA0IDQuOC0zLjkwMDAwNSA2LjQtMS4xbDcuMSAxMi41OTk5OGMxLjMgMi4zIDQuNSAyLjQgNS45LjJsNy44LTEyLjE5OTk4YzEuNy0yLjcwMDAwNCA2LTEuODAwMDA1IDYuNCAxLjRsMS43IDE0LjM5OTk4Yy4zIDIuNiAzLjMgMy45IDUuNCAyLjRsMTEuOC04LjNjMi43LTEuOSA2LjIuNiA1LjMgMy44bC0zLjkgMTMuOWMtLjcgMi41IDEuNSA0LjkgNC4xIDQuM2wxNC4xLTMuMWMzLjItLjcgNS41IDMgMy41IDUuNWwtOC43IDExLjNjLTEuNiAyLjEtLjUgNS4xIDIuMSA1LjVsMTQuMiAyLjVjMy4yLjYgMy45IDQuOCAxLjEgNi40bC0xMi42IDcuMWMtMi4zIDEuMy0yLjQgNC41LS4yIDUuOWwxMi4yIDcuOGMyLjcgMS43IDEuOCA2LTEuNCA2LjRsLTE0LjMgMS44Yy0yLjYuMy0zLjkgMy4zLTIuNCA1LjRsOC4zIDExLjhjMS44IDIuOC0uNyA2LjMtMy44IDUuNHoiIGZpbGw9IiNmMGVhY2YiLz48L3N2Zz4="
-                alt=""
+                path="star-1.svg"
+                width={128}
+                height={128}
+                alt="Star"
               />
             </div>
             <div className="absolute right-0 z-0">
-              <img
+              <Image
+                onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                  e.currentTarget.classList.add("loaded")
+                }
                 className="circle"
-                src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjIwNCIgdmlld0JveD0iMCAwIDIwNCAyMDQiIHdpZHRoPSIyMDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTE4MS4wODYgMTYzLjU4Ny0xOS45NjktNS41OThjLTMuNTkyLTEuMDA1LTcuMDQgMi4xNTMtNi4xNzggNS44ODZsNC40NTQgMjAuMjQyYzEuMDA1IDQuNTk0LTQuMzEgNy44OTUtNy45MDIgNS4wMjRsLTE2LjM3Ny0xMi43NzdjLTMuMDE3LTIuMjk3LTcuMzI3LS43MTctNy45MDEgMy4wMTVsLTMuNzM2IDIwLjUyOWMtLjg2MiA0LjU5NC02Ljg5NSA1LjU5OS05LjE5NCAxLjU3OWwtMTAuMi0xOC4wODhjLTEuODY4LTMuMzAyLTYuNDY0Ny0zLjQ0Ni04LjQ3Ni0uMjg3bC0xMS4yMDU1IDE3LjUxNGMtMi40NDIzIDMuODc2LTguNjE5NyAyLjU4NC05LjE5NDQtMi4wMWwtMi40NDIyLTIwLjY3M2MtLjQzMS0zLjczMi00Ljc0MDktNS41OTgtNy43NTc4LTMuNDQ1bC0xNi45NTIgMTEuOTE2Yy0zLjg3ODkgMi43MjctOC45MDctLjg2Mi03LjYxNDEtNS40NTZsNS42MDI4LTE5Ljk1NWMxLjAwNTctMy41ODktMi4xNTQ5LTcuMDM0LTUuODkwMS02LjE3M2wtMjAuMzk5OSA0LjQ1MWMtNC41OTcyIDEuMDA1LTcuOTAxNC00LjMwNy01LjAyODItNy44OTZsMTIuNzg1OS0xNi4zNjZjMi4yOTg2LTMuMDE1LjcxODMtNy4zMjItMy4wMTY5LTcuODk2bC0yMC4zOTk5NC0zLjczMmMtNC41OTcxNzItLjg2Mi01LjYwMjgtNi44OTEtMS41ODAyOC05LjE4OGwxOC4xMDEzMi0xMC4xOTNjMy4zMDQyLTEuODY2IDMuNDQ3OS02LjQ2MDQuMjg3NC04LjQ3MDJsLTE3LjY3MDQxLTExLjE5NzdjLTMuODc4ODY0LTIuNDQwNi0yLjU4NTkxLTguNjEzNyAyLjAxMTI2LTkuMTg3OWwyMC42ODcyNS0yLjQ0MDVjMy43MzUyLS40MzA3IDUuNjAyOC00LjczNzUgMy40NDc5LTcuNzUyM2wtMTEuOTIzOS0xNi45NDAxYy0yLjcyOTYtMy44NzYyLjg2MTktOC45MDA4IDUuNDU5MS03LjYwODdsMTkuOTY5IDUuNDU1M2MzLjU5MTUgMS4wMDQ5IDcuMDM5NC0yLjE1MzQgNi4xNzc0LTUuODg2bC00LjQ1MzUtMjAuMjQyYy0xLjAwNTYtNC41OTQgNC4zMDk5LTcuODk1OSA3LjkwMTQtNS4wMjQ3bDE2LjM3NzQgMTIuNzc2OWMzLjAxNjkgMi4yOTcgNy4zMjY3LjcxNzggNy45MDE0LTMuMDE0N2wzLjU5MTUtMjAuMzg1NjJjLjg2Mi00LjU5MzkzOSA2Ljg5NTgtNS41OTg4NiA5LjE5NDQtMS41NzkxN2wxMC4xOTk5IDE4LjA4ODU5YzEuODY3OCAzLjMwMTkgNi40NjQ4IDMuNDQ1NSA4LjQ3NTguMjg3MWwxMS4yMDYtMTcuNTE0MzNjMi40NDItMy44NzYxMjkgOC42Mi0yLjU4NDA4NSA5LjE5NCAyLjAwOTg1bDIuNDQyIDIwLjY3MjY4Yy40MzEgMy43MzI2IDQuNzQxIDUuNTk4OSA3Ljc1OCAzLjQ0NTVsMTYuOTUyLTExLjkxNTVjMy44NzktMi43Mjc3IDguOTA3Ljg2MTMgNy42MTQgNS40NTUzbC01LjYwMyAxOS45NTQ5Yy0xLjAwNSAzLjU4OSAyLjE1NSA3LjAzNDQgNS44OTEgNi4xNzMxbDIwLjI1Ni00LjQ1MDRjNC41OTctMS4wMDQ5IDcuOTAxIDQuMzA2OCA1LjAyOCA3Ljg5NThsLTEyLjQ5OSAxNi4yMjIzYy0yLjI5OCAzLjAxNDgtLjcxOCA3LjMyMTYgMy4wMTcgNy44OTU5bDIwLjQgMy41ODljNC41OTcuODYxMyA1LjYwMyA2Ljg5MDkgMS41ODEgOS4xODc4bC0xOC4xMDIgMTAuMTkyOGMtMy4zMDQgMS44NjYtMy40NDggNi40Ni0uMjg3IDguNDdsMTcuNTI3IDExLjE5OGMzLjg3OCAyLjQ0IDIuNTg2IDguNjEzLTIuMDEyIDkuMTg4bC0yMC41NDMgMi41ODRjLTMuNzM1LjQzLTUuNjAzIDQuNzM3LTMuNDQ4IDcuNzUybDExLjkyNCAxNi45NGMyLjU4NiA0LjAyLTEuMDA2IDkuMDQ0LTUuNDU5IDcuNzUyeiIgZmlsbD0iIzgxYTJlZiIvPjwvc3ZnPg=="
-                alt=""
+                path="star-2.svg"
+                width={200}
+                height={200}
+                alt="Star"
               />
             </div>
           </div>
@@ -166,7 +191,6 @@ export default function HomePage() {
             <h1
               className={`${bebasNeue.className} z-50 mb-6 flex flex-col gap-2 text-6xl font-extralight text-zinc-700 sm:text-5xl md:text-6xl lg:flex-row lg:text-9xl`}
             >
-              {/* <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjIwNCIgdmlld0JveD0iMCAwIDIwNCAyMDQiIHdpZHRoPSIyMDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0ibTE4MS4wODYgMTYzLjU4Ny0xOS45NjktNS41OThjLTMuNTkyLTEuMDA1LTcuMDQgMi4xNTMtNi4xNzggNS44ODZsNC40NTQgMjAuMjQyYzEuMDA1IDQuNTk0LTQuMzEgNy44OTUtNy45MDIgNS4wMjRsLTE2LjM3Ny0xMi43NzdjLTMuMDE3LTIuMjk3LTcuMzI3LS43MTctNy45MDEgMy4wMTVsLTMuNzM2IDIwLjUyOWMtLjg2MiA0LjU5NC02Ljg5NSA1LjU5OS05LjE5NCAxLjU3OWwtMTAuMi0xOC4wODhjLTEuODY4LTMuMzAyLTYuNDY0Ny0zLjQ0Ni04LjQ3Ni0uMjg3bC0xMS4yMDU1IDE3LjUxNGMtMi40NDIzIDMuODc2LTguNjE5NyAyLjU4NC05LjE5NDQtMi4wMWwtMi40NDIyLTIwLjY3M2MtLjQzMS0zLjczMi00Ljc0MDktNS41OTgtNy43NTc4LTMuNDQ1bC0xNi45NTIgMTEuOTE2Yy0zLjg3ODkgMi43MjctOC45MDctLjg2Mi03LjYxNDEtNS40NTZsNS42MDI4LTE5Ljk1NWMxLjAwNTctMy41ODktMi4xNTQ5LTcuMDM0LTUuODkwMS02LjE3M2wtMjAuMzk5OSA0LjQ1MWMtNC41OTcyIDEuMDA1LTcuOTAxNC00LjMwNy01LjAyODItNy44OTZsMTIuNzg1OS0xNi4zNjZjMi4yOTg2LTMuMDE1LjcxODMtNy4zMjItMy4wMTY5LTcuODk2bC0yMC4zOTk5NC0zLjczMmMtNC41OTcxNzItLjg2Mi01LjYwMjgtNi44OTEtMS41ODAyOC05LjE4OGwxOC4xMDEzMi0xMC4xOTNjMy4zMDQyLTEuODY2IDMuNDQ3OS02LjQ2MDQuMjg3NC04LjQ3MDJsLTE3LjY3MDQxLTExLjE5NzdjLTMuODc4ODY0LTIuNDQwNi0yLjU4NTkxLTguNjEzNyAyLjAxMTI2LTkuMTg3OWwyMC42ODcyNS0yLjQ0MDVjMy43MzUyLS40MzA3IDUuNjAyOC00LjczNzUgMy40NDc5LTcuNzUyM2wtMTEuOTIzOS0xNi45NDAxYy0yLjcyOTYtMy44NzYyLjg2MTktOC45MDA4IDUuNDU5MS03LjYwODdsMTkuOTY5IDUuNDU1M2MzLjU5MTUgMS4wMDQ5IDcuMDM5NC0yLjE1MzQgNi4xNzc0LTUuODg2bC00LjQ1MzUtMjAuMjQyYy0xLjAwNTYtNC41OTQgNC4zMDk5LTcuODk1OSA3LjkwMTQtNS4wMjQ3bDE2LjM3NzQgMTIuNzc2OWMzLjAxNjkgMi4yOTcgNy4zMjY3LjcxNzggNy45MDE0LTMuMDE0N2wzLjU5MTUtMjAuMzg1NjJjLjg2Mi00LjU5MzkzOSA2Ljg5NTgtNS41OTg4NiA5LjE5NDQtMS41NzkxN2wxMC4xOTk5IDE4LjA4ODU5YzEuODY3OCAzLjMwMTkgNi40NjQ4IDMuNDQ1NSA4LjQ3NTguMjg3MWwxMS4yMDYtMTcuNTE0MzNjMi40NDItMy44NzYxMjkgOC42Mi0yLjU4NDA4NSA5LjE5NCAyLjAwOTg1bDIuNDQyIDIwLjY3MjY4Yy40MzEgMy43MzI2IDQuNzQxIDUuNTk4OSA3Ljc1OCAzLjQ0NTVsMTYuOTUyLTExLjkxNTVjMy44NzktMi43Mjc3IDguOTA3Ljg2MTMgNy42MTQgNS40NTUzbC01LjYwMyAxOS45NTQ5Yy0xLjAwNSAzLjU4OSAyLjE1NSA3LjAzNDQgNS44OTEgNi4xNzMxbDIwLjI1Ni00LjQ1MDRjNC41OTctMS4wMDQ5IDcuOTAxIDQuMzA2OCA1LjAyOCA3Ljg5NThsLTEyLjQ5OSAxNi4yMjIzYy0yLjI5OCAzLjAxNDgtLjcxOCA3LjMyMTYgMy4wMTcgNy44OTU5bDIwLjQgMy41ODljNC41OTcuODYxMyA1LjYwMyA2Ljg5MDkgMS41ODEgOS4xODc4bC0xOC4xMDIgMTAuMTkyOGMtMy4zMDQgMS44NjYtMy40NDggNi40Ni0uMjg3IDguNDdsMTcuNTI3IDExLjE5OGMzLjg3OCAyLjQ0IDIuNTg2IDguNjEzLTIuMDEyIDkuMTg4bC0yMC41NDMgMi41ODRjLTMuNzM1LjQzLTUuNjAzIDQuNzM3LTMuNDQ4IDcuNzUybDExLjkyNCAxNi45NGMyLjU4NiA0LjAyLTEuMDA2IDkuMDQ0LTUuNDU5IDcuNzUyeiIgZmlsbD0iIzgxYTJlZiIvPjwvc3ZnPg==" alt="" /> */}
               <div>
                 {"ENGINEERING".split("").map((letter, index) => (
                   <span key={index} className="header-letter">
@@ -201,18 +225,13 @@ export default function HomePage() {
               </Link>{" "}
               . We build, learn, and innovate.
             </p>
-
-            <Link
+            {/* <Link
               href="/events"
-              className="cta-button mb-6 inline-flex cursor-pointer items-center rounded-lg bg-[#0094FF] px-6 py-2 text-base font-medium text-white transition-colors hover:bg-[#0094FF]/90 sm:text-lg md:px-8 md:py-3 md:text-xl"
+              className="{cta-button} mb-6 inline-flex cursor-pointer items-center rounded-lg bg-[#0094FF] px-6 py-2 text-base font-medium text-white transition-colors hover:bg-[#0094FF]/90 sm:text-lg md:px-8 md:py-3 md:text-xl"
             >
-              GET STARTED
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-
-            {/* <p className="text-xs text-gray-400 sm:text-sm">
-              Free Registration
-            </p> */}
+                  GET STARTED
+                  <ArrowRight className="ml-2 h-5 w-5" />
+            </Link> */}
 
             <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-y-8 px-4 text-zinc-700 sm:grid-cols-3 sm:gap-x-8 sm:px-6">
               {[
