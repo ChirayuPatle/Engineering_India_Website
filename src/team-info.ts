@@ -631,7 +631,7 @@ const Devlopers: TeamMember[] = [
   },
   {
     teamId: 2,
-    name: "Chirayu Patel",
+    name: "Chirayu Patle",
     position: "Co-ordinator",
     image:
       "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/ChirayuPatle.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL0NoaXJheXVQYXRsZS5qcGVnIiwiaWF0IjoxNzQzMzU0NjEwLCJleHAiOjIwNTg3MTQ2MTB9.RLwY6x6oo76SEhVg7Ixka9I64JkR4gkBwgX9QmDjWzo",
