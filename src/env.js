@@ -13,6 +13,8 @@ export const env = createEnv({
       .enum(["development", "test", "production"])
       .default("development"),
     PRIVATE_KEY: z.string(),
+    TURSO_DATABASE_URL: z.string().url(),
+    TURSO_AUTH_TOKEN: z.string(),
   },
 
   /**
@@ -33,6 +35,8 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
+    TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN,
     PRIVATE_KEY: process.env.PRIVATE_KEY,
     NEXT_PUBLIC_URL_ENDPOINT: process.env.NEXT_PUBLIC_URL_ENDPOINT,
     NEXT_PUBLIC_PUBLIC_KEY: process.env.NEXT_PUBLIC_PUBLIC_KEY,
