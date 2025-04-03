@@ -34,16 +34,7 @@ export default function RootLayout({
             <Navbar />
             <Toaster position="top-center" />
             {children}
-            <Analytics
-            //  beforeSend={(e) => {
-            //   const url = new URL(e.url);
-            //   url.searchParams.delete('secret');
-            //   return {
-            //     ...e,
-            //     url: url.toString(),
-            //   }
-            // }}
-            />
+            <Analytics />
             <SpeedInsights />
             <Footer />
           </body>

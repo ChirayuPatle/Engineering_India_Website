@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { loginWithGoogle } from "./action";
+import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
 
 export function LoginForm({
   className,
@@ -12,9 +14,32 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
 
-  const handleGoogleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // const handleGoogleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   await loginWithGoogle();
+  // };
+
+  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await loginWithGoogle();
+    await authClient.signIn.social(
+      {
+        provider: "google",
+        callbackURL: "/",
+      },
+      {
+        onRequest: (ctx) => {
+          setLoading(true);
+        },
+        onResponse: (ctx) => {
+          setLoading(false);
+        },
+      },
+    );
   };
 
   return (
@@ -31,7 +56,7 @@ export function LoginForm({
           {/* Google Sign In */}
           <Button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignIn}
             variant="outline"
             className="flex w-full items-center justify-center gap-2 px-4 py-2"
           >
