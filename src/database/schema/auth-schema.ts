@@ -6,6 +6,11 @@ export const user = sqliteTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: integer("email_verified", { mode: "boolean" }).notNull(),
   image: text("image"),
+  phone: text("phone"),
+  collegeName: text("college_name"),
+  year: text("year"),
+  branch: text("branch"),
+  role: text("role").notNull().default("USER"),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { EventCard } from "@/components/dashboard/EventCard";
+import { EventCard } from "@/components/events/eventCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,6 +14,22 @@ import { ArrowLeft, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEvents } from "@/context/eventContext";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function EventCardSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="h-[200px] w-full rounded-lg" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-1/3" />
+      </div>
+    </div>
+  );
+}
 
 export default function EventsPage() {
   const router = useRouter();
@@ -84,31 +100,35 @@ export default function EventsPage() {
 
       {/* Events Grid */}
       {loading ? (
-        <div>Loading events...</div>
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <EventCardSkeleton key={i} />
+          ))}
+        </div>
       ) : error ? (
         <div>Error loading events: {error}</div>
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
-              <EventCard
+              <Link
                 key={event.event_id}
-                id={event.event_id}
-                title={event.event_title}
-                description={event.event_description}
-                start_date={event.event_start_date}
-                end_date={event.event_end_date}
-                venue={event.event_venue}
-                category={event.event_category}
-                spots={event.event_spots}
-                spotsFilled={event.event_spots_filled}
-                price={event.registration_fee}
-                isRegistered={event.isRegistered}
-                onRegister={handleRegister}
-                image={event.event_image}
-              />
+                href={`/events/${event.event_id}`}
+                className="hover:opacity-90"
+              >
+                <EventCard
+                  title={event.event_title}
+                  date={new Date(event.event_start_date)}
+                  location={event.event_venue}
+                  description={event.event_description}
+                  imageUrl={event.event_image?.trim() || "./notfound.svg"}
+                  category={event.event_category}
+                  href={`/events/${event.event_id}`}
+                />
+              </Link>
             ))}
           </div>
+
           {filteredEvents.length === 0 && (
             <div className="flex h-[300px] items-center justify-center rounded-md border border-dashed">
               <div className="flex flex-col items-center text-center">

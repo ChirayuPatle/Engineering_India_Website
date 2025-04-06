@@ -7,12 +7,6 @@ import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { authClient } from "@/lib/auth-client";
 
@@ -82,41 +76,30 @@ export default function Navbar() {
           ))}
 
           {isPending ? null : user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
-                >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage
-                      src={user.image || "/default-avatar.png"}
-                      alt={user.name || "User"}
-                    />
-                    <AvatarFallback>
-                      {user.name
-                        ?.split(" ")
-                        .map((n) => n[0])
-                        .join("") || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => router.push("/profile")}>
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => authClient.signOut()}>
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button
+              onClick={() => router.push("/dashboard")}
+              variant="ghost"
+              className="relative h-8 w-8 rounded-full"
+            >
+              <Avatar className="h-8 w-8">
+                <AvatarImage
+                  src={user.image || "/default-avatar.png"}
+                  alt={user.name || "User"}
+                />
+                <AvatarFallback>
+                  {user.name
+                    ?.split(" ")
+                    .map((n) => n[0])
+                    .join("") || "U"}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
           ) : (
             <Button
               onClick={() => authClient.signIn.social({ provider: "google" })}
               variant="default"
             >
-              Login with Google
+              Login
             </Button>
           )}
         </nav>
@@ -151,35 +134,24 @@ export default function Navbar() {
             ))}
 
             {isPending ? null : user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={user.image || "/default-avatar.png"}
-                        alt={user.name || "User"}
-                      />
-                      <AvatarFallback>
-                        {user.name
-                          ?.split(" ")
-                          .map((n) => n[0])
-                          .join("") || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => router.push("/profile")}>
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => authClient.signOut()}>
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Button
+                onClick={() => router.push("/dashboard")}
+                variant="ghost"
+                className="relative h-8 w-8 rounded-full border-none outline-none"
+              >
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src={user.image || "/default-avatar.png"}
+                    alt={user.name || "User"}
+                  />
+                  <AvatarFallback>
+                    {user.name
+                      ?.split(" ")
+                      .map((n) => n[0])
+                      .join("") || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
             ) : (
               <Button
                 onClick={() => authClient.signIn.social({ provider: "google" })}

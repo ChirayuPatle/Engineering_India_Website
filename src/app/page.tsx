@@ -24,105 +24,105 @@ export default function HomePage() {
   const [isNavigating, setIsNavigating] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!sessionStorage.getItem("animationPlayed")) {
-      gsap.from(".header-letter", {
-        y: 100,
-        scale: 0.6,
-        opacity: 0,
-        duration: 1,
-        ease: "back.out(1.7)",
-        stagger: 0.2,
-      });
+  // useEffect(() => {
+  //   if (!sessionStorage.getItem("animationPlayed")) {
+  //     gsap.from(".header-letter", {
+  //       y: 100,
+  //       scale: 0.6,
+  //       opacity: 0,
+  //       duration: 1,
+  //       ease: "back.out(1.7)",
+  //       stagger: 0.2,
+  //     });
 
-      gsap.from([".subtitle", ".cta-button"], {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        delay: 3,
-        ease: "power2.out",
-      });
+  //     gsap.from([".subtitle", ".cta-button"], {
+  //       opacity: 0,
+  //       y: 50,
+  //       duration: 1,
+  //       delay: 3,
+  //       ease: "power2.out",
+  //     });
 
-      gsap.from(".stat-item", {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        delay: 1,
-        ease: "power2.out",
-        stagger: 0.2,
-      });
+  //     gsap.from(".stat-item", {
+  //       opacity: 0,
+  //       y: 40,
+  //       duration: 1,
+  //       delay: 1,
+  //       ease: "power2.out",
+  //       stagger: 0.2,
+  //     });
 
-      gsap.from(".trusted-by", {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        delay: 1.5,
-        ease: "power2.out",
-      });
+  //     gsap.from(".trusted-by", {
+  //       opacity: 0,
+  //       y: 40,
+  //       duration: 1,
+  //       delay: 1.5,
+  //       ease: "power2.out",
+  //     });
 
-      sessionStorage.setItem("animationPlayed", "true");
-    }
-  }, []);
+  //     sessionStorage.setItem("animationPlayed", "true");
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    const handleRefresh = () => {
-      // Remove animation flag on page refresh
-      sessionStorage.removeItem("animationPlayed");
-    };
+  // useEffect(() => {
+  //   const handleRefresh = () => {
+  //     // Remove animation flag on page refresh
+  //     sessionStorage.removeItem("animationPlayed");
+  //   };
 
-    window.addEventListener("beforeunload", handleRefresh);
-    return () => window.removeEventListener("beforeunload", handleRefresh);
-  }, []);
+  //   window.addEventListener("beforeunload", handleRefresh);
+  //   return () => window.removeEventListener("beforeunload", handleRefresh);
+  // }, []);
 
-  useEffect(() => {
-    const cursor = document.querySelector(".cursor");
-    const follower = document.querySelector(".cursor-follower");
+  // useEffect(() => {
+  //   const cursor = document.querySelector(".cursor");
+  //   const follower = document.querySelector(".cursor-follower");
 
-    document.addEventListener("mousemove", (e) => {
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
-        ease: "power3",
-      });
-      gsap.to(follower, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.4,
-        ease: "power1.out",
-      });
-    });
+  //   document.addEventListener("mousemove", (e) => {
+  //     gsap.to(cursor, {
+  //       x: e.clientX,
+  //       y: e.clientY,
+  //       duration: 0.3,
+  //       ease: "power3",
+  //     });
+  //     gsap.to(follower, {
+  //       x: e.clientX,
+  //       y: e.clientY,
+  //       duration: 0.4,
+  //       ease: "power1.out",
+  //     });
+  //   });
 
-    gsap.to(".circle", {
-      rotate: 360,
-      repeat: -1,
-      duration: 5,
-      // yoyo:true,
-      ease: "none",
-    });
+  //   gsap.to(".circle", {
+  //     rotate: 360,
+  //     repeat: -1,
+  //     duration: 5,
+  //     // yoyo:true,
+  //     ease: "none",
+  //   });
 
-    return () => {
-      // Cleanup to prevent GSAP memory leaks
-      gsap.killTweensOf(cursor);
-      gsap.killTweensOf(follower);
-    };
-  }, []);
+  //   return () => {
+  //     // Cleanup to prevent GSAP memory leaks
+  //     gsap.killTweensOf(cursor);
+  //     gsap.killTweensOf(follower);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     duration: 1.2,
+  //     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  //     smoothWheel: true,
+  //   });
 
-    const raf = (time: any) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
+  //   const raf = (time: any) => {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   };
 
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
-  }, []);
+  //   requestAnimationFrame(raf);
+  //   return () => lenis.destroy();
+  // }, []);
 
   return (
     <>

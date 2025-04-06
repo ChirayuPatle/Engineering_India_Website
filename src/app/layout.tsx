@@ -5,7 +5,8 @@ import { DM_Sans } from "next/font/google";
 import Navbar from "@/components/landing/navbar";
 import Footer from "@/components/ui/Footer";
 import { EventProvider } from "@/context/eventContext";
-import { UserProvider } from "@/context/userContext";
+// import { UserProvider } from "@/context/userContext";
+import { ReactQueryProvider } from "@/context/providers/query-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
 import { Toaster } from "react-hot-toast";
@@ -27,12 +28,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <UserProvider>
+    // <UserProvider>
+    <ReactQueryProvider>
       <EventProvider>
         <html lang="en" className={`${dmsans.variable}`}>
           <body className="space">
             <Navbar />
-            <Toaster position="top-center" />
+            <Toaster position="top-center" reverseOrder={false} />
             {children}
             <Analytics />
             <SpeedInsights />
@@ -40,6 +42,7 @@ export default function RootLayout({
           </body>
         </html>
       </EventProvider>
-    </UserProvider>
+    </ReactQueryProvider>
+    // </UserProvider>
   );
 }

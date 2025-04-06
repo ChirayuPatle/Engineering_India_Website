@@ -13,13 +13,15 @@ import {
 import { Typography } from "@/components/ui/typography";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useUser } from "@/context/userContext";
+// import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
-  const { user } = useUser();
+  // const { user } = useUser();
   const [formData, setFormData] = useState({
-    name: user?.name || "",
-    email: user?.email || "",
+    // name: user?.name || "",
+    // email: user?.email || "",
+    email: "email",
+    name: "name",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
@@ -27,13 +29,20 @@ export default function Feedback() {
   const [isLoading, setIsLoading] = useState(false);
 
   // Update the auto-filled fields if user context changes
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      name: user?.name || "",
-      email: user?.email || "",
-    }));
-  }, [user]);
+  useEffect(
+    () => {
+      setFormData((prev) => ({
+        ...prev,
+        // name: user?.name || "",
+        // email: user?.email || "",
+        name: "",
+        email: "",
+      }));
+    },
+    [
+      // user
+    ],
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -67,8 +76,10 @@ export default function Feedback() {
       setTimeout(() => {
         setSubmitted(false);
         setFormData({
-          name: user?.name || "",
-          email: user?.email || "",
+          // name: user?.name || "",
+          // email: user?.email || "",
+          name: "",
+          email: "",
           message: "",
         });
       }, 3000);

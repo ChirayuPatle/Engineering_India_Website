@@ -17,6 +17,7 @@ export const auth = betterAuth({
       clientSecret: env.AUTH_GOOGLE_SECRET,
     },
   },
+
   database: drizzleAdapter(db, {
     provider: "sqlite",
     schema: {

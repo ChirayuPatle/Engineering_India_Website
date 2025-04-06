@@ -1,1 +1,4 @@
-export * as todo from "./todo";
+export { event, payment, registration, ticket } from "./event-schema";
+export * as eventSchema from "./event-schema";
+export * as authSchema from "./auth-schema";
+export { user, session, account, verification } from "./auth-schema";
