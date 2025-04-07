@@ -1,5 +1,5 @@
 "use client";
-import Img from "next/image";
+import Image from "@/components/Image";
 import AboutSection from "@/components/landing/aboutSection";
 import Container from "@/components/landing/container";
 import EventsGallery from "@/components/landing/eventGallery";
@@ -8,15 +8,11 @@ import Feedback from "@/components/landing/feedback";
 import magzine from "@/components/landing/magzine";
 import Section from "@/components/landing/section";
 import Timeline from "@/components/ui/Timeline";
-import Lenis from "@studio-freight/lenis";
-import gsap from "gsap";
-import { ArrowRight, Building, Rocket, Users } from "lucide-react";
+import { Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import Image from "@/components/Image";
+import { useState } from "react";
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
@@ -123,7 +119,6 @@ export default function HomePage() {
   //   requestAnimationFrame(raf);
   //   return () => lenis.destroy();
   // }, []);
-
   return (
     <>
       <div className="cursor pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
