@@ -1,10 +1,5 @@
+import { User } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-
-interface User {
-  id: string;
-  name?: string;
-  email?: string;
-}
 
 export const useCurrentUser = () => {
   return useQuery<User>({
