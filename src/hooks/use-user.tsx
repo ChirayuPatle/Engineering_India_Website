@@ -1,4 +1,4 @@
-import { User } from "@/types";
+import { type User } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 export const useCurrentUser = () => {

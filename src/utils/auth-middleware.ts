@@ -1,8 +1,8 @@
 import { db } from "@/database/db";
 import { session, user } from "@/database/schema";
-import { User, Role } from "@/types";
+import { type User, type Role } from "@/types";
 import { eq } from "drizzle-orm";
-import { NextRequest } from "next/server";
+import { type NextRequest } from "next/server";
 
 export async function authMiddleware(req: NextRequest): Promise<User | null> {
   try {
