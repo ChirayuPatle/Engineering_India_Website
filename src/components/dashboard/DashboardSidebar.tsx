@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/userContext";
+// import { useUser } from "@/context/userContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import {
   BarChart3,
@@ -16,6 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface SidebarNavItemProps {
   icon: React.ElementType;
@@ -70,7 +72,7 @@ export function DashboardSidebar({
     }
   };
 
-  const { loading, user } = useUser();
+  // const { loading, user } = useUser();
 
   const navItems = [
     { title: "Dashboard", icon: BarChart3, path: "/dashboard" },
@@ -82,12 +84,17 @@ export function DashboardSidebar({
       path: "/dashboard/registrations",
     },
     { title: "Payments", icon: CreditCard, path: "/dashboard/payments" },
-    { title: "Settings", icon: Settings, path: "/dashboard/settings" },
   ];
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    router.push("/");
+  const handleLogout = async () => {
+    authClient
+      .signOut()
+      .then(() => {
+        router.push("/");
+      })
+      .catch((error) => {
+        toast.error("Failed to logout");
+      });
   };
 
   return (

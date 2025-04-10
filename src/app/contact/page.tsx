@@ -3,16 +3,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
-import { useUser } from "@/context/userContext";
 import { siteConfig } from "@/lib/constants";
 import { Mail, MapPin, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 
 export default function ContactPage() {
-  const { user } = useUser();
   const [formState, setFormState] = useState({
-    name: user?.name,
-    email: user?.email,
+    // name: user?.name,
+    // email: user?.email,
+    email: "",
+    name: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);

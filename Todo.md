@@ -1,3 +1,50 @@
+# Todo
+
+- modify the navbar. ✅
+- add a modal register for first time user.
+- integrate upload thing.
+- remove supabase from the app.
+- add registration form ( autfill some data ).
+- create admin dashboard with features like create event, add blog, send notifications, get  the list of candidates joined for the events , specific event analytics, user verification ( when user attend the event ), access management ( admin can give access to use r as volunteer ) 
+- create volunteer dashboard with features like admin of specific event and can send notifications to registered user, user verification ( when user attend the event )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 RBAC - Role Based Access Control
 
 
@@ -69,3 +116,4 @@ https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-Indi
 https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Vak%20yagya/9.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvVmFrIHlhZ3lhLzkuSlBHIiwiaWF0IjoxNzQzMzU4NjgzLCJleHAiOjIwNTg3MTg2ODN9.krriemiN-URdo1AzqozZFJIl5ii5T1W4a4OJ3ltxYNc
     
 https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Vak%20yagya/10.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvVmFrIHlhZ3lhLzEwLkpQRyIsImlhdCI6MTc0MzM1ODY5NywiZXhwIjoyMDU4NzE4Njk3fQ.8LQQ1znXYvt4-wU-nIIKlQJtegWwyHc9H4WXYUjpR-I
+

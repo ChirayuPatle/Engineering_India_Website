@@ -5,10 +5,12 @@ import { DM_Sans } from "next/font/google";
 import Navbar from "@/components/landing/navbar";
 import Footer from "@/components/ui/Footer";
 import { EventProvider } from "@/context/eventContext";
-import { UserProvider } from "@/context/userContext";
+// import { UserProvider } from "@/context/userContext";
+import { ReactQueryProvider } from "@/context/providers/query-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
 import { Toaster } from "react-hot-toast";
+import { PostHogProvider } from "@/context/providers/posthog-provider";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -27,28 +29,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <UserProvider>
+    // <UserProvider>
+    <ReactQueryProvider>
       <EventProvider>
         <html lang="en" className={`${dmsans.variable}`}>
           <body className="space">
             <Navbar />
-            <Toaster position="top-center" />
-            {children}
-            <Analytics
-            //  beforeSend={(e) => {
-            //   const url = new URL(e.url);
-            //   url.searchParams.delete('secret');
-            //   return {
-            //     ...e,
-            //     url: url.toString(),
-            //   }
-            // }}
-            />
+            <Toaster position="top-center" reverseOrder={false} />
+            <PostHogProvider>{children}</PostHogProvider>
+            <Analytics />
             <SpeedInsights />
             <Footer />
           </body>
         </html>
       </EventProvider>
-    </UserProvider>
+    </ReactQueryProvider>
+    // </UserProvider>
   );
 }

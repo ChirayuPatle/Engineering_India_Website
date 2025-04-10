@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-/Todo.md
-
+Todo.md
+./Todo.md
 # testing
 /coverage
 tp.md

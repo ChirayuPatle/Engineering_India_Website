@@ -32,6 +32,10 @@ const config = {
         protocol: "https",
         hostname: "hmrvazaoddsexmrgydqx.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
     ],
   },
 };

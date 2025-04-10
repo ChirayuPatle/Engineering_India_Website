@@ -1,57 +1,145 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import { useCurrentUser } from "@/hooks/use-user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Mail, MapPin, Phone } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export default function ProfilePage() {
+function ProfileFormSkeleton() {
+  return (
+    <div className="mx-auto w-full max-w-2xl space-y-8 p-6">
+      <div className="flex items-center justify-center gap-6">
+        <Skeleton className="h-24 w-24 rounded-full" />
+      </div>
+
+      <div className="grid gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="grid gap-2">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex justify-end gap-4">
+        <Skeleton className="h-10 w-24" />
+        <Skeleton className="h-10 w-24" />
+      </div>
+    </div>
+  );
+}
+
+export default function ProfileForm() {
   const router = useRouter();
-  const [isEditing, setIsEditing] = useState(false);
+  const { data: user, isLoading, error } = useCurrentUser();
+  const queryClient = useQueryClient();
 
-  const [userData, setUserData] = useState({
-    name: "John Doe",
-    email: "john.doe@university.edu",
-    phone: "(555) 123-4567",
-    major: "Computer Science",
-    graduationYear: "2025",
-    bio: "I'm a junior studying CS with interests in AI and web development. Active member of the tech club and gaming society.",
-    address: "123 Campus Drive, University Housing",
-    interests: ["Programming", "AI", "Web Development", "Gaming"],
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    collegeName: "",
+    year: "",
+    branch: "",
   });
 
-  const handleSaveProfile = () => {
-    setIsEditing(false);
-    // toast({
-    //   title: "Profile Updated",
-    //   description: "Your profile has been successfully updated.",
-    // });
-    alert("Your profile has been successfully updated.");
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        phone: user.phone || "",
+        collegeName: user.collegeName || "",
+        year: user.year || "",
+        branch: user.branch || "",
+      });
+    }
+  }, [user]);
+
+  const isChanged = useMemo(() => {
+    if (!user) return false;
+    return (
+      formData.name !== (user.name || "") ||
+      formData.phone !== (user.phone || "") ||
+      formData.collegeName !== (user.collegeName || "") ||
+      formData.year !== (user.year || "") ||
+      formData.branch !== (user.branch || "")
+    );
+  }, [formData, user]);
+
+  const updateUser = async () => {
+    const res = await fetch("/api/auth/user/update", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!res.ok) throw new Error("Failed to update user");
+    return res.text();
   };
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: updateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["current-user"] });
+    },
+    onError: (err) => {
+      console.error("Mutation error:", err);
+    },
+  });
+
+  const handleChange = (field: string, value: string) => {
+    if (field === "phone") {
+      if (/^\d{0,10}$/.test(value)) {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+      }
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await toast.promise(mutateAsync(), {
+        loading: "Saving profile...",
+        success: "Profile updated successfully!",
+        error: "Failed to update profile.",
+      });
+    } catch (e) {
+      console.error("Toast error", e);
+    }
+  };
+
+  if (isLoading)
+    return (
+      <>
+        <div className="mb-5 flex items-center">
+          <Skeleton className="mr-2 h-10 w-10 rounded-full" />
+          <Skeleton className="h-8 w-48" />
+        </div>
+        <ProfileFormSkeleton />
+      </>
+    );
+
+  if (error || !user) return <p>Failed to load profile.</p>;
+
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center">
+    <>
+      <div className="mb-5 flex items-center">
         <Button
           variant="ghost"
           size="icon"
@@ -60,182 +148,97 @@ export default function ProfilePage() {
         >
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h1 className="text-3xl font-bold tracking-tight">My Profile</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Profile</h1>
       </div>
+      <div className="backdrop-blur-xs shadow-xs mx-auto w-full max-w-2xl space-y-8 rounded-xl border border-zinc-200/80 bg-white/50 p-6 dark:border-zinc-800/80 dark:bg-zinc-950/50">
+        <Toaster position="top-center" reverseOrder={false} />
+        <div className="flex items-center justify-center gap-6">
+          <Avatar className="h-24 w-24">
+            <AvatarImage src={user.image || ""} className="object-cover" />
+            <AvatarFallback>{user.name?.[0] || "U"}</AvatarFallback>
+          </Avatar>
+        </div>
 
-      <div className="grid gap-6 md:grid-cols-7">
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle>Profile</CardTitle>
-            <CardDescription>
-              Your personal information and preferences
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center text-center">
-            <Avatar className="h-32 w-32">
-              <AvatarImage src="" alt={userData.name} />
-              <AvatarFallback className="text-4xl">
-                {userData.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </AvatarFallback>
-            </Avatar>
-            <h3 className="mt-4 text-xl font-semibold">{userData.name}</h3>
-            <p className="text-sm text-muted-foreground">
-              {userData.major} (Class of {userData.graduationYear})
-            </p>
-            <div className="mt-6 space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-muted-foreground" />
-                <span>{userData.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-muted-foreground" />
-                <span>{userData.phone}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span>{userData.address}</span>
-              </div>
+        <div className="grid gap-6">
+          <div className="grid gap-2">
+            <Label htmlFor="name">Full Name</Label>
+            <Input
+              id="name"
+              value={formData.name}
+              onChange={(e) => handleChange("name", e.target.value)}
+            />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email (non-editable)</Label>
+            <Input id="email" type="email" value={user.email} disabled />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="phone">Phone</Label>
+            <div className="flex items-center gap-2">
+              <span className="rounded-md border bg-muted px-3 py-2 text-sm text-muted-foreground">
+                +91
+              </span>
+              <Input
+                id="phone"
+                value={formData.phone}
+                onChange={(e) => handleChange("phone", e.target.value)}
+                type="tel"
+                maxLength={10}
+                placeholder="10-digit number"
+              />
             </div>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="mt-6 w-full">Edit Profile</Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
-                  <DialogTitle>Edit Profile</DialogTitle>
-                  <DialogDescription>
-                    Make changes to your profile information here.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      value={userData.name}
-                      onChange={(e) =>
-                        setUserData({ ...userData, name: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={userData.email}
-                      onChange={(e) =>
-                        setUserData({ ...userData, email: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      value={userData.phone}
-                      onChange={(e) =>
-                        setUserData({ ...userData, phone: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="address">Address</Label>
-                    <Input
-                      id="address"
-                      value={userData.address}
-                      onChange={(e) =>
-                        setUserData({ ...userData, address: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <Label htmlFor="bio">Bio</Label>
-                    <Textarea
-                      id="bio"
-                      value={userData.bio}
-                      onChange={(e) =>
-                        setUserData({ ...userData, bio: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button onClick={handleSaveProfile}>Save changes</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </CardContent>
-        </Card>
+          </div>
 
-        <div className="md:col-span-5">
-          <Tabs defaultValue="about" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="about">About</TabsTrigger>
-              <TabsTrigger value="interests">Interests</TabsTrigger>
-              <TabsTrigger value="academic">Academic</TabsTrigger>
-            </TabsList>
-            <TabsContent value="about">
-              <Card>
-                <CardHeader>
-                  <CardTitle>About Me</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm">{userData.bio}</p>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="interests">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Interests</CardTitle>
-                  <CardDescription>
-                    Activities and topics you're interested in
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {userData.interests.map((interest) => (
-                      <div
-                        key={interest}
-                        className="rounded-md bg-secondary px-3 py-1.5 text-sm font-medium"
-                      >
-                        {interest}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="academic">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Academic Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <h3 className="text-sm font-medium">Major</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {userData.major}
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-medium">Graduation Year</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {userData.graduationYear}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+          <div className="grid gap-2">
+            <Label htmlFor="college">College</Label>
+            <Input
+              id="college"
+              value={formData.collegeName}
+              onChange={(e) => handleChange("collegeName", e.target.value)}
+            />
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="year">Year</Label>
+            <Select
+              value={formData.year}
+              onValueChange={(value) => handleChange("year", value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select your year" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1st Year">1st Year</SelectItem>
+                <SelectItem value="2nd Year">2nd Year</SelectItem>
+                <SelectItem value="3rd Year">3rd Year</SelectItem>
+                <SelectItem value="4th Year">4th Year</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid gap-2">
+            <Label htmlFor="branch">Branch</Label>
+            <Input
+              id="branch"
+              value={formData.branch}
+              onChange={(e) => handleChange("branch", e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="flex justify-end gap-4">
+          <Button variant="outline">Cancel</Button>
+          <Button
+            className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+            onClick={handleSubmit}
+            disabled={isPending || !isChanged}
+          >
+            {isPending ? "Saving..." : "Save"}
+          </Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
