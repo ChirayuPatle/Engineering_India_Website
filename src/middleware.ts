@@ -1,53 +1,24 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { auth } from "./lib/auth";
-
-interface SessionData {
-  session: {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
-    userId: string;
-    expiresAt: Date;
-    token: string;
-    ipAddress?: string | null;
-    userAgent?: string | null;
-  };
-  user: {
-    id: string;
-    [key: string]: any;
-  };
-}
-
-type SessionDataNullable = SessionData | null;
+import { auth } from "@/lib/auth";
+import { db } from "@/database/db";
+import { user as userTable } from "@/database/schema";
+import { eq } from "drizzle-orm";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (
-    !pathname.startsWith("/dashboard") &&
-    !pathname.startsWith("/profile") &&
-    !pathname.startsWith("/auth")
-  ) {
-    console.log("Skipping non-protected route");
-    return NextResponse.next();
-  }
+  const isProtected =
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/auth");
+
+  if (!isProtected) return NextResponse.next();
 
   try {
-    const data = (await auth.api.getSession(req)) as SessionData;
+    const session = await auth.api.getSession(req);
 
-    const isLoggedIn = !!data?.session;
-
-    if (pathname.startsWith("/auth")) {
-      if (isLoggedIn) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/dashboard";
-        return NextResponse.redirect(url);
-      }
-      return NextResponse.next();
-    }
-
-    if (pathname.startsWith("/dashboard") || pathname.startsWith("/profile")) {
-      if (!isLoggedIn) {
+    if (!session?.user?.id) {
+      if (!pathname.startsWith("/auth")) {
         const url = req.nextUrl.clone();
         url.pathname = "/auth";
         url.searchParams.set("redirect", pathname);
@@ -56,8 +27,42 @@ export async function middleware(req: NextRequest) {
       return NextResponse.next();
     }
 
+    const [user] = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.id, session.user.id));
+
+    if (!user) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/auth";
+      return NextResponse.redirect(url);
+    }
+
+    const userRole = user.role;
+
+    // ✅ Redirect logged-in users away from /auth
+    if (pathname.startsWith("/auth")) {
+      const url = req.nextUrl.clone();
+      url.pathname = userRole === "ADMIN" ? "/admin/dashboard" : "/dashboard";
+      return NextResponse.redirect(url);
+    }
+
+    // ✅ If user is NOT admin and accessing /admin → block
+    if (pathname.startsWith("/admin") && userRole !== "ADMIN") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/dashboard";
+      return NextResponse.redirect(url);
+    }
+
+    // ✅ If ADMIN is accessing /dashboard → redirect to /admin/dashboard
+    if (pathname.startsWith("/dashboard") && userRole === "ADMIN") {
+      const url = req.nextUrl.clone();
+      url.pathname = "/admin/dashboard";
+      return NextResponse.redirect(url);
+    }
+
     return NextResponse.next();
-  } catch (_error) {
+  } catch (_err) {
     const url = req.nextUrl.clone();
     url.pathname = "/auth";
     return NextResponse.redirect(url);
@@ -65,5 +70,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/auth/:path*"],
+  matcher: ["/dashboard/:path*", "/auth/:path*", "/admin/:path*"],
 };

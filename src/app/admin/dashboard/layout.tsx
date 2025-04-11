@@ -4,7 +4,7 @@ import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { PageLoader } from "@/components/ui/page-loader";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { userNavItems } from "@/lib/constants";
+import { adminNavItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { type ReactNode, useEffect, useState } from "react";
 
@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="flex min-h-screen bg-background">
       <PageLoader />
       <DashboardSidebar
-        navItems={userNavItems}
+        navItems={adminNavItems}
         open={sidebarOpen}
         onOpenChange={setSidebarOpen}
       />

@@ -36,7 +36,8 @@ export default function Navbar() {
   if (
     pathname?.startsWith("/dashboard") ||
     pathname?.startsWith("/events/") ||
-    pathname?.startsWith("/auth")
+    pathname?.startsWith("/auth") ||
+    pathname?.startsWith("/admin/dashboard")
   ) {
     return null;
   }

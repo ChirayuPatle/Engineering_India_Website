@@ -1,18 +1,16 @@
-export type Role = "ADMIN" | "USER" | "VOLUNTEER";
-
-export interface User {
-  id: string;
+export interface Prize {
   name: string;
-  email: string;
-  phone: string;
-  emailVerified: boolean;
-  collegeName?: string;
-  year?: string;
-  branch?: string;
-  image?: string | null;
-  role: Role;
-  createdAt: number;
-  updatedAt: number;
+  value: string;
+}
+
+export interface TimelineItem {
+  time: string;
+  activity: string;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
 }
 
 export interface RegistrationField {
@@ -38,6 +36,15 @@ export interface GeneralFormData {
   bannerImage: FileList;
   maxCapacity: number;
   registrationFee?: number;
+  organizerContact: string;
+  whatsappLink: string;
+}
+
+export interface EventDetailsFormData {
+  prizes: Prize[];
+  timeline: TimelineItem[];
+  rules: string;
+  faqs: FAQ[];
 }
 
 export interface RegistrationFormData {
@@ -47,4 +54,6 @@ export interface RegistrationFormData {
   qrCodeImage?: FileList;
 }
 
-export type CompleteFormData = GeneralFormData & RegistrationFormData;
+export type CompleteFormData = GeneralFormData &
+  EventDetailsFormData &
+  RegistrationFormData;
