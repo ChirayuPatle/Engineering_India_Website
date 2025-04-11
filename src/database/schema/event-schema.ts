@@ -11,6 +11,13 @@ export const event = sqliteTable("event", {
   description: text("description"),
   startDate: integer("start_date", { mode: "timestamp" }),
   endDate: integer("end_date", { mode: "timestamp" }),
+  regStartDate: integer("reg_start_date", { mode: "timestamp" }),
+  regEndDate: integer("reg_end_date", { mode: "timestamp" }),
+  venue: text("venue"),
+  mode: text("mode"), // Online/Offline
+  maxCapacity: integer("max_capacity"),
+  registrationFee: integer("registration_fee"),
+  isPaid: integer("is_paid", { mode: "boolean" }).default(false),
   timeline: text("timeline"),
   prizes: text("prizes"), // JSON stringified array
   faqs: text("faqs"), // JSON stringified array of Q&A
@@ -22,6 +29,7 @@ export const event = sqliteTable("event", {
   gallery: text("gallery"), // JSON stringified array of images
   details: text("details"),
   rules: text("rules"),
+  registrationConfig: text("registration_config"), // JSON stringified configuration for the registration form
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });

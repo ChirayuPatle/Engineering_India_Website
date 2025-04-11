@@ -56,11 +56,13 @@ function SidebarNavItem({
 interface DashboardSidebarProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  navItems?: SidebarNavItemProps[];
 }
 
 export function DashboardSidebar({
   open,
   onOpenChange,
+  navItems,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
@@ -73,18 +75,6 @@ export function DashboardSidebar({
   };
 
   // const { loading, user } = useUser();
-
-  const navItems = [
-    { title: "Dashboard", icon: BarChart3, path: "/dashboard" },
-    { title: "Profile", icon: User, path: "/dashboard/profile" },
-    { title: "All Events", icon: Calendar, path: "/dashboard/events" },
-    {
-      title: "My Registrations",
-      icon: Users,
-      path: "/dashboard/registrations",
-    },
-    { title: "Payments", icon: CreditCard, path: "/dashboard/payments" },
-  ];
 
   const handleLogout = async () => {
     authClient
@@ -136,7 +126,7 @@ export function DashboardSidebar({
 
           <nav className="flex-1 overflow-auto py-4">
             <div className="space-y-1 px-3">
-              {navItems.map((item) => (
+              {navItems?.map((item) => (
                 <SidebarNavItem
                   key={item.path}
                   icon={item.icon}
