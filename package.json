@@ -59,6 +59,8 @@
     "framer-motion": "^12.4.4",
     "geist": "^1.3.0",
     "gsap": "^3.12.7",
+    "highcharts": "^12.2.0",
+    "highcharts-react-official": "^3.2.1",
     "imagekitio-next": "^1.0.1",
     "install": "^0.13.0",
     "lucide-react": "^0.475.0",
