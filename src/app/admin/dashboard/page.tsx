@@ -9,6 +9,10 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useCurrentUser } from "@/hooks/use-user";
+import LineChart from "@/components/dashboard/chart/LineChart";
+import BarChart from "@/components/dashboard/chart/BarChart";
+import PieChart from "@/components/dashboard/chart/PieChart";
+import IncomeByEventChart from "@/components/dashboard/chart/Donut";
 
 export interface Payment {
   id: string;
@@ -103,8 +107,14 @@ export default function DashboardPage() {
 
         {/* Stats */}
         <div className="flex w-full gap-4">
+        <StatCard
+            title="Total Users"
+            value={String(registeredEvents.length)}
+            icon={<CreditCard className="h-4 w-4" />}
+          />
+          
           <StatCard
-            title="Events Attended"
+            title="Total Events"
             value={String(registeredEvents.length)}
             icon={<Calendar className="h-4 w-4" />}
           />
@@ -113,11 +123,31 @@ export default function DashboardPage() {
             value={String(registeredEvents.length)}
             icon={<CreditCard className="h-4 w-4" />}
           />
+          
         </div>
 
         {/* Upcoming Events */}
-        <div>
-          <h2 className="mb-2 text-xl font-bold">Upcoming Events</h2>
+     
+
+
+     <div className="flex ">
+     <div className="h-[64rem] w-[60%]  p-4 flex flex-col gap-2">
+        <div className="w-full rounded-xl shadow-sm  border-2">
+                  <LineChart/>
+        </div>
+        <div className="w-full rounded-xl shadow-sm  border-2">
+                  <BarChart/>
+        </div>
+        <div className="w-full h-96 rounded-xl p-4  overflow-hidden shadow-sm  border-2">
+        
+        </div>
+     </div>
+     <div className="flex gap-3 flex-col">
+        <div className="w-full h-96 rounded-xl p-4  overflow-hidden shadow-sm  border-2">
+          <PieChart/>
+        </div>
+        <div className="overflow-hidden shadow-sm border-2 rounded-xl p-4">
+          <h2 className="mb-2 text-xl font-bold  ">Upcoming Events</h2>
           {upcomingEvents.length > 0 ? (
             <UpcomingEvents
               events={upcomingEvents.map((e) => ({
@@ -145,9 +175,19 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
+        <div className="w-full h-96 rounded-xl p-4  overflow-hidden shadow-sm  border-2">
+        <IncomeByEventChart/>
+        </div>
+     </div>
+
+     </div>
+
+    
+
+
 
         {/* Payments */}
-        <div className="space-y-4">
+        <div className="space-y-4 h-full">
           <h2 className="text-xl font-bold">Recent Payments</h2>
           {payments.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
