@@ -10,7 +10,6 @@ import { ReactQueryProvider } from "@/context/providers/query-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
 import { Toaster } from "react-hot-toast";
-import { PostHogProvider } from "@/context/providers/posthog-provider";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -36,7 +35,9 @@ export default function RootLayout({
           <body className="space">
             <Navbar />
             <Toaster position="top-center" reverseOrder={false} />
-            <PostHogProvider>{children}</PostHogProvider>
+            {/* <PostHogProvider> */}
+              {children}
+            {/* </PostHogProvider> */}
             <Analytics />
             <SpeedInsights />
             <Footer />

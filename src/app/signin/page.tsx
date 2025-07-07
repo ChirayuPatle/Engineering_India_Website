@@ -13,8 +13,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
   const [loading, setLoading] = useState(false);
 
   return (
@@ -44,10 +43,10 @@ export default function SignIn() {
                     callbackURL: "/dashboard",
                   },
                   {
-                    onRequest: (ctx) => {
+                    onRequest: () => {
                       setLoading(true);
                     },
-                    onResponse: (ctx) => {
+                    onResponse: () => {
                       setLoading(false);
                     },
                   },

@@ -15,6 +15,13 @@
       "when": 1743935927711,
       "tag": "0001_known_gideon",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1751863318802,
+      "tag": "0002_watery_mandarin",
+      "breakpoints": true
     }
   ]
 }

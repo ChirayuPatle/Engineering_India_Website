@@ -71,21 +71,8 @@ const RegistrationForm = ({
   const removeTeamMember = (index: number) => {
     const teamMembers = form.getValues("teamMembers") || [];
     if (teamMembers.length > 1) {
-      interface TeamMember {
-        name: string;
-        email: string;
-      }
-
-      interface RegistrationFormData {
-        name: string;
-        email: string;
-        phone: string;
-        teamName?: string;
-        teamMembers?: TeamMember[];
-        cardNumber?: string;
-        expiryDate?: string;
-        cvv?: string;
-      }
+      const newTeamMembers = teamMembers.filter((_, i) => i !== index);
+      form.setValue("teamMembers", newTeamMembers);
     }
   };
 
@@ -199,7 +186,7 @@ const RegistrationForm = ({
 
                   {form
                     .watch("teamMembers")
-                    ?.map((_: RegistrationFormProps, index: number) => (
+                    ?.map((_member, index) => (
                       <div key={index} className="mb-4 space-y-3">
                         {index > 0 && <Separator className="my-4" />}
 

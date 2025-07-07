@@ -1,61 +1,34 @@
 "use client";
 
-import {
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  type ReactNode,
-} from "react";
-import { supabase } from "@/utils/supabase/client";
+import { createContext, useContext, type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 
 export type Event = {
-  event_id: string;
-  event_title: string;
-  registration_fee: number;
-  event_description: string;
-  event_start_date: string;
-  event_end_date?: string;
-  organized_by?: string;
-  co_organized_by?: string;
-  // New fields added:
-  registration_opens: string;
-  registration_closes: string;
-  event_venue: string;
-  event_category: string;
-  event_spots: number;
-  event_spots_filled: number;
-  prizes?: {
-    prize_position: string;
-    prize_description?: string;
-    prize_value?: string;
-  }[];
-  isRegistered?: boolean;
-  onRegister?: (id: string) => void;
-  event_image?: string;
-  organizer?: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-  faqs?: {
-    faq_question: string;
-    faq_answer: string;
-  }[];
-  gallery?: string[];
-  event_registration_mode: "INDIVIDUAL" | "TEAM";
-  schedule?: {
-    schedule_time: string;
-    schedule_activity: string;
-    schedule_location?: string;
-    schedule_speakers?: string[];
-  }[];
-  event_tags?: string[];
+  id: string;
+  name: string;
+  description?: string | null;
+  startDate?: number | null;
+  endDate?: number | null;
+  timeline?: string | null;
+  prizes?: string | null;
+  faqs?: string | null;
+  organizerContact?: string | null;
+  coOrganizerContact?: string | null;
+  discordLink?: string | null;
+  whatsappLink?: string | null;
+  bannerImage?: string | null;
+  gallery?: string | null;
+  details?: string | null;
+  rules?: string | null;
+  createdAt: number;
+  updatedAt: number;
+  location?: string | null;
+  category?: string | null;
 };
 
 interface EventContextType {
   events: Event[];
-  setEvents: (events: Event[]) => void;
   loading: boolean;
   error: string | null;
 }
@@ -63,31 +36,20 @@ interface EventContextType {
 const EventContext = createContext<EventContextType | undefined>(undefined);
 
 export function EventProvider({ children }: { children: ReactNode }) {
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchEvents() {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .order("event_created_at", { ascending: true });
-      if (error) {
-        console.error("Error fetching events:", error.message);
-        setError(error.message);
-      } else if (data) {
-        setEvents(data as Event[]);
-      }
-      setLoading(false);
-    }
-
-    fetchEvents();
-  }, []);
+  const {
+    data: events = [],
+    isLoading: loading,
+    error,
+  } = useQuery<Event[]>({ 
+    queryKey: ["events"],
+    queryFn: async () => {
+      const response = await api.get<Event[]>("/event");
+      return response.data;
+    },
+  });
 
   return (
-    <EventContext.Provider value={{ events, setEvents, loading, error }}>
+    <EventContext.Provider value={{ events, loading, error: error ? error.message : null }}>
       {children}
     </EventContext.Provider>
   );

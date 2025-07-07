@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 
 const navItems = [
   { name: "Events", href: "/events" },
@@ -52,10 +53,13 @@ export default function Navbar() {
       <div className="container mx-auto flex h-10 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <div className="w-[2.2rem] md:w-[3.0rem]">
-            <img
-              src="./logo1.png"
+            <Image
+              src="/logo1.png"
               className="h-full w-full object-cover"
               alt="Logo"
+              width={50}
+              height={50}
+              priority
             />
           </div>
         </Link>
@@ -135,7 +139,10 @@ export default function Navbar() {
 
             {isPending ? null : user ? (
               <Button
-                onClick={() => router.push("/dashboard")}
+                onClick={() => {
+                  router.push("/dashboard");
+                  setIsOpen(false);
+                }}
                 variant="ghost"
                 className="relative h-8 w-8 rounded-full border-none outline-none"
               >

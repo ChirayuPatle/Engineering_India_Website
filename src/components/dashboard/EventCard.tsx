@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, Users } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,15 +15,11 @@ interface EventCardProps {
   title: string;
   description: string;
   start_date: string;
-  end_date?: string;
   venue: string;
   category: string;
-  spots: number;
-  spotsFilled: number;
   price: number;
   isRegistered?: boolean;
   onRegister?: (id: string) => void;
-  image?: string;
 }
 
 export function EventCard({
@@ -31,18 +27,13 @@ export function EventCard({
   title,
   description,
   start_date,
-  end_date,
   venue,
   category,
-  spots,
-  spotsFilled,
   price,
   isRegistered = false,
   onRegister,
-  image,
 }: EventCardProps) {
-  const spotsRemaining = spots - spotsFilled;
-  const timeDisplay = end_date ? `${start_date} - ${end_date}` : start_date;
+  
 
   return (
     <Card className="flex h-full flex-col overflow-hidden">

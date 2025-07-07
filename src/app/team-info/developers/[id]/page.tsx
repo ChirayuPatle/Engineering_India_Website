@@ -1,73 +1,139 @@
 "use client";
+import {Button} from "@/components/ui/button"
 import { useParams } from "next/navigation";
-import { teamMembers, Devlopers } from "@/team-info";
-import { useState } from "react";
+import { Devlopers } from "@/team-info";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Github,
-  Instagram,
   LinkedinIcon,
   MessageSquareHeartIcon,
-  Twitter,
+  TriangleAlert,
 } from "lucide-react";
-import { InstagramLogoIcon } from "@radix-ui/react-icons";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Typography } from "@/components/ui/typography";
+
+import Image from "next/image";
+
+const TeamInfoPageSkeleton = () => (
+  <div className="h-screen w-full">
+    <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
+      <div className="flex flex-col items-center justify-center gap-2">
+        <Skeleton className="h-32 w-32 rounded-full" />
+        <div className="leading-2 flex flex-col items-center justify-center">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-6 w-32 mt-2" />
+        </div>
+      </div>
+    </div>
+    <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
+      <div className="hidden h-36 w-80 lg:block">
+        <Skeleton className="h-full w-full" />
+      </div>
+      <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
+        <Skeleton className="h-8 w-64" />
+        <div className="mt-3 flex flex-col gap-1">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-6 w-48" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 function TeamInfoPage(): JSX.Element {
   const { id } = useParams();
-  const [userid, setid] = useState<number>(Number(id) - 1);
-  const [logo, setlogo] = useState([
-    <LinkedinIcon key="linkedin" />,
-    <Instagram key="instagram" />,
-    <Twitter key="twitter" />,
-    <Github key="github" />,
-    <MessageSquareHeartIcon key="message" />,
-  ]);
+  const [developer, setDeveloper] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDeveloper = async () => {
+      setIsLoading(true);
+      
+      try {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const foundDeveloper = Devlopers.find((dev) => dev.teamId === Number(id));
+        if (foundDeveloper) {
+          setDeveloper(foundDeveloper);
+        } else {
+          // Handle developer not found without setting an error state
+        }
+      } catch (e: any) {
+        // Handle error without setting an error state
+        console.error("Failed to load developer data:", e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDeveloper();
+  }, [id]);
+
+  if (isLoading) {
+    return <TeamInfoPageSkeleton />;
+  }
+
+  // If developer is null and not loading, it means not found
+  if (!developer && !isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
+          <TriangleAlert className="h-12 w-12 text-muted-foreground mb-4" />
+          <Typography variant="h1" className="mb-6">
+            Developer Not Found
+          </Typography>
+          <Typography className="mb-8 text-muted-foreground">
+            The developer you're looking for doesn't exist.
+          </Typography>
+          <Button>
+            <Link href="/team">Back to Team</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen w-full">
       <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="h-32 w-32 overflow-hidden rounded-full border-2">
-            <img
+            <Image
               className="h-full w-full object-cover"
-              src={`${
-                Devlopers[userid] ? Devlopers[userid].image : "not found"
-              }`}
-              alt=""
+              src={developer.image}
+              alt={developer.name}
+              fill
             />
           </div>
           <div className="leading-2 flex flex-col items-center justify-center">
             <h1 className="text-2xl font-bold text-white">
-              {teamMembers[userid]
-                ? Devlopers[userid]?.name
-                : "Member not found"}
+              {developer.name}
             </h1>
             <h1 className="text-md font-bold text-zinc-200">
-              {teamMembers[userid]
-                ? Devlopers[userid]?.position
-                : "Member not found"}
+              {developer.position}
             </h1>
           </div>
         </div>
       </div>
       <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
         <div className="hidden h-36 w-80 lg:block">
-          <img src="/image/logo.png" alt="" />
+          <Image src="/image/logo.png" alt="" width={50} height={50} />
         </div>
         <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
           <h1 className="text-2xl">Connect with Our Team</h1>
           <div className="mt-3 flex flex-col gap-1">
-            <div className="flex items-center justify-center gap-1 text-zinc-600">
-              {logo[1]}
-              <Link target="_blank" href={`${Devlopers[userid]?.linkedin}`}>
-                <h1 className="cursor-pointer text-xl">Linkedin</h1>
-              </Link>
-            </div>
-            {Devlopers[userid]?.Email !== "" && (
+            {developer.linkedin && (
               <div className="flex items-center justify-center gap-1 text-zinc-600">
-                {logo[4]}
+                <LinkedinIcon />
+                <Link target="_blank" href={developer.linkedin}>
+                  <h1 className="cursor-pointer text-xl">Linkedin</h1>
+                </Link>
+              </div>
+            )}
+            {developer.Email && (
+              <div className="flex items-center justify-center gap-1 text-zinc-600">
+                <MessageSquareHeartIcon />
                 <h1 className="cursor-pointer text-xl">
-                  {Devlopers[userid]?.Email}
+                  {developer.Email}
                 </h1>
               </div>
             )}

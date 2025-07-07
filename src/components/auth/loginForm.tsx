@@ -5,19 +5,14 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
-import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const router = useRouter();
-
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -28,10 +23,10 @@ export function LoginForm({
         callbackURL: "/",
       },
       {
-        onRequest: (ctx) => {
+        onRequest: () => {
           setLoading(true);
         },
-        onResponse: (ctx) => {
+        onResponse: () => {
           setLoading(false);
         },
       },

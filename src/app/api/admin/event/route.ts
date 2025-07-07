@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/database/db";
-import { event, payment } from "@/database/schema";
+import { event } from "@/database/schema";
 import { authMiddleware } from "@/utils/auth-middleware";
 import { isAdmin } from "@/lib/role";
 import { v4 as uuid } from "uuid";
@@ -41,14 +41,7 @@ export async function POST(req: NextRequest) {
     createdAt: new Date(Date.now()), // Convert to Date object
     updatedAt: new Date(Date.now()), // Convert to Date object
   });
-  // await db.insert(payment).values({
-  //   id,
-  //   registrationId: id,
-  //   paymentLink: "https://example.com/payment-link",
-  //   paymentStatus: "pending",
-  //   createdAt: Date.now(),
-  //   updatedAt: Date.now(),
-  // })
+  
 
   return NextResponse.json({ success: true, id });
 }

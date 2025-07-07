@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface SectionProps {
@@ -8,7 +8,6 @@ export interface SectionProps {
   className?: string;
   gradientVariant?: "default" | "cool" | "warm" | "green";
   circle?: boolean;
-  circleClasses?: string;
 }
 
 export default function Section({
@@ -16,7 +15,6 @@ export default function Section({
   className,
   gradientVariant = "default",
   circle = true,
-  circleClasses,
 }: SectionProps) {
   const gradientMap = {
     default: "bg-gradient-to-b from-white to-white",
@@ -27,23 +25,7 @@ export default function Section({
 
   const bgClasses = gradientMap[gradientVariant];
 
-  const leftCircleClasses = cn(
-    // Mobile:
-    "absolute bottom-[2rem] w-[40rem] h-[40rem] ",
-    // Desktop:
-    "md:bottom-[-10rem] md:left-[-22rem] md:w-[60rem] md:h-[60rem]",
-    // permament styles
-    "rounded-full bg-gradient-to-r blur-[9rem] from-blue-600 to-blue-950 opacity-30 pointer-events-none",
-  );
-
-  const rightCircleClasses = cn(
-    // Mobile:
-    "absolute bottom-[2rem] w-[40rem] h-[40rem]",
-    // Desktop:
-    "md:bottom-[-10rem] md:right-[-22rem] md:w-[60rem] md:h-[60rem]",
-    // permament styles
-    "rounded-full bg-gradient-to-r blur-[7rem] sm:blur-[9rem] from-blue-600 to-blue-950 opacity-30 pointer-events-none",
-  );
+  
 
   return (
     <div

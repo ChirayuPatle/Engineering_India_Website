@@ -33,6 +33,7 @@ const config = {
       "warn",
       {
         argsIgnorePattern: "^_",
+        caughtErrors: "all",
       },
     ],
     "@typescript-eslint/require-await": "off",

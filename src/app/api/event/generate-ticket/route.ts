@@ -1,19 +1,59 @@
 // app/api/generate-ticket/route.ts
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/database/db";
-import { ticket } from "@/database/schema/index";
+import { registration, ticket } from "@/database/schema/index";
 import { v4 as uuid } from "uuid";
 import QRCode from "qrcode";
+import { z } from "zod";
+import { auth } from "@/lib/auth";
+import { eq } from "drizzle-orm";
+
+const generateTicketSchema = z.object({
+  registrationId: z.string().uuid(),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const { registrationId } = await req.json();
+    const session = await auth.api.getSession({
+      headers: req.headers,
+    });
+    const userId = session?.user.id;
 
-    if (!registrationId) {
+    if (!userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await req.json();
+    const validatedBody = generateTicketSchema.parse(body);
+    const { registrationId } = validatedBody;
+
+    const existingRegistration = await db.query.registration.findFirst({
+      where: eq(registration.id, registrationId),
+    });
+
+    if (!existingRegistration) {
       return NextResponse.json(
-        { error: "Missing registrationId" },
-        { status: 400 },
+        { message: "Registration not found" },
+        { status: 404 }
       );
+    }
+
+    if (existingRegistration.userId !== userId) {
+      return NextResponse.json(
+        { message: "Forbidden" },
+        { status: 403 }
+      );
+    }
+    
+    const existingTicket = await db.query.ticket.findFirst({
+        where: eq(ticket.registrationId, registrationId),
+    });
+
+    if(existingTicket) {
+        return NextResponse.json(
+            { message: "Ticket already generated for this registration" },
+            { status: 409 }
+        )
     }
 
     const ticketCode = uuid();
@@ -35,11 +75,18 @@ export async function POST(req: NextRequest) {
       qrImage,
     });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Invalid request body", errors: error.errors },
+        { status: 400 }
+      );
+    }
+    console.error("Error generating ticket:", error);
     return NextResponse.json(
       {
-        error: "Internal Server Error",
+        message: "Internal Server Error",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

@@ -11,8 +11,6 @@ interface EventCardProps {
   location: string;
   description: string;
   imageUrl: string;
-  href: string;
-  category: string;
 }
 
 export function EventCard({
@@ -21,8 +19,6 @@ export function EventCard({
   location,
   description,
   imageUrl,
-  href,
-  category,
 }: EventCardProps) {
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-background p-2 transition-all">

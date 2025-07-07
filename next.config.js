@@ -18,6 +18,10 @@ const config = {
       },
       {
         protocol: "https",
+        hostname: "hmrvazaoddsexmrgydqx.supabase.co",
+      },
+      {
+        protocol: "https",
         hostname: "res.cloudinary.com",
       },
       {
@@ -28,10 +32,7 @@ const config = {
         protocol: "https",
         hostname: "media.istockphoto.com",
       },
-      {
-        protocol: "https",
-        hostname: "hmrvazaoddsexmrgydqx.supabase.co",
-      },
+
       {
         protocol: "https",
         hostname: "ik.imagekit.io",

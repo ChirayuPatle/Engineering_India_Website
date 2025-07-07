@@ -10,7 +10,6 @@ import {
   Calendar,
   CreditCard,
   LogOut,
-  Settings,
   User,
   Users,
   X,
@@ -92,7 +91,7 @@ export function DashboardSidebar({
       .then(() => {
         router.push("/");
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Failed to logout");
       });
   };

@@ -1,14 +1,17 @@
 "use client";
 
+"use client";
+
 import { StatCard } from "@/components/dashboard/StatCard";
 import { UpcomingEvents } from "@/components/dashboard/UpcomingEvents";
 import { PaymentCard } from "@/components/dashboard/PaymentCard";
-import { Calendar, CreditCard } from "lucide-react";
+import { Calendar, CreditCard, TriangleAlert } from "lucide-react";
 import { type PaymentStatus } from "@/components/dashboard/PaymentCard";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useCurrentUser } from "@/hooks/use-user";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface Payment {
   id: string;
@@ -57,6 +60,27 @@ function getGreeting(): string {
   return "Good evening";
 }
 
+const DashboardSkeleton = () => (
+  <div className="flex flex-col space-y-6">
+    <Skeleton className="h-8 w-64" />
+    <div className="flex w-full gap-4">
+      <Skeleton className="h-24 w-1/2" />
+      <Skeleton className="h-24 w-1/2" />
+    </div>
+    <div className="space-y-2">
+      <Skeleton className="h-6 w-48" />
+      <Skeleton className="h-32 w-full" />
+    </div>
+    <div className="space-y-2">
+      <Skeleton className="h-6 w-48" />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <Skeleton className="h-24 w-full" />
+        <Skeleton className="h-24 w-full" />
+      </div>
+    </div>
+  </div>
+);
+
 export default function DashboardPage() {
   const router = useRouter();
 
@@ -64,7 +88,6 @@ export default function DashboardPage() {
     data,
     isLoading,
     isError,
-    // error removed to fix unused variable warning
   } = useQuery<DashboardResponse>({
     queryKey: ["dashboard"],
     queryFn: fetchDashboardData,
@@ -84,13 +107,19 @@ export default function DashboardPage() {
   const greeting = useMemo(() => getGreeting(), []);
 
   if (isLoading || userLoading) {
-    return (
-      <div className="text-center text-gray-500">Loading your dashboard...</div>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (isError || userError) {
-    return <div className="text-center text-red-500">Error loading data.</div>;
+    return (
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+        <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
+        <span className="text-xl font-semibold">Error loading dashboard data.</span>
+        <p className="mt-2 text-sm">
+          We couldn't load your dashboard. Please try again later.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -141,6 +170,34 @@ export default function DashboardPage() {
               </span>
               <p className="mt-1 text-sm">
                 Stay tuned for some amazing events coming your way!
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Registered Events */}
+        <div>
+          <h2 className="mb-2 text-xl font-bold">Your Registered Events</h2>
+          {registeredEvents.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {/* You'll need to create a component for displaying registered events */}
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
+                <span className="text-lg font-semibold">
+                  Display Registered Events Here
+                </span>
+                <p className="mt-1 text-sm">
+                  This section will show events you've registered for.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
+              📝{" "}
+              <span className="text-lg font-semibold">
+                No registered events found
+              </span>
+              <p className="mt-1 text-sm">
+                Register for events to see them here!
               </p>
             </div>
           )}

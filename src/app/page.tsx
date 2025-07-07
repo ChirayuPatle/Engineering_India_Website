@@ -11,14 +11,12 @@ import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-  const [isNavigating, setIsNavigating] = useState(false);
-  const router = useRouter();
+  
 
   // useEffect(() => {
   //   if (!sessionStorage.getItem("animationPlayed")) {

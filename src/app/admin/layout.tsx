@@ -1,14 +1,6 @@
 import "@/styles/globals.css";
 
-import { DM_Sans } from "next/font/google";
-
 import { type Metadata } from "next";
-
-const dmsans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
-});
 
 export const metadata: Metadata = {
   title: "Dashboard",

@@ -9,19 +9,19 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import {
-  Link2,
-  Linkedin,
-  MessageCircleMore,
-  Share2 as Share2Icon,
-  Twitter,
+  TriangleAlert,
 } from "lucide-react";
 import EventHeader from "@/components/events/EventHeader";
+import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
 
+// Helper functions (kept from previous version)
 function BlurImage(props: any) {
   const [isLoading, setLoading] = useState(true);
   return (
     <Image
       {...props}
+      alt={props.alt || ""}
       className={`${props.className} transition duration-700 ease-in-out ${
         isLoading ? "blur-2xl" : "blur-0"
       }`}
@@ -30,122 +30,50 @@ function BlurImage(props: any) {
   );
 }
 
-function AutoCarousel({
-  images,
-  interval = 3000,
-  className = "",
-}: {
-  images: string[];
-  interval?: number;
-  className?: string;
-}) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (!images || images.length === 0) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, interval);
-    return () => clearInterval(timer);
-  }, [images, interval]);
-
-  return (
-    <div className={`relative ${className}`}>
-      {images.map((img, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <BlurImage
-            src={img}
-            alt="Carousel Image"
-            fill
-            style={{ objectFit: "cover" }}
-            priority={index === currentIndex}
-          />
+const EventPageSkeleton = () => (
+  <>
+    <Skeleton className="h-[300px] w-full" />
+    <main className="container mx-auto px-4 py-16 sm:px-6 sm:py-8 lg:px-36">
+      <nav className="sticky top-0 z-30 mb-8 border-b border-zinc-900/20 bg-white py-4">
+        <div className="flex flex-wrap gap-4">
+          <Skeleton className="h-10 w-24" />
+          <Skeleton className="h-10 w-24" />
+          <Skeleton className="h-10 w-24" />
         </div>
-      ))}
-    </div>
-  );
-}
+      </nav>
 
-function ShareModal({
-  isOpen,
-  onClose,
-  shareUrl,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  shareUrl: string;
-}) {
-  if (!isOpen) return null;
-  return (
-    <div
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-    >
-      <div className="w-80 rounded-lg bg-white p-6">
-        <h3 className="mb-4 text-lg font-bold">Share Event</h3>
-        <div className="flex flex-col gap-3">
-          <a
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-              shareUrl,
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded border p-2 hover:bg-gray-100"
-          >
-            <Linkedin className="h-5 w-5" />
-            LinkedIn
-          </a>
-          <a
-            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-              shareUrl,
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded border p-2 hover:bg-gray-100"
-          >
-            <Twitter className="h-5 w-5" />
-            Twitter
-          </a>
-          <a
-            href={`https://wa.me/?text=${encodeURIComponent(shareUrl)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded border p-2 hover:bg-gray-100"
-          >
-            <MessageCircleMore className="h-5 w-5" />
-            WhatsApp
-          </a>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(shareUrl);
-              onClose();
-            }}
-            className="flex items-center gap-2 rounded border p-2 hover:bg-gray-100"
-          >
-            <Link2 className="h-5 w-5" />
-            Copy Link
-          </button>
+      <div className="flex flex-col gap-8 lg:flex-row">
+        <div className="flex-1 space-y-12">
+          <section className="scroll-mt-20 space-y-6">
+            <Card className="p-6 shadow-none">
+              <Skeleton className="mb-4 h-8 w-64" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-3/4" />
+              </div>
+            </Card>
+          </section>
+          <section className="scroll-mt-20 space-y-6">
+            <Skeleton className="mb-4 h-8 w-48" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+              <Skeleton className="h-48 w-full" />
+            </div>
+          </section>
         </div>
-        <Button variant="default" className="mt-4 w-full" onClick={onClose}>
-          Close
-        </Button>
+
+        <aside className="sticky top-20 z-20 hidden w-full space-y-6 md:block lg:w-[300px] lg:self-start">
+          <Card className="p-4 shadow-none">
+            <Skeleton className="mb-4 h-8 w-48" />
+            <Skeleton className="h-10 w-full" />
+          </Card>
+        </aside>
       </div>
-    </div>
-  );
-}
-
-function Spinner() {
-  return (
-    <div className="flex h-screen w-full items-center justify-center bg-white/10 backdrop-blur-md">
-      <div className="h-16 w-16 animate-spin rounded-full border-b-4 border-black" />
-    </div>
-  );
-}
+    </main>
+  </>
+);
 
 // Helper function to format remaining time as HH:MM:SS
 function formatTimeLeft(ms: number): string {
@@ -166,8 +94,7 @@ function formatTimeLeft(ms: number): string {
 export default function EventPage() {
   const router = useRouter();
   const { slug } = useParams();
-  const { events } = useEvents();
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const { events, loading, error } = useEvents();
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
   const handleScrollTo = useCallback((sectionId: string) => {
@@ -177,12 +104,45 @@ export default function EventPage() {
     }
   }, []);
 
-  // Update timer based on event.registration_closes
+  // Define event and derived data outside conditional blocks
+  const event = events.find((ev) => ev.id === slug);
+
+  
+
+  const parseJsonField = (jsonString: string | null | undefined, defaultValue: any): any => {
+  try {
+    return jsonString ? JSON.parse(jsonString) : defaultValue;
+  } catch (e) {
+    console.error("Failed to parse JSON:", e);
+    return defaultValue;
+  }
+};
+
+  const parsedPrizes = parseJsonField(event?.prizes, []);
+  const parsedFaqs = parseJsonField(event?.faqs, []);
+  const parsedTimeline = parseJsonField(event?.timeline, []);
+  const parsedGallery = parseJsonField(event?.gallery, []);
+
+  const formattedEvent = event ? {
+    event_title: event.name,
+    event_start_date: event.startDate
+      ? format(new Date(event.startDate), "yyyy-MM-dd")
+      : "",
+    event_venue: event.location || "N/A",
+    event_id: event.id,
+    event_image: event.bannerImage || "/placeholder-image.jpg",
+    registration_fee: event.price,
+    event_description: event.description || "",
+    co_organized_by: event.coOrganizerContact || "",
+    organized_by: event.organizerContact || "",
+  } : null;
+
   useEffect(() => {
-    if (!events || events.length === 0) return;
-    const eventFound = events.find((ev) => ev.event_id === slug);
-    if (!eventFound) return;
-    const regClose = new Date(eventFound.registration_closes);
+    if (!event?.endDate) {
+      setTimeLeft(0);
+      return;
+    }
+    const regClose = new Date(event.endDate);
     const updateTime = () => {
       const diff = regClose.getTime() - new Date().getTime();
       setTimeLeft(diff);
@@ -190,18 +150,55 @@ export default function EventPage() {
     updateTime();
     const timer = setInterval(updateTime, 1000);
     return () => clearInterval(timer);
-  }, [events, slug]);
+  }, [event?.endDate]);
 
-  if (!events || events.length === 0) {
-    return <Spinner />;
+  const navItems = [
+    { id: "overview", label: "Overview", condition: true },
+    {
+      id: "prizes",
+      label: "Prizes",
+      condition: parsedPrizes.length > 0,
+    },
+    {
+      id: "schedule",
+      label: "Schedule",
+      condition: parsedTimeline.length > 0,
+    },
+    {
+      id: "gallery",
+      label: "Gallery",
+      condition: parsedGallery.length > 0,
+    },
+    {
+      id: "faq",
+      label: "FAQ",
+      condition: parsedFaqs.length > 0,
+    },
+  ];
+
+  if (loading) {
+    return <EventPageSkeleton />;
   }
 
-  // Updated lookup using event_id from your event type
-  const event = events.find((ev) => ev.event_id === slug);
+  if (error) {
+    return (
+      <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+          <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
+          <span className="text-xl font-semibold">Error loading event details.</span>
+          <p className="mt-2 text-sm">
+            We couldn't load the event you're looking for. Please try again later.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   if (!event) {
     return (
       <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
+          <TriangleAlert className="h-12 w-12 text-muted-foreground mb-4" />
           <Typography variant="h1" className="mb-6">
             Event Not Found
           </Typography>
@@ -216,49 +213,9 @@ export default function EventPage() {
     );
   }
 
-  // Prepare images for the carousel using gallery if available
-  const images = Array.isArray(event.gallery)
-    ? event.gallery
-    : [event.event_image ?? "./notfound.svg"];
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
-
-  const handleShare = () => {
-    window.navigator.share();
-  };
-
-  // Dynamic nav items based on event data using new schema fields
-  const navItems = [
-    { id: "overview", label: "Overview", condition: true },
-    {
-      id: "prizes",
-      label: "Prizes",
-      condition: event.prizes && event.prizes.length > 0,
-    },
-    {
-      id: "schedule",
-      label: "Schedule",
-      condition: event.schedule && event.schedule.length > 0,
-    },
-    {
-      id: "team",
-      label: "Team",
-      condition: event.event_registration_mode === "TEAM",
-    },
-    {
-      id: "gallery",
-      label: "Gallery",
-      condition: event.gallery && event.gallery.length > 0,
-    },
-    {
-      id: "faq",
-      label: "FAQ",
-      condition: event.faqs && event.faqs.length > 0,
-    },
-  ];
-
   return (
     <>
-      <EventHeader event={event} />
+      {formattedEvent && <EventHeader event={formattedEvent} />}
 
       <main className="container mx-auto px-4 py-16 sm:px-6 sm:py-8 lg:px-36">
         <nav className="sticky top-0 z-30 mb-8 border-b border-zinc-900/20 bg-white py-4">
@@ -280,61 +237,89 @@ export default function EventPage() {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* Main Content */}
           <div className="flex-1 space-y-12">
-            {event.event_description && (
+            {event.description && (
               <section id="overview" className="scroll-mt-20 space-y-6">
                 <Card className="p-6 shadow-none">
                   <Typography as="h2" className="mb-4 text-2xl font-bold">
                     About the Event
                   </Typography>
                   <div className="prose max-w-none whitespace-pre-line">
-                    {event.event_description}
+                    {event.description}
                   </div>
                 </Card>
               </section>
             )}
 
-            {event.prizes && event.prizes.length > 0 && (
+            {parsedPrizes.length > 0 && (
               <section id="prizes" className="scroll-mt-20 space-y-6">
                 <Typography as="h1" className="text-2xl font-bold">
                   Prizes
                 </Typography>
-                {/* Insert your PrizeGrid or other components */}
+                {/* Render prizes here */}
+                {parsedPrizes.map((prize, index) => (
+                  <Card key={index} className="p-4 shadow-none">
+                    <Typography as="h3" className="font-semibold">
+                      {prize.position}
+                    </Typography>
+                    <p>{prize.description}</p>
+                    {prize.value && <p>Value: {prize.value}</p>}
+                  </Card>
+                ))}
               </section>
             )}
 
-            {event.schedule && event.schedule.length > 0 && (
+            {parsedTimeline.length > 0 && (
               <section id="schedule" className="scroll-mt-20 space-y-6">
                 <Typography as="h1" className="text-2xl font-bold">
                   Timeline and Schedule
                 </Typography>
-                {/* Insert your Timeline or other components */}
+                {/* Render timeline here */}
+                {parsedTimeline.map((item, index) => (
+                  <Card key={index} className="p-4 shadow-none">
+                    <Typography as="h3" className="font-semibold">
+                      {item.time} - {item.activity}
+                    </Typography>
+                    {item.location && <p>Location: {item.location}</p>}
+                    {item.description && <p>{item.description}</p>}
+                  </Card>
+                ))}
               </section>
             )}
 
-            {event.event_registration_mode === "TEAM" && (
-              <section id="team" className="scroll-mt-20 space-y-6">
-                <Typography as="h1" className="text-2xl font-bold">
-                  Registered Teams
-                </Typography>
-                {/* Insert your TeamGrid or other components */}
-              </section>
-            )}
-
-            {event.gallery && event.gallery.length > 0 && (
+            {parsedGallery.length > 0 && (
               <section id="gallery" className="scroll-mt-20 space-y-6">
                 <Typography as="h1" className="text-2xl font-bold">
                   Gallery
                 </Typography>
-                {/* Insert your EventGallery or other components */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {parsedGallery.map((imgSrc, index) => (
+                    <div key={index} className="relative h-48 w-full">
+                      <BlurImage
+                        src={imgSrc}
+                        alt={`Gallery image ${index + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </section>
             )}
 
-            {event.faqs && event.faqs.length > 0 && (
+            {parsedFaqs.length > 0 && (
               <section id="faq" className="scroll-mt-20 space-y-6">
                 <Typography as="h1" className="text-2xl font-bold">
                   FAQs
                 </Typography>
-                {/* Insert your FAQAccordion or other components */}
+                {/* Render FAQs here */}
+                {parsedFaqs.map((faq, index) => (
+                  <Card key={index} className="p-4 shadow-none">
+                    <Typography as="h3" className="font-semibold">
+                      Q: {faq.question}
+                    </Typography>
+                    <p>A: {faq.answer}</p>
+                  </Card>
+                ))}
               </section>
             )}
           </div>
@@ -358,55 +343,6 @@ export default function EventPage() {
                   : "Registration Closed"}
               </Button>
             </Card>
-
-            {/* <Card className="p-4 shadow-none">
-              <Typography as="h3" className="mb-2 font-semibold">
-                Important Dates
-              </Typography>
-              <ul className="space-y-2 text-sm">
-                <li className="flex justify-between">
-                  <span>Registration Opens</span>
-                  <span>{event.registration_opens}</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Registration Closes</span>
-                  <span>{event.registration_closes}</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Event Starts</span>
-                  <span>{event.event_start_date}</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Event Ends</span>
-                  <span>{event.event_end_date ?? event.event_start_date}</span>
-                </li>
-              </ul>
-            </Card> */}
-
-            {/* <Card className="p-4 shadow-none">
-              <Typography as="h3" className="mb-2 font-semibold">
-                Contact Organizers
-              </Typography>
-              <div className="space-y-2 text-sm">
-                <div className="mt-4 flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full shadow-none"
-                  >
-                    Whatsapp
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full shadow-none"
-                  >
-                    Email
-                  </Button>
-                </div>
-                <p>Email: {event.organizer?.email || "evetnorg@eiycce.in"}</p>
-              </div>
-            </Card> */}
           </aside>
         </div>
       </main>
@@ -424,12 +360,6 @@ export default function EventPage() {
             : "Registration Closed"}
         </Button>
       </div>
-
-      {/* <ShareModal
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        shareUrl={shareUrl}
-      /> */}
     </>
   );
 }
