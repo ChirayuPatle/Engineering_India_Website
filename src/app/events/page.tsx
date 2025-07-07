@@ -8,6 +8,7 @@ import { Search, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 function EventCardSkeleton() {
   return (
@@ -26,6 +27,9 @@ function EventCardSkeleton() {
 export default function EventsPage() {
   const { events, loading, error } = useEvents();
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = ["All", ...new Set(events.map((event) => event.category))];
 
   const filteredEvents = events.filter((event) => {
     const matchesSearch = event.name
@@ -55,17 +59,16 @@ export default function EventsPage() {
             />
           </div>
 
-          {/* <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
               >
                 {category}
               </Button>
             ))}
-          </div> */}
+          </div>
         </div>
       </div>
 
@@ -98,12 +101,11 @@ export default function EventsPage() {
                   location={event.location || ""}
                   description={event.description || ""}
                   imageUrl={event.bannerImage?.trim() || "./notfound.svg"}
-                  category={event.category || ""}
-                  href={`/events/${event.id}`}
                 />
               </Link>
             ))}
           </div>
+
           {filteredEvents.length === 0 && (
             <div className="mt-12 text-center">
               <Typography variant="h3" className="text-muted-foreground">
