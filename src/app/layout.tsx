@@ -36,7 +36,7 @@ export default function RootLayout({
             <Navbar />
             <Toaster position="top-center" reverseOrder={false} />
             {/* <PostHogProvider> */}
-              {children}
+            {children}
             {/* </PostHogProvider> */}
             <Analytics />
             <SpeedInsights />

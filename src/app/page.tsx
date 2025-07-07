@@ -12,12 +12,9 @@ import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
-
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-  
-
   // useEffect(() => {
   //   if (!sessionStorage.getItem("animationPlayed")) {
   //     gsap.from(".header-letter", {

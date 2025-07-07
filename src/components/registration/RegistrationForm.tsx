@@ -184,64 +184,62 @@ const RegistrationForm = ({
                     </Button>
                   </div>
 
-                  {form
-                    .watch("teamMembers")
-                    ?.map((_member, index) => (
-                      <div key={index} className="mb-4 space-y-3">
-                        {index > 0 && <Separator className="my-4" />}
+                  {form.watch("teamMembers")?.map((_member, index) => (
+                    <div key={index} className="mb-4 space-y-3">
+                      {index > 0 && <Separator className="my-4" />}
 
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium">
-                            Team Member {index + 1}
-                          </h4>
-                          {index > 0 && (
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeTeamMember(index)}
-                              className="h-7 w-7 p-0 text-gray-500"
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                          <FormField
-                            control={form.control}
-                            name={`teamMembers.${index}.name`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-xs">Name</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Member name" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name={`teamMembers.${index}.email`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-xs">Email</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="email"
-                                    placeholder="member@example.com"
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-medium">
+                          Team Member {index + 1}
+                        </h4>
+                        {index > 0 && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeTeamMember(index)}
+                            className="h-7 w-7 p-0 text-gray-500"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        )}
                       </div>
-                    ))}
+
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                        <FormField
+                          control={form.control}
+                          name={`teamMembers.${index}.name`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-xs">Name</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Member name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <FormField
+                          control={form.control}
+                          name={`teamMembers.${index}.email`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-xs">Email</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="email"
+                                  placeholder="member@example.com"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}

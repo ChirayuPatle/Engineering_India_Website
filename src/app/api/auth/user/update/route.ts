@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     if (Object.keys(validatedBody).length === 0) {
       return NextResponse.json(
         { message: "Request body cannot be empty" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -41,13 +41,13 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid request body", errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error("Update error:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

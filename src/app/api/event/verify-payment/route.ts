@@ -41,7 +41,7 @@ export async function PATCH(req: NextRequest) {
     if (updated.rowsAffected === 0) {
       return NextResponse.json(
         { message: "No payment record found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -50,13 +50,13 @@ export async function PATCH(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid request body", errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error("Verify payment error:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -48,7 +48,7 @@ function magzine() {
         disableFlipByClick={false}
       >
         {magazinePages.map((src, index) => (
-          <div className="demoPage w-48 relative" key={index}>
+          <div className="demoPage relative w-48" key={index}>
             <Image
               className="w-full rounded-br-xl rounded-tr-xl border-4 object-cover"
               src={src}

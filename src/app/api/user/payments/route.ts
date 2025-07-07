@@ -62,7 +62,9 @@ export async function GET(req: Request) {
         amount: Number(p.amount),
         status: p.rejected ? "rejected" : p.verified ? "paid" : "pending",
         transactionId: p.transactionId,
-        date: new Date(p.paymentDate ?? p.createdAt ?? Date.now()).toDateString(),
+        date: new Date(
+          p.paymentDate ?? p.createdAt ?? Date.now(),
+        ).toDateString(),
       };
     });
 

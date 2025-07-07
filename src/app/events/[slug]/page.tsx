@@ -8,9 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
-import {
-  TriangleAlert,
-} from "lucide-react";
+import { TriangleAlert } from "lucide-react";
 import EventHeader from "@/components/events/EventHeader";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -56,7 +54,7 @@ const EventPageSkeleton = () => (
           </section>
           <section className="scroll-mt-20 space-y-6">
             <Skeleton className="mb-4 h-8 w-48" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
               <Skeleton className="h-48 w-full" />
               <Skeleton className="h-48 w-full" />
               <Skeleton className="h-48 w-full" />
@@ -107,35 +105,38 @@ export default function EventPage() {
   // Define event and derived data outside conditional blocks
   const event = events.find((ev) => ev.id === slug);
 
-  
-
-  const parseJsonField = (jsonString: string | null | undefined, defaultValue: any): any => {
-  try {
-    return jsonString ? JSON.parse(jsonString) : defaultValue;
-  } catch (e) {
-    console.error("Failed to parse JSON:", e);
-    return defaultValue;
-  }
-};
+  const parseJsonField = (
+    jsonString: string | null | undefined,
+    defaultValue: any,
+  ): any => {
+    try {
+      return jsonString ? JSON.parse(jsonString) : defaultValue;
+    } catch (e) {
+      console.error("Failed to parse JSON:", e);
+      return defaultValue;
+    }
+  };
 
   const parsedPrizes = parseJsonField(event?.prizes, []);
   const parsedFaqs = parseJsonField(event?.faqs, []);
   const parsedTimeline = parseJsonField(event?.timeline, []);
   const parsedGallery = parseJsonField(event?.gallery, []);
 
-  const formattedEvent = event ? {
-    event_title: event.name,
-    event_start_date: event.startDate
-      ? format(new Date(event.startDate), "yyyy-MM-dd")
-      : "",
-    event_venue: event.location || "N/A",
-    event_id: event.id,
-    event_image: event.bannerImage || "/placeholder-image.jpg",
-    registration_fee: event.price,
-    event_description: event.description || "",
-    co_organized_by: event.coOrganizerContact || "",
-    organized_by: event.organizerContact || "",
-  } : null;
+  const formattedEvent = event
+    ? {
+        event_title: event.name,
+        event_start_date: event.startDate
+          ? format(new Date(event.startDate), "yyyy-MM-dd")
+          : "",
+        event_venue: event.location || "N/A",
+        event_id: event.id,
+        event_image: event.bannerImage || "/placeholder-image.jpg",
+        registration_fee: event.price,
+        event_description: event.description || "",
+        co_organized_by: event.coOrganizerContact || "",
+        organized_by: event.organizerContact || "",
+      }
+    : null;
 
   useEffect(() => {
     if (!event?.endDate) {
@@ -184,10 +185,13 @@ export default function EventPage() {
     return (
       <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
-          <span className="text-xl font-semibold">Error loading event details.</span>
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+          <span className="text-xl font-semibold">
+            Error loading event details.
+          </span>
           <p className="mt-2 text-sm">
-            We couldn't load the event you're looking for. Please try again later.
+            We couldn't load the event you're looking for. Please try again
+            later.
           </p>
         </div>
       </main>
@@ -198,7 +202,7 @@ export default function EventPage() {
     return (
       <main className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-muted-foreground mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-muted-foreground" />
           <Typography variant="h1" className="mb-6">
             Event Not Found
           </Typography>
@@ -291,7 +295,7 @@ export default function EventPage() {
                 <Typography as="h1" className="text-2xl font-bold">
                   Gallery
                 </Typography>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {parsedGallery.map((imgSrc, index) => (
                     <div key={index} className="relative h-48 w-full">
                       <BlurImage

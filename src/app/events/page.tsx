@@ -77,7 +77,7 @@ export default function EventsPage() {
         </div>
       ) : error ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
           <span className="text-xl font-semibold">Error loading events.</span>
           <p className="mt-2 text-sm">
             We couldn't load the events. Please try again later.

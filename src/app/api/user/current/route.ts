@@ -30,7 +30,7 @@ export const GET = async () => {
     console.error("Error fetching current user:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

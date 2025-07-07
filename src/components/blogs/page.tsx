@@ -58,8 +58,13 @@ function BlogCard({
       </p>
 
       {/* Image */}
-      <div className="mt-4 w-full overflow-hidden rounded-xl relative h-60">
-        <Image src={imgurl || "/placeholder.png"} alt="" fill className="object-cover" />
+      <div className="relative mt-4 h-60 w-full overflow-hidden rounded-xl">
+        <Image
+          src={imgurl || "/placeholder.png"}
+          alt=""
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Divider */}

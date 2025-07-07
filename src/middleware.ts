@@ -18,8 +18,6 @@ interface SessionData {
   };
 }
 
-
-
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
@@ -57,7 +55,8 @@ export async function middleware(req: NextRequest) {
     }
 
     return NextResponse.next();
-  } catch (_error) { // eslint-disable-line @typescript-eslint/no-unused-vars
+  } catch (_error) {
+    // eslint-disable-line @typescript-eslint/no-unused-vars
     const url = req.nextUrl.clone();
     url.pathname = "/auth";
     return NextResponse.redirect(url);

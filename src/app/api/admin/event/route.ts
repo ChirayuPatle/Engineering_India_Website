@@ -41,7 +41,6 @@ export async function POST(req: NextRequest) {
     createdAt: new Date(Date.now()), // Convert to Date object
     updatedAt: new Date(Date.now()), // Convert to Date object
   });
-  
 
   return NextResponse.json({ success: true, id });
 }

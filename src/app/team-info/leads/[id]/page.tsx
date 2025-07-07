@@ -19,7 +19,7 @@ const TeamInfoPageSkeleton = () => (
         <Skeleton className="h-32 w-32 rounded-full" />
         <div className="leading-2 flex flex-col items-center justify-center">
           <Skeleton className="h-8 w-48" />
-          <Skeleton className="h-6 w-32 mt-2" />
+          <Skeleton className="mt-2 h-6 w-32" />
         </div>
       </div>
     </div>
@@ -50,13 +50,16 @@ function TeamInfoPage(): JSX.Element {
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        const foundLead = teamMembers.find((member) => member.teamId === Number(id));
+        const foundLead = teamMembers.find(
+          (member) => member.teamId === Number(id),
+        );
         if (foundLead) {
           setLead(foundLead);
         } else {
           setError("Team lead not found");
         }
-      } catch (_e: any) { // eslint-disable-line @typescript-eslint/no-unused-vars
+      } catch (_e: any) {
+        // eslint-disable-line @typescript-eslint/no-unused-vars
         setError("Failed to load team lead data.");
       } finally {
         setIsLoading(false);
@@ -73,13 +76,15 @@ function TeamInfoPage(): JSX.Element {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
           <span className="text-xl font-semibold">Error: {error}</span>
           <p className="mt-2 text-sm">
             Please try again later or go back to the team page.
           </p>
           <Link href="/team">
-            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Go to Team Page</button>
+            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+              Go to Team Page
+            </button>
           </Link>
         </div>
       </div>
@@ -90,7 +95,7 @@ function TeamInfoPage(): JSX.Element {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-muted-foreground mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-muted-foreground" />
           <Typography variant="h1" className="mb-6">
             Team Lead Not Found
           </Typography>
@@ -98,7 +103,9 @@ function TeamInfoPage(): JSX.Element {
             The team lead you're looking for doesn't exist.
           </Typography>
           <Link href="/team">
-            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Back to Team</button>
+            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+              Back to Team
+            </button>
           </Link>
         </div>
       </div>
@@ -118,12 +125,8 @@ function TeamInfoPage(): JSX.Element {
             />
           </div>
           <div className="leading-2 flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold text-white">
-              {lead.name}
-            </h1>
-            <h1 className="text-md font-bold text-zinc-200">
-              {lead.position}
-            </h1>
+            <h1 className="text-2xl font-bold text-white">{lead.name}</h1>
+            <h1 className="text-md font-bold text-zinc-200">{lead.position}</h1>
           </div>
         </div>
       </div>
@@ -145,9 +148,7 @@ function TeamInfoPage(): JSX.Element {
             {lead.Email && (
               <div className="flex items-center justify-center gap-1 text-zinc-600">
                 <MessageSquareHeartIcon />
-                <h1 className="cursor-pointer text-xl">
-                  {lead.Email}
-                </h1>
+                <h1 className="cursor-pointer text-xl">{lead.Email}</h1>
               </div>
             )}
           </div>

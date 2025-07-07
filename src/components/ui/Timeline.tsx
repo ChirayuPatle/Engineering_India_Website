@@ -1,12 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useInView,
-} from "framer-motion";
+import { motion, useScroll, useSpring, useInView } from "framer-motion";
 
 const timelineEvents = [
   {
@@ -53,8 +48,6 @@ const timelineEvents = [
   },
 ];
 
-
-
 export default function Timeline() {
   const [expandedEvent, setExpandedEvent] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -97,7 +90,6 @@ export default function Timeline() {
           />
 
           {/* Flower icon */}
-          
 
           {timelineEvents.map((event, index) => (
             <TimelineEvent

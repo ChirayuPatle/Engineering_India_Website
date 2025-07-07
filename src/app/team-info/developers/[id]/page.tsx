@@ -1,5 +1,5 @@
 "use client";
-import {Button} from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
 import { Devlopers } from "@/team-info";
 import { useState, useEffect } from "react";
@@ -21,7 +21,7 @@ const TeamInfoPageSkeleton = () => (
         <Skeleton className="h-32 w-32 rounded-full" />
         <div className="leading-2 flex flex-col items-center justify-center">
           <Skeleton className="h-8 w-48" />
-          <Skeleton className="h-6 w-32 mt-2" />
+          <Skeleton className="mt-2 h-6 w-32" />
         </div>
       </div>
     </div>
@@ -48,11 +48,13 @@ function TeamInfoPage(): JSX.Element {
   useEffect(() => {
     const fetchDeveloper = async () => {
       setIsLoading(true);
-      
+
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        const foundDeveloper = Devlopers.find((dev) => dev.teamId === Number(id));
+        const foundDeveloper = Devlopers.find(
+          (dev) => dev.teamId === Number(id),
+        );
         if (foundDeveloper) {
           setDeveloper(foundDeveloper);
         } else {
@@ -77,7 +79,7 @@ function TeamInfoPage(): JSX.Element {
     return (
       <div className="flex h-screen w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-muted-foreground mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-muted-foreground" />
           <Typography variant="h1" className="mb-6">
             Developer Not Found
           </Typography>
@@ -105,9 +107,7 @@ function TeamInfoPage(): JSX.Element {
             />
           </div>
           <div className="leading-2 flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold text-white">
-              {developer.name}
-            </h1>
+            <h1 className="text-2xl font-bold text-white">{developer.name}</h1>
             <h1 className="text-md font-bold text-zinc-200">
               {developer.position}
             </h1>
@@ -132,9 +132,7 @@ function TeamInfoPage(): JSX.Element {
             {developer.Email && (
               <div className="flex items-center justify-center gap-1 text-zinc-600">
                 <MessageSquareHeartIcon />
-                <h1 className="cursor-pointer text-xl">
-                  {developer.Email}
-                </h1>
+                <h1 className="cursor-pointer text-xl">{developer.Email}</h1>
               </div>
             )}
           </div>

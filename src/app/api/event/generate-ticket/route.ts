@@ -34,26 +34,23 @@ export async function POST(req: NextRequest) {
     if (!existingRegistration) {
       return NextResponse.json(
         { message: "Registration not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     if (existingRegistration.userId !== userId) {
-      return NextResponse.json(
-        { message: "Forbidden" },
-        { status: 403 }
-      );
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
-    
+
     const existingTicket = await db.query.ticket.findFirst({
-        where: eq(ticket.registrationId, registrationId),
+      where: eq(ticket.registrationId, registrationId),
     });
 
-    if(existingTicket) {
-        return NextResponse.json(
-            { message: "Ticket already generated for this registration" },
-            { status: 409 }
-        )
+    if (existingTicket) {
+      return NextResponse.json(
+        { message: "Ticket already generated for this registration" },
+        { status: 409 },
+      );
     }
 
     const ticketCode = uuid();
@@ -78,7 +75,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid request body", errors: error.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error("Error generating ticket:", error);
@@ -86,7 +83,7 @@ export async function POST(req: NextRequest) {
       {
         message: "Internal Server Error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

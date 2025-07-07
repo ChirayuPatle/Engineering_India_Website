@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
     if (!foundTicket) {
       return NextResponse.json(
         { status: "failed", message: "Invalid ticket" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -51,13 +51,13 @@ export async function GET(req: NextRequest) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid request parameters", errors: err.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error("Ticket validation error:", err);
     return NextResponse.json(
       { message: "Something went wrong while validating the ticket." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -25,8 +25,6 @@ export default function Section({
 
   const bgClasses = gradientMap[gradientVariant];
 
-  
-
   return (
     <div
       className={cn(

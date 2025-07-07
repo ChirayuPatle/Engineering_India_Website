@@ -33,8 +33,6 @@ export function EventCard({
   isRegistered = false,
   onRegister,
 }: EventCardProps) {
-  
-
   return (
     <Card className="flex h-full flex-col overflow-hidden">
       <CardHeader className="pb-3">

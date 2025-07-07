@@ -62,7 +62,9 @@ export default function TeamPage() {
           {teamMembers.length > 0 ? (
             teamMembers.map((details, index) => (
               <TeamCard
-                onClick={() => router.push(`/team-info/leads/${details.teamId}`)}
+                onClick={() =>
+                  router.push(`/team-info/leads/${details.teamId}`)
+                }
                 key={index}
                 name={details.name}
                 position={details.position}
@@ -71,8 +73,11 @@ export default function TeamPage() {
               />
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground w-full">
-              <Typography variant="h3" className="text-xl font-semibold text-foreground">
+            <div className="flex w-full flex-col items-center justify-center py-20 text-center text-muted-foreground">
+              <Typography
+                variant="h3"
+                className="text-xl font-semibold text-foreground"
+              >
                 No Team Leads found
               </Typography>
               <p className="max-w-md text-sm text-muted-foreground">
@@ -138,8 +143,11 @@ export default function TeamPage() {
               />
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground w-full">
-              <Typography variant="h3" className="text-xl font-semibold text-foreground">
+            <div className="flex w-full flex-col items-center justify-center py-20 text-center text-muted-foreground">
+              <Typography
+                variant="h3"
+                className="text-xl font-semibold text-foreground"
+              >
                 No Developers found
               </Typography>
               <p className="max-w-md text-sm text-muted-foreground">
@@ -151,4 +159,4 @@ export default function TeamPage() {
       </div>
     </>
   );
-};
+}

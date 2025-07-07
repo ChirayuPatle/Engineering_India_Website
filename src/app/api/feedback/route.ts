@@ -22,12 +22,18 @@ export async function POST(req: NextRequest) {
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const existingFeedback = await db.query.feedback.findFirst({
-      where: and(eq(feedback.email, email), gte(feedback.createdAt, thirtyDaysAgo)),
+      where: and(
+        eq(feedback.email, email),
+        gte(feedback.createdAt, thirtyDaysAgo),
+      ),
     });
 
     if (existingFeedback) {
       return NextResponse.json(
-        { message: "You have already submitted feedback recently. Please try again later." },
+        {
+          message:
+            "You have already submitted feedback recently. Please try again later.",
+        },
         { status: 429 },
       );
     }
@@ -40,12 +46,15 @@ export async function POST(req: NextRequest) {
       createdAt: new Date(),
     });
 
-    return NextResponse.json({ success: true, message: "Feedback submitted successfully!" });
+    return NextResponse.json({
+      success: true,
+      message: "Feedback submitted successfully!",
+    });
   } catch (err: any) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid request body", errors: err.errors },
-        { status: 400 }
+        { status: 400 },
       );
     }
     console.error(err);

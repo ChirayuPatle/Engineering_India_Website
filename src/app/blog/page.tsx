@@ -81,8 +81,10 @@ const Blog = () => {
             </div>
           ) : isError ? (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-              <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
-              <span className="text-xl font-semibold">Error loading blog posts.</span>
+              <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+              <span className="text-xl font-semibold">
+                Error loading blog posts.
+              </span>
               <p className="mt-2 text-sm">
                 We couldn't load the blog posts. Please try again later.
               </p>
@@ -98,7 +100,10 @@ const Blog = () => {
             ))
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
-              <Typography variant="h3" className="text-xl font-semibold text-foreground">
+              <Typography
+                variant="h3"
+                className="text-xl font-semibold text-foreground"
+              >
                 No blog posts found
               </Typography>
               <p className="max-w-md text-sm text-muted-foreground">

@@ -40,7 +40,7 @@ export function EventProvider({ children }: { children: ReactNode }) {
     data: events = [],
     isLoading: loading,
     error,
-  } = useQuery<Event[]>({ 
+  } = useQuery<Event[]>({
     queryKey: ["events"],
     queryFn: async () => {
       const response = await api.get<Event[]>("/event");
@@ -49,7 +49,9 @@ export function EventProvider({ children }: { children: ReactNode }) {
   });
 
   return (
-    <EventContext.Provider value={{ events, loading, error: error ? error.message : null }}>
+    <EventContext.Provider
+      value={{ events, loading, error: error ? error.message : null }}
+    >
       {children}
     </EventContext.Provider>
   );

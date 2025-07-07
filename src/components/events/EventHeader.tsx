@@ -14,7 +14,6 @@ import { Button } from "../ui/button";
 import events from "@/event-grallery";
 import Image from "next/image";
 
-
 interface EventHeaderProps {
   event: {
     event_title: string;

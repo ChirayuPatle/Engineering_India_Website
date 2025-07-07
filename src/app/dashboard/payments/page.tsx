@@ -1,8 +1,17 @@
 "use client";
 
-import { PaymentCard, type PaymentStatus } from "@/components/dashboard/PaymentCard";
+import {
+  PaymentCard,
+  type PaymentStatus,
+} from "@/components/dashboard/PaymentCard";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ArrowLeft, Inbox, TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -58,7 +67,12 @@ export default function PaymentsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center">
-        <Button variant="ghost" size="icon" onClick={() => router.push("/dashboard")} className="mr-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.push("/dashboard")}
+          className="mr-2"
+        >
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <h1 className="text-3xl font-bold tracking-tight">Payment History</h1>
@@ -68,7 +82,10 @@ export default function PaymentsPage() {
         <div className="text-sm text-muted-foreground">
           Showing {payments.length} payment{payments.length !== 1 ? "s" : ""}
         </div>
-        <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value)}>
+        <Select
+          value={statusFilter}
+          onValueChange={(value) => setStatusFilter(value)}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="All Statuses" />
           </SelectTrigger>
@@ -94,14 +111,17 @@ export default function PaymentsPage() {
             No Payments Yet
           </h2>
           <p className="max-w-md text-sm text-muted-foreground">
-            You haven't made any payments yet. Once you do, they'll show up here.
+            You haven't made any payments yet. Once you do, they'll show up
+            here.
           </p>
         </div>
       ) : status === "error" ? (
         <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="h-12 w-12 text-red-500 mb-4" />
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
           <span className="text-xl font-semibold">Error loading payments.</span>
-          <p className="mt-2 text-sm">We couldn't load your payment history. Please try again later.</p>
+          <p className="mt-2 text-sm">
+            We couldn't load your payment history. Please try again later.
+          </p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -114,7 +134,9 @@ export default function PaymentsPage() {
               amount={payment.amount}
               status={payment.status as PaymentStatus}
               transactionId={payment.transactionId}
-              onViewDetails={() => router.push(`/dashboard/payments/${payment.id}`)}
+              onViewDetails={() =>
+                router.push(`/dashboard/payments/${payment.id}`)
+              }
             />
           ))}
         </div>
