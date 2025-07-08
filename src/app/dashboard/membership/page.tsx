@@ -239,8 +239,17 @@ export default function MembershipForm() {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-1">
-          <Label>Name</Label>
-          <Input {...form.register("name")} disabled />
+          <Label>Name (non-editable)</Label>
+          <Input
+            {...form.register("name")}
+            className="text-sm md:text-base"
+            disabled
+          />
+          {form.formState.errors.name && (
+            <p className="text-sm text-red-500">
+              {form.formState.errors.name.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -260,6 +269,11 @@ export default function MembershipForm() {
               ))}
             </SelectContent>
           </Select>
+          {form.formState.errors.year && (
+            <p className="text-sm text-red-500">
+              {form.formState.errors.year.message}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1">
@@ -279,11 +293,21 @@ export default function MembershipForm() {
               ))}
             </SelectContent>
           </Select>
+          {form.formState.errors.branch && (
+            <p className="text-sm text-red-500">
+              {form.formState.errors.branch.message}
+            </p>
+          )}
         </div>
 
         <div className="col-span-2 space-y-1">
-          <Label>Email</Label>
+          <Label>Email (non-editable)</Label>
           <Input {...form.register("email")} disabled />
+          {form.formState.errors.email && (
+            <p className="text-sm text-red-500">
+              {form.formState.errors.email.message}
+            </p>
+          )}
         </div>
       </div>
 
@@ -325,6 +349,11 @@ export default function MembershipForm() {
             </div>
           ))}
         </div>
+        {form.formState.errors.areaOfInterest && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.areaOfInterest.message}
+          </p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -347,6 +376,11 @@ export default function MembershipForm() {
             <span>No</span>
           </label>
         </div>
+        {form.formState.errors.engagedInOtherClub && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.engagedInOtherClub.message}
+          </p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -355,6 +389,11 @@ export default function MembershipForm() {
           {...form.register("previousExperience")}
           placeholder="Share your experience"
         />
+        {form.formState.errors.previousExperience && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.previousExperience.message}
+          </p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -363,6 +402,11 @@ export default function MembershipForm() {
           {...form.register("reasonToJoin")}
           placeholder="Express your motivation"
         />
+        {form.formState.errors.reasonToJoin && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.reasonToJoin.message}
+          </p>
+        )}
       </div>
 
       <div className="space-y-2">
@@ -371,6 +415,11 @@ export default function MembershipForm() {
           {...form.register("eventIdeas")}
           placeholder="We'd love to hear your suggestions"
         />
+        {form.formState.errors.eventIdeas && (
+          <p className="text-sm text-red-500">
+            {form.formState.errors.eventIdeas.message}
+          </p>
+        )}
       </div>
 
       <Button type="submit" disabled={isPending} className="w-full">
