@@ -5,6 +5,9 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const events = await db.select().from(event);
+
+    console.log("\nEVENTS\n :- ", events);
+
     return NextResponse.json(events);
   } catch (error) {
     console.error("Error fetching events:", error);
