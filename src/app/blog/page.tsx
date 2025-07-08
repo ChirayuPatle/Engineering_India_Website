@@ -125,7 +125,7 @@ const Blog = () => {
               technical excellence.
             </p>
           </div>
-          <Image src="/image/logo.png" alt="" width={50} height={50} />
+          <Image src="/image/logo.png" alt="image" width={50} height={50} />
           <hr />
           <div className="mt-2 flex w-full items-center justify-around">
             <Heart />
