@@ -3,21 +3,31 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Typography } from "@/components/ui/typography";
+import { useCurrentUser } from "@/hooks/use-user";
 import { siteConfig } from "@/lib/constants";
-import { Mail, MapPin, Phone, CheckCircle, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { CheckCircle, Loader2, Mail, MapPin, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ContactPage() {
+  const { data: user } = useCurrentUser();
   const [formState, setFormState] = useState({
-    // name: user?.name,
-    // email: user?.email,
-    email: "",
     name: "",
+    email: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFormState((prevState) => ({
+        ...prevState,
+        name: user.name ?? "",
+        email: user.email ?? "",
+      }));
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +36,7 @@ export default function ContactPage() {
 
     try {
       // Call the API endpoint to submit feedback
-      const res = await fetch("/api/v1/feedback", {
+      const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formState),
@@ -35,7 +45,7 @@ export default function ContactPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMessage(data.error || "Failed to submit feedback.");
+        setErrorMessage(data.message || "Failed to submit feedback.");
         return;
       }
 

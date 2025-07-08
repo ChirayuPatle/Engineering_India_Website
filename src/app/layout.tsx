@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans } from "next/font/google";
 
+import MarqueeWrapper from "@/components/landing/marqueeWrapper";
 import Navbar from "@/components/landing/navbar";
 import Footer from "@/components/ui/Footer";
 import { EventProvider } from "@/context/eventContext";
@@ -32,6 +33,7 @@ export default function RootLayout({
       <EventProvider>
         <html lang="en" className={`${dmsans.variable}`}>
           <body className="space">
+            <MarqueeWrapper />
             <Navbar />
             {/* <PostHogProvider> */}
             {children}

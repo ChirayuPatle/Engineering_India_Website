@@ -7,7 +7,6 @@ import Feedback from "@/components/landing/feedback";
 import magzine from "@/components/landing/magzine";
 import Section from "@/components/landing/section";
 import Timeline from "@/components/ui/Timeline";
-import { Marquee } from "@/components/magicui/marquee";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
@@ -117,13 +116,6 @@ export default function HomePage() {
   // }, []);
   return (
     <>
-      <Link href="/dashboard/membership">
-        <Marquee className="fixed top-0 z-[100] bg-blue-600 py-2 text-white">
-          <span className="mx-4 font-semibold">
-            🚀 Membership Drive 2025 is now open! Click here to join the team.
-          </span>
-        </Marquee>
-      </Link>
       <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
 
       <Section className="relative min-h-screen pb-16 pt-32">
