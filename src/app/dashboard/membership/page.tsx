@@ -31,17 +31,19 @@ const interests = [
 
 const branches = [
   "CSD",
+  "IT",
   "CSE",
   "AIDS",
+  "AIML",
   "Mechanical",
+  "ETC",
+  "Electronic",
   "Civil",
   "Electrical",
   "C.Tech",
-  "IT",
-  "AIML",
   "IOT",
   "VLSI",
-  "ETC",
+  "Others",
 ];
 
 const years = ["1", "2", "3", "4"];
