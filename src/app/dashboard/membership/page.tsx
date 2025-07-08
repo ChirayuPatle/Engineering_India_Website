@@ -129,8 +129,9 @@ export default function MembershipForm() {
           🎉 Thank you for submitting your membership form!
         </p>
         <p className="text-base text-green-600 sm:text-lg">
-          We're excited to have you join our community. Please join our WhatsApp
-          group to stay updated on all our activities and events.
+          We're excited to have you join our community. Please join our{" "}
+          <b>WhatsApp group</b> to stay updated on all our activities and
+          events.
         </p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Button
@@ -139,7 +140,7 @@ export default function MembershipForm() {
             className="w-full border-green-400 text-green-800 hover:bg-green-100"
           >
             <a
-              href="https://chat.whatsapp.com/YOUR_WHATSAPP_GROUP_LINK" // Placeholder
+              href="https://chat.whatsapp.com/JqiKSdfYNbDCjipMqZY64W?mode=r_t"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2"
@@ -170,7 +171,7 @@ export default function MembershipForm() {
             className="w-full border-green-400 text-green-800 hover:bg-green-100"
           >
             <a
-              href="https://instagram.com/YOUR_INSTAGRAM_LINK" // Placeholder
+              href="https://www.instagram.com/engineering.india_ycce/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2"
@@ -200,7 +201,7 @@ export default function MembershipForm() {
             className="w-full border-green-400 text-green-800 hover:bg-green-100"
           >
             <a
-              href="https://linkedin.com/company/YOUR_LINKEDIN_LINK" // Placeholder
+              href="https://www.linkedin.com/company/engineeringindia-2047/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2"
