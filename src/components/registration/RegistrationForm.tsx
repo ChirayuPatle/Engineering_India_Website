@@ -113,7 +113,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} />
+                        <Input
+                          placeholder="Your name"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -131,6 +135,7 @@ const RegistrationForm = ({
                           type="email"
                           placeholder="you@example.com"
                           {...field}
+                          className="text-sm md:text-base"
                         />
                       </FormControl>
                       <FormMessage />
@@ -145,7 +150,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your phone number" {...field} />
+                        <Input
+                          placeholder="Your phone number"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,7 +172,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Team Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your team name" {...field} />
+                        <Input
+                          placeholder="Your team name"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -225,6 +238,7 @@ const RegistrationForm = ({
                                     <Input
                                       placeholder="Member name"
                                       {...field}
+                                      className="text-sm md:text-base"
                                     />
                                   </FormControl>
                                   <FormMessage />
@@ -245,6 +259,7 @@ const RegistrationForm = ({
                                       type="email"
                                       placeholder="member@example.com"
                                       {...field}
+                                      className="text-sm md:text-base"
                                     />
                                   </FormControl>
                                   <FormMessage />
@@ -277,7 +292,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Card Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="1234 5678 9012 3456" {...field} />
+                        <Input
+                          placeholder="1234 5678 9012 3456"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -292,7 +311,11 @@ const RegistrationForm = ({
                       <FormItem>
                         <FormLabel>Expiry Date</FormLabel>
                         <FormControl>
-                          <Input placeholder="MM/YY" {...field} />
+                          <Input
+                            placeholder="MM/YY"
+                            {...field}
+                            className="text-sm md:text-base"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -306,7 +329,11 @@ const RegistrationForm = ({
                       <FormItem>
                         <FormLabel>CVV</FormLabel>
                         <FormControl>
-                          <Input placeholder="123" {...field} />
+                          <Input
+                            placeholder="123"
+                            {...field}
+                            className="text-sm md:text-base"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

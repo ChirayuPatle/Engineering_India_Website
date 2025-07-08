@@ -216,10 +216,10 @@ export default function HomePage() {
               . We build, learn, and innovate.
             </p>
             <Link
-              href="/events"
+              href="/dashboard/membership"
               className="{cta-button} z-50 mb-6 inline-flex cursor-pointer items-center rounded-lg bg-[#0094FF] px-6 py-2 text-base font-medium text-white transition-colors hover:bg-[#0094FF]/90 sm:text-lg md:px-8 md:py-3 md:text-xl"
             >
-              GET STARTED
+              Join the Team
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
 
