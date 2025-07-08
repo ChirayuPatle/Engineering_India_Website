@@ -1,21 +1,22 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/userContext";
+// import { useUser } from "@/context/userContext";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import {
   BarChart3,
   Calendar,
   CreditCard,
   LogOut,
-  Settings,
   User,
   Users,
   X,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface SidebarNavItemProps {
   icon: React.ElementType;
@@ -70,7 +71,7 @@ export function DashboardSidebar({
     }
   };
 
-  const { loading, user } = useUser();
+  // const { loading, user } = useUser();
 
   const navItems = [
     { title: "Dashboard", icon: BarChart3, path: "/dashboard" },
@@ -82,12 +83,17 @@ export function DashboardSidebar({
       path: "/dashboard/registrations",
     },
     { title: "Payments", icon: CreditCard, path: "/dashboard/payments" },
-    { title: "Settings", icon: Settings, path: "/dashboard/settings" },
   ];
 
-  const handleLogout = () => {
-    console.log("Logging out...");
-    router.push("/");
+  const handleLogout = async () => {
+    authClient
+      .signOut()
+      .then(() => {
+        router.push("/");
+      })
+      .catch(() => {
+        toast.error("Failed to logout");
+      });
   };
 
   return (
@@ -139,6 +145,19 @@ export function DashboardSidebar({
                   onClick={handleNavigation}
                 />
               ))}
+            </div>
+            <div className="mt-4 px-3">
+              <div className="flex w-full justify-center">
+                <Link href="/dashboard/membership">
+                  <Button
+                    variant="default"
+                    className="justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-lg"
+                    onClick={handleNavigation}
+                  >
+                    <span>Join Membership</span>
+                  </Button>
+                </Link>
+              </div>
             </div>
           </nav>
 

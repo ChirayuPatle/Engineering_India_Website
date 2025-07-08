@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function SettingsPage() {
   const [name, setName] = useState("Dollar Singh");
@@ -50,16 +51,20 @@ export default function SettingsPage() {
               <div className="mt-2 flex space-x-2">
                 {/* Example: multiple avatars */}
                 <button onClick={() => setAvatar("/avatars/avatar1.png")}>
-                  <img
+                  <Image
                     src="/avatars/avatar1.png"
                     alt="avatar1"
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full border"
                   />
                 </button>
                 <button onClick={() => setAvatar("/avatars/avatar2.png")}>
-                  <img
+                  <Image
                     src="/avatars/avatar2.png"
                     alt="avatar2"
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full border"
                   />
                 </button>

@@ -1,3 +1,5 @@
+@import "nprogress/nprogress.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -72,6 +74,7 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  
 }
 
 .space {
@@ -96,7 +99,19 @@
   }
 }
 
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 
+/* Animation for indeterminate progress */
 @keyframes indeterminate {
   0% {
     transform: translateX(-100%);
@@ -112,3 +127,30 @@
 .animate-indeterminate {
   animation: indeterminate 1.5s infinite;
 }
+
+/* Star rotation animation */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.circle {
+  animation: rotate 5s linear infinite;
+  transform-origin: center;
+  will-change: transform; /* Optimizes performance */
+  display: inline-block; /* Ensures proper rotation */
+}
+
+img.circle {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+img.circle.loaded {
+  opacity: 1;
+}
+

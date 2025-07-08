@@ -16,14 +16,15 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Plus, X } from "lucide-react";
 import { useState } from "react";
+import { type EventRegistrationSchema } from "@/lib/schemas";
 
 interface RegistrationFormProps {
-  form: UseFormReturn<any>;
+  form: UseFormReturn<EventRegistrationSchema>;
   isTeamEvent: boolean;
   isPaidEvent: boolean;
   eventPrice: number;
   isSubmitting: boolean;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: EventRegistrationSchema) => void;
   onCancel: () => void;
 }
 
@@ -48,7 +49,7 @@ const RegistrationForm = ({
           : [];
 
     const isValid = currentFields.every(
-      (field) => form.getFieldState(field).invalid === false,
+      (field) => form.getFieldState(field as any).invalid === false,
     );
 
     if (isValid) {
@@ -71,21 +72,8 @@ const RegistrationForm = ({
   const removeTeamMember = (index: number) => {
     const teamMembers = form.getValues("teamMembers") || [];
     if (teamMembers.length > 1) {
-      interface TeamMember {
-        name: string;
-        email: string;
-      }
-
-      interface RegistrationFormData {
-        name: string;
-        email: string;
-        phone: string;
-        teamName?: string;
-        teamMembers?: TeamMember[];
-        cardNumber?: string;
-        expiryDate?: string;
-        cvv?: string;
-      }
+      const newTeamMembers = teamMembers.filter((_member, i) => i !== index);
+      form.setValue("teamMembers", newTeamMembers);
     }
   };
 
@@ -125,7 +113,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Full Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} />
+                        <Input
+                          placeholder="Your name"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -143,6 +135,7 @@ const RegistrationForm = ({
                           type="email"
                           placeholder="you@example.com"
                           {...field}
+                          className="text-sm md:text-base"
                         />
                       </FormControl>
                       <FormMessage />
@@ -157,7 +150,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your phone number" {...field} />
+                        <Input
+                          placeholder="Your phone number"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -175,7 +172,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Team Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your team name" {...field} />
+                        <Input
+                          placeholder="Your team name"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -199,62 +200,76 @@ const RegistrationForm = ({
 
                   {form
                     .watch("teamMembers")
-                    ?.map((_: RegistrationFormProps, index: number) => (
-                      <div key={index} className="mb-4 space-y-3">
-                        {index > 0 && <Separator className="my-4" />}
+                    ?.map(
+                      (
+                        _member: { name: string; email: string },
+                        index: number,
+                      ) => (
+                        <div key={index} className="mb-4 space-y-3">
+                          {index > 0 && <Separator className="my-4" />}
 
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-medium">
-                            Team Member {index + 1}
-                          </h4>
-                          {index > 0 && (
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeTeamMember(index)}
-                              className="h-7 w-7 p-0 text-gray-500"
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                          <FormField
-                            control={form.control}
-                            name={`teamMembers.${index}.name`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-xs">Name</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Member name" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-medium">
+                              Team Member {index + 1}
+                            </h4>
+                            {index > 0 && (
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeTeamMember(index)}
+                                className="h-7 w-7 p-0 text-gray-500"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
                             )}
-                          />
+                          </div>
 
-                          <FormField
-                            control={form.control}
-                            name={`teamMembers.${index}.email`}
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-xs">Email</FormLabel>
-                                <FormControl>
-                                  <Input
-                                    type="email"
-                                    placeholder="member@example.com"
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            <FormField
+                              control={form.control}
+                              name={`teamMembers.${index}.name`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-xs">
+                                    Name
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      placeholder="Member name"
+                                      {...field}
+                                      className="text-sm md:text-base"
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name={`teamMembers.${index}.email`}
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel className="text-xs">
+                                    Email
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      type="email"
+                                      placeholder="member@example.com"
+                                      {...field}
+                                      className="text-sm md:text-base"
+                                    />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ),
+                    )}
                 </div>
               </div>
             )}
@@ -277,7 +292,11 @@ const RegistrationForm = ({
                     <FormItem>
                       <FormLabel>Card Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="1234 5678 9012 3456" {...field} />
+                        <Input
+                          placeholder="1234 5678 9012 3456"
+                          {...field}
+                          className="text-sm md:text-base"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -292,7 +311,11 @@ const RegistrationForm = ({
                       <FormItem>
                         <FormLabel>Expiry Date</FormLabel>
                         <FormControl>
-                          <Input placeholder="MM/YY" {...field} />
+                          <Input
+                            placeholder="MM/YY"
+                            {...field}
+                            className="text-sm md:text-base"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -306,7 +329,11 @@ const RegistrationForm = ({
                       <FormItem>
                         <FormLabel>CVV</FormLabel>
                         <FormControl>
-                          <Input placeholder="123" {...field} />
+                          <Input
+                            placeholder="123"
+                            {...field}
+                            className="text-sm md:text-base"
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

@@ -1,6 +1,6 @@
 "use client";
 
-import { EventCard } from "@/components/dashboard/EventCard";
+import { EventCard } from "@/components/events/eventCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,10 +10,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Search } from "lucide-react";
+import { ArrowLeft, Search, TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEvents } from "@/context/eventContext";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function EventCardSkeleton() {
+  return (
+    <div className="space-y-3">
+      <Skeleton className="h-[200px] w-full rounded-lg" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-1/3" />
+      </div>
+    </div>
+  );
+}
 
 export default function EventsPage() {
   const router = useRouter();
@@ -22,17 +38,13 @@ export default function EventsPage() {
   const [categoryFilter, setCategoryFilter] = useState("all");
 
   const filteredEvents = events.filter((event) => {
-    const matchesSearch = event.event_title
+    const matchesSearch = event.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesCategory =
-      categoryFilter === "all" || event.event_category === categoryFilter;
+      categoryFilter === "all" || event.category === categoryFilter;
     return matchesSearch && matchesCategory;
   });
-
-  const handleRegister = (id: string) => {
-    console.info(`User registered for event with ID: ${id}`);
-  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -84,31 +96,39 @@ export default function EventsPage() {
 
       {/* Events Grid */}
       {loading ? (
-        <div>Loading events...</div>
+        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <EventCardSkeleton key={i} />
+          ))}
+        </div>
       ) : error ? (
-        <div>Error loading events: {error}</div>
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+          <span className="text-xl font-semibold">Error loading events.</span>
+          <p className="mt-2 text-sm">
+            We couldn't load the events. Please try again later.
+          </p>
+        </div>
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
-              <EventCard
-                key={event.event_id}
-                id={event.event_id}
-                title={event.event_title}
-                description={event.event_description}
-                start_date={event.event_start_date}
-                end_date={event.event_end_date}
-                venue={event.event_venue}
-                category={event.event_category}
-                spots={event.event_spots}
-                spotsFilled={event.event_spots_filled}
-                price={event.registration_fee}
-                isRegistered={event.isRegistered}
-                onRegister={handleRegister}
-                image={event.event_image}
-              />
+              <Link
+                key={event.id}
+                href={`/events/${event.id}`}
+                className="hover:opacity-90"
+              >
+                <EventCard
+                  title={event.name}
+                  date={new Date(event.startDate || Date.now())}
+                  location={event.location || ""}
+                  description={event.description || ""}
+                  imageUrl={event.bannerImage?.trim() || "./notfound.svg"}
+                />
+              </Link>
             ))}
           </div>
+
           {filteredEvents.length === 0 && (
             <div className="flex h-[300px] items-center justify-center rounded-md border border-dashed">
               <div className="flex flex-col items-center text-center">

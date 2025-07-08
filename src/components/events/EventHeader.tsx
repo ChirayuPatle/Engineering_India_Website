@@ -11,9 +11,8 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "../ui/button";
-import toast from "react-hot-toast";
 import events from "@/event-grallery";
-import { title } from "process";
+import Image from "next/image";
 
 interface EventHeaderProps {
   event: {
@@ -22,7 +21,7 @@ interface EventHeaderProps {
     event_venue: string;
     event_id: string;
     event_image?: string;
-    registration_fee?: number;
+    registration_fee?: number | null;
     event_description: string;
     co_organized_by?: string;
     organized_by?: string;
@@ -34,6 +33,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const router = useRouter();
   const startDate = new Date(event.event_start_date);
+  const isValidDate = !isNaN(startDate.getTime());
   const formatDate = (date: Date) => format(date, "MMMM d, yyyy");
 
   useEffect(() => {
@@ -56,21 +56,29 @@ export default function EventHeader({ event }: EventHeaderProps) {
     <div className="animate-fade-in">
       <div className="relative h-[40vh] w-full overflow-hidden md:h-[60vh]">
         {gallery.length > 0 ? (
-          <img
-            src={gallery[currentImageIndex]}
+          <Image
+            src={
+              gallery[currentImageIndex] ??
+              event.event_image ??
+              "/placeholder-image.jpg"
+            }
             alt="Event Gallery Image"
+            fill
             className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
+            priority
           />
         ) : (
-          <img
-            src={event.event_image || "/placeholder-image.jpg"}
+          <Image
+            src={event.event_image ?? "/placeholder-image.jpg"}
             alt="Event Image"
+            fill
             className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
+            priority
           />
         )}
         <div className="absolute inset-0 bg-black/40" />
         <button
-          onClick={() => router.push("/events")}
+          onClick={() => router.back()}
           className="absolute left-4 top-4 z-30 flex items-center gap-2 rounded-md bg-white p-2 shadow transition-colors hover:bg-gray-100"
         >
           <ArrowLeft className="h-5 w-5" />
@@ -83,7 +91,9 @@ export default function EventHeader({ event }: EventHeaderProps) {
             <div className="mb-4 flex max-w-lg items-center justify-center gap-4 self-center rounded-md bg-white p-2 px-3 shadow md:px-8">
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
-                <span className="text-sm">{formatDate(startDate)}</span>
+                <span className="text-sm">
+                  {isValidDate ? formatDate(startDate) : "N/A"}
+                </span>
               </div>
               <div className="h-4 border-l border-gray-300"></div>
               <div className="flex items-center gap-2">
@@ -110,11 +120,13 @@ export default function EventHeader({ event }: EventHeaderProps) {
       </div>
       <div className="container relative z-20 mx-auto -mt-8 max-w-4xl px-4 sm:px-6">
         <div className="flex flex-col items-start gap-6 rounded-lg border border-zinc-200 bg-white p-6 md:flex-row">
-          <div className="w-full overflow-hidden rounded-lg border border-zinc-300 md:w-1/3">
-            <img
-              src={event.event_image || "/placeholder-image.jpg"}
+          <div className="relative w-full overflow-hidden rounded-lg border border-zinc-300 md:w-1/3">
+            <Image
+              src={event.event_image ?? "/placeholder-image.jpg"}
               alt={event.event_title}
+              fill
               className="aspect-square h-auto w-full object-cover md:aspect-[4/3]"
+              priority
             />
           </div>
           <div className="w-full space-y-4 md:w-2/3">
@@ -142,7 +154,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
               )}
             </div>
             <p className="line-clamp-2 text-gray-600">
-              {event.event_description.split("\n\n")[0]}
+              {(event.event_description || "").split("\n\n")[0]}
             </p>
             <div className="pt-2">
               <span className="flex gap-1 text-sm">

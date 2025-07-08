@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const galleryImages = [
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/DonationEvent.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvRG9uYXRpb25FdmVudC5KUEciLCJpYXQiOjE3NDMwOTU3MzAsImV4cCI6MjA1ODQ1NTczMH0.akR4Yj4m57u8zSqSmwSC9na0dW3k33_9YDc04sGF2tA",
+    src: "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540145/EI-Events/Donation%20Drive/Donation%20drive%20%28orphanage%29/Copy_of_IMG_0377_alioxw.jpg",
     alt: "",
     title: "Donation Drive",
   },
@@ -13,7 +13,7 @@ const galleryImages = [
     title: "Ultimate Social Technocart",
   },
   {
-    src: "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/Rangataleem.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvUmFuZ2F0YWxlZW0uanBnIiwiaWF0IjoxNzQzMDk1Nzc1LCJleHAiOjIwNTg0NTU3NzV9.WIZg-JIh9acvYoKBYd3192H95xoSwE1d8ZW3hz0ASBs",
+    src: "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540002/EI-Events/Rangittalim3/IMG20231022171239_nnmgko.jpg",
     alt: "Social Initiative",
     title: "Rangittalim",
   },

@@ -2,6 +2,7 @@
 
 import React from "react";
 import LoginForm from "@/components/auth/loginForm";
+import Image from "next/image";
 
 export default function LoginPage() {
   return (
@@ -11,7 +12,13 @@ export default function LoginPage() {
         <h1 className="absolute inset-0 left-16 top-40 mb-4 w-full text-5xl font-bold">
           Join The Community !
         </h1>
-        <img src="./auth.gif" className="min-w-full" alt="Login Page" />
+        <Image
+          src="/auth.gif"
+          alt="Login Page"
+          fill
+          className="min-w-full object-cover"
+          unoptimized
+        />
       </div>
 
       {/* Right side: login form */}

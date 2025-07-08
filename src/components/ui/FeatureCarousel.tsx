@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
-import { title } from "process";
+import Image from "next/image";
 
 const features = [
   {
@@ -81,12 +81,14 @@ export default function FeatureCarousel() {
                 className="hover-lift m-4 flex h-[400px] min-w-[300px] flex-col items-center justify-center rounded-3xl border-2 border-transparent bg-background p-8 shadow-lg transition-all duration-300 ease-in-out hover:border-primary/10"
               >
                 <div>
-                  <div className="h-72 w-60 rounded-xl border-2">
+                  <div className="relative h-72 w-60 rounded-xl border-2">
                     {" "}
-                    <img
+                    <Image
                       className="h-full w-full object-cover"
                       src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1739172993/WhatsApp_Image_2025-02-10_at_1.03.59_PM_q4jfu2.jpg"
                       alt=""
+                      fill
+                      priority
                     />{" "}
                   </div>
                   <h1>{} </h1>

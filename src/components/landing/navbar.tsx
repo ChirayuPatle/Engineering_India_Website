@@ -7,22 +7,9 @@ import { useEffect, useState } from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-import { supabase } from "@/utils/supabase/client";
-import { type User } from "@supabase/supabase-js";
-
-interface UserMetadata {
-  full_name?: string;
-  avatar_url?: string;
-}
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 
 const navItems = [
   { name: "Events", href: "/events" },
@@ -38,72 +25,26 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [user, setUser] = useState<User | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, isPending } = authClient.useSession();
+  const user = data?.user;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const getCurrUser = async () => {
-      setIsLoading(true);
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session) {
-          setUser(session.user);
-        }
-      } catch (error) {
-        console.error("Error fetching user session:", error);
-      } finally {
-        setIsLoading(false);
-        setIsMounted(true);
-      }
-    };
-
-    getCurrUser();
-
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (session) {
-          setUser(session.user);
-        } else {
-          setUser(null);
-        }
-      },
-    );
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, []);
-
-  const handleSignout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (!error) {
-      setUser(null);
-      router.push("/");
-    }
-  };
-
-  if (!isMounted) return null;
-
-  if (isLoading) return null;
-
-  if (pathname?.startsWith("/dashboard")) return null;
-  if (pathname?.startsWith("/events/")) return null;
-  if (pathname?.startsWith("/auth")) return null;
+  if (
+    pathname?.startsWith("/dashboard") ||
+    pathname?.startsWith("/events/") ||
+    pathname?.startsWith("/auth")
+  ) {
+    return null;
+  }
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full py-4 transition-all duration-300 lg:px-20 ${
+      className={`fixed top-10 z-50 w-full py-4 transition-all duration-300 lg:px-20 ${
         scrolled
           ? "bg-background/80 shadow-sm backdrop-blur-md"
           : "bg-transparent"
@@ -112,15 +53,15 @@ export default function Navbar() {
       <div className="container mx-auto flex h-10 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <div className="w-[2.2rem] md:w-[3.0rem]">
-            <img
-              src="./logo1.png"
+            <Image
+              src="/logo1.png"
               className="h-full w-full object-cover"
-              alt=""
+              alt="Logo"
+              width={50}
+              height={50}
+              priority
             />
           </div>
-          {/* <span className="text-2xl font-bold text-primary">
-            Engineering India
-          </span> */}
         </Link>
 
         <nav className="hidden items-center space-x-6 md:flex">
@@ -138,63 +79,32 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
-                >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage
-                      src={
-                        user.user_metadata?.avatar_url || "/default-avatar.png"
-                      }
-                      alt={user.user_metadata?.full_name || "User"}
-                    />
-                    <AvatarFallback>
-                      {(user.user_metadata as UserMetadata)?.full_name
-                        ?.split(" ")
-                        .map((n: string) => n[0])
-                        .join("") || "U"}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              {/* <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {user.user_metadata?.full_name || "User"}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/dashboard">Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    // Replace with your update profile logic if needed
-                    console.log("Update Profile clicked");
-                  }}
-                >
-                  Update Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleSignout}>
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent> */}
-            </DropdownMenu>
+          {isPending ? null : user ? (
+            <Button
+              onClick={() => router.push("/dashboard")}
+              variant="ghost"
+              className="relative h-8 w-8 rounded-full"
+            >
+              <Avatar className="h-8 w-8">
+                <AvatarImage
+                  src={user.image || "/default-avatar.png"}
+                  alt={user.name || "User"}
+                />
+                <AvatarFallback>
+                  {user.name
+                    ?.split(" ")
+                    .map((n) => n[0])
+                    .join("") || "U"}
+                </AvatarFallback>
+              </Avatar>
+            </Button>
           ) : (
-            <Link href="/auth">
-              <Button variant="default" className="">
-                Login
-              </Button>
-            </Link>
+            <Button
+              onClick={() => authClient.signIn.social({ provider: "google" })}
+              variant="default"
+            >
+              Login
+            </Button>
           )}
         </nav>
 
@@ -227,65 +137,39 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={
-                          user.user_metadata?.avatar_url ||
-                          "/default-avatar.png"
-                        }
-                        alt={user.user_metadata?.full_name || "User"}
-                      />
-                      <AvatarFallback>
-                        {(user.user_metadata as UserMetadata)?.full_name
-                          ?.split(" ")
-                          .map((n: string) => n[0])
-                          .join("") || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                {/* <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal">
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {user.user_metadata?.full_name || "User"}
-                      </p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard" onClick={() => setIsOpen(false)}>
-                      Dashboard
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => {
-                      console.log("Update Profile clicked");
-                    }}
-                  >
-                    Update Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleSignout}>
-                    Sign out
-                  </DropdownMenuItem>
-                </DropdownMenuContent> */}
-              </DropdownMenu>
+            {isPending ? null : user ? (
+              <Button
+                onClick={() => {
+                  router.push("/dashboard");
+                  setIsOpen(false);
+                }}
+                variant="ghost"
+                className="relative h-8 w-8 rounded-full border-none outline-none"
+              >
+                <Avatar className="h-8 w-8">
+                  <AvatarImage
+                    src={user.image || "/default-avatar.png"}
+                    alt={user.name || "User"}
+                  />
+                  <AvatarFallback>
+                    {user.name
+                      ?.split(" ")
+                      .map((n) => n[0])
+                      .join("") || "U"}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
             ) : (
-              <Link href="/auth" onClick={() => setIsOpen(false)}>
-                <Button variant="default" className="w-full">
-                  Login
-                </Button>
-              </Link>
+              <Button
+                onClick={() => {
+                  authClient.signIn.social({ provider: "google" });
+                  setIsOpen(false);
+                }}
+                variant="default"
+                className="w-full"
+              >
+                Login
+              </Button>
             )}
           </div>
         </div>

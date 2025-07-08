@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1743927996470,
+      "tag": "0000_vengeful_rockslide",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1743935927711,
+      "tag": "0001_known_gideon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1751863318802,
+      "tag": "0002_watery_mandarin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1751916959305,
+      "tag": "0003_fat_nehzno",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1751951060427,
+      "tag": "0004_wooden_thaddeus_ross",
+      "breakpoints": true
+    }
+  ]
+}

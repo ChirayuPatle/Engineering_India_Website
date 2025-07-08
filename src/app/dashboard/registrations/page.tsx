@@ -1,84 +1,101 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Inbox, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import RegistrationCard, {
   type Registration,
 } from "@/components/dashboard/RegistrationCard";
-import NotFound from "@/components/dashboard/Notfound";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
+import api from "@/lib/api";
 
-// const registrations: Registration[] = [];
-
-const registrations: Registration[] = [
-  {
-    id: "1",
-    title: "Web Development Workshop",
-    description:
-      "Learn the fundamentals of web development with HTML, CSS, and JavaScript.",
-    date: "March 15, 2025",
-    time: "3:00 PM - 5:00 PM",
-    location: "Computer Science Building, Room 101",
-    status: "upcoming",
-    ticketId: "WDW-2025-1234",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    id: "2",
-    title: "Introduction to Machine Learning",
-    description:
-      "A beginner-friendly introduction to machine learning concepts and applications.",
-    date: "February 10, 2025",
-    time: "4:00 PM - 6:00 PM",
-    location: "Computer Science Building, Room 203",
-    status: "completed",
-    ticketId: "IML-2025-5678",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-  {
-    id: "3",
-    title: "GitHub Workshop",
-    description:
-      "Learn how to use Git and GitHub for version control and collaboration.",
-    date: "January 25, 2025",
-    time: "2:00 PM - 4:00 PM",
-    location: "Computer Science Building, Lab 102",
-    status: "pending",
-    ticketId: "GHW-2025-9012",
-    image: "/placeholder.svg?height=200&width=400",
-  },
-];
+function RegistrationCardSkeleton() {
+  return (
+    <div className="rounded-lg border p-4">
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-6 w-48" />
+        <Skeleton className="h-4 w-16" />
+      </div>
+      <div className="mt-4 space-y-2">
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+      <div className="mt-4 flex justify-between">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-8 w-24" />
+      </div>
+    </div>
+  );
+}
 
 export default function RegistrationsPage() {
   const router = useRouter();
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto max-w-7xl space-y-6">
-        <div className="flex items-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.push("/dashboard")}
-            className="mr-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-            My Registrations
-          </h1>
-        </div>
+  const {
+    data: registrations = [],
+    status,
+    isFetching,
+  } = useQuery<Registration[]>({
+    queryKey: ["registrations"],
+    queryFn: async () => {
+      const res = await api.get<Registration[]>("/user/registrations");
+      return res.data || [];
+    },
+    retry: false, // Don't retry endlessly on server errors
+  });
 
-        {registrations.length === 0 ? (
-          <NotFound />
-        ) : (
-          <div className="grid gap-6">
-            {registrations.map((reg) => (
-              <RegistrationCard reg={reg} key={reg.id} />
-            ))}
-          </div>
-        )}
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => router.push("/dashboard")}
+          className="mr-2"
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+          My Registrations
+        </h1>
       </div>
+
+      {status === "pending" || isFetching ? (
+        <div className="grid gap-6">
+          {[...Array(3)].map((_, i) => (
+            <RegistrationCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : status === "error" ? (
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+          <span className="text-xl font-semibold">
+            Error loading registrations.
+          </span>
+          <p className="mt-2 text-sm">
+            We couldn't load your registrations. Please try again later.
+          </p>
+        </div>
+      ) : registrations.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
+          <Inbox className="mb-6 h-16 w-16 text-muted-foreground" />
+          <h2 className="text-xl font-semibold text-foreground">
+            No Registrations Yet
+          </h2>
+          <p className="max-w-md text-sm text-muted-foreground">
+            You haven't registered for any events yet. Once you do, they'll show
+            up here.
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-6">
+          {registrations.map((reg) => (
+            <RegistrationCard reg={reg} key={reg.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

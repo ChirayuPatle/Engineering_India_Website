@@ -2,10 +2,13 @@
 import { teamMembers, Devlopers } from "@/team-info";
 import { useRouter } from "next/navigation";
 
+import { Typography } from "@/components/ui/typography";
+import Image from "next/image";
+
 type TeamCardProps = {
   name: string;
   position: string;
-  teamId: number;
+  _teamId: number;
   image: string;
   onClick?: () => void;
 };
@@ -13,7 +16,7 @@ type TeamCardProps = {
 const TeamCard: React.FC<TeamCardProps> = ({
   name,
   position,
-  teamId,
+  _teamId,
   image,
   onClick,
 }) => {
@@ -27,10 +30,13 @@ const TeamCard: React.FC<TeamCardProps> = ({
 
       {/* Profile Image */}
       <div className="flex w-44 items-center justify-center">
-        <img
+        <Image
           src={image}
           alt="Profile"
+          width={144}
+          height={144}
           className="mt-6 h-36 w-36 rounded-full border-4 border-black object-cover p-1 shadow-lg"
+          priority
         />
       </div>
 
@@ -43,7 +49,7 @@ const TeamCard: React.FC<TeamCardProps> = ({
   );
 };
 
-const TeamPage: React.FC = () => {
+export default function TeamPage() {
   const router = useRouter();
 
   return (
@@ -53,16 +59,32 @@ const TeamPage: React.FC = () => {
           Our Team Leads
         </h1>
         <div className="mt-[2rem] flex items-start justify-start gap-6 overflow-auto p-10 md:flex-wrap md:justify-center md:overflow-hidden lg:ml-0">
-          {teamMembers.map((details, index) => (
-            <TeamCard
-              onClick={() => router.push(`/team-info/leads/${details.teamId}`)}
-              key={index}
-              name={details.name}
-              position={details.position}
-              teamId={details.teamId}
-              image={details.image}
-            />
-          ))}
+          {teamMembers.length > 0 ? (
+            teamMembers.map((details, index) => (
+              <TeamCard
+                onClick={() =>
+                  router.push(`/team-info/leads/${details.teamId}`)
+                }
+                key={index}
+                name={details.name}
+                position={details.position}
+                _teamId={details.teamId}
+                image={details.image}
+              />
+            ))
+          ) : (
+            <div className="flex w-full flex-col items-center justify-center py-20 text-center text-muted-foreground">
+              <Typography
+                variant="h3"
+                className="text-xl font-semibold text-foreground"
+              >
+                No Team Leads found
+              </Typography>
+              <p className="max-w-md text-sm text-muted-foreground">
+                There are no team leads to display at the moment.
+              </p>
+            </div>
+          )}
         </div>
       </div>
       {/* <div>
@@ -107,22 +129,34 @@ const TeamPage: React.FC = () => {
         </h1>
         <div className="mt-[2rem] flex items-start justify-start gap-6 overflow-auto p-10 md:flex-wrap md:justify-center md:overflow-hidden lg:ml-0">
           <div className="my-[4rem]"></div>
-          {Devlopers.map((details, index) => (
-            <TeamCard
-              onClick={() =>
-                router.push(`/team-info/developers/${details.teamId}`)
-              }
-              key={index}
-              name={details.name}
-              position={details.position}
-              teamId={details.teamId}
-              image={details.image}
-            />
-          ))}
+          {Devlopers.length > 0 ? (
+            Devlopers.map((details, index) => (
+              <TeamCard
+                onClick={() =>
+                  router.push(`/team-info/developers/${details.teamId}`)
+                }
+                key={index}
+                name={details.name}
+                position={details.position}
+                _teamId={details.teamId}
+                image={details.image}
+              />
+            ))
+          ) : (
+            <div className="flex w-full flex-col items-center justify-center py-20 text-center text-muted-foreground">
+              <Typography
+                variant="h3"
+                className="text-xl font-semibold text-foreground"
+              >
+                No Developers found
+              </Typography>
+              <p className="max-w-md text-sm text-muted-foreground">
+                There are no developers to display at the moment.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>
   );
-};
-
-export default TeamPage;
+}

@@ -2,13 +2,14 @@ import "@/styles/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DM_Sans } from "next/font/google";
 
+import MarqueeWrapper from "@/components/landing/marqueeWrapper";
 import Navbar from "@/components/landing/navbar";
 import Footer from "@/components/ui/Footer";
 import { EventProvider } from "@/context/eventContext";
-import { UserProvider } from "@/context/userContext";
+// import { UserProvider } from "@/context/userContext";
+import { ReactQueryProvider } from "@/context/providers/query-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
-import { Toaster } from "react-hot-toast";
 
 const dmsans = DM_Sans({
   subsets: ["latin"],
@@ -27,28 +28,23 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <UserProvider>
+    // <UserProvider>
+    <ReactQueryProvider>
       <EventProvider>
         <html lang="en" className={`${dmsans.variable}`}>
           <body className="space">
+            <MarqueeWrapper />
             <Navbar />
-            <Toaster position="top-center" />
+            {/* <PostHogProvider> */}
             {children}
-            <Analytics
-            //  beforeSend={(e) => {
-            //   const url = new URL(e.url);
-            //   url.searchParams.delete('secret');
-            //   return {
-            //     ...e,
-            //     url: url.toString(),
-            //   }
-            // }}
-            />
+            {/* </PostHogProvider> */}
+            <Analytics />
             <SpeedInsights />
             <Footer />
           </body>
         </html>
       </EventProvider>
-    </UserProvider>
+    </ReactQueryProvider>
+    // </UserProvider>
   );
 }

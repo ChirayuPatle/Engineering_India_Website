@@ -1,11 +1,11 @@
 "use client";
 
-import React, { type ReactNode, useState, useEffect } from "react";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { cn } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { PageLoader } from "@/components/ui/page-loader";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { type ReactNode, useEffect, useState } from "react";
 
 interface DashboardLayoutProps {
   children: ReactNode;

@@ -1,13 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-} from "framer-motion";
+import { motion, useScroll, useSpring, useInView } from "framer-motion";
 
 const timelineEvents = [
   {
@@ -54,27 +48,6 @@ const timelineEvents = [
   },
 ];
 
-const FlowerIcon = ({ progress }: { progress: number }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-6 w-6"
-    style={{ transform: `scale(${progress})` }}
-  >
-    <path
-      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-    <path
-      d="M12 8C12 8 14 10 14 12C14 14 12 16 12 16C12 16 10 14 10 12C10 10 12 8 12 8Z"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-  </svg>
-);
-
 export default function Timeline() {
   const [expandedEvent, setExpandedEvent] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -117,10 +90,6 @@ export default function Timeline() {
           />
 
           {/* Flower icon */}
-          <motion.div
-            className="sticky left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 transform text-primary"
-            style={{ y: useTransform(scrollYProgress, [0, 1], [0, 100]) }}
-          ></motion.div>
 
           {timelineEvents.map((event, index) => (
             <TimelineEvent

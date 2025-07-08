@@ -1,6 +1,33 @@
 "use client";
-import { Heart, MessageCircle, Share } from "lucide-react";
+import { Heart, Share } from "lucide-react";
 import React, { useState } from "react";
+import Image from "next/image";
+
+const getValidImageUrl = (url: string | undefined | null): string => {
+  const placeholder = "/placeholder.png";
+  if (!url) {
+    return placeholder;
+  }
+
+  // Check for protocol-relative URLs and add https
+  if (url.startsWith("//")) {
+    url = "https:" + url;
+  }
+
+  // Check if it's a relative path
+  if (url.startsWith("/")) {
+    return url;
+  }
+
+  // Try to construct a URL to check for validity
+  try {
+    new URL(url);
+    return url; // It's a valid absolute URL
+  } catch (e) {
+    console.error(`Invalid image URL provided: ${url}`);
+    return placeholder; // It's an invalid URL
+  }
+};
 
 // Accepting props properly
 function BlogCard({
@@ -37,6 +64,8 @@ function BlogCard({
     }
   };
 
+  const imageUrl = getValidImageUrl(imgurl);
+
   return (
     <div className="mt-5 w-full rounded-xl bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
       {/* Header */}
@@ -46,7 +75,7 @@ function BlogCard({
       </div>
 
       {/* Description */}
-      <p className="leading-relaxed text-gray-600">
+      <div className="leading-relaxed text-gray-600">
         <div dangerouslySetInnerHTML={{ __html: content }} />
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -54,11 +83,11 @@ function BlogCard({
         >
           {isExpanded ? "See Less" : "Read More"}
         </button>
-      </p>
+      </div>
 
       {/* Image */}
-      <div className="mt-4 w-full overflow-hidden rounded-xl">
-        <img src={imgurl || ""} alt="" className="h-full w-full object-cover" />
+      <div className="relative mt-4 h-60 w-full overflow-hidden rounded-xl">
+        <Image src={imageUrl} alt="" fill className="object-cover" />
       </div>
 
       {/* Divider */}
