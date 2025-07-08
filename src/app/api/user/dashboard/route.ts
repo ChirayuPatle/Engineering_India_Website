@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
         db
           .select()
           .from(event)
-          .where(gt(event.startDate, Date.now()))
+          .where(gt(event.startDate, new Date()))
           .orderBy(desc(event.startDate)),
 
         registrationIds.length > 0

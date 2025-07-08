@@ -10,6 +10,7 @@ import { type PaymentStatus } from "@/components/dashboard/PaymentCard";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { SubmittedConfirmation } from "@/components/dashboard/SubmittedConfirmation";
 import { useCurrentUser } from "@/hooks/use-user";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -49,8 +50,7 @@ const fetchDashboardData = async (): Promise<DashboardResponse> => {
   if (!res.ok) {
     throw new Error("Failed to fetch dashboard data.");
   }
-  const data = await res.json();
-  return data as DashboardResponse;
+  return (await res.json()) as DashboardResponse;
 };
 
 function getGreeting(): string {
@@ -84,6 +84,18 @@ const DashboardSkeleton = () => (
 export default function DashboardPage() {
   const router = useRouter();
 
+  const { data: membershipStatus, isLoading: statusLoading } = useQuery({
+    queryKey: ["membership-status"],
+    queryFn: async (): Promise<{ hasSubmitted: boolean }> => {
+      const res = await fetch("/api/membership-form/status");
+      if (!res.ok) {
+        throw new Error("Failed to fetch membership status.");
+      }
+      return res.json() as Promise<{ hasSubmitted: boolean }>;
+    },
+    refetchOnWindowFocus: false,
+  });
+
   const { data, isLoading, isError } = useQuery<DashboardResponse>({
     queryKey: ["dashboard"],
     queryFn: fetchDashboardData,
@@ -102,7 +114,7 @@ export default function DashboardPage() {
 
   const greeting = useMemo(() => getGreeting(), []);
 
-  if (isLoading || userLoading) {
+  if (isLoading || userLoading || statusLoading) {
     return <DashboardSkeleton />;
   }
 
@@ -127,6 +139,9 @@ export default function DashboardPage() {
         <div className="text-2xl font-semibold">
           👋 {greeting}, <span className="text-primary">{userName}</span>!
         </div>
+
+        {/* Membership Submitted Confirmation */}
+        {membershipStatus?.hasSubmitted && <SubmittedConfirmation />}
 
         {/* Stats */}
         <div className="flex w-full gap-4">

@@ -124,8 +124,6 @@ export default function EventsPage() {
                   location={event.location || ""}
                   description={event.description || ""}
                   imageUrl={event.bannerImage?.trim() || "./notfound.svg"}
-                  category={event.category || ""}
-                  href={`/events/${event.id}`}
                 />
               </Link>
             ))}

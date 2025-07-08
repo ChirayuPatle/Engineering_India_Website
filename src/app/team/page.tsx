@@ -8,7 +8,7 @@ import Image from "next/image";
 type TeamCardProps = {
   name: string;
   position: string;
-  teamId: number;
+  _teamId: number;
   image: string;
   onClick?: () => void;
 };
@@ -68,7 +68,7 @@ export default function TeamPage() {
                 key={index}
                 name={details.name}
                 position={details.position}
-                teamId={details.teamId}
+                _teamId={details.teamId}
                 image={details.image}
               />
             ))
@@ -138,7 +138,7 @@ export default function TeamPage() {
                 key={index}
                 name={details.name}
                 position={details.position}
-                teamId={details.teamId}
+                _teamId={details.teamId}
                 image={details.image}
               />
             ))

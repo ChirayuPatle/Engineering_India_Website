@@ -1,3 +1,4 @@
+"use client";
 import BlogCard from "@/components/blogs/page";
 import { Heart, MessageCircle, Share, TriangleAlert } from "lucide-react";
 import { useEffect } from "react";

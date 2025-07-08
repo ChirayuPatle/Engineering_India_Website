@@ -146,6 +146,19 @@ export function DashboardSidebar({
                 />
               ))}
             </div>
+            <div className="mt-4 px-3">
+              <div className="flex w-full justify-center">
+                <Link href="/dashboard/membership">
+                  <Button
+                    variant="default"
+                    className="justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-purple-700 hover:shadow-lg"
+                    onClick={handleNavigation}
+                  >
+                    <span>Join Membership</span>
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </nav>
 
           <div className="border-t p-3">

@@ -14,6 +14,7 @@ interface SessionData {
   };
   user: {
     id: string;
+    role: string;
     [key: string]: any;
   };
 }
@@ -31,7 +32,7 @@ export async function middleware(req: NextRequest) {
   }
 
   try {
-    const data = (await auth.api.getSession(req)) as SessionData;
+    const data = (await auth.api.getSession(req)) as unknown as SessionData;
 
     const isLoggedIn = !!data?.session;
 
@@ -55,7 +56,7 @@ export async function middleware(req: NextRequest) {
     }
 
     return NextResponse.next();
-  } catch (_error) {
+  } catch {
     // eslint-disable-line @typescript-eslint/no-unused-vars
     const url = req.nextUrl.clone();
     url.pathname = "/auth";

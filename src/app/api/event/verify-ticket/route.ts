@@ -6,6 +6,12 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 
+interface AuthUser {
+  id: string;
+  role: string;
+  [key: string]: any; // Allow other properties
+}
+
 const verifyTicketSchema = z.object({
   ticket: z.string(),
 });
@@ -15,7 +21,8 @@ export async function GET(req: NextRequest) {
     const session = await auth.api.getSession({
       headers: req.headers,
     });
-    const userRole = session?.user.role;
+    const user = session?.user as unknown as AuthUser | undefined;
+    const userRole = user?.role;
 
     if (userRole !== "ADMIN") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });

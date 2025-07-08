@@ -21,7 +21,7 @@ interface EventHeaderProps {
     event_venue: string;
     event_id: string;
     event_image?: string;
-    registration_fee?: number;
+    registration_fee?: number | null;
     event_description: string;
     co_organized_by?: string;
     organized_by?: string;
@@ -57,7 +57,11 @@ export default function EventHeader({ event }: EventHeaderProps) {
       <div className="relative h-[40vh] w-full overflow-hidden md:h-[60vh]">
         {gallery.length > 0 ? (
           <Image
-            src={gallery[currentImageIndex]}
+            src={
+              gallery[currentImageIndex] ??
+              event.event_image ??
+              "/placeholder-image.jpg"
+            }
             alt="Event Gallery Image"
             fill
             className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
@@ -65,7 +69,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
           />
         ) : (
           <Image
-            src={event.event_image || "/placeholder-image.jpg"}
+            src={event.event_image ?? "/placeholder-image.jpg"}
             alt="Event Image"
             fill
             className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
@@ -118,7 +122,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
         <div className="flex flex-col items-start gap-6 rounded-lg border border-zinc-200 bg-white p-6 md:flex-row">
           <div className="relative w-full overflow-hidden rounded-lg border border-zinc-300 md:w-1/3">
             <Image
-              src={event.event_image || "/placeholder-image.jpg"}
+              src={event.event_image ?? "/placeholder-image.jpg"}
               alt={event.event_title}
               fill
               className="aspect-square h-auto w-full object-cover md:aspect-[4/3]"

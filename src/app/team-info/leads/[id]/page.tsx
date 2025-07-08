@@ -1,16 +1,16 @@
 "use client";
-import { useParams } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Typography } from "@/components/ui/typography";
 import { teamMembers } from "@/team-info";
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import {
   LinkedinIcon,
   MessageSquareHeartIcon,
   TriangleAlert,
 } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Typography } from "@/components/ui/typography";
 import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const TeamInfoPageSkeleton = () => (
   <div className="h-screen w-full">
@@ -42,6 +42,7 @@ function TeamInfoPage(): JSX.Element {
   const { id } = useParams();
   const [lead, setLead] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchLead = async () => {
@@ -58,7 +59,7 @@ function TeamInfoPage(): JSX.Element {
         } else {
           setError("Team lead not found");
         }
-      } catch (_e: any) {
+      } catch {
         // eslint-disable-line @typescript-eslint/no-unused-vars
         setError("Failed to load team lead data.");
       } finally {
@@ -121,7 +122,8 @@ function TeamInfoPage(): JSX.Element {
               className="h-full w-full object-cover"
               src={lead.image}
               alt={lead.name}
-              fill
+              width={128}
+              height={128}
             />
           </div>
           <div className="leading-2 flex flex-col items-center justify-center">

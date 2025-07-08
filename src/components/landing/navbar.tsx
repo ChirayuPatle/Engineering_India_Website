@@ -44,7 +44,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full py-4 transition-all duration-300 lg:px-20 ${
+      className={`fixed top-10 z-50 w-full py-4 transition-all duration-300 lg:px-20 ${
         scrolled
           ? "bg-background/80 shadow-sm backdrop-blur-md"
           : "bg-transparent"
@@ -161,11 +161,14 @@ export default function Navbar() {
               </Button>
             ) : (
               <Button
-                onClick={() => authClient.signIn.social({ provider: "google" })}
+                onClick={() => {
+                  authClient.signIn.social({ provider: "google" });
+                  setIsOpen(false);
+                }}
                 variant="default"
                 className="w-full"
               >
-                Login with Google
+                Login
               </Button>
             )}
           </div>

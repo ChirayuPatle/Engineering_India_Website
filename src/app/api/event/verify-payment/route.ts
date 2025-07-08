@@ -5,6 +5,12 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 
+interface AuthUser {
+  id: string;
+  role: string;
+  [key: string]: any; // Allow other properties
+}
+
 const verifyPaymentSchema = z.object({
   registrationId: z.string(),
   transactionId: z.string(),
@@ -16,8 +22,9 @@ export async function PATCH(req: NextRequest) {
     const session = await auth.api.getSession({
       headers: req.headers,
     });
-    const userId = session?.user.id;
-    const userRole = session?.user.role;
+    const user = session?.user as unknown as AuthUser | undefined;
+    const userId = user?.id;
+    const userRole = user?.role;
 
     if (!userId || userRole !== "ADMIN") {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });

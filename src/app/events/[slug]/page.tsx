@@ -13,6 +13,28 @@ import EventHeader from "@/components/events/EventHeader";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 
+interface Prize {
+  position: string;
+  description: string;
+  value?: string;
+}
+
+interface TimelineItem {
+  time: string;
+  activity: string;
+  location?: string;
+  description?: string;
+}
+
+interface GalleryItem {
+  src: string;
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
 // Helper functions (kept from previous version)
 function BlurImage(props: any) {
   const [isLoading, setLoading] = useState(true);
@@ -105,22 +127,22 @@ export default function EventPage() {
   // Define event and derived data outside conditional blocks
   const event = events.find((ev) => ev.id === slug);
 
-  const parseJsonField = (
+  const parseJsonField = <T,>(
     jsonString: string | null | undefined,
-    defaultValue: any,
-  ): any => {
+    defaultValue: T,
+  ): T => {
     try {
-      return jsonString ? JSON.parse(jsonString) : defaultValue;
+      return jsonString ? (JSON.parse(jsonString) as T) : defaultValue;
     } catch (e) {
       console.error("Failed to parse JSON:", e);
       return defaultValue;
     }
   };
 
-  const parsedPrizes = parseJsonField(event?.prizes, []);
-  const parsedFaqs = parseJsonField(event?.faqs, []);
-  const parsedTimeline = parseJsonField(event?.timeline, []);
-  const parsedGallery = parseJsonField(event?.gallery, []);
+  const parsedPrizes = parseJsonField<Prize[]>(event?.prizes, []);
+  const parsedFaqs = parseJsonField<FAQ[]>(event?.faqs, []);
+  const parsedTimeline = parseJsonField<TimelineItem[]>(event?.timeline, []);
+  const parsedGallery = parseJsonField<GalleryItem[]>(event?.gallery, []);
 
   const formattedEvent = event
     ? {
@@ -260,7 +282,7 @@ export default function EventPage() {
                   Prizes
                 </Typography>
                 {/* Render prizes here */}
-                {parsedPrizes.map((prize, index) => (
+                {parsedPrizes.map((prize: Prize, index: number) => (
                   <Card key={index} className="p-4 shadow-none">
                     <Typography as="h3" className="font-semibold">
                       {prize.position}
@@ -278,7 +300,7 @@ export default function EventPage() {
                   Timeline and Schedule
                 </Typography>
                 {/* Render timeline here */}
-                {parsedTimeline.map((item, index) => (
+                {parsedTimeline.map((item: TimelineItem, index: number) => (
                   <Card key={index} className="p-4 shadow-none">
                     <Typography as="h3" className="font-semibold">
                       {item.time} - {item.activity}
@@ -296,10 +318,10 @@ export default function EventPage() {
                   Gallery
                 </Typography>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-                  {parsedGallery.map((imgSrc, index) => (
+                  {parsedGallery.map((imgSrc: GalleryItem, index: number) => (
                     <div key={index} className="relative h-48 w-full">
                       <BlurImage
-                        src={imgSrc}
+                        src={imgSrc.src}
                         alt={`Gallery image ${index + 1}`}
                         fill
                         style={{ objectFit: "cover" }}
@@ -316,7 +338,7 @@ export default function EventPage() {
                   FAQs
                 </Typography>
                 {/* Render FAQs here */}
-                {parsedFaqs.map((faq, index) => (
+                {parsedFaqs.map((faq: FAQ, index: number) => (
                   <Card key={index} className="p-4 shadow-none">
                     <Typography as="h3" className="font-semibold">
                       Q: {faq.question}

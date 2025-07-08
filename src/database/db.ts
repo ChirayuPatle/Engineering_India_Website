@@ -1,5 +1,9 @@
-import { authSchema, eventSchema } from "@/database/schema/index";
 import * as feedbackSchema from "@/database/schema/feedback-schema";
+import {
+  authSchema,
+  eventSchema,
+  membershipSchema,
+} from "@/database/schema/index";
 import { env } from "@/env";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
@@ -20,5 +24,6 @@ export const db = drizzle(client, {
     ...authSchema,
     ...eventSchema,
     ...feedbackSchema,
+    ...membershipSchema,
   },
 });

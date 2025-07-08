@@ -3,10 +3,17 @@
  * for Docker builds.
  */
 import "./src/env.js";
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
 
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
+    formats: ["image/webp", "image/avif"],
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: "https",
@@ -39,6 +46,14 @@ const config = {
       },
     ],
   },
+  experimental: {},
+  compiler: {
+    removeConsole: true,
+    styledComponents: true,
+  },
+  webpack(config) {
+    return config;
+  },
 };
 
-export default config;
+export default withBundleAnalyzer(config);

@@ -25,6 +25,7 @@ export type Event = {
   updatedAt: number;
   location?: string | null;
   category?: string | null;
+  price?: number | null;
 };
 
 interface EventContextType {

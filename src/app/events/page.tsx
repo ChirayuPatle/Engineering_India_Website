@@ -27,7 +27,7 @@ function EventCardSkeleton() {
 export default function EventsPage() {
   const { events, loading, error } = useEvents();
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory] = useState("all");
 
   const categories = ["All", ...new Set(events.map((event) => event.category))];
 
