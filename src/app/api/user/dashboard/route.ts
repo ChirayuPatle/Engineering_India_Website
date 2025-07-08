@@ -2,7 +2,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/database/db";
 import { auth } from "@/lib/auth";
-import { eq, gt, desc } from "drizzle-orm";
+import { eq, gt, desc, inArray } from "drizzle-orm";
 import { registration, event, payment } from "@/database/schema"; // Ensure correct path
 
 export async function GET(req: NextRequest) {
@@ -10,10 +10,17 @@ export async function GET(req: NextRequest) {
     const session = await auth.api.getSession(req);
 
     if (!session?.user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const userId = session.user.id;
+
+    const userRegistrations = await db
+      .select({ id: registration.id })
+      .from(registration)
+      .where(eq(registration.userId, userId));
+
+    const registrationIds = userRegistrations.map((r) => r.id);
 
     const [registeredEvents, upcomingEvents, recentPayments] =
       await Promise.all([
@@ -25,20 +32,14 @@ export async function GET(req: NextRequest) {
           .where(gt(event.startDate, new Date()))
           .orderBy(desc(event.startDate)),
 
-        db
-          .select()
-          .from(payment)
-          .where(
-            eq(
-              payment.registrationId,
-              db
-                .select({ id: registration.id })
-                .from(registration)
-                .where(eq(registration.userId, userId)),
-            ),
-          )
-          .orderBy(desc(payment.paymentDate))
-          .limit(5),
+        registrationIds.length > 0
+          ? db
+              .select()
+              .from(payment)
+              .where(inArray(payment.registrationId, registrationIds))
+              .orderBy(desc(payment.paymentDate))
+              .limit(5)
+          : Promise.resolve([]),
       ]);
 
     return NextResponse.json({
@@ -49,7 +50,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     console.error("[DASHBOARD_GET_ERROR]:", err);
     return NextResponse.json(
-      { error: "Something went wrong" },
+      { message: "Something went wrong" },
       { status: 500 },
     );
   }

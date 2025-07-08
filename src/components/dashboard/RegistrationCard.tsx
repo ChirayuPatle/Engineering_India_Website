@@ -17,6 +17,7 @@ import {
   ExternalLink,
   MapPin,
 } from "lucide-react";
+import Image from "next/image";
 
 export interface Registration {
   id: string;
@@ -38,11 +39,13 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
     >
       <div className="flex flex-col space-y-4 md:flex-row md:space-x-6 md:space-y-0">
         {/* Event Image */}
-        <div className="md:w-1/3">
-          <img
+        <div className="relative md:w-1/3">
+          <Image
             src={reg.image || "/placeholder.svg"}
             alt={reg.title}
+            fill
             className="h-48 w-full object-cover md:h-full"
+            priority
           />
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
-import { Heart, MessageCircle, Share } from "lucide-react";
+import { Heart, Share } from "lucide-react";
 import React, { useState } from "react";
+import Image from "next/image";
 
 // Accepting props properly
 function BlogCard({
@@ -57,8 +58,13 @@ function BlogCard({
       </p>
 
       {/* Image */}
-      <div className="mt-4 w-full overflow-hidden rounded-xl">
-        <img src={imgurl || ""} alt="" className="h-full w-full object-cover" />
+      <div className="relative mt-4 h-60 w-full overflow-hidden rounded-xl">
+        <Image
+          src={imgurl || "/placeholder.png"}
+          alt=""
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Divider */}

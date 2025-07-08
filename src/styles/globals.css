@@ -72,6 +72,10 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+  .theme {
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  }
 }
 
 .space {
@@ -96,7 +100,6 @@
   }
 }
 
-
 @keyframes indeterminate {
   0% {
     transform: translateX(-100%);
@@ -108,7 +111,6 @@
     transform: translateX(100%);
   }
 }
-
 
 /* Animation for indeterminate progress */
 @keyframes indeterminate {
@@ -151,4 +153,23 @@ img.circle {
 
 img.circle.loaded {
   opacity: 1;
+}
+
+@theme inline {
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
 }

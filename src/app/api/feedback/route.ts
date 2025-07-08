@@ -1,66 +1,65 @@
 // app/api/feedback/route.ts
 import { type NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import { supabase } from "@/utils/supabase/client";
+import { db } from "@/database/db";
+import { feedback } from "@/database/schema";
+import { and, eq, gte } from "drizzle-orm";
+import { z } from "zod";
 
-// Initialize Supabase client (use your own project URL & anon key)
-// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-// const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
-// const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const feedbackSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(1, "Message is required"),
+});
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, message } = await req.json();
+    const body = await req.json();
+    const validatedBody = feedbackSchema.parse(body);
+    const { name, email, message } = validatedBody;
 
     // 1. Check if user already gave feedback in the last 30 days
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-    // const { data: existingFeedback, error: checkError } = await supabase
-    //   .from("feedbacks")
-    //   .select("feedback_id")
-    //   .eq("email", email)
-    //   .gte("feedback_created_at", thirtyDaysAgo.toISOString());
+    const existingFeedback = await db.query.feedback.findFirst({
+      where: and(
+        eq(feedback.email, email),
+        gte(feedback.createdAt, thirtyDaysAgo),
+      ),
+    });
 
-    // if (checkError) {
-    //   return NextResponse.json(
-    //     { error: "Error checking existing feedback." },
-    //     { status: 400 },
-    //   );
-    // }
-
-    // if (existingFeedback && existingFeedback.length > 0) {
-    //   // Already submitted in last 30 days
-    //   return NextResponse.json(
-    //     { error: "You can only submit feedback once per month." },
-    //     { status: 400 },
-    //   );
-    // }
-
-    // 2. Insert new feedback
-    const { data, error: insertError } = await supabase
-      .from("general_feedbacks")
-      .insert({
-        name,
-        email,
-        message,
-      })
-      .select(); // returns the inserted row
-
-    if (insertError) {
-      return NextResponse.json({ error: insertError.message }, { status: 400 });
+    if (existingFeedback) {
+      return NextResponse.json(
+        {
+          message:
+            "You have already submitted feedback recently. Please try again later.",
+        },
+        { status: 429 },
+      );
     }
 
-    // Success
+    // 2. Insert new feedback
+    await db.insert(feedback).values({
+      name,
+      email,
+      message,
+      createdAt: new Date(),
+    });
+
     return NextResponse.json({
       success: true,
-      message: "Your feedback has been submitted successfully!",
-      inserted: data,
+      message: "Feedback submitted successfully!",
     });
   } catch (err: any) {
+    if (err instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Invalid request body", errors: err.errors },
+        { status: 400 },
+      );
+    }
     console.error(err);
     return NextResponse.json(
-      { error: "An unexpected error occurred." },
+      { message: "An unexpected error occurred." },
       { status: 500 },
     );
   }

@@ -1,14 +1,5 @@
 "use client";
 
-interface Payment {
-  id: string;
-  eventName: string;
-  date: string;
-  amount: number;
-  status: string;
-  transactionId: string;
-}
-
 import {
   PaymentCard,
   type PaymentStatus,
@@ -21,12 +12,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Inbox, TriangleAlert } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Skeleton } from "@/components/ui/skeleton";
+import api from "@/lib/api";
+
+interface Payment {
+  id: string;
+  eventName: string;
+  date: string;
+  amount: number;
+  status: string;
+  transactionId: string;
+}
 
 function PaymentCardSkeleton() {
   return (
@@ -50,22 +50,19 @@ export default function PaymentsPage() {
   const [statusFilter, setStatusFilter] = useState("all");
 
   const {
-    data: payments,
-    isLoading,
-    isError,
-    error,
+    data: payments = [],
+    status,
+    isFetching,
   } = useQuery<Payment[]>({
-    queryKey: ["payments"],
+    queryKey: ["payments", statusFilter],
     queryFn: async () => {
-      const res = await axios.get<Payment[]>("/api/user/payments");
-      return res.data;
+      const res = await api.get<Payment[]>("/user/payments", {
+        params: { status: statusFilter !== "all" ? statusFilter : undefined },
+      });
+      return res.data || [];
     },
+    retry: false,
   });
-
-  const filteredPayments =
-    payments?.filter(
-      (payment) => statusFilter === "all" || payment.status === statusFilter,
-    ) ?? [];
 
   return (
     <div className="flex flex-col gap-6">
@@ -83,8 +80,7 @@ export default function PaymentsPage() {
 
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
-          Showing {filteredPayments.length} payment
-          {filteredPayments.length !== 1 ? "s" : ""}
+          Showing {payments.length} payment{payments.length !== 1 ? "s" : ""}
         </div>
         <Select
           value={statusFilter}
@@ -97,58 +93,53 @@ export default function PaymentsPage() {
             <SelectItem value="all">All Statuses</SelectItem>
             <SelectItem value="paid">Paid</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="failed">Failed</SelectItem>
+            <SelectItem value="rejected">Rejected</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      {/* Loading State */}
-      {isLoading && (
+      {status === "pending" || isFetching ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[...Array(3)].map((_, i) => (
             <PaymentCardSkeleton key={i} />
           ))}
         </div>
-      )}
-
-      {/* Error State */}
-      {isError && (
-        <div className="text-center text-red-500">
-          Failed to load payments:{" "}
-          {error instanceof Error ? error.message : "Unknown error"}
+      ) : payments.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
+          <Inbox className="mb-6 h-16 w-16 text-muted-foreground" />
+          <h2 className="text-xl font-semibold text-foreground">
+            No Payments Yet
+          </h2>
+          <p className="max-w-md text-sm text-muted-foreground">
+            You haven't made any payments yet. Once you do, they'll show up
+            here.
+          </p>
         </div>
-      )}
-
-      {/* Payment Cards */}
-      {!isLoading && !isError && (
-        <>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredPayments.map((payment) => (
-              <PaymentCard
-                key={payment.id}
-                id={payment.id}
-                eventName={payment.eventName}
-                date={payment.date}
-                amount={payment.amount}
-                status={payment.status as PaymentStatus}
-                transactionId={payment.transactionId}
-                onViewDetails={() =>
-                  router.push(`/dashboard/payments/${payment.id}`)
-                }
-              />
-            ))}
-          </div>
-
-          {filteredPayments.length === 0 && (
-            <div className="flex h-[300px] items-center justify-center rounded-md border border-dashed">
-              <div className="flex flex-col items-center text-center">
-                <h3 className="mt-2 text-xl font-semibold">
-                  No payments found
-                </h3>
-              </div>
-            </div>
-          )}
-        </>
+      ) : status === "error" ? (
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+          <span className="text-xl font-semibold">Error loading payments.</span>
+          <p className="mt-2 text-sm">
+            We couldn't load your payment history. Please try again later.
+          </p>
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {payments.map((payment) => (
+            <PaymentCard
+              key={payment.id}
+              id={payment.id}
+              eventName={payment.eventName}
+              date={payment.date}
+              amount={payment.amount}
+              status={payment.status as PaymentStatus}
+              transactionId={payment.transactionId}
+              onViewDetails={() =>
+                router.push(`/dashboard/payments/${payment.id}`)
+              }
+            />
+          ))}
+        </div>
       )}
     </div>
   );

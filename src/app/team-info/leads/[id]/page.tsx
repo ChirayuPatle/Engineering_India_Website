@@ -1,74 +1,156 @@
 "use client";
-import { useParams } from "next/navigation";
-import { teamMembers, Devlopers } from "@/team-info";
-import { useState } from "react";
-import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Typography } from "@/components/ui/typography";
+import { teamMembers } from "@/team-info";
 import {
-  Github,
-  Instagram,
   LinkedinIcon,
   MessageSquareHeartIcon,
-  Twitter,
+  TriangleAlert,
 } from "lucide-react";
-import { InstagramLogoIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+
+const TeamInfoPageSkeleton = () => (
+  <div className="h-screen w-full">
+    <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
+      <div className="flex flex-col items-center justify-center gap-2">
+        <Skeleton className="h-32 w-32 rounded-full" />
+        <div className="leading-2 flex flex-col items-center justify-center">
+          <Skeleton className="h-8 w-48" />
+          <Skeleton className="mt-2 h-6 w-32" />
+        </div>
+      </div>
+    </div>
+    <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
+      <div className="hidden h-36 w-80 lg:block">
+        <Skeleton className="h-full w-full" />
+      </div>
+      <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
+        <Skeleton className="h-8 w-64" />
+        <div className="mt-3 flex flex-col gap-1">
+          <Skeleton className="h-6 w-48" />
+          <Skeleton className="h-6 w-48" />
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 function TeamInfoPage(): JSX.Element {
   const { id } = useParams();
-  const [userid, setid] = useState<number>(Number(id) - 1);
-  const [logo, setlogo] = useState([
-    <LinkedinIcon key="linkedin" />,
-    <Instagram key="instagram" />,
-    <Twitter key="twitter" />,
-    <Github key="github" />,
-    <MessageSquareHeartIcon key="message" />,
-  ]);
+  const [lead, setLead] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLead = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const foundLead = teamMembers.find(
+          (member) => member.teamId === Number(id),
+        );
+        if (foundLead) {
+          setLead(foundLead);
+        } else {
+          setError("Team lead not found");
+        }
+      } catch {
+        // eslint-disable-line @typescript-eslint/no-unused-vars
+        setError("Failed to load team lead data.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchLead();
+  }, [id]);
+
+  if (isLoading) {
+    return <TeamInfoPageSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
+          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
+          <span className="text-xl font-semibold">Error: {error}</span>
+          <p className="mt-2 text-sm">
+            Please try again later or go back to the team page.
+          </p>
+          <Link href="/team">
+            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+              Go to Team Page
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!lead) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
+          <TriangleAlert className="mb-4 h-12 w-12 text-muted-foreground" />
+          <Typography variant="h1" className="mb-6">
+            Team Lead Not Found
+          </Typography>
+          <Typography className="mb-8 text-muted-foreground">
+            The team lead you're looking for doesn't exist.
+          </Typography>
+          <Link href="/team">
+            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+              Back to Team
+            </button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen w-full">
       <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
         <div className="flex flex-col items-center justify-center gap-2">
           <div className="h-32 w-32 overflow-hidden rounded-full border-2">
-            <img
+            <Image
               className="h-full w-full object-cover"
-              src={`${
-                teamMembers[userid] ? teamMembers[userid].image : "not found"
-              }`}
-              alt=""
+              src={lead.image}
+              alt={lead.name}
+              width={128}
+              height={128}
             />
           </div>
           <div className="leading-2 flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold text-white">
-              {teamMembers[userid]
-                ? teamMembers[userid].name
-                : "Member not found"}
-            </h1>
-            <h1 className="text-md font-bold text-zinc-200">
-              {teamMembers[userid]
-                ? teamMembers[userid].position
-                : "Member not found"}
-            </h1>
+            <h1 className="text-2xl font-bold text-white">{lead.name}</h1>
+            <h1 className="text-md font-bold text-zinc-200">{lead.position}</h1>
           </div>
         </div>
       </div>
       <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
         <div className="hidden h-36 w-80 lg:block">
-          <img src="/image/logo.png" alt="" />
+          <Image src="/image/logo.png" alt="" width={50} height={50} />
         </div>
         <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
           <h1 className="text-2xl">Connect with Our Team</h1>
           <div className="mt-3 flex flex-col gap-1">
-            <div className="flex items-center justify-center gap-1 text-zinc-600">
-              {logo[1]}
-              <Link href={`${teamMembers[userid]?.linkedin}`}>
-                <h1 className="cursor-pointer text-xl">Linkedin</h1>
-              </Link>
-            </div>
-            {teamMembers[userid]?.Email !== "" && (
+            {lead.linkedin && (
               <div className="flex items-center justify-center gap-1 text-zinc-600">
-                {logo[4]}
-                <h1 className="cursor-pointer text-xl">
-                  {teamMembers[userid]?.Email}
-                </h1>
+                <LinkedinIcon />
+                <Link target="_blank" href={lead.linkedin}>
+                  <h1 className="cursor-pointer text-xl">Linkedin</h1>
+                </Link>
+              </div>
+            )}
+            {lead.Email && (
+              <div className="flex items-center justify-center gap-1 text-zinc-600">
+                <MessageSquareHeartIcon />
+                <h1 className="cursor-pointer text-xl">{lead.Email}</h1>
               </div>
             )}
           </div>

@@ -1,7 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { user } from "./auth-schema";
 import { v4 as uuid } from "uuid";
-import { create } from "domain";
 
 export const event = sqliteTable("event", {
   id: text("id")
@@ -22,6 +21,8 @@ export const event = sqliteTable("event", {
   gallery: text("gallery"), // JSON stringified array of images
   details: text("details"),
   rules: text("rules"),
+  location: text("location"),
+  category: text("category"),
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
 });
