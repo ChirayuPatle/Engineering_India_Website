@@ -14,6 +14,10 @@ export const env = createEnv({
     TURSO_AUTH_TOKEN: z.string(),
     AUTH_GOOGLE_SECRET: z.string(),
     AUTH_GOOGLE_ID: z.string(),
+    GOOGLE_SHEETS_CLIENT_EMAIL: z.string(),
+    GOOGLE_SHEETS_PRIVATE_KEY: z.string(),
+    GOOGLE_SHEETS_SHEET_ID: z.string(),
+    SHEETDB_API_URL: z.string(),
   },
 
   /**
@@ -38,6 +42,10 @@ export const env = createEnv({
     NEXT_PUBLIC_URL_ENDPOINT: process.env.NEXT_PUBLIC_URL_ENDPOINT,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+    GOOGLE_SHEETS_CLIENT_EMAIL: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+    GOOGLE_SHEETS_PRIVATE_KEY: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
+    GOOGLE_SHEETS_SHEET_ID: process.env.GOOGLE_SHEETS_SHEET_ID,
+    SHEETDB_API_URL: process.env.SHEETDB_API_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

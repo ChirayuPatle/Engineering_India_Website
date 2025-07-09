@@ -55,6 +55,8 @@
     "drizzle-orm": "^0.41.0",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.4.4",
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^150.0.1",
     "gsap": "^3.12.7",
     "imagekitio-next": "^1.0.1",
     "lucide-react": "^0.475.0",

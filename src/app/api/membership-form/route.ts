@@ -4,6 +4,7 @@ import { membershipForm } from "@/database/schema/membership-schema";
 import { membershipFormSchema } from "@/lib/schemas";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
+import { getGoogleSheetsClient, updateSheet } from "@/lib/sheets";
 
 export async function POST(req: NextRequest) {
   try {
@@ -62,6 +63,26 @@ export async function POST(req: NextRequest) {
       reasonToJoin,
       eventIdeas,
     });
+
+    // Append data to Google Sheet
+    try {
+      const sheets = await getGoogleSheetsClient();
+      await updateSheet(sheets, [
+        new Date().toISOString(),
+        name,
+        year,
+        branch,
+        email,
+        JSON.stringify(areaOfInterest),
+        engagedInOtherClub,
+        previousExperience,
+        reasonToJoin,
+        eventIdeas,
+      ]);
+    } catch (error) {
+      console.error("Error appending to Google Sheet:", error);
+      // Continue without returning an error to the client
+    }
 
     return NextResponse.json(
       { message: "Form submitted successfully" },
