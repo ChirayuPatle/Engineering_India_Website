@@ -27,4 +27,12 @@ export const auth = betterAuth({
       account: account,
     },
   }),
+  // callbacks: {
+  //   session: ({ session, user }) => {
+  //     if (user) {
+  //       session.user.role = user.role;
+  //     }
+  //     return session;
+  //   },
+  // },
 });
