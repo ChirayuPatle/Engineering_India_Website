@@ -18,6 +18,7 @@ export const env = createEnv({
     GOOGLE_SHEETS_PRIVATE_KEY: z.string(),
     GOOGLE_SHEETS_SHEET_ID: z.string(),
     SHEETDB_API_URL: z.string(),
+    GOOGLE_APP_SCRIPT_API_KEY: z.string(),
   },
 
   /**
@@ -35,6 +36,7 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    GOOGLE_APP_SCRIPT_API_KEY: process.env.GOOGLE_APP_SCRIPT_API_KEY,
     AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
     AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
     TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL,
