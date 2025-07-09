@@ -52,3 +52,6 @@ google.json
 
 # idea files
 .idea
+
+
+turso_to_sheets_app_script.gs
