@@ -1,15 +1,13 @@
 import { db } from "@/database/db";
 import { membershipForm } from "@/database/schema";
-import { user as userSchema } from "@/database/schema/auth-schema";
-import { auth } from "@/lib/auth";
-import { eq } from "drizzle-orm";
+import { env } from "@/env";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     const apiKey = req.headers.get("x-api-key");
 
-    if (apiKey !== process.env.GOOGLE_APP_SCRIPT_API_KEY) {
+    if (apiKey !== env.GOOGLE_APP_SCRIPT_API_KEY) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
