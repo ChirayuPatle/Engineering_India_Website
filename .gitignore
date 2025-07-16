@@ -41,6 +41,9 @@ yarn-error.log*
 .env
 .env*.local
 
+# Google Service Account Key
+google.json
+
 # vercel
 .vercel
 
@@ -49,3 +52,6 @@ yarn-error.log*
 
 # idea files
 .idea
+
+
+turso_to_sheets_app_script.gs

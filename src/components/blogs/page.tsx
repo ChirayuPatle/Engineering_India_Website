@@ -23,7 +23,7 @@ const getValidImageUrl = (url: string | undefined | null): string => {
   try {
     new URL(url);
     return url; // It's a valid absolute URL
-  } catch (e) {
+  } catch {
     console.error(`Invalid image URL provided: ${url}`);
     return placeholder; // It's an invalid URL
   }
