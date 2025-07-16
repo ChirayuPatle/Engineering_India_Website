@@ -33,7 +33,6 @@ export default function RootLayout({
       <EventProvider>
         <html lang="en" className={`${dmsans.variable}`}>
           <body className="space">
-            <MarqueeWrapper />
             <Navbar />
             {/* <PostHogProvider> */}
             {children}
