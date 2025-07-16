@@ -116,7 +116,7 @@ export default function HomePage() {
   // }, []);
   return (
     <>
-      <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
+      {/* <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div> */}
 
       <Section className="relative min-h-screen pb-16 pt-32">
         <div className="absolute top-0 z-0 min-h-screen w-full bg-transparent">
