@@ -74,7 +74,7 @@ export function DashboardSidebar({
   // const { loading, user } = useUser();
 
   const navItems = [
-    { title: "Dashboard", icon: BarChart3, path: "/dashboard" },
+    { title: "Home", icon: BarChart3, path: "/dashboard" },
     { title: "Profile", icon: User, path: "/dashboard/profile" },
     { title: "All Events", icon: Calendar, path: "/dashboard/events" },
     {
@@ -146,7 +146,7 @@ export function DashboardSidebar({
                 />
               ))}
             </div>
-            <div className="mt-4 px-3">
+            {/* <div className="mt-4 px-3">
               <div className="flex w-full justify-center">
                 <Link href="/dashboard/membership">
                   <Button
@@ -158,7 +158,7 @@ export function DashboardSidebar({
                   </Button>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </nav>
 
           <div className="border-t p-3">

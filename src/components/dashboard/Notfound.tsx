@@ -15,7 +15,7 @@ const NotFound: React.FC<NotFoundProps> = ({
   imageHeight = 400,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 p-4 text-center text-gray-500 dark:text-gray-400">
+    <div className="flex flex-col items-center justify-center gap-6 p-4 text-center text-gray-500">
       <h1 className="text-xl font-semibold md:text-2xl">{message}</h1>
       <Image
         src={imageSrc}
