@@ -312,7 +312,7 @@ export default function EventPage() {
               </section>
             )}
 
-            {parsedGallery.length > 0 && (
+            {/* {parsedGallery.length > 0 && (
               <section id="gallery" className="scroll-mt-20 space-y-6">
                 <Typography as="h1" className="text-2xl font-bold">
                   Gallery
@@ -330,7 +330,7 @@ export default function EventPage() {
                   ))}
                 </div>
               </section>
-            )}
+            )} */}
 
             {parsedFaqs.length > 0 && (
               <section id="faq" className="scroll-mt-20 space-y-6">

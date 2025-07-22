@@ -8,7 +8,7 @@ import {
   event,
   payment,
   user,
-  membership,
+  membershipForm,
 } from "@/database/schema";
 
 export async function GET(req: NextRequest) {
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       upcomingEvents,
       recentPayments,
       currentUser,
-      membershipStatus,
+      membershipFormStatus,
     ] = await Promise.all([
       db.select().from(registration).where(eq(registration.userId, userId)),
       db
@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
         .orderBy(desc(payment.paymentDate))
         .limit(5),
       db.select().from(user).where(eq(user.id, userId)),
-      db.select().from(membership).where(eq(membership.userId, userId)),
+      db.select().from(membershipForm).where(eq(membershipForm.userId, userId)),
     ]);
 
     return NextResponse.json({
@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
       payments: recentPayments,
       user: currentUser[0],
       membership: {
-        hasSubmitted: membershipStatus.length > 0,
+        hasSubmitted: membershipFormStatus.length > 0,
       },
     });
   } catch (err) {

@@ -98,9 +98,9 @@ function TeamInfoPage(): JSX.Element {
     <div className="h-screen w-full">
       <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
         <div className="flex flex-col items-center justify-center gap-2">
-          <div className="h-32 w-32 overflow-hidden rounded-full border-2">
+          <div className="relative h-32 w-32 overflow-hidden rounded-full border-2">
             <Image
-              className="h-full w-full object-cover"
+              className="object-cover"
               src={developer.image}
               alt={developer.name}
               fill

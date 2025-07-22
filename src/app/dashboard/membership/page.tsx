@@ -1,17 +1,6 @@
 "use client";
-import { MessageCircle } from "lucide-react";
 
 function Membership() {
-  const whatsappContacts = [
-    { number: "+919373690752", label: "Primary Contact" },
-    { number: "+919146655108", label: "Secondary Contact" },
-  ];
-
-  const handleWhatsAppClick = (raw: string) => {
-    const clean = raw.replace(/\s+/g, "");
-    window.open(`https://wa.me/${clean}`, "_blank");
-  };
-
   return (
     <main className="flex items-center justify-center px-4 py-10">
       <section className="w-full max-w-2xl space-y-8 rounded-2xl border-[1px] border-zinc-300 bg-white p-6 sm:p-10">

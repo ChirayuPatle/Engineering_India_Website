@@ -11,45 +11,30 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
+import { useCurrentUser } from "@/hooks/use-user";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
-// import { useUser } from "@/context/userContext";
 
 export default function Feedback() {
-  // const { user } = useUser();
-  const [formData, setFormData] = useState({
-    // name: user?.name || "",
-    // email: user?.email || "",
-    email: "email",
-    name: "name",
+  const { data: user } = useCurrentUser();
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Update the auto-filled fields if user context changes
-  useEffect(
-    () => {
-      setFormData((prev) => ({
-        ...prev,
-        // name: user?.name || "",
-        // email: user?.email || "",
-        name: "",
-        email: "",
+  useEffect(() => {
+    if (user) {
+      setFormState((prevState) => ({
+        ...prevState,
+        name: user.name ?? "",
+        email: user.email ?? "",
       }));
-    },
-    [
-      // user
-    ],
-  );
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+    }
+  }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,29 +42,26 @@ export default function Feedback() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/v1/feedback", {
+      const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formState),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMessage(data.error || "Failed to submit feedback.");
+        setErrorMessage(data.message || "Failed to submit feedback.");
         return;
       }
 
       setSubmitted(true);
 
-      // Reset only the message after submission, keeping the auto-filled name and email
       setTimeout(() => {
         setSubmitted(false);
-        setFormData({
-          // name: user?.name || "",
-          // email: user?.email || "",
-          name: "",
-          email: "",
+        setFormState({
+          name: user?.name ?? "",
+          email: user?.email ?? "",
           message: "",
         });
       }, 3000);
@@ -141,8 +123,10 @@ export default function Feedback() {
                         id="name"
                         name="name"
                         placeholder="Your name"
-                        value={formData.name}
-                        onChange={handleChange}
+                        value={formState.name}
+                        onChange={(e) =>
+                          setFormState({ ...formState, name: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -155,8 +139,10 @@ export default function Feedback() {
                         name="email"
                         type="email"
                         placeholder="Your email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={formState.email}
+                        onChange={(e) =>
+                          setFormState({ ...formState, email: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -171,8 +157,13 @@ export default function Feedback() {
                       name="message"
                       placeholder="Share your thoughts, suggestions, or experiences with our club"
                       rows={4}
-                      value={formData.message}
-                      onChange={handleChange}
+                      value={formState.message}
+                      onChange={(e) =>
+                        setFormState({
+                          ...formState,
+                          message: e.target.value,
+                        })
+                      }
                       required
                       className="min-h-[120px]"
                     />
