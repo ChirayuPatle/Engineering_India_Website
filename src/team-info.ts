@@ -626,7 +626,7 @@ const Devlopers: TeamMember[] = [
     position: "Co-ordinator",
     image:
       "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/PriyanshuKayarkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1ByaXlhbnNodUtheWFya2FyLnBuZyIsImlhdCI6MTc0MzM1NDU5MSwiZXhwIjoyMDU4NzE0NTkxfQ.688wSsq0XWzsmmPd_dRPFKam8zq_BtmqgRKP2J3FqJc",
-    linkedin: "https://www.linkedin.com/in/priyanshu-li/",
+    linkedin: "https://www.linkedin.com/in/priyanshukayarkar",
     Email: "priyanshu.kayarkar009@gmail.com",
   },
   {
@@ -634,7 +634,7 @@ const Devlopers: TeamMember[] = [
     name: "Chirayu Patle",
     position: "Co-ordinator",
     image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/ChirayuPatle.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL0NoaXJheXVQYXRsZS5qcGVnIiwiaWF0IjoxNzQzMzU0NjEwLCJleHAiOjIwNTg3MTQ2MTB9.RLwY6x6oo76SEhVg7Ixka9I64JkR4gkBwgX9QmDjWzo",
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753200516/chiryu_a91uyo.jpg",
     linkedin: "https://www.linkedin.com/in/chirayu-patle-a78502290/",
     Email: "chirayupatle2@gmail.com",
   },
@@ -643,7 +643,7 @@ const Devlopers: TeamMember[] = [
     name: "Muchkundraje Thote",
     position: "Co-ordinator",
     image:
-      "https://res.cloudinary.com/dzryfm8cb/image/upload/v1743320282/12-crop_m1lwb0.jpg",
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753201045/much-org-1_xp2amh.jpg",
     linkedin: "https://www.linkedin.com/in/muchkund-thote/",
     Email: "muchkundthote@gmail.com",
   },

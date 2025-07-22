@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { StatCard } from "@/components/dashboard/StatCard";
 import { UpcomingEvents } from "@/components/dashboard/UpcomingEvents";
 import { PaymentCard } from "@/components/dashboard/PaymentCard";
@@ -11,8 +9,8 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { SubmittedConfirmation } from "@/components/dashboard/SubmittedConfirmation";
-import { useCurrentUser } from "@/hooks/use-user";
 import { Skeleton } from "@/components/ui/skeleton";
+import { type User } from "@/types";
 
 export interface Payment {
   id: string;
@@ -43,6 +41,10 @@ interface DashboardResponse {
   registeredEvents?: Registration[];
   upcomingEvents?: Event[];
   payments?: Payment[];
+  user?: User;
+  membership?: {
+    hasSubmitted: boolean;
+  };
 }
 
 const fetchDashboardData = async (): Promise<DashboardResponse> => {
@@ -84,41 +86,24 @@ const DashboardSkeleton = () => (
 export default function DashboardPage() {
   const router = useRouter();
 
-  const { data: membershipStatus, isLoading: statusLoading } = useQuery({
-    queryKey: ["membership-status"],
-    queryFn: async (): Promise<{ hasSubmitted: boolean }> => {
-      const res = await fetch("/api/membership-form/status");
-      if (!res.ok) {
-        throw new Error("Failed to fetch membership status.");
-      }
-      return res.json() as Promise<{ hasSubmitted: boolean }>;
-    },
-    refetchOnWindowFocus: false,
-  });
-
   const { data, isLoading, isError } = useQuery<DashboardResponse>({
     queryKey: ["dashboard"],
     queryFn: fetchDashboardData,
   });
 
-  const {
-    data: userData,
-    isLoading: userLoading,
-    error: userError,
-  } = useCurrentUser();
-
-  const userName = userData?.name ?? "User";
+  const userName = data?.user?.name ?? "User";
   const registeredEvents = data?.registeredEvents ?? [];
   const upcomingEvents = data?.upcomingEvents ?? [];
   const payments = data?.payments ?? [];
+  const membershipStatus = data?.membership;
 
   const greeting = useMemo(() => getGreeting(), []);
 
-  if (isLoading || userLoading || statusLoading) {
+  if (isLoading) {
     return <DashboardSkeleton />;
   }
 
-  if (isError || userError) {
+  if (isError) {
     return (
       <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
         <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
