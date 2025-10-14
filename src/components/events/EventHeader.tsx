@@ -29,53 +29,21 @@ interface EventHeaderProps {
 }
 
 export default function EventHeader({ event }: EventHeaderProps) {
-  const [gallery, setGallery] = useState<string[]>([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const router = useRouter();
   const startDate = new Date(event.event_start_date);
   const isValidDate = !isNaN(startDate.getTime());
   const formatDate = (date: Date) => format(date, "MMMM d, yyyy");
 
-  useEffect(() => {
-    const selectedEvent = events.find((e) => e.id === event.event_id);
-    if (selectedEvent) {
-      setGallery(selectedEvent.images || []);
-    }
-  }, [event.event_id]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        gallery.length > 0 ? (prevIndex + 1) % gallery.length : 0,
-      );
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [gallery]);
-
   return (
     <div className="animate-fade-in">
       <div className="relative h-[40vh] w-full overflow-hidden md:h-[60vh]">
-        {gallery.length > 0 ? (
-          <Image
-            src={
-              gallery[currentImageIndex] ??
-              event.event_image ??
-              "/placeholder-image.jpg"
-            }
-            alt="Event Gallery Image"
-            fill
-            className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
-            priority
-          />
-        ) : (
-          <Image
-            src={event.event_image ?? "/placeholder-image.jpg"}
-            alt="Event Image"
-            fill
-            className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
-            priority
-          />
-        )}
+        <Image
+          src={event.event_image ?? "/placeholder-image.jpg"}
+          alt="Event Image"
+          fill
+          className="h-full w-full object-cover transition-opacity duration-500 ease-in-out"
+          priority
+        />
         <div className="absolute inset-0 bg-black/40" />
         <button
           onClick={() => router.back()}
@@ -124,7 +92,8 @@ export default function EventHeader({ event }: EventHeaderProps) {
             <Image
               src={event.event_image ?? "/placeholder-image.jpg"}
               alt={event.event_title}
-              fill
+              width={300}
+              height={200}
               className="aspect-square h-auto w-full object-cover md:aspect-[4/3]"
               priority
             />
@@ -139,12 +108,6 @@ export default function EventHeader({ event }: EventHeaderProps) {
                   Paid
                 </Badge>
               ) : (
-                // <Badge
-                //   variant="outline"
-                //   className="border-black px-3 py-1 text-lg text-black"
-                // >
-                //   ₹ {event.registration_fee.toLocaleString()}
-                // </Badge>
                 <Badge
                   variant="outline"
                   className="border-green-500 px-3 py-1 text-lg text-green-500"

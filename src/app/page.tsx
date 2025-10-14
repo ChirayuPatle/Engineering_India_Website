@@ -4,7 +4,7 @@ import Container from "@/components/landing/container";
 import EventsGallery from "@/components/landing/eventGallery";
 import Faq from "@/components/landing/faq";
 import Feedback from "@/components/landing/feedback";
-import magzine from "@/components/landing/magzine";
+import Magzine from "@/components/landing/magzine";
 import Section from "@/components/landing/section";
 import Timeline from "@/components/ui/Timeline";
 import { ArrowRight, Building, Rocket, Users } from "lucide-react";
@@ -116,7 +116,7 @@ export default function HomePage() {
   // }, []);
   return (
     <>
-      <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div>
+      {/* <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div> */}
 
       <Section className="relative min-h-screen pb-16 pt-32">
         <div className="absolute top-0 z-0 min-h-screen w-full bg-transparent">
@@ -259,7 +259,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {[AboutSection, EventsGallery, Timeline, magzine, Faq, Feedback].map(
+      {[AboutSection, EventsGallery, Timeline, Magzine, Faq, Feedback].map(
         (Component, index) => (
           <Section key={index}>
             <div className="min-h-screen w-full">
