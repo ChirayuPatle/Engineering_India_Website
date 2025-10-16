@@ -1,14 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { db } from "@/database/db";
 import { event } from "@/database/schema";
-import { authMiddleware } from "@/utils/auth-middleware";
-import { isAdmin } from "@/lib/role";
+import { requireAdmin } from "@/lib/auth-helpers";
 import { v4 as uuid } from "uuid";
 
-export async function POST(req: NextRequest) {
-  const user = await authMiddleware(req);
-  if (!user || !isAdmin(user)) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+export async function POST(_req: NextRequest) {
+  // Check admin authentication
+  const authResult = await requireAdmin();
+  if (!authResult.authorized || !authResult.user) {
+    return NextResponse.json(
+      { error: authResult.error || "Unauthorized" },
+      { status: 401 },
+    );
   }
 
   const id = uuid();

@@ -7,116 +7,89 @@ import Feedback from "@/components/landing/feedback";
 import Magzine from "@/components/landing/magzine";
 import Section from "@/components/landing/section";
 import Timeline from "@/components/ui/Timeline";
-import { ArrowRight, Building, Rocket, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Building, Rocket, Users, Sparkles } from "lucide-react";
 import { Bebas_Neue } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import gsap from "gsap";
+import Lenis from "@studio-freight/lenis";
 
 const bebasNeue = Bebas_Neue({ subsets: ["latin"], weight: "400" });
 
 export default function HomePage() {
-  // useEffect(() => {
-  //   if (!sessionStorage.getItem("animationPlayed")) {
-  //     gsap.from(".header-letter", {
-  //       y: 100,
-  //       scale: 0.6,
-  //       opacity: 0,
-  //       duration: 1,
-  //       ease: "back.out(1.7)",
-  //       stagger: 0.2,
-  //     });
+  useEffect(() => {
+    if (!sessionStorage.getItem("animationPlayed")) {
+      gsap.from(".header-letter", {
+        y: 100,
+        scale: 0.6,
+        opacity: 0,
+        duration: 1,
+        ease: "back.out(1.7)",
+        stagger: 0.2,
+      });
 
-  //     gsap.from([".subtitle", ".cta-button"], {
-  //       opacity: 0,
-  //       y: 50,
-  //       duration: 1,
-  //       delay: 3,
-  //       ease: "power2.out",
-  //     });
+      gsap.from([".subtitle", ".cta-button"], {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: 3,
+        ease: "power2.out",
+      });
 
-  //     gsap.from(".stat-item", {
-  //       opacity: 0,
-  //       y: 40,
-  //       duration: 1,
-  //       delay: 1,
-  //       ease: "power2.out",
-  //       stagger: 0.2,
-  //     });
+      gsap.from(".stat-item", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        delay: 1,
+        ease: "power2.out",
+        stagger: 0.2,
+      });
 
-  //     gsap.from(".trusted-by", {
-  //       opacity: 0,
-  //       y: 40,
-  //       duration: 1,
-  //       delay: 1.5,
-  //       ease: "power2.out",
-  //     });
+      sessionStorage.setItem("animationPlayed", "true");
+    }
+  }, []);
 
-  //     sessionStorage.setItem("animationPlayed", "true");
-  //   }
-  // }, []);
+  useEffect(() => {
+    const handleRefresh = () => {
+      // Remove animation flag on page refresh
+      sessionStorage.removeItem("animationPlayed");
+    };
 
-  // useEffect(() => {
-  //   const handleRefresh = () => {
-  //     // Remove animation flag on page refresh
-  //     sessionStorage.removeItem("animationPlayed");
-  //   };
+    window.addEventListener("beforeunload", handleRefresh);
+    return () => window.removeEventListener("beforeunload", handleRefresh);
+  }, []);
 
-  //   window.addEventListener("beforeunload", handleRefresh);
-  //   return () => window.removeEventListener("beforeunload", handleRefresh);
-  // }, []);
+  useEffect(() => {
+    gsap.to(".circle", {
+      rotate: 360,
+      repeat: -1,
+      duration: 5,
+      ease: "none",
+    });
+  }, []);
 
-  // useEffect(() => {
-  //   const cursor = document.querySelector(".cursor");
-  //   const follower = document.querySelector(".cursor-follower");
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
 
-  //   document.addEventListener("mousemove", (e) => {
-  //     gsap.to(cursor, {
-  //       x: e.clientX,
-  //       y: e.clientY,
-  //       duration: 0.3,
-  //       ease: "power3",
-  //     });
-  //     gsap.to(follower, {
-  //       x: e.clientX,
-  //       y: e.clientY,
-  //       duration: 0.4,
-  //       ease: "power1.out",
-  //     });
-  //   });
+    const raf = (time: any) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
 
-  //   gsap.to(".circle", {
-  //     rotate: 360,
-  //     repeat: -1,
-  //     duration: 5,
-  //     // yoyo:true,
-  //     ease: "none",
-  //   });
-
-  //   return () => {
-  //     // Cleanup to prevent GSAP memory leaks
-  //     gsap.killTweensOf(cursor);
-  //     gsap.killTweensOf(follower);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   const lenis = new Lenis({
-  //     duration: 1.2,
-  //     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  //     smoothWheel: true,
-  //   });
-
-  //   const raf = (time: any) => {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   };
-
-  //   requestAnimationFrame(raf);
-  //   return () => lenis.destroy();
-  // }, []);
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
+  }, []);
+  
   return (
     <>
-      {/* <div className="pointer-events-none fixed left-0 top-0 z-50 hidden h-4 w-4 rounded-full bg-white mix-blend-difference lg:block"></div> */}
+      {/* Announcement Marquee */}
+      
 
       <Section className="relative min-h-screen pb-16 pt-32">
         <div className="absolute top-0 z-0 min-h-screen w-full bg-transparent">
@@ -215,13 +188,21 @@ export default function HomePage() {
               </Link>{" "}
               . We build, learn, and innovate.
             </p>
-            <Link
-              href="/dashboard/membership"
-              className="{cta-button} z-50 mb-6 inline-flex cursor-pointer items-center rounded-lg bg-[#0094FF] px-6 py-2 text-base font-medium text-white transition-colors hover:bg-[#0094FF]/90 sm:text-lg md:px-8 md:py-3 md:text-xl"
-            >
-              Join the Team
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+
+            {/* Prarambh CTA Button */}
+            <div className="z-20 mb-8">
+              <Button
+                size="lg"
+                className="group bg-black text-lg font-semibold text-white shadow-lg transition-all hover:bg-gray-900 hover:shadow-xl"
+                asChild
+              >
+                <Link href="/prarambh">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  Register for Prarambh 2025
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
 
             <div className="mt-16 grid w-full max-w-3xl grid-cols-2 gap-y-8 px-4 text-zinc-700 sm:grid-cols-3 sm:gap-x-8 sm:px-6">
               {[

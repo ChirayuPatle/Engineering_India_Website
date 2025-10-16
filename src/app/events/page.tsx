@@ -53,6 +53,21 @@ export default function EventsPage() {
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Hardcoded Hackathon 2025 Event */}
+            <Link
+              href="/events/hackathon"
+              className="hover:opacity-90"
+            >
+              <EventCard
+                title="HACKATHON 2025"
+                date={new Date("2025-11-01")}
+                location="YCCE, Nagpur"
+                description="Unleash your creativity and technical prowess in our flagship 24-hour hackathon! Build innovative solutions, collaborate with talented developers, and compete for exciting prizes."
+                imageUrl="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpfeU5o0XrTM2A4iGtHSU9JzXjlhanE7L0yQkV"
+              />
+            </Link>
+
+            {/* Dynamic events from database */}
             {events.map((event) => (
               <Link
                 key={event.id}

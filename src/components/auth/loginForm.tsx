@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
+import toast from "react-hot-toast";
 
 import { useState } from "react";
 
@@ -17,20 +18,38 @@ export function LoginForm({
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    await authClient.signIn.social(
-      {
-        provider: "google",
-        callbackURL: "/",
-      },
-      {
-        onRequest: () => {
-          setLoading(true);
+    
+    try {
+      await authClient.signIn.social(
+        {
+          provider: "google",
+          callbackURL: "/",
         },
-        onResponse: () => {
-          setLoading(false);
+        {
+          onRequest: () => {
+            setLoading(true);
+          },
+          onResponse: () => {
+            setLoading(false);
+          },
+          onError: (ctx) => {
+            setLoading(false);
+            console.error("Auth error:", ctx.error);
+            
+            // Handle specific error cases
+            if (ctx.error.message?.includes("offline")) {
+              toast.error("Authentication failed. Please clear your browser cache and try again.");
+            } else {
+              toast.error("Failed to sign in. Please try again.");
+            }
+          },
         },
-      },
-    );
+      );
+    } catch (error) {
+      setLoading(false);
+      console.error("Sign in error:", error);
+      toast.error("An error occurred during sign in. Please try again.");
+    }
   };
 
   return (

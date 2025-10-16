@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface EventCardProps {
   title: string;
@@ -20,6 +21,13 @@ export function EventCard({
   description,
   imageUrl,
 }: EventCardProps) {
+  const [formattedDate, setFormattedDate] = useState<string>("");
+
+  useEffect(() => {
+    // Format date only on client side to avoid hydration mismatch
+    setFormattedDate(date.toLocaleDateString('en-GB'));
+  }, [date]);
+
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-background p-2 transition-all">
       {/* Image Section */}
@@ -43,7 +51,9 @@ export function EventCard({
           <div className="mt-2 flex flex-wrap items-center gap-4 text-muted-foreground">
             <div className="flex items-center gap-1">
               <CalendarIcon className="h-4 w-4" />
-              <span className="text-sm">{date.toLocaleDateString()}</span>
+              <span className="text-sm" suppressHydrationWarning>
+                {formattedDate || date.toLocaleDateString('en-GB')}
+              </span>
             </div>
             <div className="flex items-center gap-1">
               <MapPinIcon className="h-4 w-4" />

@@ -27,12 +27,13 @@ export const auth = betterAuth({
       account: account,
     },
   }),
-  // callbacks: {
-  //   session: ({ session, user }) => {
-  //     if (user) {
-  //       session.user.role = user.role;
-  //     }
-  //     return session;
-  //   },
-  // },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        required: true,
+        defaultValue: "USER",
+      },
+    },
+  },
 });

@@ -32,7 +32,7 @@ export default function EventHeader({ event }: EventHeaderProps) {
   const router = useRouter();
   const startDate = new Date(event.event_start_date);
   const isValidDate = !isNaN(startDate.getTime());
-  const formatDate = (date: Date) => format(date, "MMMM d, yyyy");
+  const formatDate = (date: Date) => format(date, "dd/MM/yyyy");
 
   return (
     <div className="animate-fade-in">

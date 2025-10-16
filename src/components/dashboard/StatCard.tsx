@@ -17,15 +17,15 @@ export function StatCard({
   className,
 }: StatCardProps) {
   return (
-    <Card className={cn("min-w-[10rem] md:min-w-[20rem]", className)}>
-      <CardHeader className="flex w-full flex-row items-center justify-between pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <div className="">{icon}</div>
+    <Card className={cn("w-full", className)}>
+      <CardHeader className="flex w-full flex-row items-center justify-between pb-2 px-4 sm:px-6 pt-4 sm:pt-6">
+        <CardTitle className="text-xs sm:text-sm font-medium truncate pr-2">{title}</CardTitle>
+        <div className="flex-shrink-0">{icon}</div>
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+      <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
+        <div className="text-xl sm:text-2xl lg:text-3xl font-bold">{value}</div>
         {description && (
-          <p className="text-xs text-muted-foreground">{description}</p>
+          <p className="text-xs text-muted-foreground mt-1">{description}</p>
         )}
       </CardContent>
     </Card>

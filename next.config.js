@@ -11,6 +11,18 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 /** @type {import("next").NextConfig} */
 const config = {
+  eslint: {
+    // Only run ESLint on these directories during production builds
+    dirs: ["src/app", "src/components", "src/lib"],
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: false,
+  },
+  typescript: {
+    // Dangerously allow production builds even if there are type errors
+    // Set to true only if you want to ignore TypeScript errors during build
+    ignoreBuildErrors: false,
+  },
   images: {
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 60,
@@ -22,6 +34,10 @@ const config = {
       {
         protocol: "https",
         hostname: "hebbkx1anhila5yf.public.blob.vercel-storage.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ebqqc80v6n.ufs.sh",
       },
       {
         protocol: "https",
@@ -43,6 +59,14 @@ const config = {
       {
         protocol: "https",
         hostname: "ik.imagekit.io",
+      },
+      {
+        protocol: "https",
+        hostname: "utfs.io",
+      },
+      {
+        protocol: "https",
+        hostname: "ebqqc80v6n.ufs.sh",
       },
     ],
   },

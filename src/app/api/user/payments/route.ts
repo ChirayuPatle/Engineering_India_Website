@@ -1,6 +1,6 @@
 import { db } from "@/database/db";
 import { auth } from "@/lib/auth";
-import { payment, type event } from "@/database/schema";
+import { payment, type event, hackathon } from "@/database/schema";
 import { eq, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -52,9 +52,14 @@ export async function GET(req: Request) {
       },
     });
 
+    // Fetch hackathon registrations (they also count as payments)
+    const hackathonRegistrations = await db.query.hackathon.findMany({
+      where: eq(hackathon.userId, session.user.id),
+    });
+
     type EventType = typeof event.$inferSelect;
 
-    const formatted = userPayments.map((p) => {
+    const formattedPayments = userPayments.map((p) => {
       const eventData = p.event as EventType | undefined;
       return {
         id: p.id,
@@ -62,13 +67,52 @@ export async function GET(req: Request) {
         amount: Number(p.amount),
         status: p.rejected ? "rejected" : p.verified ? "paid" : "pending",
         transactionId: p.transactionId,
+        paymentScreenshot: null,
         date: new Date(
           p.paymentDate ?? p.createdAt ?? Date.now(),
-        ).toDateString(),
+        ).toLocaleDateString("en-GB"),
       };
     });
 
-    return NextResponse.json(formatted, { status: 200 });
+    const formattedHackathonPayments = hackathonRegistrations.map(
+      (h: typeof hackathon.$inferSelect) => {
+        const statusMap = {
+          pending: "pending",
+          verified: "paid",
+          rejected: "rejected",
+        } as const;
+
+        return {
+          id: h.id,
+          eventName: "Hackathon 2025",
+          amount: 300, // Fixed hackathon registration fee
+          status: statusMap[h.status as keyof typeof statusMap] || "pending",
+          transactionId: h.transactionId || "N/A",
+          paymentScreenshot: h.paymentScreenshot,
+          date: new Date(h.createdAt).toLocaleDateString("en-GB"),
+        };
+      },
+    );
+
+    // Combine both types of payments
+    const allPayments = [...formattedPayments, ...formattedHackathonPayments];
+
+    // Filter by status if provided
+    const filtered = status
+      ? allPayments.filter((p) => {
+          if (status === "paid") return p.status === "paid";
+          if (status === "pending") return p.status === "pending";
+          if (status === "rejected") return p.status === "rejected";
+          return true;
+        })
+      : allPayments;
+
+    // Sort by date (newest first)
+    filtered.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+
+    return NextResponse.json(filtered, { status: 200 });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(

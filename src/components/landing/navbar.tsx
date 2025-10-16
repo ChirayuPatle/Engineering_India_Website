@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { UserAvatar } from "@/components/ui/user-avatar";
 
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
@@ -85,22 +85,20 @@ export default function Navbar() {
               variant="ghost"
               className="relative h-8 w-8 rounded-full"
             >
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={user.image || "/default-avatar.png"}
-                  alt={user.name || "User"}
-                />
-                <AvatarFallback>
-                  {user.name
-                    ?.split(" ")
-                    .map((n) => n[0])
-                    .join("") || "U"}
-                </AvatarFallback>
-              </Avatar>
+              <UserAvatar 
+                name={user.name}
+                image={user.image}
+                className="h-8 w-8"
+              />
             </Button>
           ) : (
             <Button
-              onClick={() => authClient.signIn.social({ provider: "google" })}
+              onClick={
+                // () => authClient.signIn.social({ provider: "google" })
+                () => {
+                  router.push("/auth")
+                }
+              }
               variant="default"
             >
               Login
@@ -146,24 +144,18 @@ export default function Navbar() {
                 variant="ghost"
                 className="relative h-8 w-8 rounded-full border-none outline-none"
               >
-                <Avatar className="h-8 w-8">
-                  <AvatarImage
-                    src={user.image || "/default-avatar.png"}
-                    alt={user.name || "User"}
-                  />
-                  <AvatarFallback>
-                    {user.name
-                      ?.split(" ")
-                      .map((n) => n[0])
-                      .join("") || "U"}
-                  </AvatarFallback>
-                </Avatar>
+                <UserAvatar 
+                  name={user.name}
+                  image={user.image}
+                  className="h-8 w-8"
+                />
               </Button>
             ) : (
               <Button
                 onClick={() => {
-                  authClient.signIn.social({ provider: "google" });
-                  setIsOpen(false);
+                  router.push("/auth")
+                  // authClient.signIn.social({ provider: "google" });
+                  // setIsOpen(false);
                 }}
                 variant="default"
                 className="w-full"

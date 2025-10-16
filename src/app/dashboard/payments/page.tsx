@@ -26,6 +26,7 @@ interface Payment {
   amount: number;
   status: string;
   transactionId: string;
+  paymentScreenshot?: string | null;
 }
 
 function PaymentCardSkeleton() {
@@ -134,6 +135,7 @@ export default function PaymentsPage() {
               amount={payment.amount}
               status={payment.status as PaymentStatus}
               transactionId={payment.transactionId}
+              paymentScreenshot={payment.paymentScreenshot}
               onViewDetails={() =>
                 router.push(`/dashboard/payments/${payment.id}`)
               }

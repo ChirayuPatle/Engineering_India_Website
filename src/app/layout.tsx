@@ -1,19 +1,19 @@
 import "@/styles/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { DM_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 
-import Navbar from "@/components/landing/navbar";
-import Footer from "@/components/ui/Footer";
 import { EventProvider } from "@/context/eventContext";
 // import { UserProvider } from "@/context/userContext";
 import { ReactQueryProvider } from "@/context/providers/query-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
+import { UnregisterServiceWorker } from "@/components/UnregisterServiceWorker";
+import { Toaster } from "react-hot-toast";
+import { ConditionalLayout } from "@/components/ConditionalLayout";
 
-const dmsans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -30,15 +30,15 @@ export default function RootLayout({
     // <UserProvider>
     <ReactQueryProvider>
       <EventProvider>
-        <html lang="en" className={`${dmsans.variable}`}>
-          <body className="space">
-            <Navbar />
-            {/* <PostHogProvider> */}
-            {children}
-            {/* </PostHogProvider> */}
+        <html lang="en" className={`${inter.variable}`}>
+          <body className={`${inter.className} space`}>
+            <UnregisterServiceWorker />
+            <Toaster position="top-center" />
+            <ConditionalLayout>
+              {children}
+            </ConditionalLayout>
             <Analytics />
             <SpeedInsights />
-            <Footer />
           </body>
         </html>
       </EventProvider>

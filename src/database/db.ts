@@ -3,6 +3,9 @@ import {
   authSchema,
   eventSchema,
   membershipSchema,
+  formBuilderSchema,
+  blogSchema,
+  hackathonSchema,
 } from "@/database/schema/index";
 import { env } from "@/env";
 import { createClient } from "@libsql/client";
@@ -25,5 +28,8 @@ export const db = drizzle(client, {
     ...eventSchema,
     ...feedbackSchema,
     ...membershipSchema,
+    ...formBuilderSchema,
+    ...blogSchema,
+    ...hackathonSchema,
   },
 });

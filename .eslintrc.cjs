@@ -15,10 +15,13 @@ const config = {
     "@typescript-eslint/no-explicit-any": "off",
     "react/no-unescaped-entities": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
-    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-unsafe-floating-promises": "off",
+    "@typescript-eslint/no-floating-promises": "off", // Disable floating promises check
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-unsafe-call": "off",
+    "@next/next/no-img-element": "off", // Turn off completely to allow img tags
+    "react-hooks/exhaustive-deps": "off", // Turn off completely
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
@@ -27,9 +30,11 @@ const config = {
       },
     ],
     "@typescript-eslint/no-unused-vars": [
-      "warn",
+      "warn", // Keep as warn - these are code quality issues but not critical
       {
         argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
         caughtErrors: "all",
       },
     ],

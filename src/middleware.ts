@@ -25,7 +25,8 @@ export async function middleware(req: NextRequest) {
   if (
     !pathname.startsWith("/dashboard") &&
     !pathname.startsWith("/profile") &&
-    !pathname.startsWith("/auth")
+    !pathname.startsWith("/auth") &&
+    !pathname.startsWith("/admin")
   ) {
     console.log("Skipping non-protected route");
     return NextResponse.next();
@@ -35,16 +36,39 @@ export async function middleware(req: NextRequest) {
     const data = (await auth.api.getSession(req)) as unknown as SessionData;
 
     const isLoggedIn = !!data?.session;
+    const isAdmin = data?.user?.role === "ADMIN";
 
+    // Redirect logged-in users away from auth page
     if (pathname.startsWith("/auth")) {
       if (isLoggedIn) {
         const url = req.nextUrl.clone();
-        url.pathname = "/dashboard";
+        // Redirect admins to admin dashboard, others to user dashboard
+        url.pathname = isAdmin ? "/admin/dashboard" : "/dashboard";
         return NextResponse.redirect(url);
       }
       return NextResponse.next();
     }
 
+    // Protect admin routes - require login AND admin role
+    if (pathname.startsWith("/admin")) {
+      if (!isLoggedIn) {
+        const url = req.nextUrl.clone();
+        url.pathname = "/auth";
+        url.searchParams.set("redirect", pathname);
+        return NextResponse.redirect(url);
+      }
+
+      if (!isAdmin) {
+        // Non-admin users trying to access admin routes
+        const url = req.nextUrl.clone();
+        url.pathname = "/dashboard";
+        return NextResponse.redirect(url);
+      }
+
+      return NextResponse.next();
+    }
+
+    // Protect user dashboard and profile
     if (pathname.startsWith("/dashboard") || pathname.startsWith("/profile")) {
       if (!isLoggedIn) {
         const url = req.nextUrl.clone();
@@ -65,5 +89,10 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/profile/:path*", "/auth/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/profile/:path*",
+    "/auth/:path*",
+    "/admin/:path*",
+  ],
 };
