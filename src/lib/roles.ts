@@ -18,6 +18,8 @@ export function isModerator(role: string | null | undefined): boolean {
 }
 
 // Helper function to check if user has elevated privileges
-export function hasElevatedPrivileges(role: string | null | undefined): boolean {
+export function hasElevatedPrivileges(
+  role: string | null | undefined,
+): boolean {
   return role === UserRole.ADMIN || role === UserRole.MODERATOR;
 }

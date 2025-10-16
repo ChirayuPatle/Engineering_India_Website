@@ -15,7 +15,7 @@ export default async function AdminLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   // Check if user is admin
   const authResult = await requireAdmin();
-  
+
   if (!authResult.authorized || !authResult.user) {
     redirect(authResult.redirect || "/");
   }
@@ -24,16 +24,14 @@ export default async function AdminLayout({
     <div className="flex h-screen overflow-hidden bg-gray-50">
       {/* Sidebar */}
       <AdminSidebar user={authResult.user} />
-      
+
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Header */}
         <AdminHeader user={authResult.user} />
-        
+
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+        <main className="flex-1 overflow-y-auto p-6">{children}</main>
       </div>
     </div>
   );

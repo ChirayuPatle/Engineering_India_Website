@@ -43,9 +43,7 @@ export default function AdminHeader({ user }: AdminHeaderProps) {
   return (
     <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6">
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold text-gray-900">
-          Admin Dashboard
-        </h1>
+        <h1 className="text-lg font-semibold text-gray-900">Admin Dashboard</h1>
       </div>
 
       <div className="flex items-center space-x-4">

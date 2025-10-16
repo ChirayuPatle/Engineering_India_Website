@@ -85,7 +85,7 @@ export default function Navbar() {
               variant="ghost"
               className="relative h-8 w-8 rounded-full"
             >
-              <UserAvatar 
+              <UserAvatar
                 name={user.name}
                 image={user.image}
                 className="h-8 w-8"
@@ -96,7 +96,7 @@ export default function Navbar() {
               onClick={
                 // () => authClient.signIn.social({ provider: "google" })
                 () => {
-                  router.push("/auth")
+                  router.push("/auth");
                 }
               }
               variant="default"
@@ -144,7 +144,7 @@ export default function Navbar() {
                 variant="ghost"
                 className="relative h-8 w-8 rounded-full border-none outline-none"
               >
-                <UserAvatar 
+                <UserAvatar
                   name={user.name}
                   image={user.image}
                   className="h-8 w-8"
@@ -153,7 +153,7 @@ export default function Navbar() {
             ) : (
               <Button
                 onClick={() => {
-                  router.push("/auth")
+                  router.push("/auth");
                   // authClient.signIn.social({ provider: "google" });
                   // setIsOpen(false);
                 }}

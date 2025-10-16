@@ -78,10 +78,7 @@ export const eventFormSchema = z.object({
   formSchema: z.array(formFieldSchema),
   title: z.string().optional(),
   description: z.string().optional(),
-  successMessage: z
-    .string()
-    .default("Thank you for registering!")
-    .optional(),
+  successMessage: z.string().default("Thank you for registering!").optional(),
 });
 
 /**
@@ -135,5 +132,7 @@ export type Conditional = z.infer<typeof conditionalSchema>;
 export type FormField = z.infer<typeof formFieldSchema>;
 export type EventFormInput = z.infer<typeof eventFormSchema>;
 export type FormSubmissionInput = z.infer<typeof formSubmissionSchema>;
-export type UpdateSubmissionStatus = z.infer<typeof updateSubmissionStatusSchema>;
+export type UpdateSubmissionStatus = z.infer<
+  typeof updateSubmissionStatusSchema
+>;
 export type EventInput = z.infer<typeof eventSchema>;

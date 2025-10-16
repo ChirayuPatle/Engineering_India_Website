@@ -1,7 +1,15 @@
 import { db } from "@/database/db";
 import { blog } from "@/database/schema";
 import { desc } from "drizzle-orm";
-import { FileText, Search, Filter, Plus, Eye, Edit, Trash2 } from "lucide-react";
+import {
+  FileText,
+  Search,
+  Filter,
+  Plus,
+  Eye,
+  Edit,
+  Trash2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -29,9 +37,7 @@ export default async function BlogsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Blog Management</h1>
-          <p className="mt-2 text-gray-600">
-            Create and manage blog posts
-          </p>
+          <p className="mt-2 text-gray-600">Create and manage blog posts</p>
         </div>
         <Link href="/admin/dashboard/blogs/new">
           <Button className="flex items-center gap-2">
@@ -139,7 +145,7 @@ export default async function BlogsPage() {
                           <div className="font-medium text-gray-900">
                             {post.title}
                           </div>
-                          <div className="text-sm text-gray-500 line-clamp-1">
+                          <div className="line-clamp-1 text-sm text-gray-500">
                             {post.excerpt || "No excerpt"}
                           </div>
                         </div>
@@ -158,7 +164,9 @@ export default async function BlogsPage() {
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
                         {post.publishedAt
-                          ? new Date(post.publishedAt).toLocaleDateString('en-GB')
+                          ? new Date(post.publishedAt).toLocaleDateString(
+                              "en-GB",
+                            )
                           : "Not published"}
                       </div>
                     </td>

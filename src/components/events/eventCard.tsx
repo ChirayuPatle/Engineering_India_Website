@@ -25,7 +25,7 @@ export function EventCard({
 
   useEffect(() => {
     // Format date only on client side to avoid hydration mismatch
-    setFormattedDate(date.toLocaleDateString('en-GB'));
+    setFormattedDate(date.toLocaleDateString("en-GB"));
   }, [date]);
 
   return (
@@ -52,7 +52,7 @@ export function EventCard({
             <div className="flex items-center gap-1">
               <CalendarIcon className="h-4 w-4" />
               <span className="text-sm" suppressHydrationWarning>
-                {formattedDate || date.toLocaleDateString('en-GB')}
+                {formattedDate || date.toLocaleDateString("en-GB")}
               </span>
             </div>
             <div className="flex items-center gap-1">

@@ -28,7 +28,10 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle } from "lucide-react";
 import * as z from "zod";
-import type { FormField, ValidationRule } from "@/database/schema/form-builder-schema";
+import type {
+  FormField,
+  ValidationRule,
+} from "@/database/schema/form-builder-schema";
 import Image from "next/image";
 
 interface DynamicRegistrationFormProps {
@@ -59,7 +62,9 @@ function createZodSchema(fields: FormField[]) {
         fieldSchema = z.string().email("Invalid email address");
         break;
       case "tel":
-        fieldSchema = z.string().min(10, "Phone number must be at least 10 digits");
+        fieldSchema = z
+          .string()
+          .min(10, "Phone number must be at least 10 digits");
         break;
       case "number":
         fieldSchema = z.coerce.number();
@@ -98,7 +103,7 @@ function createZodSchema(fields: FormField[]) {
             if (fieldSchema instanceof z.ZodString) {
               fieldSchema = fieldSchema.min(
                 Number(rule.value),
-                rule.message || `Minimum ${rule.value} characters required`
+                rule.message || `Minimum ${rule.value} characters required`,
               );
             }
             break;
@@ -106,7 +111,7 @@ function createZodSchema(fields: FormField[]) {
             if (fieldSchema instanceof z.ZodString) {
               fieldSchema = fieldSchema.max(
                 Number(rule.value),
-                rule.message || `Maximum ${rule.value} characters allowed`
+                rule.message || `Maximum ${rule.value} characters allowed`,
               );
             }
             break;
@@ -114,7 +119,7 @@ function createZodSchema(fields: FormField[]) {
             if (fieldSchema instanceof z.ZodNumber) {
               fieldSchema = fieldSchema.min(
                 Number(rule.value),
-                rule.message || `Minimum value is ${rule.value}`
+                rule.message || `Minimum value is ${rule.value}`,
               );
             }
             break;
@@ -122,7 +127,7 @@ function createZodSchema(fields: FormField[]) {
             if (fieldSchema instanceof z.ZodNumber) {
               fieldSchema = fieldSchema.max(
                 Number(rule.value),
-                rule.message || `Maximum value is ${rule.value}`
+                rule.message || `Maximum value is ${rule.value}`,
               );
             }
             break;
@@ -130,7 +135,7 @@ function createZodSchema(fields: FormField[]) {
             if (fieldSchema instanceof z.ZodString && rule.value) {
               fieldSchema = fieldSchema.regex(
                 new RegExp(String(rule.value)),
-                rule.message || "Invalid format"
+                rule.message || "Invalid format",
               );
             }
             break;
@@ -191,14 +196,14 @@ export function DynamicRegistrationForm({
       try {
         setIsLoading(true);
         setError(null);
-        
+
         const response = await fetch(`/api/admin/events/${eventId}/form`);
-        
+
         if (response.status === 404) {
           setError("No registration form has been created for this event yet.");
           return;
         }
-        
+
         if (!response.ok) {
           throw new Error("Failed to load registration form");
         }
@@ -208,7 +213,9 @@ export function DynamicRegistrationForm({
       } catch (err) {
         console.error("Error fetching form:", err);
         setError(
-          err instanceof Error ? err.message : "Failed to load registration form"
+          err instanceof Error
+            ? err.message
+            : "Failed to load registration form",
         );
       } finally {
         setIsLoading(false);
@@ -219,8 +226,12 @@ export function DynamicRegistrationForm({
   }, [eventId]);
 
   // Create form schema and default values dynamically
-  const formSchema = formData ? createZodSchema(formData.formSchema) : z.object({ _dummy: z.string().optional() });
-  const defaultValues = formData ? getDefaultValues(formData.formSchema) : { _dummy: "" };
+  const formSchema = formData
+    ? createZodSchema(formData.formSchema)
+    : z.object({ _dummy: z.string().optional() });
+  const defaultValues = formData
+    ? getDefaultValues(formData.formSchema)
+    : { _dummy: "" };
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -243,14 +254,14 @@ export function DynamicRegistrationForm({
       console.log("Form values:", values);
       console.log("Form values type:", typeof values);
       console.log("Form values keys:", Object.keys(values));
-      
+
       const payload = {
         eventId,
         formData: values,
       };
-      
+
       console.log("Request payload:", JSON.stringify(payload, null, 2));
-      
+
       const response = await fetch("/api/event/register", {
         method: "POST",
         headers: {
@@ -261,7 +272,7 @@ export function DynamicRegistrationForm({
 
       console.log("Response status:", response.status);
       console.log("Response ok:", response.ok);
-      
+
       const data = await response.json();
       console.log("Response data:", data);
 
@@ -269,7 +280,9 @@ export function DynamicRegistrationForm({
         throw new Error(data.error || "Failed to register for event");
       }
 
-      toast.success(formData?.successMessage || "Registration submitted successfully!");
+      toast.success(
+        formData?.successMessage || "Registration submitted successfully!",
+      );
       form.reset();
 
       if (onSuccess) {
@@ -282,7 +295,7 @@ export function DynamicRegistrationForm({
     } catch (error) {
       console.error("❌ Registration error:", error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to register for event"
+        error instanceof Error ? error.message : "Failed to register for event",
       );
     } finally {
       setIsSubmitting(false);
@@ -423,7 +436,9 @@ export function DynamicRegistrationForm({
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder={field.placeholder || "Select an option"} />
+                      <SelectValue
+                        placeholder={field.placeholder || "Select an option"}
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -564,7 +579,7 @@ export function DynamicRegistrationForm({
     return (
       <div className="rounded-lg border border-red-200 bg-red-50 p-6">
         <div className="flex items-start gap-3">
-          <AlertCircle className="h-5 w-5 text-red-600 mt-0.5" />
+          <AlertCircle className="mt-0.5 h-5 w-5 text-red-600" />
           <div>
             <h3 className="font-semibold text-red-900">Unable to Load Form</h3>
             <p className="mt-1 text-sm text-red-700">
@@ -580,10 +595,12 @@ export function DynamicRegistrationForm({
   }
 
   // Sort fields by order
-  const sortedFields = [...formData.formSchema].sort((a, b) => a.order - b.order);
+  const sortedFields = [...formData.formSchema].sort(
+    (a, b) => a.order - b.order,
+  );
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="mx-auto w-full max-w-2xl">
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900">
           {formData.title || `Register for ${eventName}`}
@@ -595,13 +612,13 @@ export function DynamicRegistrationForm({
 
       {/* Display form image if available */}
       {formData.formImage && (
-        <div className="mb-6 rounded-lg overflow-hidden border">
+        <div className="mb-6 overflow-hidden rounded-lg border">
           <Image
             src={formData.formImage}
             alt="Event QR Code or Banner"
             width={600}
             height={300}
-            className="w-full h-auto"
+            className="h-auto w-full"
           />
         </div>
       )}
@@ -611,11 +628,14 @@ export function DynamicRegistrationForm({
           {sortedFields.length === 0 ? (
             <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-6">
               <div className="flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5" />
+                <AlertCircle className="mt-0.5 h-5 w-5 text-yellow-600" />
                 <div>
-                  <h3 className="font-semibold text-yellow-900">No Form Fields</h3>
+                  <h3 className="font-semibold text-yellow-900">
+                    No Form Fields
+                  </h3>
                   <p className="mt-1 text-sm text-yellow-700">
-                    The registration form for this event hasn't been configured yet.
+                    The registration form for this event hasn't been configured
+                    yet.
                   </p>
                 </div>
               </div>

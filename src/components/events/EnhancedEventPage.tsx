@@ -37,7 +37,11 @@ interface EventDetailsProps {
   registrationId?: string;
 }
 
-export default function EnhancedEventPage({ eventId, isRegistered = false, registrationId }: EventDetailsProps) {
+export default function EnhancedEventPage({
+  eventId,
+  isRegistered = false,
+  registrationId,
+}: EventDetailsProps) {
   const [event, setEvent] = useState<any>(null);
   const [phases, setPhases] = useState<any[]>([]);
   const [resources, setResources] = useState<any[]>([]);
@@ -53,12 +57,14 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
   const fetchEventData = async () => {
     try {
-      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all([
-        fetch(`/api/events/${eventId}`),
-        fetch(`/api/events/${eventId}/phases`),
-        fetch(`/api/events/${eventId}/resources`),
-        fetch(`/api/events/${eventId}/payment-config`),
-      ]);
+      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all(
+        [
+          fetch(`/api/events/${eventId}`),
+          fetch(`/api/events/${eventId}/phases`),
+          fetch(`/api/events/${eventId}/resources`),
+          fetch(`/api/events/${eventId}/payment-config`),
+        ],
+      );
 
       if (eventRes.ok) setEvent(await eventRes.json());
       if (phasesRes.ok) setPhases(await phasesRes.json());
@@ -74,9 +80,11 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
   const handleDownloadResource = async (resourceId: string) => {
     try {
-      const response = await fetch(`/api/events/${eventId}/resources/${resourceId}/download`);
+      const response = await fetch(
+        `/api/events/${eventId}/resources/${resourceId}/download`,
+      );
       if (!response.ok) throw new Error("Download failed");
-      
+
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -103,20 +111,20 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
     const now = new Date();
     const start = new Date(event.startDate);
     const diff = start.getTime() - now.getTime();
-    
+
     if (diff < 0) return "Event started";
-    
+
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    
+
     return `${days}d ${hours}h remaining`;
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2 border-blue-600"></div>
           <p className="mt-4 text-gray-600">Loading event details...</p>
         </div>
       </div>
@@ -125,17 +133,19 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
   if (!event) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
+          <AlertCircle className="mx-auto h-12 w-12 text-red-500" />
           <h2 className="mt-4 text-xl font-semibold">Event not found</h2>
         </div>
       </div>
     );
   }
 
-  const publicResources = resources.filter(r => r.accessLevel === "public");
-  const registeredOnlyResources = resources.filter(r => r.accessLevel === "registered");
+  const publicResources = resources.filter((r) => r.accessLevel === "public");
+  const registeredOnlyResources = resources.filter(
+    (r) => r.accessLevel === "registered",
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -150,36 +160,36 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-end pb-12">
-          <div className="flex items-center gap-2 mb-4">
+
+        <div className="container relative mx-auto flex h-full flex-col justify-end px-4 pb-12">
+          <div className="mb-4 flex items-center gap-2">
             <Badge className="bg-white/20 text-white backdrop-blur-sm">
               {event.category || "Event"}
             </Badge>
             {isRegistered && (
               <Badge className="bg-green-500 text-white">
-                <CheckCircle className="w-3 h-3 mr-1" />
+                <CheckCircle className="mr-1 h-3 w-3" />
                 Registered
               </Badge>
             )}
           </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+
+          <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl">
             {event.name}
           </h1>
-          
+
           <div className="flex flex-wrap gap-6 text-white/90">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
+              <Calendar className="h-5 w-5" />
               <span>{formatDate(event.startDate)}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5" />
+              <Clock className="h-5 w-5" />
               <span>{getTimeRemaining()}</span>
             </div>
             {event.location && (
               <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
+                <MapPin className="h-5 w-5" />
                 <span>{event.location}</span>
               </div>
             )}
@@ -189,9 +199,9 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Left Column - Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6 lg:col-span-2">
             {/* Quick Actions */}
             <Card className="p-6">
               <div className="flex flex-wrap gap-4">
@@ -206,16 +216,24 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                 )}
                 {event.discordLink && (
                   <Button variant="outline" size="lg" asChild>
-                    <a href={event.discordLink} target="_blank" rel="noopener noreferrer">
-                      <MessageSquare className="w-4 h-4 mr-2" />
+                    <a
+                      href={event.discordLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageSquare className="mr-2 h-4 w-4" />
                       Join Discord
                     </a>
                   </Button>
                 )}
                 {event.whatsappLink && (
                   <Button variant="outline" size="lg" asChild>
-                    <a href={event.whatsappLink} target="_blank" rel="noopener noreferrer">
-                      <PhoneCall className="w-4 h-4 mr-2" />
+                    <a
+                      href={event.whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <PhoneCall className="mr-2 h-4 w-4" />
                       WhatsApp
                     </a>
                   </Button>
@@ -236,16 +254,20 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
               {/* About Tab */}
               <TabsContent value="about" className="space-y-6">
                 <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-4">About This Event</h2>
+                  <h2 className="mb-4 text-2xl font-bold">About This Event</h2>
                   <div
                     className="prose max-w-none"
-                    dangerouslySetInnerHTML={{ __html: event.description || "" }}
+                    dangerouslySetInnerHTML={{
+                      __html: event.description || "",
+                    }}
                   />
                 </Card>
 
                 {event.rules && (
                   <Card className="p-6">
-                    <h2 className="text-2xl font-bold mb-4">Rules & Guidelines</h2>
+                    <h2 className="mb-4 text-2xl font-bold">
+                      Rules & Guidelines
+                    </h2>
                     <div
                       className="prose max-w-none"
                       dangerouslySetInnerHTML={{ __html: event.rules }}
@@ -255,8 +277,8 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
                 {event.prizes && (
                   <Card className="p-6">
-                    <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                      <Trophy className="w-6 h-6 text-yellow-500" />
+                    <h2 className="mb-4 flex items-center gap-2 text-2xl font-bold">
+                      <Trophy className="h-6 w-6 text-yellow-500" />
                       Prizes
                     </h2>
                     <div
@@ -270,14 +292,16 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
               {/* Timeline Tab */}
               <TabsContent value="timeline">
                 <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-6">Event Timeline</h2>
+                  <h2 className="mb-6 text-2xl font-bold">Event Timeline</h2>
                   {event.timeline ? (
                     <div
                       className="prose max-w-none"
                       dangerouslySetInnerHTML={{ __html: event.timeline }}
                     />
                   ) : (
-                    <p className="text-gray-500">Timeline will be announced soon.</p>
+                    <p className="text-gray-500">
+                      Timeline will be announced soon.
+                    </p>
                   )}
                 </Card>
               </TabsContent>
@@ -289,7 +313,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                     <Card key={phase.id} className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
+                          <div className="mb-2 flex items-center gap-3">
                             <Badge variant="outline" className="text-lg">
                               Round {phase.phaseNumber}
                             </Badge>
@@ -297,19 +321,26 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                               <Badge className="bg-green-500">Active</Badge>
                             )}
                           </div>
-                          <h3 className="text-xl font-bold mb-2">{phase.name}</h3>
-                          <p className="text-gray-600 mb-4">{phase.description}</p>
-                          
-                          <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                          <h3 className="mb-2 text-xl font-bold">
+                            {phase.name}
+                          </h3>
+                          <p className="mb-4 text-gray-600">
+                            {phase.description}
+                          </p>
+
+                          <div className="mb-4 flex flex-wrap gap-4 text-sm text-gray-500">
                             <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4" />
-                              {formatDate(phase.startDate)} - {formatDate(phase.endDate)}
+                              <Calendar className="h-4 w-4" />
+                              {formatDate(phase.startDate)} -{" "}
+                              {formatDate(phase.endDate)}
                             </div>
                           </div>
 
                           {phase.instructions && (
-                            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-                              <p className="text-sm text-blue-900">{phase.instructions}</p>
+                            <div className="mb-4 rounded-lg bg-blue-50 p-4">
+                              <p className="text-sm text-blue-900">
+                                {phase.instructions}
+                              </p>
                             </div>
                           )}
                         </div>
@@ -321,9 +352,9 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                             setSelectedPhase(phase);
                             setShowPhaseDialog(true);
                           }}
-                          className="w-full mt-4"
+                          className="mt-4 w-full"
                         >
-                          <Upload className="w-4 h-4 mr-2" />
+                          <Upload className="mr-2 h-4 w-4" />
                           Submit for {phase.name}
                         </Button>
                       )}
@@ -331,8 +362,10 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                   ))
                 ) : (
                   <Card className="p-12 text-center">
-                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">No rounds/phases announced yet.</p>
+                    <FileText className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+                    <p className="text-gray-500">
+                      No rounds/phases announced yet.
+                    </p>
                   </Card>
                 )}
               </TabsContent>
@@ -341,19 +374,23 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
               <TabsContent value="resources" className="space-y-6">
                 {publicResources.length > 0 && (
                   <Card className="p-6">
-                    <h3 className="text-lg font-semibold mb-4">Public Resources</h3>
+                    <h3 className="mb-4 text-lg font-semibold">
+                      Public Resources
+                    </h3>
                     <div className="space-y-3">
                       {publicResources.map((resource) => (
                         <div
                           key={resource.id}
-                          className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                          className="flex items-center justify-between rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100"
                         >
-                          <div className="flex items-center gap-3 flex-1">
-                            <FileText className="w-5 h-5 text-blue-600" />
+                          <div className="flex flex-1 items-center gap-3">
+                            <FileText className="h-5 w-5 text-blue-600" />
                             <div>
                               <p className="font-medium">{resource.title}</p>
                               {resource.description && (
-                                <p className="text-sm text-gray-500">{resource.description}</p>
+                                <p className="text-sm text-gray-500">
+                                  {resource.description}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -362,7 +399,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                             size="sm"
                             onClick={() => handleDownloadResource(resource.id)}
                           >
-                            <Download className="w-4 h-4" />
+                            <Download className="h-4 w-4" />
                           </Button>
                         </div>
                       ))}
@@ -372,22 +409,24 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
                 {isRegistered && registeredOnlyResources.length > 0 && (
                   <Card className="p-6">
-                    <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                    <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
                       Registered Participants Only
                     </h3>
                     <div className="space-y-3">
                       {registeredOnlyResources.map((resource) => (
                         <div
                           key={resource.id}
-                          className="flex items-center justify-between p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors"
+                          className="flex items-center justify-between rounded-lg bg-green-50 p-4 transition-colors hover:bg-green-100"
                         >
-                          <div className="flex items-center gap-3 flex-1">
-                            <FileText className="w-5 h-5 text-green-600" />
+                          <div className="flex flex-1 items-center gap-3">
+                            <FileText className="h-5 w-5 text-green-600" />
                             <div>
                               <p className="font-medium">{resource.title}</p>
                               {resource.description && (
-                                <p className="text-sm text-gray-500">{resource.description}</p>
+                                <p className="text-sm text-gray-500">
+                                  {resource.description}
+                                </p>
                               )}
                             </div>
                           </div>
@@ -396,7 +435,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                             size="sm"
                             onClick={() => handleDownloadResource(resource.id)}
                           >
-                            <Download className="w-4 h-4" />
+                            <Download className="h-4 w-4" />
                           </Button>
                         </div>
                       ))}
@@ -404,29 +443,41 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                   </Card>
                 )}
 
-                {publicResources.length === 0 && (!isRegistered || registeredOnlyResources.length === 0) && (
-                  <Card className="p-12 text-center">
-                    <Download className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">No resources available yet.</p>
-                  </Card>
-                )}
+                {publicResources.length === 0 &&
+                  (!isRegistered || registeredOnlyResources.length === 0) && (
+                    <Card className="p-12 text-center">
+                      <Download className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+                      <p className="text-gray-500">
+                        No resources available yet.
+                      </p>
+                    </Card>
+                  )}
               </TabsContent>
 
               {/* FAQ Tab */}
               <TabsContent value="faq">
                 <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-6">Frequently Asked Questions</h2>
+                  <h2 className="mb-6 text-2xl font-bold">
+                    Frequently Asked Questions
+                  </h2>
                   {event.faqs && event.faqs.length > 0 ? (
                     <div className="space-y-4">
                       {event.faqs.map((faq: any, index: number) => (
-                        <div key={index} className="border-b last:border-0 pb-4 last:pb-0">
-                          <h4 className="font-semibold text-lg mb-2">{faq.question}</h4>
+                        <div
+                          key={index}
+                          className="border-b pb-4 last:border-0 last:pb-0"
+                        >
+                          <h4 className="mb-2 text-lg font-semibold">
+                            {faq.question}
+                          </h4>
                           <p className="text-gray-600">{faq.answer}</p>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 text-center py-8">No FAQs available yet.</p>
+                    <p className="py-8 text-center text-gray-500">
+                      No FAQs available yet.
+                    </p>
                   )}
                 </Card>
               </TabsContent>
@@ -438,13 +489,13 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
             {/* Payment Info */}
             {paymentConfig?.paymentRequired && (
               <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <DollarSign className="w-5 h-5 text-green-600" />
+                <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
+                  <DollarSign className="h-5 w-5 text-green-600" />
                   Payment Details
                 </h3>
-                
+
                 <div className="space-y-4">
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <div className="rounded-lg bg-green-50 p-4 text-center">
                     <p className="text-2xl font-bold text-green-700">
                       ₹{paymentConfig.amount}
                     </p>
@@ -452,7 +503,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                   </div>
 
                   {paymentConfig.qrCodeUrl && (
-                    <div className="border-2 border-gray-200 rounded-lg p-2">
+                    <div className="rounded-lg border-2 border-gray-200 p-2">
                       <Image
                         src={paymentConfig.qrCodeUrl}
                         alt="Payment QR Code"
@@ -465,27 +516,32 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
                   {paymentConfig.upiIds && paymentConfig.upiIds.length > 0 && (
                     <div>
-                      <p className="text-sm font-medium mb-2">UPI IDs:</p>
-                      {paymentConfig.upiIds.map((upi: string, index: number) => (
-                        <div key={index} className="flex items-center gap-2 p-2 bg-gray-50 rounded font-mono text-sm mb-2">
-                          <span className="flex-1">{upi}</span>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => {
-                              navigator.clipboard.writeText(upi);
-                              toast.success("UPI ID copied!");
-                            }}
+                      <p className="mb-2 text-sm font-medium">UPI IDs:</p>
+                      {paymentConfig.upiIds.map(
+                        (upi: string, index: number) => (
+                          <div
+                            key={index}
+                            className="mb-2 flex items-center gap-2 rounded bg-gray-50 p-2 font-mono text-sm"
                           >
-                            Copy
-                          </Button>
-                        </div>
-                      ))}
+                            <span className="flex-1">{upi}</span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => {
+                                navigator.clipboard.writeText(upi);
+                                toast.success("UPI ID copied!");
+                              }}
+                            >
+                              Copy
+                            </Button>
+                          </div>
+                        ),
+                      )}
                     </div>
                   )}
 
                   {paymentConfig.paymentInstructions && (
-                    <div className="text-sm text-gray-600 bg-blue-50 p-3 rounded">
+                    <div className="rounded bg-blue-50 p-3 text-sm text-gray-600">
                       {paymentConfig.paymentInstructions}
                     </div>
                   )}
@@ -495,23 +551,29 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
             {/* Contact Information */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
+              <h3 className="mb-4 text-lg font-semibold">
+                Contact Information
+              </h3>
               <div className="space-y-3">
                 {event.organizerContact && (
                   <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-gray-400 mt-0.5" />
+                    <Mail className="mt-0.5 h-5 w-5 text-gray-400" />
                     <div>
                       <p className="text-sm font-medium">Organizer</p>
-                      <p className="text-sm text-gray-600">{event.organizerContact}</p>
+                      <p className="text-sm text-gray-600">
+                        {event.organizerContact}
+                      </p>
                     </div>
                   </div>
                 )}
                 {event.coOrganizerContact && (
                   <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-gray-400 mt-0.5" />
+                    <Mail className="mt-0.5 h-5 w-5 text-gray-400" />
                     <div>
                       <p className="text-sm font-medium">Co-Organizer</p>
-                      <p className="text-sm text-gray-600">{event.coOrganizerContact}</p>
+                      <p className="text-sm text-gray-600">
+                        {event.coOrganizerContact}
+                      </p>
                     </div>
                   </div>
                 )}
@@ -520,7 +582,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
 
             {/* Event Stats */}
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-4">Event Stats</h3>
+              <h3 className="mb-4 text-lg font-semibold">Event Stats</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">Category</span>
@@ -529,7 +591,9 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
                 {event.maxRegistrations && (
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">Max Participants</span>
-                    <span className="font-semibold">{event.maxRegistrations}</span>
+                    <span className="font-semibold">
+                      {event.maxRegistrations}
+                    </span>
                   </div>
                 )}
                 {phases.length > 0 && (
@@ -551,7 +615,7 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
             <DialogTitle>Register for {event.name}</DialogTitle>
           </DialogHeader>
           {/* Registration form will be rendered here */}
-          <div className="text-center py-8">
+          <div className="py-8 text-center">
             <p>Registration form component will be integrated here</p>
           </div>
         </DialogContent>
@@ -561,12 +625,10 @@ export default function EnhancedEventPage({ eventId, isRegistered = false, regis
       <Dialog open={showPhaseDialog} onOpenChange={setShowPhaseDialog}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>
-              Submit for {selectedPhase?.name}
-            </DialogTitle>
+            <DialogTitle>Submit for {selectedPhase?.name}</DialogTitle>
           </DialogHeader>
           {/* Phase submission form will be rendered here */}
-          <div className="text-center py-8">
+          <div className="py-8 text-center">
             <p>Phase submission form will be integrated here</p>
           </div>
         </DialogContent>

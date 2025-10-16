@@ -11,11 +11,7 @@ import EventResourcesManager from "@/components/admin/EventResourcesManager";
 import EventPaymentConfig from "@/components/admin/EventPaymentConfig";
 
 async function getEvent(id: string) {
-  const events = await db
-    .select()
-    .from(event)
-    .where(eq(event.id, id))
-    .limit(1);
+  const events = await db.select().from(event).where(eq(event.id, id)).limit(1);
 
   return events[0] || null;
 }
@@ -31,7 +27,7 @@ export default async function EventManagementPage({
 
   if (!eventData) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900">Event not found</h2>
         </div>
@@ -44,7 +40,9 @@ export default async function EventManagementPage({
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">{eventData.name}</h1>
-        <p className="mt-2 text-gray-600">Manage event details, phases, resources, and payment</p>
+        <p className="mt-2 text-gray-600">
+          Manage event details, phases, resources, and payment
+        </p>
       </div>
 
       {/* Tabs */}
@@ -58,17 +56,21 @@ export default async function EventManagementPage({
 
         <TabsContent value="details" className="mt-6">
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Event Information</h2>
+            <h2 className="mb-4 text-xl font-semibold">Event Information</h2>
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Event Name</label>
+                <label className="text-sm font-medium text-gray-700">
+                  Event Name
+                </label>
                 <p className="mt-1 text-gray-900">{eventData.name}</p>
               </div>
               {eventData.description && (
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Description</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Description
+                  </label>
                   <div
-                    className="mt-1 prose max-w-none"
+                    className="prose mt-1 max-w-none"
                     dangerouslySetInnerHTML={{ __html: eventData.description }}
                   />
                 </div>
@@ -76,17 +78,23 @@ export default async function EventManagementPage({
               <div className="grid grid-cols-2 gap-4">
                 {eventData.startDate && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Start Date</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      Start Date
+                    </label>
                     <p className="mt-1 text-gray-900">
-                      {new Date(eventData.startDate).toLocaleDateString('en-GB')}
+                      {new Date(eventData.startDate).toLocaleDateString(
+                        "en-GB",
+                      )}
                     </p>
                   </div>
                 )}
                 {eventData.endDate && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">End Date</label>
+                    <label className="text-sm font-medium text-gray-700">
+                      End Date
+                    </label>
                     <p className="mt-1 text-gray-900">
-                      {new Date(eventData.endDate).toLocaleDateString('en-GB')}
+                      {new Date(eventData.endDate).toLocaleDateString("en-GB")}
                     </p>
                   </div>
                 )}
@@ -119,7 +127,7 @@ export default async function EventManagementPage({
 
 function LoadingSpinner() {
   return (
-    <div className="flex items-center justify-center h-64">
+    <div className="flex h-64 items-center justify-center">
       <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
     </div>
   );

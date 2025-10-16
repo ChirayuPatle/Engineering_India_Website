@@ -36,7 +36,7 @@ export default async function EventDetailPage({
 }) {
   const { id } = await params;
   const evt = await getEvent(id);
-  
+
   if (!evt) {
     notFound();
   }
@@ -86,13 +86,13 @@ export default async function EventDetailPage({
       {/* Main Content */}
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Details */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           {/* Description */}
           <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Description
             </h2>
-            <p className="text-gray-700 whitespace-pre-wrap">
+            <p className="whitespace-pre-wrap text-gray-700">
               {evt.description || "No description provided."}
             </p>
           </div>
@@ -158,7 +158,7 @@ export default async function EventDetailPage({
               </div>
               <div>
                 <div className="text-sm text-gray-500">Category</div>
-                <div className="text-lg font-medium text-gray-900 capitalize">
+                <div className="text-lg font-medium capitalize text-gray-900">
                   {evt.category || "General"}
                 </div>
               </div>
@@ -195,7 +195,11 @@ export default async function EventDetailPage({
                   Edit Form
                 </Button>
               </Link>
-              <Link href={`/events/${evt.id}`} className="block" target="_blank">
+              <Link
+                href={`/events/${evt.id}`}
+                className="block"
+                target="_blank"
+              >
                 <Button variant="outline" className="w-full justify-start">
                   View Public Page
                 </Button>

@@ -136,7 +136,7 @@ export default async function UsersPage() {
                   <tr key={usr.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <UserAvatar 
+                        <UserAvatar
                           name={usr.name}
                           image={usr.image}
                           className="h-10 w-10"
@@ -145,7 +145,9 @@ export default async function UsersPage() {
                           <div className="font-medium text-gray-900">
                             {usr.name}
                           </div>
-                          <div className="text-sm text-gray-500">{usr.email}</div>
+                          <div className="text-sm text-gray-500">
+                            {usr.email}
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -164,7 +166,7 @@ export default async function UsersPage() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
-                        {new Date(usr.createdAt).toLocaleDateString('en-GB')}
+                        {new Date(usr.createdAt).toLocaleDateString("en-GB")}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-right text-sm font-medium">

@@ -36,58 +36,58 @@ export function PaymentCard({
 }: PaymentCardProps) {
   return (
     <Card className="w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
-      <CardHeader className="w-full border-b border-gray-200 pb-3 px-4 sm:px-6 pt-4 sm:pt-6 dark:border-gray-700">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-x-5">
+      <CardHeader className="w-full border-b border-gray-200 px-4 pb-3 pt-4 dark:border-gray-700 sm:px-6 sm:pt-6">
+        <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center sm:gap-x-5">
           <div className="min-w-0 flex-1">
-            <CardTitle className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 break-words">
+            <CardTitle className="break-words text-base font-semibold text-gray-900 dark:text-gray-100 sm:text-lg">
               {eventName}
             </CardTitle>
-            <CardDescription className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+            <CardDescription className="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">
               {date}
             </CardDescription>
           </div>
           <StatusBadge status={status} />
         </div>
       </CardHeader>
-      <CardContent className="py-3 sm:py-4 px-4 sm:px-6 space-y-3">
-        <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-2 text-sm sm:text-base">
+      <CardContent className="space-y-3 px-4 py-3 sm:px-6 sm:py-4">
+        <div className="flex flex-col gap-1 text-sm sm:flex-row sm:justify-between sm:gap-2 sm:text-base">
           <span className="text-gray-600 dark:text-gray-400">
             Transaction ID:
           </span>
-          <span className="font-mono text-xs sm:text-sm text-gray-800 dark:text-gray-200 break-all">
+          <span className="break-all font-mono text-xs text-gray-800 dark:text-gray-200 sm:text-sm">
             {transactionId}
           </span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-2 text-base sm:text-lg">
+        <div className="flex flex-col gap-1 text-base sm:flex-row sm:justify-between sm:gap-2 sm:text-lg">
           <span className="text-gray-600 dark:text-gray-400">Amount:</span>
           <span className="font-bold text-gray-900 dark:text-gray-100">
             ₹{amount}
           </span>
         </div>
-        
+
         {paymentScreenshot && (
-          <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center gap-2 mb-2">
-              <ImageIcon className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+          <div className="border-t border-gray-200 pt-2 dark:border-gray-700">
+            <div className="mb-2 flex items-center gap-2">
+              <ImageIcon className="h-4 w-4 text-gray-600 dark:text-gray-400" />
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 Payment Screenshot:
               </span>
             </div>
-            <div className="relative w-full h-32 sm:h-40 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+            <div className="relative h-32 w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 sm:h-40">
               <Image
                 src={paymentScreenshot}
                 alt="Payment screenshot"
                 fill
-                className="object-contain bg-gray-50 dark:bg-gray-800"
+                className="bg-gray-50 object-contain dark:bg-gray-800"
               />
             </div>
           </div>
         )}
       </CardContent>
-      <CardFooter className="border-t border-gray-200 pt-3 px-4 sm:px-6 pb-4 sm:pb-6 dark:border-gray-700">
+      <CardFooter className="border-t border-gray-200 px-4 pb-4 pt-3 dark:border-gray-700 sm:px-6 sm:pb-6">
         <Button
           size="lg"
-          className="w-full text-sm sm:text-base transition duration-200 ease-in-out hover:opacity-80 active:opacity-40"
+          className="w-full text-sm transition duration-200 ease-in-out hover:opacity-80 active:opacity-40 sm:text-base"
           onClick={() => onViewDetails?.(id)}
         >
           View Details
@@ -122,12 +122,12 @@ function StatusBadge({ status }: { status: PaymentStatus }) {
   return (
     <div
       className={cn(
-        "flex items-center gap-1 rounded-full px-2 sm:px-3 py-0.5 sm:py-1 text-xs font-medium flex-shrink-0",
+        "flex flex-shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium sm:px-3 sm:py-1",
         statusClasses,
       )}
     >
       {icon}
-      <span className="capitalize whitespace-nowrap">{status}</span>
+      <span className="whitespace-nowrap capitalize">{status}</span>
     </div>
   );
 }

@@ -25,15 +25,13 @@ export default function CreateBlogPage() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : value,
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -47,7 +45,9 @@ export default function CreateBlogPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          tags: formData.tags ? formData.tags.split(",").map(t => t.trim()) : [],
+          tags: formData.tags
+            ? formData.tags.split(",").map((t) => t.trim())
+            : [],
         }),
       });
 
@@ -75,7 +75,9 @@ export default function CreateBlogPage() {
         </Link>
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Create Blog Post</h1>
-          <p className="mt-2 text-gray-600">Write and publish a new blog post</p>
+          <p className="mt-2 text-gray-600">
+            Write and publish a new blog post
+          </p>
         </div>
       </div>
 
@@ -255,9 +257,7 @@ export default function CreateBlogPage() {
                   className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   placeholder="tag1, tag2, tag3"
                 />
-                <p className="mt-1 text-sm text-gray-500">
-                  Comma-separated
-                </p>
+                <p className="mt-1 text-sm text-gray-500">Comma-separated</p>
               </div>
             </div>
 

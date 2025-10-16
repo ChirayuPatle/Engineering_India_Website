@@ -82,7 +82,7 @@ export default async function FormsPage() {
                 {form.title || "Untitled Form"}
               </h3>
 
-              <p className="mb-4 text-sm text-gray-600 line-clamp-2">
+              <p className="mb-4 line-clamp-2 text-sm text-gray-600">
                 {form.description || "No description"}
               </p>
 

@@ -28,14 +28,14 @@ export default function EventRegistrationPage() {
       try {
         setLoading(true);
         const eventSlug = Array.isArray(slug) ? slug[0] : slug;
-        const response = await fetch(`/api/event?id=${eventSlug || ''}`);
-        
+        const response = await fetch(`/api/event?id=${eventSlug || ""}`);
+
         if (!response.ok) {
           throw new Error("Failed to fetch event details");
         }
 
         const data = await response.json();
-        
+
         if (data.events && data.events.length > 0) {
           setEvent(data.events[0]);
         } else {
@@ -61,9 +61,9 @@ export default function EventRegistrationPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
+          <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-blue-600" />
           <p className="text-gray-600">Loading registration form...</p>
         </div>
       </div>
@@ -72,27 +72,30 @@ export default function EventRegistrationPage() {
 
   if (error || !event) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-red-600 text-2xl">❌</span>
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+        <div className="w-full max-w-md rounded-lg border border-gray-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+            <span className="text-2xl text-red-600">❌</span>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Event Not Found</h2>
-          <p className="text-gray-600 mb-6">
-            {error || "The event you're trying to register for could not be found."}
+          <h2 className="mb-2 text-2xl font-bold text-gray-900">
+            Event Not Found
+          </h2>
+          <p className="mb-6 text-gray-600">
+            {error ||
+              "The event you're trying to register for could not be found."}
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <Button
               variant="outline"
               onClick={() => router.back()}
               className="border-gray-300"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeft className="mr-2 h-4 w-4" />
               Go Back
             </Button>
             <Button
               onClick={() => router.push("/events")}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-blue-600 text-white hover:bg-blue-700"
             >
               Browse Events
             </Button>
@@ -105,7 +108,7 @@ export default function EventRegistrationPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="sticky top-0 z-50 border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Button
@@ -114,22 +117,22 @@ export default function EventRegistrationPage() {
               onClick={() => router.back()}
               className="hover:bg-gray-100"
             >
-              <ArrowLeft className="h-4 w-4 mr-2" />
+              <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
             <div>
-              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-gray-900 sm:text-2xl">
                 Event Registration
               </h1>
-              <p className="text-sm text-gray-600 mt-0.5">{event.name}</p>
+              <p className="mt-0.5 text-sm text-gray-600">{event.name}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Registration Form */}
-      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
+      <div className="container mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-3xl">
           <DynamicRegistrationForm
             eventId={slug as string}
             eventName={event.name}

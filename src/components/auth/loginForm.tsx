@@ -18,7 +18,7 @@ export function LoginForm({
   const handleGoogleSignIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
       await authClient.signIn.social(
         {
@@ -35,10 +35,12 @@ export function LoginForm({
           onError: (ctx) => {
             setLoading(false);
             console.error("Auth error:", ctx.error);
-            
+
             // Handle specific error cases
             if (ctx.error.message?.includes("offline")) {
-              toast.error("Authentication failed. Please clear your browser cache and try again.");
+              toast.error(
+                "Authentication failed. Please clear your browser cache and try again.",
+              );
             } else {
               toast.error("Failed to sign in. Please try again.");
             }

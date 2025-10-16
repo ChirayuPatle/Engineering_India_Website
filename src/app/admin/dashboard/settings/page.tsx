@@ -9,7 +9,8 @@ export default function SettingsPage() {
   const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState({
     siteName: "Engineering India",
-    siteDescription: "A national level club for innovation and social responsibility",
+    siteDescription:
+      "A national level club for innovation and social responsibility",
     contactEmail: "contact@engineeringindia.org",
     enableRegistrations: true,
     enableNotifications: true,
@@ -33,12 +34,15 @@ export default function SettingsPage() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value, type } = e.target;
     setSettings((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -110,7 +114,9 @@ export default function SettingsPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">Enable Registrations</p>
+                <p className="font-medium text-gray-900">
+                  Enable Registrations
+                </p>
                 <p className="text-sm text-gray-500">
                   Allow users to register for events
                 </p>
@@ -126,7 +132,9 @@ export default function SettingsPage() {
 
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">Enable Notifications</p>
+                <p className="font-medium text-gray-900">
+                  Enable Notifications
+                </p>
                 <p className="text-sm text-gray-500">
                   Send email notifications to users
                 </p>

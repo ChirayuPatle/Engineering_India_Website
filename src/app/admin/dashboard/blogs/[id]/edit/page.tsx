@@ -7,7 +7,11 @@ import { ArrowLeft, Loader2, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-export default function EditBlogPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EditBlogPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const resolvedParams = use(params);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -36,7 +40,7 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
       if (!response.ok) throw new Error("Failed to fetch blog");
 
       const blogData = await response.json();
-      
+
       // Parse tags if they exist
       const tags = blogData.tags ? JSON.parse(blogData.tags).join(", ") : "";
 
@@ -62,15 +66,13 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : value,
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -84,7 +86,9 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          tags: formData.tags ? formData.tags.split(",").map(t => t.trim()) : [],
+          tags: formData.tags
+            ? formData.tags.split(",").map((t) => t.trim())
+            : [],
         }),
       });
 
@@ -101,7 +105,11 @@ export default function EditBlogPage({ params }: { params: Promise<{ id: string 
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this blog post? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this blog post? This action cannot be undone.",
+      )
+    ) {
       return;
     }
 

@@ -11,7 +11,10 @@ interface RegistrationActionsProps {
   status: string;
 }
 
-export function RegistrationActions({ registrationId, status }: RegistrationActionsProps) {
+export function RegistrationActions({
+  registrationId,
+  status,
+}: RegistrationActionsProps) {
   const router = useRouter();
   const [approving, setApproving] = useState(false);
   const [rejecting, setRejecting] = useState(false);
@@ -19,11 +22,14 @@ export function RegistrationActions({ registrationId, status }: RegistrationActi
   const handleApprove = async () => {
     setApproving(true);
     try {
-      const response = await fetch(`/api/admin/registrations/${registrationId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "verified" }),
-      });
+      const response = await fetch(
+        `/api/admin/registrations/${registrationId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "verified" }),
+        },
+      );
 
       if (!response.ok) throw new Error("Failed to approve registration");
 
@@ -44,11 +50,14 @@ export function RegistrationActions({ registrationId, status }: RegistrationActi
 
     setRejecting(true);
     try {
-      const response = await fetch(`/api/admin/registrations/${registrationId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: "rejected" }),
-      });
+      const response = await fetch(
+        `/api/admin/registrations/${registrationId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: "rejected" }),
+        },
+      );
 
       if (!response.ok) throw new Error("Failed to reject registration");
 

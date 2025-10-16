@@ -85,11 +85,10 @@ export default function HomePage() {
     requestAnimationFrame(raf);
     return () => lenis.destroy();
   }, []);
-  
+
   return (
     <>
       {/* Announcement Marquee */}
-      
 
       <Section className="relative min-h-screen pb-16 pt-32">
         <div className="absolute top-0 z-0 min-h-screen w-full bg-transparent">

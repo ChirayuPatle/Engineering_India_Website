@@ -22,10 +22,10 @@ export default async function EventsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Events Management</h1>
-          <p className="mt-2 text-gray-600">
-            Create and manage your events
-          </p>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Events Management
+          </h1>
+          <p className="mt-2 text-gray-600">Create and manage your events</p>
         </div>
         <Link href="/admin/dashboard/events/new">
           <Button className="flex items-center gap-2">
@@ -97,7 +97,7 @@ export default async function EventsPage() {
                           <div className="font-medium text-gray-900">
                             {evt.name}
                           </div>
-                        <div className="text-sm text-gray-900">
+                          <div className="text-sm text-gray-900">
                             {evt.category || "General"}
                           </div>
                         </div>
@@ -106,12 +106,12 @@ export default async function EventsPage() {
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
                         {evt.startDate
-                          ? new Date(evt.startDate).toLocaleDateString('en-GB')
+                          ? new Date(evt.startDate).toLocaleDateString("en-GB")
                           : "TBA"}
                       </div>
                       <div className="text-sm text-gray-500">
                         {evt.endDate
-                          ? new Date(evt.endDate).toLocaleDateString('en-GB')
+                          ? new Date(evt.endDate).toLocaleDateString("en-GB")
                           : ""}
                       </div>
                     </td>

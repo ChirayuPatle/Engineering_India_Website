@@ -15,27 +15,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { 
-  ArrowLeft, 
-  Plus, 
-  Trash2, 
+import {
+  ArrowLeft,
+  Plus,
+  Trash2,
   GripVertical,
   Loader2,
-  Save
+  Save,
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-type FormFieldType = 
-  | "text" 
-  | "email" 
-  | "tel" 
-  | "number" 
-  | "textarea" 
-  | "select" 
-  | "radio" 
-  | "checkbox" 
-  | "file" 
+type FormFieldType =
+  | "text"
+  | "email"
+  | "tel"
+  | "number"
+  | "textarea"
+  | "select"
+  | "radio"
+  | "checkbox"
+  | "file"
   | "date"
   | "url"
   | "time";
@@ -64,15 +64,19 @@ interface EventFormData {
   formSchema: FormField[];
 }
 
-export default function EventFormPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EventFormPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id: eventId } = use(params);
   const router = useRouter();
-  
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [eventName, setEventName] = useState("");
   const [existingFormId, setExistingFormId] = useState<string | null>(null);
-  
+
   const [formData, setFormData] = useState<EventFormData>({
     title: "Event Registration Form",
     description: "Please fill out this form to register for the event",
@@ -102,7 +106,8 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
         setFormData({
           title: existingForm.title || "Event Registration Form",
           description: existingForm.description || "",
-          successMessage: existingForm.successMessage || "Thank you for registering!",
+          successMessage:
+            existingForm.successMessage || "Thank you for registering!",
           formImage: existingForm.formImage || "",
           formSchema: existingForm.formSchema || [],
         });
@@ -150,7 +155,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
     setFormData({
       ...formData,
       formSchema: formData.formSchema.map((field) =>
-        field.id === id ? { ...field, ...updates } : field
+        field.id === id ? { ...field, ...updates } : field,
       ),
     });
   };
@@ -185,13 +190,19 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
 
       const data = await response.json();
       setExistingFormId(data.id);
-      toast.success(existingFormId ? "Form updated successfully!" : "Form created successfully!");
-      
+      toast.success(
+        existingFormId
+          ? "Form updated successfully!"
+          : "Form created successfully!",
+      );
+
       // Refresh the form data
       await fetchEventAndForm();
     } catch (error) {
       console.error("Error saving form:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to save form");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to save form",
+      );
     } finally {
       setSaving(false);
     }
@@ -241,19 +252,21 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Form Settings */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="space-y-6 lg:col-span-1">
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Form Settings
             </h2>
-            
+
             <div className="space-y-4">
               <div>
                 <Label htmlFor="formTitle">Form Title *</Label>
                 <Input
                   id="formTitle"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   placeholder="e.g., Event Registration"
                   className="mt-1"
                 />
@@ -264,7 +277,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                 <Textarea
                   id="formDescription"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   placeholder="Form description shown to users..."
                   className="mt-1"
                   rows={3}
@@ -276,7 +291,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                 <Textarea
                   id="successMessage"
                   value={formData.successMessage}
-                  onChange={(e) => setFormData({ ...formData, successMessage: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, successMessage: e.target.value })
+                  }
                   placeholder="Message shown after successful submission"
                   className="mt-1"
                   rows={2}
@@ -289,11 +306,13 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                   id="formImage"
                   type="url"
                   value={formData.formImage}
-                  onChange={(e) => setFormData({ ...formData, formImage: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, formImage: e.target.value })
+                  }
                   placeholder="https://example.com/qr-code.png"
                   className="mt-1"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="mt-1 text-xs text-gray-500">
                   QR code, payment info, or banner image URL
                 </p>
                 {formData.formImage && (
@@ -301,7 +320,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                     <img
                       src={formData.formImage}
                       alt="Form image preview"
-                      className="h-32 w-full rounded-lg object-contain border bg-gray-50"
+                      className="h-32 w-full rounded-lg border bg-gray-50 object-contain"
                       onError={(e) => {
                         e.currentTarget.src = "";
                         e.currentTarget.alt = "Invalid image URL";
@@ -313,11 +332,11 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
             </div>
           </Card>
 
-          <Card className="p-6 bg-blue-50 border-blue-200">
-            <h3 className="text-sm font-semibold text-blue-900 mb-2">
+          <Card className="border-blue-200 bg-blue-50 p-6">
+            <h3 className="mb-2 text-sm font-semibold text-blue-900">
               💡 Quick Tips
             </h3>
-            <ul className="text-xs text-blue-800 space-y-1">
+            <ul className="space-y-1 text-xs text-blue-800">
               <li>• Start with an empty form and add only fields you need</li>
               <li>• Use the form image to display QR codes or payment info</li>
               <li>• Mark essential fields as "Required"</li>
@@ -327,9 +346,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
         </div>
 
         {/* Form Builder */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">
                 Form Fields ({formData.formSchema.length})
               </h2>
@@ -341,14 +360,21 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
 
             <div className="space-y-4">
               {formData.formSchema.length === 0 && (
-                <div className="text-center py-12 text-gray-500 border-2 border-dashed rounded-lg">
-                  <p className="text-lg font-medium mb-2">No fields added yet</p>
-                  <p className="text-sm">Click "Add Field" above to create your first form field</p>
+                <div className="rounded-lg border-2 border-dashed py-12 text-center text-gray-500">
+                  <p className="mb-2 text-lg font-medium">
+                    No fields added yet
+                  </p>
+                  <p className="text-sm">
+                    Click "Add Field" above to create your first form field
+                  </p>
                 </div>
               )}
-              
+
               {formData.formSchema.map((field, index) => (
-                <Card key={field.id} className="p-4 border-2 hover:border-blue-300 transition-colors">
+                <Card
+                  key={field.id}
+                  className="border-2 p-4 transition-colors hover:border-blue-300"
+                >
                   <div className="flex items-start gap-4">
                     <div className="mt-2 cursor-move">
                       <GripVertical className="h-5 w-5 text-gray-400" />
@@ -357,7 +383,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                     <div className="flex-1 space-y-3">
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <Label className="text-xs font-medium">Field Type</Label>
+                          <Label className="text-xs font-medium">
+                            Field Type
+                          </Label>
                           <Select
                             value={field.type}
                             onValueChange={(value) =>
@@ -374,7 +402,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                               <SelectItem value="email">Email</SelectItem>
                               <SelectItem value="tel">Phone</SelectItem>
                               <SelectItem value="number">Number</SelectItem>
-                              <SelectItem value="textarea">Long Text</SelectItem>
+                              <SelectItem value="textarea">
+                                Long Text
+                              </SelectItem>
                               <SelectItem value="select">Dropdown</SelectItem>
                               <SelectItem value="checkbox">Checkbox</SelectItem>
                               <SelectItem value="radio">Radio</SelectItem>
@@ -387,7 +417,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                         </div>
 
                         <div className="flex items-end">
-                          <label className="flex items-center gap-2 cursor-pointer">
+                          <label className="flex cursor-pointer items-center gap-2">
                             <input
                               type="checkbox"
                               checked={field.required}
@@ -398,14 +428,18 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                               }
                               className="rounded border-gray-300"
                             />
-                            <span className="text-sm font-medium">Required</span>
+                            <span className="text-sm font-medium">
+                              Required
+                            </span>
                           </label>
                         </div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div>
-                          <Label className="text-xs font-medium">Field Label</Label>
+                          <Label className="text-xs font-medium">
+                            Field Label
+                          </Label>
                           <Input
                             value={field.label}
                             onChange={(e) =>
@@ -417,11 +451,17 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                         </div>
 
                         <div>
-                          <Label className="text-xs font-medium">Field Name (ID)</Label>
+                          <Label className="text-xs font-medium">
+                            Field Name (ID)
+                          </Label>
                           <Input
                             value={field.name}
                             onChange={(e) =>
-                              updateField(field.id, { name: e.target.value.replace(/\s+/g, '_').toLowerCase() })
+                              updateField(field.id, {
+                                name: e.target.value
+                                  .replace(/\s+/g, "_")
+                                  .toLowerCase(),
+                              })
                             }
                             placeholder="field_name"
                             className="mt-1"
@@ -430,7 +470,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                       </div>
 
                       <div>
-                        <Label className="text-xs font-medium">Placeholder (Optional)</Label>
+                        <Label className="text-xs font-medium">
+                          Placeholder (Optional)
+                        </Label>
                         <Input
                           value={field.placeholder || ""}
                           onChange={(e) =>
@@ -444,7 +486,9 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                       </div>
 
                       <div>
-                        <Label className="text-xs font-medium">Help Text (Optional)</Label>
+                        <Label className="text-xs font-medium">
+                          Help Text (Optional)
+                        </Label>
                         <Input
                           value={field.helpText || ""}
                           onChange={(e) =>
@@ -463,7 +507,11 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                             Options (comma-separated)
                           </Label>
                           <Input
-                            value={field.options?.map(opt => opt.label).join(", ") || ""}
+                            value={
+                              field.options
+                                ?.map((opt) => opt.label)
+                                .join(", ") || ""
+                            }
                             onChange={(e) => {
                               const opts = e.target.value
                                 .split(",")
@@ -471,14 +519,14 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                                 .filter((opt) => opt)
                                 .map((opt) => ({
                                   label: opt,
-                                  value: opt.toLowerCase().replace(/\s+/g, '_')
+                                  value: opt.toLowerCase().replace(/\s+/g, "_"),
                                 }));
                               updateField(field.id, { options: opts });
                             }}
                             placeholder="Option 1, Option 2, Option 3"
                             className="mt-1"
                           />
-                          <p className="text-xs text-gray-500 mt-1">
+                          <p className="mt-1 text-xs text-gray-500">
                             {field.options?.length || 0} option(s) configured
                           </p>
                         </div>
@@ -489,7 +537,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                       variant="ghost"
                       size="icon"
                       onClick={() => removeField(field.id)}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-600 hover:bg-red-50 hover:text-red-700"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -501,16 +549,16 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
 
           {/* Form Preview */}
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Form Preview
             </h2>
-            <div className="space-y-4 bg-gray-50 p-6 rounded-lg border">
+            <div className="space-y-4 rounded-lg border bg-gray-50 p-6">
               <div className="mb-6">
                 <h3 className="text-xl font-bold text-gray-900">
                   {formData.title}
                 </h3>
                 {formData.description && (
-                  <p className="text-sm text-gray-600 mt-2">
+                  <p className="mt-2 text-sm text-gray-600">
                     {formData.description}
                   </p>
                 )}
@@ -519,7 +567,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                     <img
                       src={formData.formImage}
                       alt="Form image"
-                      className="max-w-full h-auto rounded-lg border-2 border-gray-300"
+                      className="h-auto max-w-full rounded-lg border-2 border-gray-300"
                       style={{ maxHeight: "300px" }}
                     />
                   </div>
@@ -527,7 +575,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
               </div>
 
               {formData.formSchema.length === 0 && (
-                <div className="text-center py-8 text-gray-400">
+                <div className="py-8 text-center text-gray-400">
                   <p className="text-sm">Your form fields will appear here</p>
                 </div>
               )}
@@ -537,11 +585,13 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                   <Label className="font-medium">
                     {field.label}
                     {field.required && (
-                      <span className="text-red-500 ml-1">*</span>
+                      <span className="ml-1 text-red-500">*</span>
                     )}
                   </Label>
                   {field.helpText && (
-                    <p className="text-xs text-gray-500 mt-1">{field.helpText}</p>
+                    <p className="mt-1 text-xs text-gray-500">
+                      {field.helpText}
+                    </p>
                   )}
                   {field.type === "textarea" ? (
                     <Textarea
@@ -559,15 +609,22 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                       </SelectTrigger>
                     </Select>
                   ) : field.type === "checkbox" ? (
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="mt-2 flex items-center gap-2">
                       <input type="checkbox" disabled className="rounded" />
-                      <span className="text-sm">{field.placeholder || field.label}</span>
+                      <span className="text-sm">
+                        {field.placeholder || field.label}
+                      </span>
                     </div>
                   ) : field.type === "radio" ? (
                     <div className="mt-2 space-y-2">
                       {field.options?.map((option, idx) => (
                         <div key={idx} className="flex items-center gap-2">
-                          <input type="radio" disabled name={field.name} className="rounded-full" />
+                          <input
+                            type="radio"
+                            disabled
+                            name={field.name}
+                            className="rounded-full"
+                          />
                           <span className="text-sm">{option.label}</span>
                         </div>
                       ))}
@@ -577,7 +634,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                       <Input
                         type="file"
                         disabled
-                        className="bg-white cursor-not-allowed"
+                        className="cursor-not-allowed bg-white"
                       />
                     </div>
                   ) : (
@@ -596,7 +653,7 @@ export default function EventFormPage({ params }: { params: Promise<{ id: string
                   <Button disabled className="w-full">
                     Submit Registration
                   </Button>
-                  <p className="text-xs text-center text-gray-500 mt-2">
+                  <p className="mt-2 text-center text-xs text-gray-500">
                     {formData.successMessage}
                   </p>
                 </div>

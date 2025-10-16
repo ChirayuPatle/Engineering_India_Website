@@ -60,12 +60,12 @@ export default function PrarambhPage() {
       {/* Hero Section - Light Theme with Blue Gradients */}
       <section className="relative overflow-hidden bg-white py-20 text-gray-900">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50"></div>
-        
+
         {/* Blue Gradient Accents */}
         <div className="absolute -left-40 -top-40 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl"></div>
         <div className="absolute -right-40 top-20 h-96 w-96 rounded-full bg-blue-300/30 blur-3xl"></div>
         <div className="absolute -bottom-40 left-1/4 h-96 w-96 rounded-full bg-blue-200/40 blur-3xl"></div>
-        <div className="absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-blue-300/30 blur-3xl"></div>
+        <div className="absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-blue-300/30 blur-3xl"></div>
 
         <Container>
           <div className="relative z-10 mt-[10vh] text-center">
@@ -122,7 +122,10 @@ export default function PrarambhPage() {
       </section>
 
       {/* Events Grid - Light Theme Design */}
-      <section id="events" className="bg-gradient-to-b from-white to-blue-50/30 py-20">
+      <section
+        id="events"
+        className="bg-gradient-to-b from-white to-blue-50/30 py-20"
+      >
         <Container>
           <div className="mb-12 text-center">
             <h2
@@ -143,13 +146,17 @@ export default function PrarambhPage() {
                   className="overflow-hidden border-2 border-blue-300 bg-white duration-300"
                 >
                   <CardHeader className="border-b border-blue-100 bg-gradient-to-r from-blue-50 to-white pb-4">
-                    <CardTitle className={`${bebasNeue.className} text-4xl font-bold text-gray-900`}>
+                    <CardTitle
+                      className={`${bebasNeue.className} text-4xl font-bold text-gray-900`}
+                    >
                       {event.title}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent className="space-y-5 pt-6">
-                    <p className="leading-relaxed text-gray-700">{event.description}</p>
+                    <p className="leading-relaxed text-gray-700">
+                      {event.description}
+                    </p>
 
                     {/* Fee and Deadline */}
                     <div className="grid gap-4 sm:grid-cols-2">
@@ -158,8 +165,12 @@ export default function PrarambhPage() {
                           <DollarSign className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="text-xs font-medium text-gray-600">Registration Fee</p>
-                          <p className="text-xl font-bold text-gray-900">₹{event.registrationFee}</p>
+                          <p className="text-xs font-medium text-gray-600">
+                            Registration Fee
+                          </p>
+                          <p className="text-xl font-bold text-gray-900">
+                            ₹{event.registrationFee}
+                          </p>
                           <p className="text-xs text-gray-500">per team</p>
                         </div>
                       </div>
@@ -168,8 +179,12 @@ export default function PrarambhPage() {
                           <Clock className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-red-600">Registration Deadline</p>
-                          <p className="text-xl font-bold text-red-700">{event.registrationDeadline}</p>
+                          <p className="text-xs font-semibold text-red-600">
+                            Registration Deadline
+                          </p>
+                          <p className="text-xl font-bold text-red-700">
+                            {event.registrationDeadline}
+                          </p>
                           <p className="text-xs text-red-500">Hurry up!</p>
                         </div>
                       </div>

@@ -14,19 +14,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
-import { 
-  ArrowLeft, 
-  Plus, 
-  Trash2, 
-  GripVertical,
-  Loader2 
-} from "lucide-react";
+import { ArrowLeft, Plus, Trash2, GripVertical, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
 interface FormField {
   id: string;
-  type: "text" | "email" | "tel" | "number" | "textarea" | "select" | "checkbox" | "radio";
+  type:
+    | "text"
+    | "email"
+    | "tel"
+    | "number"
+    | "textarea"
+    | "select"
+    | "checkbox"
+    | "radio";
   label: string;
   placeholder?: string;
   required: boolean;
@@ -74,8 +76,8 @@ export default function CreateFormPage() {
   const updateField = (id: string, updates: Partial<FormField>) => {
     setFields(
       fields.map((field) =>
-        field.id === id ? { ...field, ...updates } : field
-      )
+        field.id === id ? { ...field, ...updates } : field,
+      ),
     );
   };
 
@@ -126,7 +128,9 @@ export default function CreateFormPage() {
             </Button>
           </Link>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Create New Form</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Create New Form
+            </h1>
             <p className="mt-2 text-gray-600">
               Build a custom registration form for events
             </p>
@@ -146,12 +150,12 @@ export default function CreateFormPage() {
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Form Settings */}
-        <div className="lg:col-span-1 space-y-6">
+        <div className="space-y-6 lg:col-span-1">
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Form Settings
             </h2>
-            
+
             <div className="space-y-4">
               <div>
                 <Label htmlFor="formName">Form Name *</Label>
@@ -185,7 +189,7 @@ export default function CreateFormPage() {
                   placeholder="Event ID"
                   className="mt-1"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="mt-1 text-xs text-gray-500">
                   Leave empty for a standalone form
                 </p>
               </div>
@@ -193,10 +197,10 @@ export default function CreateFormPage() {
           </Card>
 
           <Card className="p-6">
-            <h3 className="text-sm font-semibold text-gray-900 mb-2">
+            <h3 className="mb-2 text-sm font-semibold text-gray-900">
               Available Field Types
             </h3>
-            <ul className="text-xs text-gray-600 space-y-1">
+            <ul className="space-y-1 text-xs text-gray-600">
               <li>• Text input</li>
               <li>• Email</li>
               <li>• Phone number</li>
@@ -210,9 +214,9 @@ export default function CreateFormPage() {
         </div>
 
         {/* Form Builder */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           <Card className="p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-900">
                 Form Fields
               </h2>
@@ -224,7 +228,7 @@ export default function CreateFormPage() {
 
             <div className="space-y-4">
               {fields.map((field, index) => (
-                <Card key={field.id} className="p-4 border-2">
+                <Card key={field.id} className="border-2 p-4">
                   <div className="flex items-start gap-4">
                     <div className="mt-2 cursor-move">
                       <GripVertical className="h-5 w-5 text-gray-400" />
@@ -250,7 +254,9 @@ export default function CreateFormPage() {
                               <SelectItem value="email">Email</SelectItem>
                               <SelectItem value="tel">Phone</SelectItem>
                               <SelectItem value="number">Number</SelectItem>
-                              <SelectItem value="textarea">Long Text</SelectItem>
+                              <SelectItem value="textarea">
+                                Long Text
+                              </SelectItem>
                               <SelectItem value="select">Dropdown</SelectItem>
                               <SelectItem value="checkbox">Checkbox</SelectItem>
                               <SelectItem value="radio">Radio</SelectItem>
@@ -288,7 +294,9 @@ export default function CreateFormPage() {
                       </div>
 
                       <div>
-                        <Label className="text-xs">Placeholder (Optional)</Label>
+                        <Label className="text-xs">
+                          Placeholder (Optional)
+                        </Label>
                         <Input
                           value={field.placeholder || ""}
                           onChange={(e) =>
@@ -301,8 +309,7 @@ export default function CreateFormPage() {
                         />
                       </div>
 
-                      {(field.type === "select" ||
-                        field.type === "radio") && (
+                      {(field.type === "select" || field.type === "radio") && (
                         <div>
                           <Label className="text-xs">
                             Options (comma-separated)
@@ -328,7 +335,7 @@ export default function CreateFormPage() {
                       variant="ghost"
                       size="icon"
                       onClick={() => removeField(field.id)}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-red-600 hover:bg-red-50 hover:text-red-700"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -337,7 +344,7 @@ export default function CreateFormPage() {
               ))}
 
               {fields.length === 0 && (
-                <div className="text-center py-12 text-gray-500">
+                <div className="py-12 text-center text-gray-500">
                   <p>No fields added yet. Click "Add Field" to get started.</p>
                 </div>
               )}
@@ -346,16 +353,16 @@ export default function CreateFormPage() {
 
           {/* Form Preview */}
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="mb-4 text-lg font-semibold text-gray-900">
               Form Preview
             </h2>
-            <div className="space-y-4 bg-gray-50 p-6 rounded-lg border">
+            <div className="space-y-4 rounded-lg border bg-gray-50 p-6">
               <div className="mb-4">
                 <h3 className="text-xl font-bold text-gray-900">
                   {formName || "Form Name"}
                 </h3>
                 {formDescription && (
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="mt-1 text-sm text-gray-600">
                     {formDescription}
                   </p>
                 )}
@@ -366,7 +373,7 @@ export default function CreateFormPage() {
                   <Label>
                     {field.label}
                     {field.required && (
-                      <span className="text-red-500 ml-1">*</span>
+                      <span className="ml-1 text-red-500">*</span>
                     )}
                   </Label>
                   {field.type === "textarea" ? (
@@ -384,7 +391,7 @@ export default function CreateFormPage() {
                       </SelectTrigger>
                     </Select>
                   ) : field.type === "checkbox" ? (
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="mt-2 flex items-center gap-2">
                       <input type="checkbox" disabled className="rounded" />
                       <span className="text-sm">{field.placeholder}</span>
                     </div>
@@ -400,7 +407,7 @@ export default function CreateFormPage() {
               ))}
 
               {fields.length > 0 && (
-                <Button disabled className="w-full mt-6">
+                <Button disabled className="mt-6 w-full">
                   Submit
                 </Button>
               )}

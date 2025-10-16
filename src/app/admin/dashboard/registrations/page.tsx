@@ -75,9 +75,7 @@ export default async function RegistrationsPage() {
             <div>
               <p className="text-sm font-medium text-gray-500">Pending</p>
               <p className="mt-2 text-3xl font-bold text-gray-900">
-                {
-                  registrations.filter((r) => r.status === "pending").length
-                }
+                {registrations.filter((r) => r.status === "pending").length}
               </p>
             </div>
             <Users className="h-8 w-8 text-yellow-600" />
@@ -88,10 +86,7 @@ export default async function RegistrationsPage() {
             <div>
               <p className="text-sm font-medium text-gray-500">Approved</p>
               <p className="mt-2 text-3xl font-bold text-gray-900">
-                {
-                  registrations.filter((r) => r.status === "approved")
-                    .length
-                }
+                {registrations.filter((r) => r.status === "approved").length}
               </p>
             </div>
             <Users className="h-8 w-8 text-green-600" />
@@ -160,7 +155,7 @@ export default async function RegistrationsPage() {
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-900">
                         {reg.createdAt
-                          ? new Date(reg.createdAt).toLocaleDateString('en-GB')
+                          ? new Date(reg.createdAt).toLocaleDateString("en-GB")
                           : "N/A"}
                       </div>
                     </td>
@@ -176,9 +171,9 @@ export default async function RegistrationsPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right text-sm font-medium">
-                      <RegistrationActions 
-                        registrationId={reg.id} 
-                        status={reg.status} 
+                      <RegistrationActions
+                        registrationId={reg.id}
+                        status={reg.status}
                       />
                     </td>
                   </tr>

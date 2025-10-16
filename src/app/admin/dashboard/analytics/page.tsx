@@ -6,8 +6,12 @@ import { BarChart3, TrendingUp, Users, Calendar } from "lucide-react";
 async function getAnalytics() {
   try {
     const [totalEvents] = await db.select({ count: count() }).from(event);
-    const [totalRegistrations] = await db.select({ count: count() }).from(registration);
-    const [totalSubmissions] = await db.select({ count: count() }).from(formSubmission);
+    const [totalRegistrations] = await db
+      .select({ count: count() })
+      .from(registration);
+    const [totalSubmissions] = await db
+      .select({ count: count() })
+      .from(formSubmission);
     const [totalUsers] = await db.select({ count: count() }).from(user);
 
     return {
@@ -69,7 +73,9 @@ export default async function AnalyticsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900">
+          Analytics Dashboard
+        </h1>
         <p className="mt-2 text-gray-600">
           Track your platform's performance and metrics
         </p>
@@ -84,12 +90,16 @@ export default async function AnalyticsPage() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                <p className="text-sm font-medium text-gray-600">
+                  {stat.title}
+                </p>
                 <p className="mt-2 text-3xl font-bold text-gray-900">
                   {stat.value}
                 </p>
                 <p className="mt-2 flex items-center text-sm">
-                  <span className="text-green-600 font-medium">{stat.change}</span>
+                  <span className="font-medium text-green-600">
+                    {stat.change}
+                  </span>
                   <span className="ml-2 text-gray-500">vs last month</span>
                 </p>
               </div>
@@ -107,7 +117,7 @@ export default async function AnalyticsPage() {
           <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Event Registrations Over Time
           </h2>
-          <div className="flex h-64 items-center justify-center bg-gray-50 rounded-lg">
+          <div className="flex h-64 items-center justify-center rounded-lg bg-gray-50">
             <p className="text-gray-500">Chart will be displayed here</p>
           </div>
         </div>
@@ -116,7 +126,7 @@ export default async function AnalyticsPage() {
           <h2 className="mb-4 text-lg font-semibold text-gray-900">
             User Growth
           </h2>
-          <div className="flex h-64 items-center justify-center bg-gray-50 rounded-lg">
+          <div className="flex h-64 items-center justify-center rounded-lg bg-gray-50">
             <p className="text-gray-500">Chart will be displayed here</p>
           </div>
         </div>
@@ -129,7 +139,10 @@ export default async function AnalyticsPage() {
         </h2>
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="flex items-center gap-4 py-3 border-b last:border-0">
+            <div
+              key={i}
+              className="flex items-center gap-4 border-b py-3 last:border-0"
+            >
               <div className="h-10 w-10 rounded-full bg-gray-200"></div>
               <div className="flex-1">
                 <p className="text-sm font-medium text-gray-900">

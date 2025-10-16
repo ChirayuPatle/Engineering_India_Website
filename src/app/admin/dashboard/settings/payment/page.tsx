@@ -6,15 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { 
-  Upload, 
-  X, 
-  Plus, 
-  Trash2, 
-  QrCode, 
+import {
+  Upload,
+  X,
+  Plus,
+  Trash2,
+  QrCode,
   Loader2,
   Save,
-  Image as ImageIcon
+  Image as ImageIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -167,7 +167,7 @@ export default function PaymentSettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-96">
+      <div className="flex h-96 items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
       </div>
     );
@@ -201,7 +201,7 @@ export default function PaymentSettingsPage() {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* QR Code Upload */}
         <Card className="p-6">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="mb-4 flex items-center gap-2">
             <QrCode className="h-5 w-5 text-blue-600" />
             <h2 className="text-lg font-semibold text-gray-900">
               Payment QR Code
@@ -210,7 +210,7 @@ export default function PaymentSettingsPage() {
 
           {qrPreview ? (
             <div className="space-y-4">
-              <div className="relative w-full max-w-sm mx-auto">
+              <div className="relative mx-auto w-full max-w-sm">
                 <img
                   src={qrPreview}
                   alt="Payment QR Code"
@@ -219,7 +219,7 @@ export default function PaymentSettingsPage() {
                 <Button
                   variant="destructive"
                   size="icon"
-                  className="absolute top-2 right-2"
+                  className="absolute right-2 top-2"
                   onClick={removeQrCode}
                 >
                   <X className="h-4 w-4" />
@@ -236,16 +236,14 @@ export default function PaymentSettingsPage() {
             </div>
           ) : (
             <div
-              className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors cursor-pointer"
+              className="cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center transition-colors hover:border-blue-500"
               onClick={() => document.getElementById("qr-upload")?.click()}
             >
               <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
               <p className="mt-2 text-sm text-gray-600">
                 Click to upload QR code
               </p>
-              <p className="text-xs text-gray-500 mt-1">
-                PNG, JPG up to 5MB
-              </p>
+              <p className="mt-1 text-xs text-gray-500">PNG, JPG up to 5MB</p>
             </div>
           )}
 
@@ -260,22 +258,20 @@ export default function PaymentSettingsPage() {
 
         {/* UPI IDs */}
         <Card className="p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            UPI IDs
-          </h2>
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">UPI IDs</h2>
 
-          <div className="space-y-3 mb-4">
+          <div className="mb-4 space-y-3">
             {settings.upiIds.map((upi, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between rounded-lg bg-gray-50 p-3"
               >
-                <span className="text-sm font-mono text-gray-900">{upi}</span>
+                <span className="font-mono text-sm text-gray-900">{upi}</span>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => removeUpiId(index)}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  className="text-red-600 hover:bg-red-50 hover:text-red-700"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
@@ -283,7 +279,7 @@ export default function PaymentSettingsPage() {
             ))}
 
             {settings.upiIds.length === 0 && (
-              <p className="text-sm text-gray-500 text-center py-4">
+              <p className="py-4 text-center text-sm text-gray-500">
                 No UPI IDs added yet
               </p>
             )}
@@ -304,7 +300,7 @@ export default function PaymentSettingsPage() {
 
         {/* Payment Instructions */}
         <Card className="p-6 lg:col-span-2">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Payment Instructions
           </h2>
           <Textarea
@@ -316,14 +312,14 @@ export default function PaymentSettingsPage() {
             rows={6}
             className="resize-none"
           />
-          <p className="text-xs text-gray-500 mt-2">
+          <p className="mt-2 text-xs text-gray-500">
             These instructions will be shown to users during payment
           </p>
         </Card>
 
         {/* Bank Details (Optional) */}
         <Card className="p-6 lg:col-span-2">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">
             Bank Account Details (Optional)
           </h2>
 
@@ -425,20 +421,20 @@ export default function PaymentSettingsPage() {
               <h3 className="text-lg font-semibold text-gray-900">
                 Enable Payment Collection
               </h3>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="mt-1 text-sm text-gray-600">
                 Allow users to make payments during registration
               </p>
             </div>
-            <label className="relative inline-flex items-center cursor-pointer">
+            <label className="relative inline-flex cursor-pointer items-center">
               <input
                 type="checkbox"
                 checked={settings.enabled}
                 onChange={(e) =>
                   setSettings({ ...settings, enabled: e.target.checked })
                 }
-                className="sr-only peer"
+                className="peer sr-only"
               />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              <div className="peer h-6 w-11 rounded-full bg-gray-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300"></div>
             </label>
           </div>
         </Card>

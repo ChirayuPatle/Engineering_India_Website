@@ -20,7 +20,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, FileText, Trash2, Download, Upload as UploadIcon } from "lucide-react";
+import {
+  Plus,
+  FileText,
+  Trash2,
+  Download,
+  Upload as UploadIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface Resource {
@@ -34,7 +40,11 @@ interface Resource {
   phaseId?: string;
 }
 
-export default function EventResourcesManager({ eventId }: { eventId: string }) {
+export default function EventResourcesManager({
+  eventId,
+}: {
+  eventId: string;
+}) {
   const [resources, setResources] = useState<any[]>([]);
   const [phases, setPhases] = useState<any[]>([]);
   const [showDialog, setShowDialog] = useState(false);
@@ -143,9 +153,12 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
     if (!confirm("Delete this resource?")) return;
 
     try {
-      const response = await fetch(`/api/events/${eventId}/resources/${resourceId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `/api/events/${eventId}/resources/${resourceId}`,
+        {
+          method: "DELETE",
+        },
+      );
 
       if (!response.ok) throw new Error("Failed to delete");
 
@@ -169,7 +182,7 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
   };
 
   const getResourceIcon = (type: string) => {
-    return <FileText className="w-5 h-5 text-blue-600" />;
+    return <FileText className="h-5 w-5 text-blue-600" />;
   };
 
   const getAccessLevelBadge = (level: string) => {
@@ -186,15 +199,20 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Event Resources</h2>
-          <p className="text-gray-600">Manage downloadable files and templates</p>
+          <p className="text-gray-600">
+            Manage downloadable files and templates
+          </p>
         </div>
-        <Dialog open={showDialog} onOpenChange={(open) => {
-          setShowDialog(open);
-          if (!open) resetForm();
-        }}>
+        <Dialog
+          open={showDialog}
+          onOpenChange={(open) => {
+            setShowDialog(open);
+            if (!open) resetForm();
+          }}
+        >
           <DialogTrigger asChild>
             <Button>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Resource
             </Button>
           </DialogTrigger>
@@ -208,7 +226,9 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                 <Input
                   id="title"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   placeholder="e.g., PPT Template"
                   required
                 />
@@ -219,7 +239,9 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   placeholder="Brief description of the resource"
                   rows={3}
                 />
@@ -230,7 +252,9 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                   <Label htmlFor="type">Resource Type</Label>
                   <Select
                     value={formData.type}
-                    onValueChange={(value) => setFormData({ ...formData, type: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, type: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -248,14 +272,18 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                   <Label htmlFor="accessLevel">Access Level</Label>
                   <Select
                     value={formData.accessLevel}
-                    onValueChange={(value) => setFormData({ ...formData, accessLevel: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, accessLevel: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="public">Public</SelectItem>
-                      <SelectItem value="registered">Registered Only</SelectItem>
+                      <SelectItem value="registered">
+                        Registered Only
+                      </SelectItem>
                       <SelectItem value="approved">Approved Only</SelectItem>
                     </SelectContent>
                   </Select>
@@ -267,7 +295,9 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                   <Label htmlFor="phaseId">Link to Phase (Optional)</Label>
                   <Select
                     value={formData.phaseId}
-                    onValueChange={(value) => setFormData({ ...formData, phaseId: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, phaseId: value })
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a phase" />
@@ -288,20 +318,28 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                 <Label htmlFor="file">Upload File *</Label>
                 <div className="mt-2">
                   {formData.fileUrl ? (
-                    <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
-                      <FileText className="w-5 h-5 text-green-600" />
-                      <span className="flex-1 text-sm">{formData.fileName}</span>
+                    <div className="flex items-center gap-3 rounded-lg bg-green-50 p-3">
+                      <FileText className="h-5 w-5 text-green-600" />
+                      <span className="flex-1 text-sm">
+                        {formData.fileName}
+                      </span>
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        onClick={() => setFormData({ ...formData, fileUrl: "", fileName: "" })}
+                        onClick={() =>
+                          setFormData({
+                            ...formData,
+                            fileUrl: "",
+                            fileName: "",
+                          })
+                        }
                       >
                         Remove
                       </Button>
                     </div>
                   ) : (
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <div className="rounded-lg border-2 border-dashed border-gray-300 p-6 text-center">
                       <input
                         type="file"
                         id="file"
@@ -310,11 +348,11 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                         disabled={uploading}
                       />
                       <label htmlFor="file" className="cursor-pointer">
-                        <UploadIcon className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <UploadIcon className="mx-auto mb-2 h-8 w-8 text-gray-400" />
                         <p className="text-sm text-gray-600">
                           {uploading ? "Uploading..." : "Click to upload file"}
                         </p>
-                        <p className="text-xs text-gray-500 mt-1">Max 10MB</p>
+                        <p className="mt-1 text-xs text-gray-500">Max 10MB</p>
                       </label>
                     </div>
                   )}
@@ -322,7 +360,11 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowDialog(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit" disabled={uploading || !formData.fileUrl}>
@@ -340,20 +382,26 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
           {resources.map((resource) => (
             <Card key={resource.id} className="p-6">
               <div className="flex items-start justify-between">
-                <div className="flex gap-4 flex-1">
+                <div className="flex flex-1 gap-4">
                   {getResourceIcon(resource.type)}
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold">{resource.title}</h3>
-                      <span className={`px-2 py-1 text-xs rounded-full ${getAccessLevelBadge(resource.accessLevel)}`}>
+                    <div className="mb-2 flex items-center gap-3">
+                      <h3 className="text-lg font-semibold">
+                        {resource.title}
+                      </h3>
+                      <span
+                        className={`rounded-full px-2 py-1 text-xs ${getAccessLevelBadge(resource.accessLevel)}`}
+                      >
                         {resource.accessLevel}
                       </span>
-                      <span className="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full">
+                      <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
                         {resource.type}
                       </span>
                     </div>
                     {resource.description && (
-                      <p className="text-gray-600 text-sm mb-2">{resource.description}</p>
+                      <p className="mb-2 text-sm text-gray-600">
+                        {resource.description}
+                      </p>
                     )}
                     <div className="flex gap-4 text-xs text-gray-500">
                       <span>File: {resource.fileName}</span>
@@ -364,13 +412,14 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                  >
-                    <a href={resource.fileUrl} download target="_blank" rel="noopener noreferrer">
-                      <Download className="w-4 h-4" />
+                  <Button variant="outline" size="sm" asChild>
+                    <a
+                      href={resource.fileUrl}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Download className="h-4 w-4" />
                     </a>
                   </Button>
                   <Button
@@ -379,7 +428,7 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
                     onClick={() => handleDelete(resource.id)}
                     className="text-red-600 hover:text-red-700"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
@@ -388,9 +437,9 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
         </div>
       ) : (
         <Card className="p-12 text-center">
-          <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <FileText className="mx-auto mb-4 h-12 w-12 text-gray-400" />
           <p className="text-gray-500">No resources added yet.</p>
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="mt-2 text-sm text-gray-400">
             Add templates, guidelines, or other materials for participants
           </p>
         </Card>

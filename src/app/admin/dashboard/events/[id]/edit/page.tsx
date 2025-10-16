@@ -17,7 +17,11 @@ interface EventFormData {
   bannerImage: string;
 }
 
-export default function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
+export default function EditEventPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = use(params);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -41,9 +45,9 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
     try {
       const response = await fetch(`/api/admin/events/${id}`);
       if (!response.ok) throw new Error("Failed to fetch event");
-      
+
       const event = await response.json();
-      
+
       // Format dates for datetime-local input
       const startDate = event.startDate
         ? new Date(event.startDate).toISOString().slice(0, 16)
@@ -72,7 +76,7 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -109,7 +113,11 @@ export default function EditEventPage({ params }: { params: Promise<{ id: string
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this event? This action cannot be undone.")) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this event? This action cannot be undone.",
+      )
+    ) {
       return;
     }
 

@@ -54,7 +54,7 @@ const fetchHackathonRegistration = async (): Promise<any> => {
     if (res.status === 401) return null;
     throw new Error("Failed to fetch hackathon registration.");
   }
-  const data = await res.json() as { registration: any };
+  const data = (await res.json()) as { registration: any };
   return data.registration;
 };
 
@@ -66,9 +66,9 @@ function getGreeting(): string {
 }
 
 const DashboardSkeleton = () => (
-  <div className="flex flex-col space-y-4 sm:space-y-6 px-4 sm:px-0">
+  <div className="flex flex-col space-y-4 px-4 sm:space-y-6 sm:px-0">
     <Skeleton className="h-8 w-48 sm:w-64" />
-    <div className="flex flex-col sm:flex-row w-full gap-3 sm:gap-4">
+    <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
       <Skeleton className="h-24 w-full sm:w-1/2" />
       <Skeleton className="h-24 w-full sm:w-1/2" />
     </div>
@@ -92,10 +92,11 @@ export default function DashboardPage() {
     queryFn: fetchDashboardData,
   });
 
-  const { data: hackathonRegistration, isLoading: isLoadingHackathon } = useQuery({
-    queryKey: ["hackathonRegistration"],
-    queryFn: fetchHackathonRegistration,
-  });
+  const { data: hackathonRegistration, isLoading: isLoadingHackathon } =
+    useQuery({
+      queryKey: ["hackathonRegistration"],
+      queryFn: fetchHackathonRegistration,
+    });
 
   const userName = data?.user?.name ?? "User";
   const registeredEvents = data?.registeredEvents ?? [];
@@ -115,9 +116,9 @@ export default function DashboardPage() {
   if (isError) {
     return (
       <div className="mx-4 sm:mx-0">
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 sm:p-8 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="mb-4 h-10 w-10 sm:h-12 sm:w-12 text-red-500" />
-          <span className="text-lg sm:text-xl font-semibold">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm sm:p-8">
+          <TriangleAlert className="mb-4 h-10 w-10 text-red-500 sm:h-12 sm:w-12" />
+          <span className="text-lg font-semibold sm:text-xl">
             Error loading dashboard data.
           </span>
           <p className="mt-2 text-xs sm:text-sm">
@@ -132,13 +133,12 @@ export default function DashboardPage() {
     <div className="flex flex-col px-4 sm:px-0">
       <div className="w-full flex-1 justify-between space-y-4 sm:space-y-6">
         {/* 👋 Greeting */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-semibold break-words">
+        <div className="break-words text-xl font-semibold sm:text-2xl lg:text-3xl">
           👋 {greeting}, <span className="text-primary">{userName}</span>!
         </div>
 
-
         {/* Stats */}
-        <div className="flex flex-col sm:flex-row w-full gap-3 sm:gap-4">
+        <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
           <StatCard
             title="Total Registrations"
             value={String(stats.totalRegistrations)}
@@ -153,15 +153,17 @@ export default function DashboardPage() {
 
         {/* Hackathon Registration */}
         <div className="space-y-3 sm:space-y-4">
-          <h2 className="text-lg sm:text-xl font-bold">Hackathon Registration</h2>
+          <h2 className="text-lg font-bold sm:text-xl">
+            Hackathon Registration
+          </h2>
           {isLoadingHackathon ? (
             <Skeleton className="h-64 w-full" />
           ) : hackathonRegistration ? (
             <HackathonRegistrationCard registration={hackathonRegistration} />
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 sm:p-6 text-center text-muted-foreground shadow-sm">
-              <div className="text-3xl sm:text-4xl mb-2">🚀</div>
-              <span className="text-base sm:text-lg font-semibold">
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
+              <div className="mb-2 text-3xl sm:text-4xl">🚀</div>
+              <span className="text-base font-semibold sm:text-lg">
                 Not registered for hackathon yet
               </span>
               <p className="mt-1 text-xs sm:text-sm">
@@ -173,12 +175,14 @@ export default function DashboardPage() {
 
         {/* Registered Events */}
         <div className="space-y-3 sm:space-y-4">
-          <h2 className="text-lg sm:text-xl font-bold">Your Registered Events</h2>
+          <h2 className="text-lg font-bold sm:text-xl">
+            Your Registered Events
+          </h2>
           {registeredEvents.length > 0 ? (
             <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
               {/* You'll need to create a component for displaying registered events */}
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 sm:p-6 text-center text-muted-foreground shadow-sm">
-                <span className="text-base sm:text-lg font-semibold">
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
+                <span className="text-base font-semibold sm:text-lg">
                   Display Registered Events Here
                 </span>
                 <p className="mt-1 text-xs sm:text-sm">
@@ -187,9 +191,9 @@ export default function DashboardPage() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 sm:p-6 text-center text-muted-foreground shadow-sm">
-              <div className="text-3xl sm:text-4xl mb-2">📝</div>
-              <span className="text-base sm:text-lg font-semibold">
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
+              <div className="mb-2 text-3xl sm:text-4xl">📝</div>
+              <span className="text-base font-semibold sm:text-lg">
                 No registered events found
               </span>
               <p className="mt-1 text-xs sm:text-sm">
@@ -201,7 +205,7 @@ export default function DashboardPage() {
 
         {/* Payments */}
         <div className="space-y-3 sm:space-y-4">
-          <h2 className="text-lg sm:text-xl font-bold">Recent Payments</h2>
+          <h2 className="text-lg font-bold sm:text-xl">Recent Payments</h2>
           {payments.length > 0 ? (
             <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
               {payments.map((payment) => (
@@ -210,16 +214,16 @@ export default function DashboardPage() {
                   id={payment.id}
                   eventName={payment.eventName}
                   amount={payment.amount}
-                  date={new Date(payment.date).toLocaleDateString('en-GB')}
+                  date={new Date(payment.date).toLocaleDateString("en-GB")}
                   status={payment.status}
                   transactionId={payment.transactionId}
                 />
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 sm:p-6 text-center text-muted-foreground shadow-sm">
-              <div className="text-3xl sm:text-4xl mb-2">💸</div>
-              <span className="text-base sm:text-lg font-semibold">
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
+              <div className="mb-2 text-3xl sm:text-4xl">💸</div>
+              <span className="text-base font-semibold sm:text-lg">
                 No recent payments found
               </span>
               <p className="mt-1 text-xs sm:text-sm">

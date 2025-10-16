@@ -58,7 +58,7 @@ export function RoleEditor({ userId, currentRole }: RoleEditorProps) {
         disabled={updating}
         className={`rounded-full border px-3 py-1 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 ${
           roleColors[selectedRole as keyof typeof roleColors]
-        } ${updating ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
+        } ${updating ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
       >
         <option value="USER">USER</option>
         <option value="MODERATOR">MODERATOR</option>

@@ -43,7 +43,11 @@ interface RegistrationFormProps {
   onSuccess?: () => void;
 }
 
-export function RegistrationForm({ eventId, eventName, onSuccess }: RegistrationFormProps) {
+export function RegistrationForm({
+  eventId,
+  eventName,
+  onSuccess,
+}: RegistrationFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -83,7 +87,7 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
 
       toast.success("Registration submitted successfully!");
       form.reset();
-      
+
       if (onSuccess) {
         onSuccess();
       } else {
@@ -95,7 +99,7 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
     } catch (error) {
       console.error("Registration error:", error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to register for event"
+        error instanceof Error ? error.message : "Failed to register for event",
       );
     } finally {
       setIsSubmitting(false);
@@ -103,9 +107,11 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="mx-auto w-full max-w-2xl">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Register for {eventName}</h2>
+        <h2 className="text-2xl font-bold text-gray-900">
+          Register for {eventName}
+        </h2>
         <p className="mt-2 text-sm text-gray-600">
           Fill in your details to register for this event
         </p>
@@ -135,7 +141,11 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
                 <FormItem>
                   <FormLabel>Email *</FormLabel>
                   <FormControl>
-                    <Input placeholder="john@example.com" type="email" {...field} />
+                    <Input
+                      placeholder="john@example.com"
+                      type="email"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -176,7 +186,10 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Branch/Department *</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select your branch" />
@@ -185,8 +198,12 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
                     <SelectContent>
                       <SelectItem value="CSE">Computer Science</SelectItem>
                       <SelectItem value="IT">Information Technology</SelectItem>
-                      <SelectItem value="ECE">Electronics & Communication</SelectItem>
-                      <SelectItem value="EEE">Electrical Engineering</SelectItem>
+                      <SelectItem value="ECE">
+                        Electronics & Communication
+                      </SelectItem>
+                      <SelectItem value="EEE">
+                        Electrical Engineering
+                      </SelectItem>
                       <SelectItem value="ME">Mechanical Engineering</SelectItem>
                       <SelectItem value="CE">Civil Engineering</SelectItem>
                       <SelectItem value="OTHER">Other</SelectItem>
@@ -203,7 +220,10 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Year of Study *</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select your year" />
@@ -231,7 +251,10 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
               <FormItem>
                 <FormLabel>Team Name (Optional)</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your team name (if applicable)" {...field} />
+                  <Input
+                    placeholder="Your team name (if applicable)"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -257,9 +280,9 @@ export function RegistrationForm({ eventId, eventName, onSuccess }: Registration
             )}
           />
 
-          <Button 
-            type="submit" 
-            className="w-full" 
+          <Button
+            type="submit"
+            className="w-full"
             size="lg"
             disabled={isSubmitting}
           >

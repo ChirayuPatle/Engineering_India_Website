@@ -6,10 +6,10 @@ import { useEvents } from "@/context/eventContext";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Calendar, 
-  MapPin, 
-  Clock, 
+import {
+  Calendar,
+  MapPin,
+  Clock,
   Trophy,
   Share2,
   Award,
@@ -17,7 +17,7 @@ import {
   Zap,
   ArrowLeft,
   DollarSign,
-  ImageIcon
+  ImageIcon,
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -55,7 +55,10 @@ export default function EventPage() {
 
   const event = events.find((ev) => ev.id === slug);
 
-  const parseJsonField = <T,>(jsonString: string | null | undefined, defaultValue: T): T => {
+  const parseJsonField = <T,>(
+    jsonString: string | null | undefined,
+    defaultValue: T,
+  ): T => {
     try {
       return jsonString ? (JSON.parse(jsonString) as T) : defaultValue;
     } catch (e) {
@@ -101,12 +104,12 @@ export default function EventPage() {
   // Handle registration
   const handleRegister = () => {
     const eventSlug = Array.isArray(slug) ? slug[0] : slug;
-    router.push(`/dashboard/register/${eventSlug || ''}`);
+    router.push(`/dashboard/register/${eventSlug || ""}`);
   };
 
   if (loading || !event) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50">
         <div className="text-gray-500">Loading...</div>
       </div>
     );
@@ -114,16 +117,31 @@ export default function EventPage() {
 
   const tabItems = [
     { id: "about", label: "About", icon: Target, show: true },
-    { id: "prizes", label: "Prizes", icon: Trophy, show: parsedPrizes.length > 0 },
-    { id: "timeline", label: "Timeline", icon: Calendar, show: parsedTimeline.length > 0 },
-    { id: "gallery", label: "Gallery", icon: ImageIcon, show: parsedGallery.length > 0 },
+    {
+      id: "prizes",
+      label: "Prizes",
+      icon: Trophy,
+      show: parsedPrizes.length > 0,
+    },
+    {
+      id: "timeline",
+      label: "Timeline",
+      icon: Calendar,
+      show: parsedTimeline.length > 0,
+    },
+    {
+      id: "gallery",
+      label: "Gallery",
+      icon: ImageIcon,
+      show: parsedGallery.length > 0,
+    },
     { id: "faq", label: "FAQs", icon: Zap, show: parsedFaqs.length > 0 },
-  ].filter(tab => tab.show);
+  ].filter((tab) => tab.show);
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Back Button */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <div className="sticky top-0 z-50 border-b border-gray-200 bg-white">
         <div className="container mx-auto px-4 py-3 sm:px-6 lg:px-8">
           <Button
             variant="ghost"
@@ -131,25 +149,23 @@ export default function EventPage() {
             onClick={() => router.back()}
             className="hover:bg-gray-100"
           >
-            <ArrowLeft className="h-4 w-4 mr-2" />
+            <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Events
           </Button>
         </div>
       </div>
 
       {/* Main Content - Two Column Layout */}
-      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            
+      <div className="container mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
             {/* Left Column - Event Details (2/3 width) */}
-            <div className="lg:col-span-2 space-y-6">
-              
+            <div className="space-y-6 lg:col-span-2">
               {/* Event Header Card */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
                 {/* Event Banner */}
                 {event.bannerImage && (
-                  <div className="relative w-full h-64 sm:h-80 bg-gray-100">
+                  <div className="relative h-64 w-full bg-gray-100 sm:h-80">
                     <Image
                       src={event.bannerImage}
                       alt={event.name}
@@ -158,21 +174,21 @@ export default function EventPage() {
                     />
                   </div>
                 )}
-                
+
                 {/* Event Info */}
                 <div className="p-6 sm:p-8">
                   {/* Category Badge */}
-                  <Badge className="mb-3 bg-blue-600 hover:bg-blue-700 text-white border-0">
+                  <Badge className="mb-3 border-0 bg-blue-600 text-white hover:bg-blue-700">
                     {event.category || "Event"}
                   </Badge>
 
                   {/* Event Title */}
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  <h1 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
                     {event.name}
                   </h1>
 
                   {/* Event Metadata */}
-                  <div className="flex flex-wrap gap-4 mb-6 pb-6 border-b border-gray-200">
+                  <div className="mb-6 flex flex-wrap gap-4 border-b border-gray-200 pb-6">
                     {event.startDate && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <Calendar className="h-5 w-5 text-blue-600" />
@@ -181,11 +197,13 @@ export default function EventPage() {
                         </span>
                       </div>
                     )}
-                    
+
                     {event.location && (
                       <div className="flex items-center gap-2 text-gray-600">
                         <MapPin className="h-5 w-5 text-blue-600" />
-                        <span className="text-sm font-medium">{event.location}</span>
+                        <span className="text-sm font-medium">
+                          {event.location}
+                        </span>
                       </div>
                     )}
 
@@ -202,10 +220,10 @@ export default function EventPage() {
               </div>
 
               {/* Tabs Section */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+              <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
                 {/* Tab Navigation */}
                 <div className="border-b border-gray-200">
-                  <div className="flex gap-1 overflow-x-auto scrollbar-hide">
+                  <div className="scrollbar-hide flex gap-1 overflow-x-auto">
                     {tabItems.map((tab) => {
                       const Icon = tab.icon;
                       return (
@@ -213,10 +231,10 @@ export default function EventPage() {
                           key={tab.id}
                           onClick={() => setActiveTab(tab.id)}
                           className={cn(
-                            "flex items-center gap-2 px-4 sm:px-6 py-3 sm:py-4 font-medium text-sm whitespace-nowrap transition-all border-b-2",
+                            "flex items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-all sm:px-6 sm:py-4",
                             activeTab === tab.id
-                              ? "text-blue-600 border-blue-600"
-                              : "text-gray-600 border-transparent hover:text-gray-900 hover:border-gray-300"
+                              ? "border-blue-600 text-blue-600"
+                              : "border-transparent text-gray-600 hover:border-gray-300 hover:text-gray-900",
                           )}
                         >
                           <Icon className="h-4 w-4" />
@@ -229,41 +247,133 @@ export default function EventPage() {
 
                 {/* Tab Content */}
                 <div className="p-6 sm:p-8">
-                  
                   {/* About Tab */}
                   {activeTab === "about" && (
                     <div className="space-y-6">
                       {/* Event Description with Markdown */}
                       <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">About this Event</h2>
+                        <h2 className="mb-4 text-xl font-bold text-gray-900">
+                          About this Event
+                        </h2>
                         <div className="prose prose-gray max-w-none">
-                          <ReactMarkdown 
+                          <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             components={{
-                              h1: ({node: _node, ...props}) => <h1 className="text-2xl font-bold text-gray-900 mt-6 mb-4" {...props} />,
-                              h2: ({node: _node, ...props}) => <h2 className="text-xl font-bold text-gray-900 mt-5 mb-3" {...props} />,
-                              h3: ({node: _node, ...props}) => <h3 className="text-lg font-bold text-gray-900 mt-4 mb-2" {...props} />,
-                              p: ({node: _node, ...props}) => <p className="text-gray-700 leading-relaxed mb-4" {...props} />,
-                              a: ({node: _node, ...props}) => <a className="text-blue-600 hover:underline font-medium" target="_blank" rel="noopener noreferrer" {...props} />,
-                              ul: ({node: _node, ...props}) => <ul className="list-disc ml-6 mb-4 space-y-2" {...props} />,
-                              ol: ({node: _node, ...props}) => <ol className="list-decimal ml-6 mb-4 space-y-2" {...props} />,
-                              li: ({node: _node, ...props}) => <li className="text-gray-700" {...props} />,
-                              blockquote: ({node: _node, ...props}) => <blockquote className="border-l-4 border-blue-600 pl-4 italic text-gray-600 my-4" {...props} />,
-                              code: ({node: _node, inline, ...props}: any) => 
+                              h1: ({ node: _node, ...props }) => (
+                                <h1
+                                  className="mb-4 mt-6 text-2xl font-bold text-gray-900"
+                                  {...props}
+                                />
+                              ),
+                              h2: ({ node: _node, ...props }) => (
+                                <h2
+                                  className="mb-3 mt-5 text-xl font-bold text-gray-900"
+                                  {...props}
+                                />
+                              ),
+                              h3: ({ node: _node, ...props }) => (
+                                <h3
+                                  className="mb-2 mt-4 text-lg font-bold text-gray-900"
+                                  {...props}
+                                />
+                              ),
+                              p: ({ node: _node, ...props }) => (
+                                <p
+                                  className="mb-4 leading-relaxed text-gray-700"
+                                  {...props}
+                                />
+                              ),
+                              a: ({ node: _node, ...props }) => (
+                                <a
+                                  className="font-medium text-blue-600 hover:underline"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  {...props}
+                                />
+                              ),
+                              ul: ({ node: _node, ...props }) => (
+                                <ul
+                                  className="mb-4 ml-6 list-disc space-y-2"
+                                  {...props}
+                                />
+                              ),
+                              ol: ({ node: _node, ...props }) => (
+                                <ol
+                                  className="mb-4 ml-6 list-decimal space-y-2"
+                                  {...props}
+                                />
+                              ),
+                              li: ({ node: _node, ...props }) => (
+                                <li className="text-gray-700" {...props} />
+                              ),
+                              blockquote: ({ node: _node, ...props }) => (
+                                <blockquote
+                                  className="my-4 border-l-4 border-blue-600 pl-4 italic text-gray-600"
+                                  {...props}
+                                />
+                              ),
+                              code: ({ node: _node, inline, ...props }: any) =>
                                 inline ? (
-                                  <code className="bg-gray-100 text-blue-600 px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
+                                  <code
+                                    className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-blue-600"
+                                    {...props}
+                                  />
                                 ) : (
-                                  <code className="block bg-gray-100 p-4 rounded-lg text-sm font-mono overflow-x-auto" {...props} />
+                                  <code
+                                    className="block overflow-x-auto rounded-lg bg-gray-100 p-4 font-mono text-sm"
+                                    {...props}
+                                  />
                                 ),
-                              strong: ({node: _node, ...props}) => <strong className="font-semibold text-gray-900" {...props} />,
-                              em: ({node: _node, ...props}) => <em className="italic text-gray-700" {...props} />,
-                              hr: ({node: _node, ...props}) => <hr className="my-6 border-gray-300" {...props} />,
-                              table: ({node: _node, ...props}) => <div className="overflow-x-auto my-4"><table className="min-w-full divide-y divide-gray-300 border border-gray-300" {...props} /></div>,
-                              thead: ({node: _node, ...props}) => <thead className="bg-gray-50" {...props} />,
-                              tbody: ({node: _node, ...props}) => <tbody className="divide-y divide-gray-200 bg-white" {...props} />,
-                              tr: ({node: _node, ...props}) => <tr {...props} />,
-                              th: ({node: _node, ...props}) => <th className="px-4 py-2 text-left text-sm font-semibold text-gray-900 border-r border-gray-300 last:border-r-0" {...props} />,
-                              td: ({node: _node, ...props}) => <td className="px-4 py-2 text-sm text-gray-700 border-r border-gray-300 last:border-r-0" {...props} />,
+                              strong: ({ node: _node, ...props }) => (
+                                <strong
+                                  className="font-semibold text-gray-900"
+                                  {...props}
+                                />
+                              ),
+                              em: ({ node: _node, ...props }) => (
+                                <em
+                                  className="italic text-gray-700"
+                                  {...props}
+                                />
+                              ),
+                              hr: ({ node: _node, ...props }) => (
+                                <hr
+                                  className="my-6 border-gray-300"
+                                  {...props}
+                                />
+                              ),
+                              table: ({ node: _node, ...props }) => (
+                                <div className="my-4 overflow-x-auto">
+                                  <table
+                                    className="min-w-full divide-y divide-gray-300 border border-gray-300"
+                                    {...props}
+                                  />
+                                </div>
+                              ),
+                              thead: ({ node: _node, ...props }) => (
+                                <thead className="bg-gray-50" {...props} />
+                              ),
+                              tbody: ({ node: _node, ...props }) => (
+                                <tbody
+                                  className="divide-y divide-gray-200 bg-white"
+                                  {...props}
+                                />
+                              ),
+                              tr: ({ node: _node, ...props }) => (
+                                <tr {...props} />
+                              ),
+                              th: ({ node: _node, ...props }) => (
+                                <th
+                                  className="border-r border-gray-300 px-4 py-2 text-left text-sm font-semibold text-gray-900 last:border-r-0"
+                                  {...props}
+                                />
+                              ),
+                              td: ({ node: _node, ...props }) => (
+                                <td
+                                  className="border-r border-gray-300 px-4 py-2 text-sm text-gray-700 last:border-r-0"
+                                  {...props}
+                                />
+                              ),
                             }}
                           >
                             {event.description || "No description available."}
@@ -272,17 +382,27 @@ export default function EventPage() {
                       </div>
 
                       {/* Key Highlights */}
-                      <div className="grid sm:grid-cols-2 gap-4 mt-6">
-                        <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
-                          <Award className="h-8 w-8 text-blue-600 mb-3" />
-                          <h3 className="font-semibold text-gray-900 mb-2">Open to All</h3>
-                          <p className="text-sm text-gray-700">Students, professionals, and enthusiasts from all backgrounds are welcome.</p>
+                      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                        <div className="rounded-lg border border-blue-100 bg-blue-50 p-5">
+                          <Award className="mb-3 h-8 w-8 text-blue-600" />
+                          <h3 className="mb-2 font-semibold text-gray-900">
+                            Open to All
+                          </h3>
+                          <p className="text-sm text-gray-700">
+                            Students, professionals, and enthusiasts from all
+                            backgrounds are welcome.
+                          </p>
                         </div>
-                        
-                        <div className="bg-blue-50 p-5 rounded-lg border border-blue-100">
-                          <Trophy className="h-8 w-8 text-blue-600 mb-3" />
-                          <h3 className="font-semibold text-gray-900 mb-2">Exciting Rewards</h3>
-                          <p className="text-sm text-gray-700">Winners receive certificates, prizes, and recognition opportunities.</p>
+
+                        <div className="rounded-lg border border-blue-100 bg-blue-50 p-5">
+                          <Trophy className="mb-3 h-8 w-8 text-blue-600" />
+                          <h3 className="mb-2 font-semibold text-gray-900">
+                            Exciting Rewards
+                          </h3>
+                          <p className="text-sm text-gray-700">
+                            Winners receive certificates, prizes, and
+                            recognition opportunities.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -291,20 +411,29 @@ export default function EventPage() {
                   {/* Prizes Tab */}
                   {activeTab === "prizes" && parsedPrizes.length > 0 && (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
                         <Trophy className="h-6 w-6 text-blue-600" />
                         Prizes & Rewards
                       </h2>
-                      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {parsedPrizes.map((prize: Prize, index: number) => (
-                          <div key={index} className="bg-white border-2 border-gray-200 rounded-lg p-5 hover:border-blue-300 transition-colors">
-                            <div className="flex items-center gap-2 mb-3">
+                          <div
+                            key={index}
+                            className="rounded-lg border-2 border-gray-200 bg-white p-5 transition-colors hover:border-blue-300"
+                          >
+                            <div className="mb-3 flex items-center gap-2">
                               <Trophy className="h-5 w-5 text-blue-600" />
-                              <h3 className="font-bold text-lg text-gray-900">{prize.position}</h3>
+                              <h3 className="text-lg font-bold text-gray-900">
+                                {prize.position}
+                              </h3>
                             </div>
-                            <p className="text-gray-700 text-sm mb-2">{prize.description}</p>
+                            <p className="mb-2 text-sm text-gray-700">
+                              {prize.description}
+                            </p>
                             {prize.value && (
-                              <p className="text-blue-600 font-bold text-lg">{prize.value}</p>
+                              <p className="text-lg font-bold text-blue-600">
+                                {prize.value}
+                              </p>
                             )}
                           </div>
                         ))}
@@ -315,57 +444,103 @@ export default function EventPage() {
                   {/* Timeline Tab */}
                   {activeTab === "timeline" && parsedTimeline.length > 0 && (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
                         <Calendar className="h-6 w-6 text-blue-600" />
                         Event Timeline
                       </h2>
                       <div className="space-y-4">
-                        {parsedTimeline.map((item: TimelineItem, index: number) => (
-                          <div key={index} className="flex gap-4">
-                            <div className="flex flex-col items-center">
-                              <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold shadow-sm">
-                                {index + 1}
-                              </div>
-                              {index < parsedTimeline.length - 1 && (
-                                <div className="w-0.5 h-full bg-gray-300 mt-2" />
-                              )}
-                            </div>
-                            <div className="flex-1 pb-6">
-                              <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-                                <div className="flex items-center gap-3 mb-2">
-                                  <Badge variant="outline" className="bg-white">{item.time}</Badge>
-                                  {item.location && (
-                                    <span className="text-sm text-gray-600 flex items-center gap-1">
-                                      <MapPin className="h-3 w-3" />
-                                      {item.location}
-                                    </span>
-                                  )}
+                        {parsedTimeline.map(
+                          (item: TimelineItem, index: number) => (
+                            <div key={index} className="flex gap-4">
+                              <div className="flex flex-col items-center">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold text-white shadow-sm">
+                                  {index + 1}
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-1">{item.activity}</h3>
-                                {item.description && (
-                                  <div className="text-sm">
-                                    <ReactMarkdown 
-                                      remarkPlugins={[remarkGfm]}
-                                      components={{
-                                        p: ({node: _node, ...props}) => <p className="text-gray-700 text-sm mb-1" {...props} />,
-                                        a: ({node: _node, ...props}) => <a className="text-blue-600 hover:underline font-medium text-sm" target="_blank" rel="noopener noreferrer" {...props} />,
-                                        ul: ({node: _node, ...props}) => <ul className="list-disc ml-4 mb-1 space-y-0.5 text-sm" {...props} />,
-                                        li: ({node: _node, ...props}) => <li className="text-gray-700 text-sm" {...props} />,
-                                        code: ({node: _node, inline, ...props}: any) => 
-                                          inline ? (
-                                            <code className="bg-white text-blue-600 px-1 py-0.5 rounded text-xs font-mono" {...props} />
-                                          ) : null,
-                                        strong: ({node: _node, ...props}) => <strong className="font-semibold text-gray-900 text-sm" {...props} />,
-                                      }}
-                                    >
-                                      {item.description}
-                                    </ReactMarkdown>
-                                  </div>
+                                {index < parsedTimeline.length - 1 && (
+                                  <div className="mt-2 h-full w-0.5 bg-gray-300" />
                                 )}
                               </div>
+                              <div className="flex-1 pb-6">
+                                <div className="rounded-lg border border-gray-200 bg-gray-50 p-5">
+                                  <div className="mb-2 flex items-center gap-3">
+                                    <Badge
+                                      variant="outline"
+                                      className="bg-white"
+                                    >
+                                      {item.time}
+                                    </Badge>
+                                    {item.location && (
+                                      <span className="flex items-center gap-1 text-sm text-gray-600">
+                                        <MapPin className="h-3 w-3" />
+                                        {item.location}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <h3 className="mb-1 font-bold text-gray-900">
+                                    {item.activity}
+                                  </h3>
+                                  {item.description && (
+                                    <div className="text-sm">
+                                      <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                          p: ({ node: _node, ...props }) => (
+                                            <p
+                                              className="mb-1 text-sm text-gray-700"
+                                              {...props}
+                                            />
+                                          ),
+                                          a: ({ node: _node, ...props }) => (
+                                            <a
+                                              className="text-sm font-medium text-blue-600 hover:underline"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              {...props}
+                                            />
+                                          ),
+                                          ul: ({ node: _node, ...props }) => (
+                                            <ul
+                                              className="mb-1 ml-4 list-disc space-y-0.5 text-sm"
+                                              {...props}
+                                            />
+                                          ),
+                                          li: ({ node: _node, ...props }) => (
+                                            <li
+                                              className="text-sm text-gray-700"
+                                              {...props}
+                                            />
+                                          ),
+                                          code: ({
+                                            node: _node,
+                                            inline,
+                                            ...props
+                                          }: any) =>
+                                            inline ? (
+                                              <code
+                                                className="rounded bg-white px-1 py-0.5 font-mono text-xs text-blue-600"
+                                                {...props}
+                                              />
+                                            ) : null,
+                                          strong: ({
+                                            node: _node,
+                                            ...props
+                                          }) => (
+                                            <strong
+                                              className="text-sm font-semibold text-gray-900"
+                                              {...props}
+                                            />
+                                          ),
+                                        }}
+                                      >
+                                        {item.description}
+                                      </ReactMarkdown>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ),
+                        )}
                       </div>
                     </div>
                   )}
@@ -373,18 +548,21 @@ export default function EventPage() {
                   {/* Gallery Tab */}
                   {activeTab === "gallery" && parsedGallery.length > 0 && (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
                         <ImageIcon className="h-6 w-6 text-blue-600" />
                         Event Gallery
                       </h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         {parsedGallery.map((image, index) => (
-                          <div key={index} className="relative aspect-video rounded-lg overflow-hidden border border-gray-200 group">
+                          <div
+                            key={index}
+                            className="group relative aspect-video overflow-hidden rounded-lg border border-gray-200"
+                          >
                             <Image
                               src={image.src}
                               alt={image.alt || `Gallery image ${index + 1}`}
                               fill
-                              className="object-cover hover:scale-105 transition-transform duration-300"
+                              className="object-cover transition-transform duration-300 hover:scale-105"
                             />
                           </div>
                         ))}
@@ -395,33 +573,80 @@ export default function EventPage() {
                   {/* FAQ Tab */}
                   {activeTab === "faq" && parsedFaqs.length > 0 && (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                      <h2 className="mb-4 flex items-center gap-2 text-xl font-bold text-gray-900">
                         <Zap className="h-6 w-6 text-blue-600" />
                         Frequently Asked Questions
                       </h2>
                       <div className="space-y-3">
                         {parsedFaqs.map((faq: FAQ, index: number) => (
-                          <div key={index} className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-                            <h3 className="font-semibold text-gray-900 mb-3 flex items-start gap-2">
-                              <span className="text-blue-600 font-bold">Q{index + 1}.</span>
+                          <div
+                            key={index}
+                            className="rounded-lg border border-gray-200 bg-gray-50 p-5"
+                          >
+                            <h3 className="mb-3 flex items-start gap-2 font-semibold text-gray-900">
+                              <span className="font-bold text-blue-600">
+                                Q{index + 1}.
+                              </span>
                               {faq.question}
                             </h3>
                             <div className="pl-7">
-                              <ReactMarkdown 
+                              <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
                                 components={{
-                                  p: ({node: _node, ...props}) => <p className="text-gray-700 text-sm mb-2" {...props} />,
-                                  a: ({node: _node, ...props}) => <a className="text-blue-600 hover:underline font-medium text-sm" target="_blank" rel="noopener noreferrer" {...props} />,
-                                  ul: ({node: _node, ...props}) => <ul className="list-disc ml-4 mb-2 space-y-1 text-sm" {...props} />,
-                                  ol: ({node: _node, ...props}) => <ol className="list-decimal ml-4 mb-2 space-y-1 text-sm" {...props} />,
-                                  li: ({node: _node, ...props}) => <li className="text-gray-700 text-sm" {...props} />,
-                                  code: ({node: _node, inline, ...props}: any) => 
+                                  p: ({ node: _node, ...props }) => (
+                                    <p
+                                      className="mb-2 text-sm text-gray-700"
+                                      {...props}
+                                    />
+                                  ),
+                                  a: ({ node: _node, ...props }) => (
+                                    <a
+                                      className="text-sm font-medium text-blue-600 hover:underline"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      {...props}
+                                    />
+                                  ),
+                                  ul: ({ node: _node, ...props }) => (
+                                    <ul
+                                      className="mb-2 ml-4 list-disc space-y-1 text-sm"
+                                      {...props}
+                                    />
+                                  ),
+                                  ol: ({ node: _node, ...props }) => (
+                                    <ol
+                                      className="mb-2 ml-4 list-decimal space-y-1 text-sm"
+                                      {...props}
+                                    />
+                                  ),
+                                  li: ({ node: _node, ...props }) => (
+                                    <li
+                                      className="text-sm text-gray-700"
+                                      {...props}
+                                    />
+                                  ),
+                                  code: ({
+                                    node: _node,
+                                    inline,
+                                    ...props
+                                  }: any) =>
                                     inline ? (
-                                      <code className="bg-white text-blue-600 px-1 py-0.5 rounded text-xs font-mono" {...props} />
+                                      <code
+                                        className="rounded bg-white px-1 py-0.5 font-mono text-xs text-blue-600"
+                                        {...props}
+                                      />
                                     ) : (
-                                      <code className="block bg-white p-2 rounded text-xs font-mono overflow-x-auto" {...props} />
+                                      <code
+                                        className="block overflow-x-auto rounded bg-white p-2 font-mono text-xs"
+                                        {...props}
+                                      />
                                     ),
-                                  strong: ({node: _node, ...props}) => <strong className="font-semibold text-gray-900 text-sm" {...props} />,
+                                  strong: ({ node: _node, ...props }) => (
+                                    <strong
+                                      className="text-sm font-semibold text-gray-900"
+                                      {...props}
+                                    />
+                                  ),
                                 }}
                               >
                                 {faq.answer}
@@ -438,25 +663,31 @@ export default function EventPage() {
 
             {/* Right Column - Registration Card (1/3 width) */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-20">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Register for Event</h2>
-                
+              <div className="sticky top-20 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+                <h2 className="mb-4 text-xl font-bold text-gray-900">
+                  Register for Event
+                </h2>
+
                 {/* Registration Deadline */}
                 {event.endDate && (
-                  <div className="mb-5 p-4 bg-orange-50 rounded-lg border border-orange-200">
-                    <div className="flex items-center gap-2 text-orange-700 mb-1">
+                  <div className="mb-5 rounded-lg border border-orange-200 bg-orange-50 p-4">
+                    <div className="mb-1 flex items-center gap-2 text-orange-700">
                       <Clock className="h-4 w-4" />
-                      <span className="text-xs font-semibold uppercase">Deadline</span>
+                      <span className="text-xs font-semibold uppercase">
+                        Deadline
+                      </span>
                     </div>
-                    <p className="text-orange-900 font-bold text-sm">
+                    <p className="text-sm font-bold text-orange-900">
                       {format(new Date(event.endDate), "MMM dd, yyyy")}
                     </p>
                   </div>
                 )}
 
                 {/* Quick Stats */}
-                {(event.price !== null || parsedPrizes.length > 0 || daysUntilEvent) && (
-                  <div className="space-y-3 mb-6 pb-6 border-b border-gray-200">
+                {(event.price !== null ||
+                  parsedPrizes.length > 0 ||
+                  daysUntilEvent) && (
+                  <div className="mb-6 space-y-3 border-b border-gray-200 pb-6">
                     {event.price !== null && event.price !== undefined && (
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">Entry Fee</span>
@@ -467,14 +698,20 @@ export default function EventPage() {
                     )}
                     {parsedPrizes.length > 0 && parsedPrizes[0]?.value && (
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-600">Prize Pool</span>
-                        <span className="text-lg font-bold text-gray-900">{parsedPrizes[0].value}</span>
+                        <span className="text-sm text-gray-600">
+                          Prize Pool
+                        </span>
+                        <span className="text-lg font-bold text-gray-900">
+                          {parsedPrizes[0].value}
+                        </span>
                       </div>
                     )}
                     {daysUntilEvent && (
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">Starts In</span>
-                        <span className="text-lg font-bold text-gray-900">{daysUntilEvent} Days</span>
+                        <span className="text-lg font-bold text-gray-900">
+                          {daysUntilEvent} Days
+                        </span>
                       </div>
                     )}
                   </div>
@@ -482,34 +719,38 @@ export default function EventPage() {
 
                 {/* Action Buttons */}
                 <div className="space-y-3">
-                  <Button 
-                    size="lg" 
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold h-12 shadow-sm"
+                  <Button
+                    size="lg"
+                    className="h-12 w-full bg-blue-600 font-semibold text-white shadow-sm hover:bg-blue-700"
                     onClick={handleRegister}
                   >
                     Register Now
                   </Button>
-                  
-                  <Button 
-                    variant="outline" 
+
+                  <Button
+                    variant="outline"
                     className="w-full border-gray-300 hover:bg-gray-50"
                     onClick={handleShare}
                   >
-                    <Share2 className="h-4 w-4 mr-2" />
+                    <Share2 className="mr-2 h-4 w-4" />
                     Share Event
                   </Button>
                 </div>
 
                 {/* Organizer Info */}
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-sm text-gray-600 mb-3">Organized by</p>
+                <div className="mt-6 border-t border-gray-200 pt-6">
+                  <p className="mb-3 text-sm text-gray-600">Organized by</p>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-sm">EI</span>
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-600">
+                      <span className="text-sm font-bold text-white">EI</span>
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900 text-sm">Entrepreneurship & Innovation Cell</p>
-                      <p className="text-xs text-gray-500">Verified Organizer</p>
+                      <p className="text-sm font-semibold text-gray-900">
+                        Entrepreneurship & Innovation Cell
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Verified Organizer
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -520,16 +761,16 @@ export default function EventPage() {
       </div>
 
       {/* Fixed Bottom CTA for Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 lg:hidden z-50 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white p-4 shadow-lg lg:hidden">
         <div className="flex gap-3">
-          <Button 
-            size="lg" 
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold h-12"
+          <Button
+            size="lg"
+            className="h-12 flex-1 bg-blue-600 font-semibold text-white hover:bg-blue-700"
             onClick={handleRegister}
           >
             Register Now
           </Button>
-          <Button 
+          <Button
             size="lg"
             variant="outline"
             className="border-gray-300 hover:bg-gray-50"

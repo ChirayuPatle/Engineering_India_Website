@@ -31,7 +31,7 @@ export default function AnnouncementMarquee() {
     <>
       {isVisible && (
         <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 py-3 text-white">
-          <div 
+          <div
             className="animate-marquee cursor-pointer whitespace-nowrap"
             onClick={handleClick}
           >

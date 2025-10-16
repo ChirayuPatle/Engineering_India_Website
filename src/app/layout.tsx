@@ -34,9 +34,7 @@ export default function RootLayout({
           <body className={`${inter.className} space`}>
             <UnregisterServiceWorker />
             <Toaster position="top-center" />
-            <ConditionalLayout>
-              {children}
-            </ConditionalLayout>
+            <ConditionalLayout>{children}</ConditionalLayout>
             <Analytics />
             <SpeedInsights />
           </body>

@@ -61,59 +61,65 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
           <CardHeader>
             <div className="flex items-center justify-between gap-3">
               <CardTitle className="break-words">
-                {isHackathon && "🚀 "}{reg.title}
+                {isHackathon && "🚀 "}
+                {reg.title}
               </CardTitle>
               {reg.status === "upcoming" ? (
-                <Badge className="border border-zinc-800 bg-neutral-200/80 text-neutral-800 hover:bg-neutral-200 flex-shrink-0">
+                <Badge className="flex-shrink-0 border border-zinc-800 bg-neutral-200/80 text-neutral-800 hover:bg-neutral-200">
                   {isHackathon ? "Verified" : "Upcoming"}
                 </Badge>
               ) : reg.status === "pending" ? (
-                <Badge className="border border-yellow-800 bg-yellow-100 text-yellow-800 hover:bg-yellow-100 flex-shrink-0">
+                <Badge className="flex-shrink-0 border border-yellow-800 bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
                   Pending
                 </Badge>
               ) : reg.status === "rejected" ? (
-                <Badge className="border border-red-800 bg-red-100 text-red-800 hover:bg-red-100 flex-shrink-0">
+                <Badge className="flex-shrink-0 border border-red-800 bg-red-100 text-red-800 hover:bg-red-100">
                   Rejected
                 </Badge>
               ) : (
                 <Badge
                   variant="outline"
-                  className="bg-green-50 text-green-700 hover:bg-green-50 hover:text-green-700 flex-shrink-0"
+                  className="flex-shrink-0 bg-green-50 text-green-700 hover:bg-green-50 hover:text-green-700"
                 >
                   Completed
                 </Badge>
               )}
             </div>
-            <CardDescription className="break-words">{reg.description}</CardDescription>
+            <CardDescription className="break-words">
+              {reg.description}
+            </CardDescription>
           </CardHeader>
 
           <CardContent className="grid gap-2 md:grid-cols-2">
             {!isHackathon && (
               <>
                 <div className="flex items-center text-sm">
-                  <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <CalendarIcon className="mr-2 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                   <span>{reg.date}</span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <Clock className="mr-2 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <Clock className="mr-2 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                   <span>{reg.time}</span>
                 </div>
                 <div className="flex items-center text-sm">
-                  <MapPin className="mr-2 h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <MapPin className="mr-2 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                   <span>{reg.location}</span>
                 </div>
               </>
             )}
-            <div className="flex items-center text-sm col-span-full">
+            <div className="col-span-full flex items-center text-sm">
               <span className="font-medium">
                 {isHackathon ? "Registration ID:" : "Ticket ID:"}
               </span>
               <span className="ml-2 break-all">{reg.ticketId}</span>
             </div>
             {isHackathon && reg.createdAt && (
-              <div className="flex items-center text-sm col-span-full">
-                <CalendarIcon className="mr-2 h-4 w-4 text-muted-foreground flex-shrink-0" />
-                <span>Registered on {new Date(reg.createdAt).toLocaleDateString('en-GB')}</span>
+              <div className="col-span-full flex items-center text-sm">
+                <CalendarIcon className="mr-2 h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                <span>
+                  Registered on{" "}
+                  {new Date(reg.createdAt).toLocaleDateString("en-GB")}
+                </span>
               </div>
             )}
           </CardContent>
@@ -122,15 +128,15 @@ const RegistrationCard = ({ reg }: { reg: Registration }) => {
             {isHackathon ? (
               <>
                 {reg.status === "upcoming" ? (
-                  <Badge className="bg-green-100 text-green-800 border-green-300">
+                  <Badge className="border-green-300 bg-green-100 text-green-800">
                     ✓ Payment Verified - All Set!
                   </Badge>
                 ) : reg.status === "pending" ? (
-                  <Badge className="bg-yellow-100 text-yellow-800 border-yellow-300">
+                  <Badge className="border-yellow-300 bg-yellow-100 text-yellow-800">
                     ⏳ Payment Under Review
                   </Badge>
                 ) : reg.status === "rejected" ? (
-                  <Badge className="bg-red-100 text-red-800 border-red-300">
+                  <Badge className="border-red-300 bg-red-100 text-red-800">
                     ✗ Payment Rejected - Contact Support
                   </Badge>
                 ) : null}

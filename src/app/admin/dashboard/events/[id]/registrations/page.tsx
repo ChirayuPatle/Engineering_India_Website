@@ -1,7 +1,15 @@
 import { db } from "@/database/db";
 import { event, registration, user } from "@/database/schema";
 import { eq, count, desc } from "drizzle-orm";
-import { ArrowLeft, Search, Filter, Download, CheckCircle, XCircle, Clock } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  Filter,
+  Download,
+  CheckCircle,
+  XCircle,
+  Clock,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { RegistrationActions } from "@/components/admin/RegistrationActions";
@@ -102,7 +110,9 @@ export default async function EventRegistrationsPage({
             <h1 className="text-3xl font-bold text-gray-900">
               Event Registrations
             </h1>
-            <p className="mt-2 text-gray-600">{eventData?.name || "Unknown Event"}</p>
+            <p className="mt-2 text-gray-600">
+              {eventData?.name || "Unknown Event"}
+            </p>
           </div>
         </div>
         <Button className="flex items-center gap-2">
@@ -206,7 +216,9 @@ export default async function EventRegistrationsPage({
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {registrations.map((reg) => {
-                  const StatusIcon = statusIcons[reg.status as keyof typeof statusIcons] || Clock;
+                  const StatusIcon =
+                    statusIcons[reg.status as keyof typeof statusIcons] ||
+                    Clock;
                   return (
                     <tr key={reg.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
@@ -246,14 +258,17 @@ export default async function EventRegistrationsPage({
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm text-gray-900">
-                          {new Date(reg.registrationDate).toLocaleDateString('en-GB')}
+                          {new Date(reg.registrationDate).toLocaleDateString(
+                            "en-GB",
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4">
                         <span
                           className={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-semibold ${
-                            statusColors[reg.status as keyof typeof statusColors] ||
-                            "bg-gray-100 text-gray-800"
+                            statusColors[
+                              reg.status as keyof typeof statusColors
+                            ] || "bg-gray-100 text-gray-800"
                           }`}
                         >
                           <StatusIcon className="h-3 w-3" />
@@ -261,9 +276,9 @@ export default async function EventRegistrationsPage({
                         </span>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <RegistrationActions 
-                          registrationId={reg.id} 
-                          status={reg.status} 
+                        <RegistrationActions
+                          registrationId={reg.id}
+                          status={reg.status}
                         />
                       </td>
                     </tr>

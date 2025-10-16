@@ -7,16 +7,24 @@ import Link from "next/link";
 async function getDashboardStats() {
   try {
     // Get total events
-    const totalEvents = await db.select({ count: sql<number>`count(*)` }).from(event);
-    
+    const totalEvents = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(event);
+
     // Get total registrations
-    const totalRegistrations = await db.select({ count: sql<number>`count(*)` }).from(registration);
-    
+    const totalRegistrations = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(registration);
+
     // Get total form submissions
-    const totalSubmissions = await db.select({ count: sql<number>`count(*)` }).from(formSubmission);
-    
+    const totalSubmissions = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(formSubmission);
+
     // Get total users
-    const totalUsers = await db.select({ count: sql<number>`count(*)` }).from(user);
+    const totalUsers = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(user);
 
     return {
       totalEvents: totalEvents[0]?.count ?? 0,
@@ -37,7 +45,11 @@ async function getDashboardStats() {
 
 async function getRecentEvents() {
   try {
-    return await db.select().from(event).orderBy(sql`${event.createdAt} DESC`).limit(5);
+    return await db
+      .select()
+      .from(event)
+      .orderBy(sql`${event.createdAt} DESC`)
+      .limit(5);
   } catch (error) {
     console.error("Error fetching recent events:", error);
     return [];
@@ -99,7 +111,9 @@ export default async function AdminDashboardPage() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                <p className="text-sm font-medium text-gray-600">
+                  {stat.title}
+                </p>
                 <p className="mt-2 text-3xl font-bold text-gray-900">
                   {stat.value}
                 </p>
@@ -148,14 +162,19 @@ export default async function AdminDashboardPage() {
             recentEvents.map((evt) => (
               <div
                 key={evt.id}
-                className="px-6 py-4 hover:bg-gray-50 transition-colors"
+                className="px-6 py-4 transition-colors hover:bg-gray-50"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <h3 className="font-medium text-gray-900">{evt.name}</h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {evt.startDate ? new Date(evt.startDate).toLocaleDateString('en-GB') : "N/A"} -{" "}
-                      {evt.endDate ? new Date(evt.endDate).toLocaleDateString('en-GB') : "N/A"}
+                      {evt.startDate
+                        ? new Date(evt.startDate).toLocaleDateString("en-GB")
+                        : "N/A"}{" "}
+                      -{" "}
+                      {evt.endDate
+                        ? new Date(evt.endDate).toLocaleDateString("en-GB")
+                        : "N/A"}
                     </p>
                   </div>
                   <Link

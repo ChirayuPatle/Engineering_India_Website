@@ -54,10 +54,7 @@ export default function EventsPage() {
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {/* Hardcoded Hackathon 2025 Event */}
-            <Link
-              href="/events/hackathon"
-              className="hover:opacity-90"
-            >
+            <Link href="/events/hackathon" className="hover:opacity-90">
               <EventCard
                 title="HACKATHON 2025"
                 date={new Date("2025-11-01")}

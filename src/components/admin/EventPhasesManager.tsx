@@ -121,10 +121,15 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
       name: phase.name,
       description: phase.description || "",
       phaseNumber: phase.phaseNumber,
-      startDate: phase.startDate ? new Date(phase.startDate).toISOString().slice(0, 16) : "",
-      endDate: phase.endDate ? new Date(phase.endDate).toISOString().slice(0, 16) : "",
+      startDate: phase.startDate
+        ? new Date(phase.startDate).toISOString().slice(0, 16)
+        : "",
+      endDate: phase.endDate
+        ? new Date(phase.endDate).toISOString().slice(0, 16)
+        : "",
       isActive: phase.isActive || false,
-      requiresPreviousPhaseCompletion: phase.requiresPreviousPhaseCompletion ?? true,
+      requiresPreviousPhaseCompletion:
+        phase.requiresPreviousPhaseCompletion ?? true,
       instructions: phase.instructions || "",
     });
     setShowDialog(true);
@@ -137,13 +142,16 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
           <h2 className="text-2xl font-bold">Event Phases/Rounds</h2>
           <p className="text-gray-600">Manage multi-round event structure</p>
         </div>
-        <Dialog open={showDialog} onOpenChange={(open) => {
-          setShowDialog(open);
-          if (!open) resetForm();
-        }}>
+        <Dialog
+          open={showDialog}
+          onOpenChange={(open) => {
+            setShowDialog(open);
+            if (!open) resetForm();
+          }}
+        >
           <DialogTrigger asChild>
             <Button>
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Phase
             </Button>
           </DialogTrigger>
@@ -160,7 +168,9 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     placeholder="e.g., Round 1: PPT Submission"
                     required
                   />
@@ -172,7 +182,12 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                     type="number"
                     min="1"
                     value={formData.phaseNumber}
-                    onChange={(e) => setFormData({ ...formData, phaseNumber: parseInt(e.target.value) })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        phaseNumber: parseInt(e.target.value),
+                      })
+                    }
                     required
                   />
                 </div>
@@ -183,7 +198,9 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                 <Textarea
                   id="description"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   rows={3}
                 />
               </div>
@@ -195,7 +212,9 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                     id="startDate"
                     type="datetime-local"
                     value={formData.startDate}
-                    onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, startDate: e.target.value })
+                    }
                   />
                 </div>
                 <div>
@@ -204,17 +223,23 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                     id="endDate"
                     type="datetime-local"
                     value={formData.endDate}
-                    onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, endDate: e.target.value })
+                    }
                   />
                 </div>
               </div>
 
               <div>
-                <Label htmlFor="instructions">Instructions for Participants</Label>
+                <Label htmlFor="instructions">
+                  Instructions for Participants
+                </Label>
                 <Textarea
                   id="instructions"
                   value={formData.instructions}
-                  onChange={(e) => setFormData({ ...formData, instructions: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, instructions: e.target.value })
+                  }
                   placeholder="What do participants need to do in this phase?"
                   rows={4}
                 />
@@ -225,7 +250,9 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                   <input
                     type="checkbox"
                     checked={formData.isActive}
-                    onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, isActive: e.target.checked })
+                    }
                     className="rounded"
                   />
                   <span className="text-sm">Active Now</span>
@@ -235,15 +262,26 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                   <input
                     type="checkbox"
                     checked={formData.requiresPreviousPhaseCompletion}
-                    onChange={(e) => setFormData({ ...formData, requiresPreviousPhaseCompletion: e.target.checked })}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        requiresPreviousPhaseCompletion: e.target.checked,
+                      })
+                    }
                     className="rounded"
                   />
-                  <span className="text-sm">Require Previous Phase Completion</span>
+                  <span className="text-sm">
+                    Require Previous Phase Completion
+                  </span>
                 </label>
               </div>
 
               <div className="flex justify-end gap-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowDialog(false)}
+                >
                   Cancel
                 </Button>
                 <Button type="submit">
@@ -262,34 +300,38 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
             <Card key={phase.id} className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="mb-2 flex items-center gap-3">
                     <span className="text-sm font-semibold text-blue-600">
                       Phase {phase.phaseNumber}
                     </span>
                     {phase.isActive && (
-                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                      <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">
                         Active
                       </span>
                     )}
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{phase.name}</h3>
+                  <h3 className="mb-2 text-xl font-bold">{phase.name}</h3>
                   {phase.description && (
-                    <p className="text-gray-600 mb-4">{phase.description}</p>
+                    <p className="mb-4 text-gray-600">{phase.description}</p>
                   )}
                   {phase.instructions && (
-                    <div className="bg-blue-50 p-3 rounded-lg mb-4">
-                      <p className="text-sm text-blue-900">{phase.instructions}</p>
+                    <div className="mb-4 rounded-lg bg-blue-50 p-3">
+                      <p className="text-sm text-blue-900">
+                        {phase.instructions}
+                      </p>
                     </div>
                   )}
                   <div className="flex gap-4 text-sm text-gray-500">
                     {phase.startDate && (
                       <span>
-                        Start: {new Date(phase.startDate).toLocaleDateString('en-GB')}
+                        Start:{" "}
+                        {new Date(phase.startDate).toLocaleDateString("en-GB")}
                       </span>
                     )}
                     {phase.endDate && (
                       <span>
-                        End: {new Date(phase.endDate).toLocaleDateString('en-GB')}
+                        End:{" "}
+                        {new Date(phase.endDate).toLocaleDateString("en-GB")}
                       </span>
                     )}
                   </div>
@@ -300,7 +342,7 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                     size="sm"
                     onClick={() => openEditDialog(phase)}
                   >
-                    <Edit className="w-4 h-4" />
+                    <Edit className="h-4 w-4" />
                   </Button>
                   <Button
                     variant="outline"
@@ -308,7 +350,7 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
                     onClick={() => handleDelete(phase.id)}
                     className="text-red-600 hover:text-red-700"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
@@ -317,9 +359,9 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
         </div>
       ) : (
         <Card className="p-12 text-center">
-          <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+          <Upload className="mx-auto mb-4 h-12 w-12 text-gray-400" />
           <p className="text-gray-500">No phases added yet.</p>
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="mt-2 text-sm text-gray-400">
             Add phases to create multi-round events like hackathons
           </p>
         </Card>
