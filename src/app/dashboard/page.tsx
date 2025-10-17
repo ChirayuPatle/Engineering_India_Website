@@ -159,7 +159,9 @@ export default function DashboardPage() {
           {isLoadingHackathon ? (
             <Skeleton className="h-64 w-full" />
           ) : hackathonRegistration ? (
-            <HackathonRegistrationCard registration={hackathonRegistration} />
+            <div className="w-full sm:max-w-md lg:max-w-lg">
+              <HackathonRegistrationCard registration={hackathonRegistration} />
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
               <div className="mb-2 text-3xl sm:text-4xl">🚀</div>
@@ -179,7 +181,7 @@ export default function DashboardPage() {
             Your Registered Events
           </h2>
           {registeredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3">
               {/* You'll need to create a component for displaying registered events */}
               <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
                 <span className="text-base font-semibold sm:text-lg">

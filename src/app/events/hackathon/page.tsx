@@ -88,13 +88,13 @@ export default function HackathonPage() {
         "Teams can start submitting their PowerPoint presentations online through the official website. Use the provided template to present your innovative solution.",
     },
     {
-      time: "28th Oct, 12:00 PM",
+      time: "29th Oct, 12:00 PM",
       activity: "Round 1 Submission Deadline",
       description:
         "Final deadline for PPT submissions. Late submissions will not be accepted. Ensure your presentation is uploaded before noon.",
     },
     {
-      time: "29th Oct",
+      time: "30th Oct",
       activity: "Round 1 Results Announced",
       description:
         "Top 20 teams will be shortlisted based on innovation, creativity, feasibility, and presentation quality. Selected teams will receive confirmation emails.",
@@ -164,7 +164,7 @@ export default function HackathonPage() {
     {
       question: "What if we miss the submission deadline?",
       answer:
-        "Late submissions will not be accepted. Please ensure your PPT is submitted before 28th October, 12:00 PM.",
+        "Late submissions will not be accepted. Please ensure your PPT is submitted before 29th October, 12:00 PM.",
     },
   ];
 
@@ -179,6 +179,10 @@ This hackathon is not just about coding — it’s about transforming ideas into
 ## Event Structure
 
 ### **Round 1 – Online PPT Submission**
+**End Date:** 29th October
+
+Results will be out on **30th October**
+
 Participants will receive a set of **tracks and problem statements on 15th October**. Each team must choose one problem statement and submit a **PowerPoint Presentation (PPT)** using the official template provided.
 
 **Submission Mode:** Online (via Engineering India Official Website)
@@ -193,7 +197,7 @@ Participants will receive a set of **tracks and problem statements on 15th Octob
 
 ### **Round 2 – Onsite Hackathon (Final Round)**
 
-**Venue:** AIML Lab, YCCE  
+**Venue:** YCCE, Nagpur  
 **Date:** 1st November  
 
 Shortlisted teams will be invited to YCCE for the final onsite round, where they will develop a working prototype or solution based on their Round 1 idea.
@@ -362,7 +366,7 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                         Registration Deadline
                       </span>
                     </div>
-                    <p className="text-lg font-bold text-white">Oct 28, 2025</p>
+                    <p className="text-lg font-bold text-white">Oct 29, 2025</p>
                   </div>
                 )}
 
@@ -378,7 +382,7 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                   </div>
                   <div className="rounded-lg bg-gray-50 p-2 text-center">
                     <p className="mb-1 text-xs text-gray-600">Reg. Ends</p>
-                    <p className="text-lg font-bold text-black">Oct 28</p>
+                    <p className="text-lg font-bold text-black">Oct 29</p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-2 text-center">
                     <p className="mb-1 text-xs text-gray-600">Event Date</p>
@@ -940,7 +944,7 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                         Registration Deadline
                       </span>
                     </div>
-                    <p className="text-lg font-bold text-white">Oct 28, 2025</p>
+                    <p className="text-lg font-bold text-white">Oct 29, 2025</p>
                   </div>
                 )}
 
@@ -962,7 +966,7 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     <span className="text-sm text-gray-600">
                       Registration Ends
                     </span>
-                    <span className="text-lg font-bold text-black">Oct 28</span>
+                    <span className="text-lg font-bold text-black">Oct 29</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Event Date</span>

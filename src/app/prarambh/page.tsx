@@ -42,7 +42,7 @@ const events: Event[] = [
       "Unleash your creativity and technical prowess in our flagship hackathon!`",
     icon: Code,
     date: "Nov 01, 2025",
-    registrationDeadline: "Oct 28, 2025",
+    registrationDeadline: "Oct 29, 2025",
     venue: "YCCE, Nagpur",
     category: "Hackathon",
     registrationFee: 300,

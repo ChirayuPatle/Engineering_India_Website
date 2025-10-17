@@ -28,11 +28,16 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  MessageCircle,
+  Users,
+  Share2,
+  ExternalLink,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { UploadButton } from "@/lib/uploadthing";
+import { toast } from "sonner";
 
 interface TeamMember {
   name: string;
@@ -213,22 +218,96 @@ export default function HackathonRegistrationPage() {
   // Show already registered message
   if (alreadyRegistered) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white p-6">
-        <Card className="w-full max-w-md border-green-500">
-          <CardContent className="pt-6">
-            <div className="space-y-4 text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-600">
-                <CheckCircle2 className="h-10 w-10 text-white" />
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 via-white to-blue-50 p-4 sm:p-6">
+        <Card className="w-full max-w-lg border-green-500 shadow-xl">
+          <CardContent className="p-6 sm:p-8">
+            <div className="space-y-6 text-center">
+              {/* Success Icon */}
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
+                <CheckCircle2 className="h-12 w-12 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Already Registered!
-              </h2>
-              <p className="text-gray-600">
-                You have already registered for this hackathon. Redirecting to
-                your dashboard...
-              </p>
-              <div className="flex justify-center">
-                <Loader2 className="h-6 w-6 animate-spin text-green-600" />
+
+              {/* Already Registered Message */}
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+                  Already Registered!
+                </h2>
+                <p className="text-sm text-gray-600 sm:text-base">
+                  You have already registered for this hackathon.
+                </p>
+              </div>
+
+              {/* WhatsApp Community Section */}
+              <div className="space-y-4 rounded-xl border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-5 sm:p-6">
+                <div className="flex items-center justify-center gap-2">
+                  <Users className="h-6 w-6 text-green-600" />
+                  <h3 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    Join Our Community
+                  </h3>
+                </div>
+
+                <p className="text-sm text-gray-700">
+                  Connect with fellow participants, get important updates, and
+                  collaborate with your team!
+                </p>
+
+                <div className="space-y-3">
+                  {/* Join Button */}
+                  <Button
+                    asChild
+                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 py-6 text-base font-semibold text-white shadow-lg transition-all hover:from-green-700 hover:to-emerald-700 hover:shadow-xl sm:text-lg"
+                  >
+                    <a
+                      href="https://chat.whatsapp.com/LGiIwAILD1eFxr1JEByQaJ?mode=wwc"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
+                      <span>Join WhatsApp Community</span>
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+
+                  {/* Share Button */}
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const shareText =
+                        "🚀 Join our Hackathon WhatsApp Community!\n\nhttps://chat.whatsapp.com/LGiIwAILD1eFxr1JEByQaJ?mode=wwc";
+                      if (navigator.share) {
+                        navigator
+                          .share({
+                            title: "Hackathon WhatsApp Community",
+                            text: shareText,
+                          })
+                          .catch(() => {
+                            navigator.clipboard.writeText(shareText);
+                            toast.success("Link copied to clipboard!");
+                          });
+                      } else {
+                        navigator.clipboard.writeText(shareText);
+                        toast.success("Link copied to clipboard!");
+                      }
+                    }}
+                    className="w-full border-green-600 py-5 text-green-700 hover:bg-green-50"
+                  >
+                    <Share2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="text-sm sm:text-base">
+                      Share with Team Members
+                    </span>
+                  </Button>
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  💡 Make sure to share this link with all your team members!
+                </p>
+              </div>
+
+              {/* Redirecting Message */}
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+                <Loader2 className="h-4 w-4 animate-spin text-green-600" />
+                <span>Redirecting to dashboard...</span>
               </div>
             </div>
           </CardContent>
@@ -239,22 +318,96 @@ export default function HackathonRegistrationPage() {
 
   if (submitSuccess) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white p-6">
-        <Card className="w-full max-w-md border-black">
-          <CardContent className="pt-6">
-            <div className="space-y-4 text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-black">
-                <CheckCircle2 className="h-10 w-10 text-white" />
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-green-50 via-white to-blue-50 p-4 sm:p-6">
+        <Card className="w-full max-w-lg border-green-500 shadow-xl">
+          <CardContent className="p-6 sm:p-8">
+            <div className="space-y-6 text-center">
+              {/* Success Icon */}
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
+                <CheckCircle2 className="h-12 w-12 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Registration Successful!
-              </h2>
-              <p className="text-gray-600">
-                Your team details have been submitted successfully. Redirecting
-                to your dashboard...
-              </p>
-              <div className="flex justify-center">
-                <Loader2 className="h-6 w-6 animate-spin text-black" />
+
+              {/* Success Message */}
+              <div className="space-y-2">
+                <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+                  🎉 Registration Successful!
+                </h2>
+                <p className="text-sm text-gray-600 sm:text-base">
+                  Your team has been registered successfully for the hackathon.
+                </p>
+              </div>
+
+              {/* WhatsApp Community Section */}
+              <div className="space-y-4 rounded-xl border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-5 sm:p-6">
+                <div className="flex items-center justify-center gap-2">
+                  <Users className="h-6 w-6 text-green-600" />
+                  <h3 className="text-lg font-bold text-gray-900 sm:text-xl">
+                    Join Our Community
+                  </h3>
+                </div>
+
+                <p className="text-sm text-gray-700">
+                  Connect with fellow participants, get important updates, and
+                  collaborate with your team!
+                </p>
+
+                <div className="space-y-3">
+                  {/* Join Button */}
+                  <Button
+                    asChild
+                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 py-6 text-base font-semibold text-white shadow-lg transition-all hover:from-green-700 hover:to-emerald-700 hover:shadow-xl sm:text-lg"
+                  >
+                    <a
+                      href="https://chat.whatsapp.com/LGiIwAILD1eFxr1JEByQaJ?mode=wwc"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6" />
+                      <span>Join WhatsApp Community</span>
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+
+                  {/* Share Button */}
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const shareText =
+                        "🚀 Join our Hackathon WhatsApp Community!\n\nhttps://chat.whatsapp.com/LGiIwAILD1eFxr1JEByQaJ?mode=wwc";
+                      if (navigator.share) {
+                        navigator
+                          .share({
+                            title: "Hackathon WhatsApp Community",
+                            text: shareText,
+                          })
+                          .catch(() => {
+                            navigator.clipboard.writeText(shareText);
+                            toast.success("Link copied to clipboard!");
+                          });
+                      } else {
+                        navigator.clipboard.writeText(shareText);
+                        toast.success("Link copied to clipboard!");
+                      }
+                    }}
+                    className="w-full border-green-600 py-5 text-green-700 hover:bg-green-50"
+                  >
+                    <Share2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    <span className="text-sm sm:text-base">
+                      Share with Team Members
+                    </span>
+                  </Button>
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  💡 Make sure to share this link with all your team members!
+                </p>
+              </div>
+
+              {/* Redirecting Message */}
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Redirecting to dashboard...</span>
               </div>
             </div>
           </CardContent>
@@ -267,14 +420,14 @@ export default function HackathonRegistrationPage() {
     <div className="min-h-screen bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-4xl">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-gray-900">
+        <div className="mb-6 text-center sm:mb-8">
+          <h1 className="mb-2 text-2xl font-bold text-gray-900 sm:text-4xl">
             Hackathon Registration
           </h1>
-          <p className="text-gray-600">
+          <p className="text-sm text-gray-600 sm:text-base">
             Fill in the details to register your team
           </p>
-          <Badge className="mt-4 bg-black text-white">
+          <Badge className="mt-3 bg-black text-sm text-white sm:mt-4">
             Team Size: {totalTeamSize}/4
           </Badge>
         </div>
@@ -580,7 +733,7 @@ export default function HackathonRegistrationPage() {
           {/* Section 2: Team Members */}
           <Card className="border-gray-200">
             <CardHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <CardTitle className="text-gray-900">Team Members</CardTitle>
                   <CardDescription>
@@ -600,7 +753,8 @@ export default function HackathonRegistrationPage() {
                     })
                   }
                   disabled={!canAddMember}
-                  className="bg-black text-white hover:bg-gray-900 disabled:bg-gray-300"
+                  size="sm"
+                  className="w-full bg-black text-white hover:bg-gray-900 disabled:bg-gray-300 sm:w-auto"
                 >
                   <PlusCircle className="mr-2 h-4 w-4" />
                   Add Member
@@ -888,35 +1042,35 @@ export default function HackathonRegistrationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {/* UPI QR Code */}
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6">
                 <div className="flex flex-col items-center space-y-4">
-                  <div className="rounded-lg border-2 border-black bg-[#F3F6FD] p-6">
-                    <div className="flex h-72 w-72 items-center justify-center">
+                  <div className="w-full max-w-xs overflow-hidden rounded-lg border-2 border-black bg-[#F3F6FD] p-4 sm:p-6">
+                    <div className="relative aspect-square w-full">
                       <Image
                         src="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpfqquhUXrTM2A4iGtHSU9JzXjlhanE7L0yQkV"
                         alt="QR-Code"
-                        width={288}
-                        height={288}
+                        fill
                         className="object-contain"
                       />
                     </div>
                   </div>
-                  <div className="text-center">
-                    <p className="font-semibold text-gray-900">
+                  <div className="w-full space-y-2 text-center">
+                    <p className="text-base font-semibold text-gray-900 sm:text-lg">
                       Registration Fee: ₹300
                     </p>
-                    <p>
-                      UPI ID:{" "}
+                    <div className="break-all text-sm sm:text-base">
+                      <span className="text-gray-700">UPI ID: </span>
                       <button
                         type="button"
                         onClick={() => {
                           navigator.clipboard.writeText("chirayupatle2@okaxis");
+                          toast.success("UPI ID copied to clipboard!");
                         }}
-                        className="cursor-pointer text-sm text-blue-600 underline hover:text-blue-700"
+                        className="cursor-pointer font-medium text-blue-600 underline hover:text-blue-700"
                       >
                         chirayupatle2@okaxis
                       </button>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -928,7 +1082,7 @@ export default function HackathonRegistrationPage() {
                 </Label>
                 <div className="flex flex-col gap-4">
                   {!paymentScreenshotUrl ? (
-                    <div className="rounded-lg border-2 border-dashed border-gray-300 p-6 text-center transition-colors hover:border-gray-400">
+                    <div className="rounded-lg border-2 border-dashed border-gray-300 p-4 text-center transition-colors hover:border-gray-400 sm:p-6">
                       <UploadButton
                         endpoint="paymentScreenshot"
                         onClientUploadComplete={(res) => {
@@ -942,8 +1096,8 @@ export default function HackathonRegistrationPage() {
                         }}
                         appearance={{
                           button:
-                            "bg-black hover:bg-gray-900 text-white px-4 py-2 rounded-md ut-ready:bg-black ut-uploading:cursor-not-allowed ut-uploading:bg-gray-400",
-                          allowedContent: "text-gray-600 text-sm",
+                            "bg-black hover:bg-gray-900 text-white px-4 py-2 text-sm sm:text-base rounded-md ut-ready:bg-black ut-uploading:cursor-not-allowed ut-uploading:bg-gray-400",
+                          allowedContent: "text-gray-600 text-xs sm:text-sm",
                         }}
                       />
                       <p className="mt-2 text-xs text-gray-500">
@@ -951,10 +1105,10 @@ export default function HackathonRegistrationPage() {
                       </p>
                     </div>
                   ) : (
-                    <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                      <div className="mb-2 flex items-center justify-between">
-                        <p className="flex items-center gap-2 text-sm font-medium text-green-900">
-                          <CheckCircle2 className="h-4 w-4" />
+                    <div className="rounded-lg border border-green-200 bg-green-50 p-3 sm:p-4">
+                      <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="flex items-center gap-2 text-xs font-medium text-green-900 sm:text-sm">
+                          <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
                           Screenshot uploaded successfully!
                         </p>
                         <Button
@@ -965,7 +1119,7 @@ export default function HackathonRegistrationPage() {
                             setPaymentScreenshotUrl(null);
                             setValue("paymentScreenshotUrl", "");
                           }}
-                          className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                          className="w-full text-red-600 hover:bg-red-50 hover:text-red-700 sm:w-auto"
                         >
                           Remove
                         </Button>
@@ -986,14 +1140,17 @@ export default function HackathonRegistrationPage() {
 
               {/* Transaction ID */}
               <div className="space-y-2">
-                <Label htmlFor="transactionId" className="text-gray-900">
+                <Label
+                  htmlFor="transactionId"
+                  className="text-sm text-gray-900 sm:text-base"
+                >
                   Transaction ID (Optional)
                 </Label>
                 <Input
                   id="transactionId"
                   {...register("transactionId")}
                   placeholder="Enter UPI transaction ID"
-                  className="border-gray-300 focus:border-black focus:ring-black"
+                  className="border-gray-300 text-sm focus:border-black focus:ring-black sm:text-base"
                 />
               </div>
             </CardContent>
@@ -1001,7 +1158,7 @@ export default function HackathonRegistrationPage() {
 
           {/* Section 4: Declaration */}
           <Card className="border-gray-200">
-            <CardContent className="pt-6">
+            <CardContent className="p-4 pt-6 sm:p-6">
               <div className="flex items-start space-x-3">
                 <Checkbox
                   id="declarationAccepted"
@@ -1011,22 +1168,19 @@ export default function HackathonRegistrationPage() {
                       shouldValidate: true,
                     });
                   }}
-                  className="mt-1 border-gray-300"
+                  className="mt-1 flex-shrink-0 border-gray-300"
                 />
                 <div className="space-y-1">
                   <Label
                     htmlFor="declarationAccepted"
-                    className="cursor-pointer font-normal leading-relaxed text-gray-900"
+                    className="cursor-pointer text-sm font-normal leading-relaxed text-gray-900 sm:text-base"
                   >
-                    I hereby declare that all the information provided above is
-                    true and accurate to the best of my knowledge. I understand
-                    that any false information may lead to disqualification from
-                    the hackathon. I agree to abide by all the rules and
-                    regulations of the event.{" "}
+                    I declare that all information provided is accurate and I
+                    agree to abide by the event rules.{" "}
                     <span className="text-red-600">*</span>
                   </Label>
                   {errors.declarationAccepted && (
-                    <p className="text-sm text-red-600">
+                    <p className="text-xs text-red-600 sm:text-sm">
                       {errors.declarationAccepted.message}
                     </p>
                   )}
@@ -1036,21 +1190,23 @@ export default function HackathonRegistrationPage() {
           </Card>
 
           {/* Submit Button */}
-          <div className="flex justify-center pt-4">
+          <div className="flex justify-center px-4 pt-4 sm:px-0">
             <Button
               type="submit"
               disabled={!declarationAccepted || isSubmitting}
-              className="bg-black px-12 py-6 text-lg text-white hover:bg-gray-900 disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="w-full bg-black px-8 py-5 text-base text-white hover:bg-gray-900 disabled:cursor-not-allowed disabled:bg-gray-300 sm:w-auto sm:px-12 sm:py-6 sm:text-lg"
             >
               {isSubmitting ? (
                 <>
-                  <div className="mr-2 h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Submitting...
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent sm:h-5 sm:w-5" />
+                  <span className="text-sm sm:text-base">Submitting...</span>
                 </>
               ) : (
                 <>
-                  <Upload className="mr-2 h-5 w-5" />
-                  Submit Registration
+                  <Upload className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="text-sm sm:text-base">
+                    Submit Registration
+                  </span>
                 </>
               )}
             </Button>

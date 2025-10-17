@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { type Metadata } from "next";
 import { UnregisterServiceWorker } from "@/components/UnregisterServiceWorker";
 import { Toaster } from "react-hot-toast";
+import { Toaster as SonnerToaster } from "sonner";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
           <body className={`${inter.className} space`}>
             <UnregisterServiceWorker />
             <Toaster position="top-center" />
+            <SonnerToaster position="top-center" richColors />
             <ConditionalLayout>{children}</ConditionalLayout>
             <Analytics />
             <SpeedInsights />
