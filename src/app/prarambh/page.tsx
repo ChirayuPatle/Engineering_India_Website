@@ -39,7 +39,7 @@ const events: Event[] = [
     title: "HACKATHON 2025",
     subtitle: "",
     description:
-      "Unleash your creativity and technical prowess in our flagship hackathon! Build innovative solutions, collaborate with talented developers, and compete for exciting prizes. Whether you're into web development, AI, mobile apps, or emerging technologies - this is your platform to shine and make an impact.",
+      "Unleash your creativity and technical prowess in our flagship hackathon!`",
     icon: Code,
     date: "Nov 01, 2025",
     registrationDeadline: "Oct 28, 2025",
