@@ -191,14 +191,19 @@ export default function HomePage() {
             {/* Prarambh CTA Button */}
             <div className="z-20 mb-8">
               <Button
-                size="lg"
-                className="group bg-black text-lg font-semibold text-white shadow-lg transition-all hover:bg-gray-900 hover:shadow-xl"
+                size="sm"
+                className="group bg-black text-sm font-semibold text-white shadow-lg transition-all hover:bg-gray-900 hover:shadow-xl sm:text-base"
                 asChild
               >
-                <Link href="/prarambh">
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  Register for Prarambh 2025
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <Link
+                  href="/prarambh"
+                  className="flex items-center justify-center px-4 py-5 sm:px-6 sm:py-6"
+                >
+                  <Sparkles className="mr-1.5 h-3.5 w-3.5 sm:mr-2 sm:h-4 sm:w-4" />
+                  <span className="whitespace-nowrap text-xs sm:text-sm">
+                    Register for Prarambh 2025
+                  </span>
+                  <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1 sm:ml-2 sm:h-4 sm:w-4" />
                 </Link>
               </Button>
             </div>

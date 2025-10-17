@@ -80,6 +80,14 @@ export default function EventPage() {
 
   const daysUntilEvent = getDaysUntil();
 
+  // Check if event has ended
+  const isEventEnded = () => {
+    if (!event?.endDate) return false;
+    return new Date(event.endDate).getTime() < new Date().getTime();
+  };
+
+  const eventEnded = isEventEnded();
+
   // Handle share functionality
   const handleShare = async () => {
     const shareData = {
@@ -721,10 +729,16 @@ export default function EventPage() {
                 <div className="space-y-3">
                   <Button
                     size="lg"
-                    className="h-12 w-full bg-blue-600 font-semibold text-white shadow-sm hover:bg-blue-700"
+                    className={cn(
+                      "h-12 w-full font-semibold shadow-sm",
+                      eventEnded
+                        ? "cursor-not-allowed bg-gray-400 text-white hover:bg-gray-400"
+                        : "bg-blue-600 text-white hover:bg-blue-700",
+                    )}
                     onClick={handleRegister}
+                    disabled={eventEnded}
                   >
-                    Register Now
+                    {eventEnded ? "Event Ended" : "Register Now"}
                   </Button>
 
                   <Button
@@ -746,7 +760,7 @@ export default function EventPage() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-gray-900">
-                        Entrepreneurship & Innovation Cell
+                        Engineering India Club YCCE
                       </p>
                       <p className="text-xs text-gray-500">
                         Verified Organizer
@@ -765,10 +779,16 @@ export default function EventPage() {
         <div className="flex gap-3">
           <Button
             size="lg"
-            className="h-12 flex-1 bg-blue-600 font-semibold text-white hover:bg-blue-700"
+            className={cn(
+              "h-12 flex-1 font-semibold shadow-sm",
+              eventEnded
+                ? "cursor-not-allowed bg-gray-400 text-white hover:bg-gray-400"
+                : "bg-blue-600 text-white hover:bg-blue-700",
+            )}
             onClick={handleRegister}
+            disabled={eventEnded}
           >
-            Register Now
+            {eventEnded ? "Event Ended" : "Register Now"}
           </Button>
           <Button
             size="lg"

@@ -30,46 +30,46 @@ export default function AnnouncementMarquee() {
   return (
     <>
       {isVisible && (
-        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 py-3 text-white">
+        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 py-1 text-white sm:py-2">
           <div
-            className="animate-marquee cursor-pointer whitespace-nowrap"
+            className="animate-marquee flex cursor-pointer items-center whitespace-nowrap"
             onClick={handleClick}
           >
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
-              <Sparkles className="mr-2 h-5 w-5" />
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+              <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               🎉 EI YCCE Flagship Event is Here!
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               🚀 Prarambh 2025 - Register Now!
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               🏆 Hackathon 2025 - Nov 1st, 2025
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               ⚡ Limited Seats - Don't Miss Out!
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
-              <Sparkles className="mr-2 h-5 w-5" />
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+              <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               🎉 EI YCCE Flagship Event is Here!
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               🚀 Prarambh 2025 - Register Now!
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               🏆 Hackathon 2025 - Nov 1st, 2025
             </span>
-            <span className="mx-8 inline-flex items-center text-lg font-semibold">
+            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               ⚡ Limited Seats - Don't Miss Out!
             </span>
           </div>
           <button
             onClick={handleClose}
-            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-1 transition-colors hover:bg-white/30"
+            className="absolute right-2 top-1/2 z-10 flex -translate-y-1/2 items-center justify-center rounded-full bg-white/20 p-1.5 transition-colors hover:bg-white/30 sm:p-2"
             aria-label="Close announcement"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-4 w-4 sm:h-5 sm:w-5"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
