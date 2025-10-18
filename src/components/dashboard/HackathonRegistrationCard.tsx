@@ -293,7 +293,7 @@ export function HackathonRegistrationCard({
               className="h-7 w-full border-blue-600 text-[10px] font-semibold text-blue-700 hover:bg-blue-50"
             >
               <a
-                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpqeYhtTRT20O7nYSWUV8y9XFhd16iewZgfaNQ"
+                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpKSBVoqfASVHvYWjOxJcuqB32hrbaGwnEDNdP"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-1.5"
