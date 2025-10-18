@@ -16,31 +16,55 @@ export async function GET(req: Request) {
 
     // Fetch regular event registrations
     console.log("[REGISTRATIONS] Fetching event registrations...");
-    const eventRegistrations = await db.query.registration.findMany({
-      where: (reg, { eq }) => eq(reg.userId, session.user.id),
-      with: {
-        event: true,
-      },
-    });
-    console.log(
-      "[REGISTRATIONS] Event registrations count:",
-      eventRegistrations.length,
-    );
+    let eventRegistrations: any[] = [];
+    try {
+      eventRegistrations = await db.query.registration.findMany({
+        where: (reg, { eq }) => eq(reg.userId, session.user.id),
+        with: {
+          event: true,
+        },
+      });
+      console.log(
+        "[REGISTRATIONS] Event registrations count:",
+        eventRegistrations.length,
+      );
+    } catch (eventError) {
+      console.error(
+        "[REGISTRATIONS] Error fetching event registrations:",
+        eventError,
+      );
+      console.log("[REGISTRATIONS] Continuing without event registrations...");
+      // Continue with empty array if query fails
+      eventRegistrations = [];
+    }
 
     // Fetch hackathon registrations
     console.log("[REGISTRATIONS] Fetching hackathon registrations...");
-    const hackathonRegistrations = await db.query.hackathon.findMany({
-      where: (hack, { eq }) => eq(hack.userId, session.user.id),
-    });
-    console.log(
-      "[REGISTRATIONS] Hackathon registrations count:",
-      hackathonRegistrations.length,
-    );
+    let hackathonRegistrations: any[] = [];
+    try {
+      hackathonRegistrations = await db.query.hackathon.findMany({
+        where: (hack, { eq }) => eq(hack.userId, session.user.id),
+      });
+      console.log(
+        "[REGISTRATIONS] Hackathon registrations count:",
+        hackathonRegistrations.length,
+      );
+    } catch (hackError) {
+      console.error(
+        "[REGISTRATIONS] Error fetching hackathon registrations:",
+        hackError,
+      );
+      console.log(
+        "[REGISTRATIONS] Continuing without hackathon registrations...",
+      );
+      // Continue with empty array if hackathon table doesn't exist or query fails
+      hackathonRegistrations = [];
+    }
 
     // Format regular event registrations
     console.log("[REGISTRATIONS] Formatting event registrations...");
     const formattedEventRegistrations = eventRegistrations.map((reg) => {
-      const evt = reg.event as any; // Type assertion due to drizzle query builder limitation
+      const evt = reg.event; // Type assertion due to drizzle query builder limitation
 
       return {
         id: reg.id,

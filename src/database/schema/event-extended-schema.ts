@@ -1,4 +1,9 @@
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import {
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from "drizzle-orm/sqlite-core";
 import { event } from "./event-schema";
 import { user, registration } from "./index";
 import { v4 as uuid } from "uuid";
@@ -7,48 +12,55 @@ import { v4 as uuid } from "uuid";
  * Event Payment Configuration
  * Stores payment details for each event (UPI IDs, QR codes, etc.)
  */
-export const eventPaymentConfig = sqliteTable("event_payment_config", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuid()),
+export const eventPaymentConfig = sqliteTable(
+  "event_payment_config",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => uuid()),
 
-  eventId: text("event_id")
-    .notNull()
-    .unique()
-    .references(() => event.id, { onDelete: "cascade" }),
+    eventId: text("event_id")
+      .notNull()
+      .references(() => event.id, { onDelete: "cascade" }),
 
-  // Payment details
-  paymentRequired: integer("payment_required", { mode: "boolean" })
-    .notNull()
-    .default(false),
-  amount: text("amount"), // e.g., "500" or "Free"
-  currency: text("currency").default("INR"),
+    // Payment details
+    paymentRequired: integer("payment_required", { mode: "boolean" })
+      .notNull()
+      .default(false),
+    amount: text("amount"), // e.g., "500" or "Free"
+    currency: text("currency").default("INR"),
 
-  // UPI Details
-  upiIds: text("upi_ids", { mode: "json" }).$type<string[]>().default([]),
-  qrCodeUrl: text("qr_code_url"),
+    // UPI Details
+    upiIds: text("upi_ids", { mode: "json" }).$type<string[]>().default([]),
+    qrCodeUrl: text("qr_code_url"),
 
-  // Bank details (optional)
-  bankDetails: text("bank_details", { mode: "json" }).$type<{
-    accountName?: string;
-    accountNumber?: string;
-    ifscCode?: string;
-    bankName?: string;
-  }>(),
+    // Bank details (optional)
+    bankDetails: text("bank_details", { mode: "json" }).$type<{
+      accountName?: string;
+      accountNumber?: string;
+      ifscCode?: string;
+      bankName?: string;
+    }>(),
 
-  // Instructions
-  paymentInstructions: text("payment_instructions"),
+    // Instructions
+    paymentInstructions: text("payment_instructions"),
 
-  // Deadlines
-  paymentDeadline: integer("payment_deadline", { mode: "timestamp" }),
+    // Deadlines
+    paymentDeadline: integer("payment_deadline", { mode: "timestamp" }),
 
-  createdAt: integer("created_at", { mode: "timestamp" })
-    .notNull()
-    .$defaultFn(() => new Date()),
-  updatedAt: integer("updated_at", { mode: "timestamp" })
-    .notNull()
-    .$defaultFn(() => new Date()),
-});
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
+  },
+  (table) => ({
+    eventIdIdx: uniqueIndex("event_payment_config_event_id_unique").on(
+      table.eventId,
+    ),
+  }),
+);
 
 /**
  * Event Resources

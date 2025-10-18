@@ -15,6 +15,8 @@ export const env = createEnv({
     AUTH_GOOGLE_SECRET: z.string(),
     AUTH_GOOGLE_ID: z.string(),
     UPLOADTHING_TOKEN: z.string(),
+    // Optional: Google Sheets Web App URL for hackathon registration sync
+    GOOGLE_SHEETS_WEBAPP_URL: z.string().url().optional(),
   },
 
   /**
@@ -40,6 +42,7 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
+    GOOGLE_SHEETS_WEBAPP_URL: process.env.GOOGLE_SHEETS_WEBAPP_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

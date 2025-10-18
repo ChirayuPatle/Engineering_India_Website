@@ -5,6 +5,7 @@ import { registration, event } from "@/database/schema";
 import { v4 as uuid } from "uuid";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
+import { syncToGoogleSheets } from "@/lib/google-sheets";
 
 export async function POST(request: NextRequest) {
   try {
@@ -257,6 +258,29 @@ export async function POST(request: NextRequest) {
       registeredAt: now,
       createdAt: now,
       updatedAt: now,
+    });
+
+    // Sync to Google Sheets (async, non-blocking)
+    // Parse team members for Google Sheets
+    const parsedTeamMembers = JSON.parse(teamMembersJson);
+    syncToGoogleSheets({
+      registrationId,
+      teamName,
+      teamLeaderName,
+      teamLeaderEmail,
+      teamLeaderPhone,
+      teamLeaderGender,
+      institute,
+      branch,
+      year,
+      teamMembers: parsedTeamMembers,
+      transactionId,
+      paymentScreenshotUrl,
+      status: "pending",
+      registeredAt: now,
+    }).catch((error) => {
+      // Log but don't fail the registration if Google Sheets sync fails
+      console.error("Google Sheets sync failed:", error);
     });
 
     // TODO: Send confirmation email to team leader

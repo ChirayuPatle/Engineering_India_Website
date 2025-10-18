@@ -1,11 +1,12 @@
 "use client";
 
-import { ArrowLeft, Inbox, TriangleAlert } from "lucide-react";
+import { ArrowLeft, Inbox, TriangleAlert, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import RegistrationCard, {
   type Registration,
 } from "@/components/dashboard/RegistrationCard";
+import { HackathonInfoCard } from "@/components/dashboard/HackathonInfoCard";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import api from "@/lib/api";
@@ -79,21 +80,51 @@ export default function RegistrationsPage() {
           </p>
         </div>
       ) : registrations.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center text-muted-foreground">
-          <Inbox className="mb-6 h-16 w-16 text-muted-foreground" />
-          <h2 className="text-xl font-semibold text-foreground">
-            No Registrations Yet
-          </h2>
-          <p className="max-w-md text-sm text-muted-foreground">
-            You haven't registered for any events yet. Once you do, they'll show
-            up here.
-          </p>
+        <div className="space-y-6">
+          {/* Hackathon 2025 Info Card - Featured */}
+          {/* <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Rocket className="h-5 w-5 text-purple-600" />
+              <h2 className="text-xl font-bold text-gray-900">
+                Featured Event: HACKATHON 2025
+              </h2>
+            </div>
+            <HackathonInfoCard />
+          </div> */}
+
+          {/* No registrations message */}
+          {/* <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-12 text-center">
+            <Inbox className="mb-4 h-12 w-12 text-gray-400" />
+            <h3 className="text-lg font-semibold text-gray-900">
+              No Event Registrations Yet
+            </h3>
+            <p className="mt-2 max-w-md text-sm text-gray-600">
+              You haven't registered for any events yet. Check out the featured
+              hackathon above or explore more events!
+            </p>
+          </div> */}
         </div>
       ) : (
-        <div className="grid gap-6">
-          {registrations.map((reg) => (
-            <RegistrationCard reg={reg} key={reg.id} />
-          ))}
+        <div className="space-y-6">
+          {/* Hackathon 2025 Info Card - Featured */}
+          <div className="space-y-3">
+            {/* <div className="flex items-center gap-2">
+              <Rocket className="h-5 w-5 text-purple-600" />
+              <h2 className="text-xl font-bold text-gray-900">
+                Featured Event: HACKATHON 2025
+              </h2>
+            </div> */}
+            {/* <HackathonInfoCard /> */}
+          </div>
+
+          {/* Separator */}
+          <div className="">
+            <div className="grid gap-6">
+              {registrations.map((reg) => (
+                <RegistrationCard reg={reg} key={reg.id} />
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

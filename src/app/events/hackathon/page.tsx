@@ -22,6 +22,9 @@ import {
   Award,
   DollarSign,
   CheckCircle2,
+  FileText,
+  Download,
+  ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
@@ -261,6 +264,7 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
 
   const tabItems = [
     { id: "about", label: "About", icon: Target },
+    { id: "problem-statement", label: "Problem Statement", icon: FileText },
     { id: "prizes", label: "Prizes", icon: Trophy },
     { id: "timeline", label: "Timeline", icon: Calendar },
     { id: "faq", label: "FAQs", icon: Zap },
@@ -377,7 +381,9 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     <p className="text-lg font-bold text-black">₹300</p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-2 text-center">
-                    <p className="mb-1 text-xs text-gray-600">Prize Pool</p>
+                    <p className="mb-1 text-xs text-gray-600">
+                      Prize Pool Worth
+                    </p>
                     <p className="text-lg font-bold text-black">₹13,000</p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-2 text-center">
@@ -575,6 +581,180 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     </div>
                   )}
 
+                  {/* Problem Statement Tab */}
+                  {activeTab === "problem-statement" && (
+                    <div className="space-y-4 sm:space-y-6">
+                      {/* Header */}
+                      <div className="mb-4 flex items-center gap-2 sm:mb-6 sm:gap-3 md:mb-8">
+                        <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-black shadow-lg sm:h-10 sm:w-10 md:h-12 md:w-12">
+                          <FileText className="h-4 w-4 text-white sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                        </div>
+                        <h2 className="text-lg font-bold text-gray-900 sm:text-xl md:text-2xl lg:text-3xl">
+                          Problem Statement
+                        </h2>
+                      </div>
+
+                      {/* Highlighted Download Section */}
+                      <div className="relative overflow-hidden rounded-lg border-2 border-black bg-gray-50 p-4 shadow-lg sm:rounded-xl sm:p-6 md:p-8">
+                        <div className="relative space-y-3 sm:space-y-4">
+                          {/* Download Button */}
+                          <div className="pt-1 sm:pt-2">
+                            <Button
+                              asChild
+                              size="lg"
+                              className="h-12 w-full bg-black text-sm font-bold text-white shadow-md transition-all hover:bg-gray-900 hover:shadow-lg sm:h-14 sm:text-base md:h-16 md:text-lg"
+                            >
+                              <a
+                                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurp3COQ4GZreWwRDjVmTxH78Zg9h2SoLPzfYcnO"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 sm:gap-3"
+                              >
+                                <Download className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                                <span className="truncate">
+                                  Download Problem Statement PDF
+                                </span>
+                                <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                              </a>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Important Information */}
+                      <div className="space-y-3 sm:space-y-4">
+                        <h3 className="text-base font-bold text-gray-900 sm:text-lg md:text-xl">
+                          📋 What's Inside the Problem Statement?
+                        </h3>
+
+                        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                          {/* Card 1 */}
+                          <div className="rounded-lg border border-gray-300 bg-white p-3 shadow-sm transition-all hover:border-black hover:shadow-md sm:p-4">
+                            <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 sm:h-10 sm:w-10">
+                              <Target className="h-4 w-4 text-black sm:h-5 sm:w-5" />
+                            </div>
+                            <h4 className="mb-1.5 text-sm font-bold text-gray-900 sm:mb-2 sm:text-base">
+                              Multiple Tracks
+                            </h4>
+                            <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
+                              FinTech, EdTech, AI & Blockchain, Sustainable
+                              Development, and Open Innovation tracks
+                            </p>
+                          </div>
+
+                          {/* Card 2 */}
+                          <div className="rounded-lg border border-gray-300 bg-white p-3 shadow-sm transition-all hover:border-black hover:shadow-md sm:p-4">
+                            <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 sm:h-10 sm:w-10">
+                              <CheckCircle2 className="h-4 w-4 text-black sm:h-5 sm:w-5" />
+                            </div>
+                            <h4 className="mb-1.5 text-sm font-bold text-gray-900 sm:mb-2 sm:text-base">
+                              Detailed Requirements
+                            </h4>
+                            <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
+                              Complete problem descriptions with specific
+                              requirements and evaluation criteria
+                            </p>
+                          </div>
+
+                          {/* Card 3 */}
+                          <div className="rounded-lg border border-gray-300 bg-white p-3 shadow-sm transition-all hover:border-black hover:shadow-md sm:p-4">
+                            <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 sm:h-10 sm:w-10">
+                              <Trophy className="h-4 w-4 text-black sm:h-5 sm:w-5" />
+                            </div>
+                            <h4 className="mb-1.5 text-sm font-bold text-gray-900 sm:mb-2 sm:text-base">
+                              Judging Criteria
+                            </h4>
+                            <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
+                              Clear guidelines on how solutions will be
+                              evaluated and scored
+                            </p>
+                          </div>
+
+                          {/* Card 4 */}
+                          <div className="rounded-lg border border-gray-300 bg-white p-3 shadow-sm transition-all hover:border-black hover:shadow-md sm:p-4">
+                            <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100 sm:h-10 sm:w-10">
+                              <Award className="h-4 w-4 text-black sm:h-5 sm:w-5" />
+                            </div>
+                            <h4 className="mb-1.5 text-sm font-bold text-gray-900 sm:mb-2 sm:text-base">
+                              Submission Guidelines
+                            </h4>
+                            <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
+                              Step-by-step instructions for Round 1 PPT
+                              submission and Round 2 prototype presentation
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Important Notes */}
+                      <div className="rounded-lg border-l-4 border-black bg-gray-50 p-3 sm:p-4 md:p-6">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-black sm:h-8 sm:w-8">
+                            <Zap className="h-3.5 w-3.5 text-white sm:h-4 sm:w-4" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="mb-1.5 text-sm font-bold text-gray-900 sm:mb-2 sm:text-base">
+                              Important Notes
+                            </h4>
+                            <ul className="space-y-1.5 text-xs text-gray-700 sm:space-y-2 sm:text-sm">
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-black sm:mt-1.5"></span>
+                                <span className="leading-relaxed">
+                                  Each team must choose ONE problem statement
+                                  from the provided tracks
+                                </span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-black sm:mt-1.5"></span>
+                                <span className="leading-relaxed">
+                                  Read the problem statement carefully before
+                                  starting your solution
+                                </span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-black sm:mt-1.5"></span>
+                                <span className="leading-relaxed">
+                                  Use the PPT template provided (available in
+                                  your dashboard after registration)
+                                </span>
+                              </li>
+                              <li className="flex items-start gap-1.5 sm:gap-2">
+                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-black sm:mt-1.5"></span>
+                                <span className="leading-relaxed">
+                                  Submission deadline for Round 1: 29th October,
+                                  12:00 PM
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Need Help Section */}
+                      <div className="rounded-lg border border-gray-200 bg-gray-50 p-3 sm:p-4 md:p-6">
+                        <div className="flex items-start gap-2 sm:gap-3">
+                          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-black sm:h-10 sm:w-10">
+                            <Award className="h-4 w-4 text-white sm:h-5 sm:w-5" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="mb-1.5 text-base font-bold text-gray-900 sm:mb-2 sm:text-lg">
+                              Need Clarification?
+                            </h4>
+                            <p className="mb-2 text-xs leading-relaxed text-gray-700 sm:mb-3 sm:text-sm">
+                              If you have any questions about the problem
+                              statements or need clarification on requirements,
+                              feel free to reach out to our organizers.
+                            </p>
+                            <p className="text-xs font-medium text-gray-900 sm:text-sm">
+                              Join our WhatsApp community (available after
+                              registration) for quick support!
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Prizes Tab */}
                   {activeTab === "prizes" && (
                     <div className="space-y-4 sm:space-y-6">
@@ -585,12 +765,12 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                       {/* Additional Info */}
                       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:rounded-xl sm:p-6">
                         <div className="flex items-start gap-3 sm:gap-4">
-                          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-black sm:h-12 sm:w-12">
+                          {/* <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-black sm:h-12 sm:w-12">
                             <Trophy className="h-5 w-5 text-white sm:h-6 sm:w-6" />
-                          </div>
+                          </div> */}
                           <div className="min-w-0 flex-1">
                             <h3 className="mb-2 text-lg font-bold text-gray-900 sm:text-xl">
-                              Total Prize Pool:{" "}
+                              Total Prize Pool Worth:{" "}
                               <span className="text-black">₹13,000</span>
                             </h3>
                             <p className="mb-3 text-sm leading-relaxed text-gray-700 sm:mb-4 sm:text-base">
@@ -777,9 +957,9 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                       {/* Help Section */}
                       <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4 sm:mt-8 sm:rounded-xl sm:p-6">
                         <div className="flex items-start gap-3 sm:gap-4">
-                          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-black shadow-md sm:h-12 sm:w-12">
+                          {/* <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-black shadow-md sm:h-12 sm:w-12">
                             <Award className="h-5 w-5 text-white sm:h-6 sm:w-6" />
-                          </div>
+                          </div> */}
                           <div className="min-w-0 flex-1">
                             <h3 className="mb-1 text-base font-bold text-gray-900 sm:mb-2 sm:text-lg">
                               Still have questions?

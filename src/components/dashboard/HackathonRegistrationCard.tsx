@@ -24,6 +24,9 @@ import {
   MessageCircle,
   ExternalLink,
   Share2,
+  FileText,
+  Presentation,
+  Download,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -252,6 +255,60 @@ export function HackathonRegistrationCard({
               Share
             </Button>
           </div>
+        </div>
+
+        {/* Hackathon Resources Section */}
+        <div className="space-y-1.5 rounded-lg border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-2">
+          <div className="flex items-center gap-1.5">
+            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600">
+              <FileText className="h-3 w-3 text-white" />
+            </div>
+            <h3 className="text-xs font-bold text-gray-900">
+              Hackathon Resources
+            </h3>
+          </div>
+
+          <div className="space-y-1.5">
+            {/* Problem Statement Button */}
+            <Button
+              asChild
+              className="h-7 w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-[10px] font-semibold text-white transition-all hover:from-blue-700 hover:to-indigo-700"
+            >
+              <a
+                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurp3COQ4GZreWwRDjVmTxH78Zg9h2SoLPzfYcnO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5"
+              >
+                <FileText className="h-3 w-3" />
+                <span>Problem Statement PDF</span>
+                <Download className="h-3 w-3" />
+              </a>
+            </Button>
+
+            {/* PPT Template Button */}
+            <Button
+              asChild
+              variant="outline"
+              className="h-7 w-full border-blue-600 text-[10px] font-semibold text-blue-700 hover:bg-blue-50"
+            >
+              <a
+                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpqeYhtTRT20O7nYSWUV8y9XFhd16iewZgfaNQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5"
+              >
+                <Presentation className="h-3 w-3" />
+                <span>PPT Template</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </Button>
+          </div>
+
+          <p className="text-[10px] leading-relaxed text-gray-600">
+            📄 Download the problem statement and use our PPT template for your
+            presentation
+          </p>
         </div>
       </CardContent>
     </Card>
