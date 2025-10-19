@@ -1,0 +1,536 @@
+/**
+ * ============================================
+ * HACKATHON REGISTRATION - GOOGLE SHEETS SYNC
+ * ============================================
+ * 
+ * This script has TWO MODES:
+ * 1. RECEIVE MODE: Receives real-time data from Next.js when users register
+ * 2. SYNC MODE: Fetches all registrations from database and syncs missing ones
+ * 
+ * SETUP INSTRUCTIONS:
+ * 
+ * Part 1: Sheet Setup
+ * 1. Create a Google Sheet named "Hackathon Registrations"
+ * 2. Rename Sheet1 to "Registrations"
+ * 3. Run setupHeaders() function to create headers automatically
+ * 
+ * Part 2: Apps Script Setup
+ * 1. Copy this entire script to Apps Script (Extensions → Apps Script)
+ * 2. Click Save (💾)
+ * 
+ * Part 3: Script Properties (Security)
+ * 1. Click Project Settings (⚙️ gear icon)
+ * 2. Scroll to "Script Properties"
+ * 3. Add these properties:
+ *    - VERCEL_APP_URL = https://engineeringindiaycce.live (your website URL)
+ *    - GOOGLE_APP_SCRIPT_API_KEY = (same value as in your .env file)
+ * 
+ * Part 4: Deploy Web App (for real-time sync)
+ * 1. Click Deploy → New deployment
+ * 2. Type: Web app
+ * 3. Execute as: Me
+ * 4. Who has access: Anyone
+ * 5. Click Deploy
+ * 6. Copy Web App URL → Add to .env file: GOOGLE_SHEETS_WEBAPP_URL=<url>
+ * 
+ * Part 5: Setup Automatic Sync (Optional)
+ * 1. Click Triggers (⏰ clock icon)
+ * 2. Add trigger
+ * 3. Function: syncFromDatabase
+ * 4. Event source: Time-driven
+ * 5. Type: Hour timer
+ * 6. Interval: Every hour (or your preference)
+ * 7. Save
+ */
+
+// ============================================
+// CONFIGURATION
+// ============================================
+
+const SHEET_NAME = 'Registrations';
+
+// ============================================
+// MODE 1: RECEIVE REAL-TIME DATA (doPost)
+// ============================================
+
+/**
+ * Handle POST requests from Next.js app (Real-time sync)
+ * Called automatically when a user submits a registration
+ */
+function doPost(e) {
+  try {
+    Logger.log('Received POST request');
+    Logger.log('Request object: ' + JSON.stringify(e));
+    
+    // Check if postData exists
+    if (!e || !e.postData || !e.postData.contents) {
+      throw new Error('No data received in POST request. Make sure you are sending JSON data in the request body.');
+    }
+    
+    // Parse the JSON data sent from Next.js
+    const data = JSON.parse(e.postData.contents);
+    Logger.log('Parsed data: ' + JSON.stringify(data));
+    
+    // Get the sheet
+    const sheet = getOrCreateSheet();
+    
+    // Add the registration
+    addRegistrationToSheet(sheet, data);
+    
+    Logger.log('Successfully added registration: ' + data.teamName);
+    
+    // Return success response
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      message: 'Registration added to sheet successfully',
+      teamName: data.teamName
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    Logger.log('Error in doPost: ' + error.toString());
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Handle GET requests (for testing)
+ */
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    success: true,
+    message: 'Hackathon Registration Google Sheets API is running!',
+    instructions: 'Send POST requests with registration data to sync with sheet.',
+    timestamp: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+// ============================================
+// MODE 2: SYNC FROM DATABASE
+// ============================================
+
+/**
+ * Main sync function - Fetches all registrations from database and syncs to sheet
+ * Run this manually or set up as a time-triggered function
+ */
+function syncFromDatabase() {
+  const scriptProperties = PropertiesService.getScriptProperties();
+  const vercelAppUrl = scriptProperties.getProperty('VERCEL_APP_URL');
+  const apiKey = scriptProperties.getProperty('GOOGLE_APP_SCRIPT_API_KEY');
+
+  if (!vercelAppUrl || !apiKey) {
+    Logger.log('❌ ERROR: VERCEL_APP_URL or GOOGLE_APP_SCRIPT_API_KEY not set in Script Properties.');
+    Logger.log('Please go to Project Settings (⚙️) and add them under Script Properties.');
+    return;
+  }
+
+  try {
+    Logger.log('🔄 Starting database sync...');
+    
+    // Fetch all registrations from database
+    const data = fetchRegistrationsFromDatabase(vercelAppUrl, apiKey);
+    
+    if (!data || data.length === 0) {
+      Logger.log('ℹ️ No registrations found in database.');
+      return;
+    }
+    
+    Logger.log(`📊 Found ${data.length} registrations in database`);
+    
+    // Get or create sheet
+    const sheet = getOrCreateSheet();
+    
+    // Sync data to sheet
+    syncDataToSheet(sheet, data);
+    
+    Logger.log('✅ Database sync completed successfully!');
+    
+  } catch (e) {
+    Logger.log('❌ Error during sync: ' + e.toString());
+  }
+}
+
+/**
+ * Fetch all registrations from the Next.js API
+ */
+function fetchRegistrationsFromDatabase(appUrl, apiKey) {
+  const endpoint = appUrl + '/api/hackathon/sync';
+
+  const options = {
+    'method': 'get',
+    'headers': {
+      'x-api-key': apiKey,
+      'Content-Type': 'application/json'
+    },
+    'muteHttpExceptions': true
+  };
+
+  Logger.log('Sending request to: ' + endpoint);
+
+  const response = UrlFetchApp.fetch(endpoint, options);
+  const responseCode = response.getResponseCode();
+  const responseBody = response.getContentText();
+
+  Logger.log('API Response Code: ' + responseCode);
+
+  if (responseCode === 200) {
+    const jsonResponse = JSON.parse(responseBody);
+    if (jsonResponse && jsonResponse.success && jsonResponse.data) {
+      return jsonResponse.data;
+    }
+    return [];
+  } else {
+    Logger.log('API Response Body: ' + responseBody);
+    throw new Error('Failed to fetch data from API. Response: ' + responseBody);
+  }
+}
+
+/**
+ * Sync data to sheet, handling duplicates and updates
+ */
+function syncDataToSheet(sheet, newData) {
+  // Get existing data from the sheet
+  const existingData = sheet.getDataRange().getValues();
+  const existingHeaders = existingData.length > 0 ? existingData[0] : [];
+  const existingRecords = existingData.slice(1); // Skip headers
+
+  const newRecordsToAdd = [];
+  const updatedRecords = {}; // Map to store records that need updating
+
+  // Get headers from new data
+  const newHeaders = Object.keys(newData[0]);
+
+  // Map existing records by their ID for efficient lookup
+  const existingRecordsMap = new Map();
+  let idColumnIndex = -1;
+  
+  if (existingHeaders.includes('id')) {
+    idColumnIndex = existingHeaders.indexOf('id');
+    existingRecords.forEach(row => {
+      if (row[idColumnIndex]) {
+        existingRecordsMap.set(row[idColumnIndex].toString(), row);
+      }
+    });
+  } else {
+    Logger.log('⚠️ Warning: "id" column not found. Will add all records as new.');
+  }
+
+  // Check each record from database
+  newData.forEach(newRecord => {
+    const recordId = newRecord.id ? newRecord.id.toString() : null;
+
+    if (recordId && existingRecordsMap.has(recordId)) {
+      // Record exists - check if it needs updating
+      const existingRow = existingRecordsMap.get(recordId);
+      let needsUpdate = false;
+      const updatedRow = [];
+
+      for (let i = 0; i < newHeaders.length; i++) {
+        const header = newHeaders[i];
+        const newValue = newRecord[header];
+        const existingColIndex = existingHeaders.indexOf(header);
+        const existingValue = existingColIndex >= 0 ? existingRow[existingColIndex] : null;
+
+        if (String(newValue) !== String(existingValue)) {
+          needsUpdate = true;
+        }
+        updatedRow.push(newValue);
+      }
+
+      if (needsUpdate) {
+        updatedRecords[recordId] = updatedRow;
+        Logger.log(`📝 Will update record: ${newRecord.teamName}`);
+      }
+    } else {
+      // New record - add to list
+      const row = [];
+      newHeaders.forEach(header => row.push(newRecord[header]));
+      newRecordsToAdd.push(row);
+      Logger.log(`➕ Will add new record: ${newRecord.teamName}`);
+    }
+  });
+
+  // If sheet is empty or headers don't match, write headers
+  if (existingData.length === 0 || JSON.stringify(existingHeaders) !== JSON.stringify(newHeaders)) {
+    if (existingData.length > 0) {
+      Logger.log('📋 Headers changed, updating...');
+    }
+    sheet.getRange(1, 1, 1, newHeaders.length).setValues([newHeaders]);
+    formatHeaders(sheet, newHeaders.length);
+  }
+
+  // Append new records
+  if (newRecordsToAdd.length > 0) {
+    const startRow = sheet.getLastRow() + 1;
+    sheet.getRange(startRow, 1, newRecordsToAdd.length, newHeaders.length).setValues(newRecordsToAdd);
+    Logger.log(`✅ Added ${newRecordsToAdd.length} new records`);
+  }
+
+  // Update existing records
+  if (Object.keys(updatedRecords).length > 0) {
+    const allSheetData = sheet.getDataRange().getValues();
+    const headers = allSheetData[0];
+    const idColIndex = headers.indexOf('id');
+
+    if (idColIndex !== -1) {
+      for (let r = 1; r < allSheetData.length; r++) {
+        const rowId = allSheetData[r][idColIndex] ? allSheetData[r][idColIndex].toString() : null;
+        if (rowId && updatedRecords[rowId]) {
+          const updatedRow = updatedRecords[rowId];
+          const rowToSet = [];
+          
+          for (let c = 0; c < headers.length; c++) {
+            const headerName = headers[c];
+            const newHeaderIndex = newHeaders.indexOf(headerName);
+            if (newHeaderIndex !== -1) {
+              rowToSet.push(updatedRow[newHeaderIndex]);
+            } else {
+              rowToSet.push(allSheetData[r][c]);
+            }
+          }
+          
+          sheet.getRange(r + 1, 1, 1, rowToSet.length).setValues([rowToSet]);
+        }
+      }
+      Logger.log(`✅ Updated ${Object.keys(updatedRecords).length} existing records`);
+    }
+  }
+
+  if (newRecordsToAdd.length === 0 && Object.keys(updatedRecords).length === 0) {
+    Logger.log('✅ All data is already in sync!');
+  }
+}
+
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+/**
+ * Get existing sheet or create if it doesn't exist
+ */
+function getOrCreateSheet() {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = spreadsheet.getSheetByName(SHEET_NAME);
+  
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(SHEET_NAME);
+    Logger.log('Created new sheet: ' + SHEET_NAME);
+    
+    // Setup headers for new sheet
+    setupHeaders();
+    sheet = spreadsheet.getSheetByName(SHEET_NAME); // Re-get after setup
+  }
+  
+  return sheet;
+}
+
+/**
+ * Add a single registration to the sheet
+ */
+function addRegistrationToSheet(sheet, data) {
+  // Prepare row data
+  const rowData = [
+    data.id || data.registrationId || '',
+    data.registrationId || '',
+    data.timestamp || new Date(),
+    data.teamName || '',
+    data.leaderName || data.teamLeaderName || '',
+    data.leaderEmail || data.teamLeaderEmail || '',
+    data.leaderPhone || data.teamLeaderPhone || '',
+    data.leaderGender || data.teamLeaderGender || '',
+    data.institute || '',
+    data.branch || '',
+    data.year || '',
+    data.teamSize || 1,
+    
+    // Member 1
+    data.member1Name || '',
+    data.member1Email || '',
+    data.member1Phone || '',
+    data.member1Gender || '',
+    data.member1Branch || '',
+    data.member1Year || '',
+    
+    // Member 2
+    data.member2Name || '',
+    data.member2Email || '',
+    data.member2Phone || '',
+    data.member2Gender || '',
+    data.member2Branch || '',
+    data.member2Year || '',
+    
+    // Member 3
+    data.member3Name || '',
+    data.member3Email || '',
+    data.member3Phone || '',
+    data.member3Gender || '',
+    data.member3Branch || '',
+    data.member3Year || '',
+    
+    // Payment
+    data.transactionId || 'N/A',
+    data.paymentScreenshotUrl || '',
+    data.status || 'pending'
+  ];
+  
+  // Check if this registration already exists (by ID)
+  const existingData = sheet.getDataRange().getValues();
+  if (existingData.length > 1) {
+    const headers = existingData[0];
+    const idIndex = headers.indexOf('id');
+    
+    if (idIndex >= 0 && (data.id || data.registrationId)) {
+      const searchId = (data.id || data.registrationId).toString();
+      
+      for (let i = 1; i < existingData.length; i++) {
+        if (existingData[i][idIndex]?.toString() === searchId) {
+          Logger.log('Registration already exists, skipping: ' + data.teamName);
+          return;
+        }
+      }
+    }
+  }
+  
+  // Append the row
+  sheet.appendRow(rowData);
+}
+
+/**
+ * Format headers with styling
+ */
+function formatHeaders(sheet, numColumns) {
+  const headerRange = sheet.getRange(1, 1, 1, numColumns);
+  headerRange
+    .setFontWeight('bold')
+    .setBackground('#4285f4')
+    .setFontColor('#ffffff')
+    .setHorizontalAlignment('center');
+  
+  sheet.setFrozenRows(1);
+}
+
+// ============================================
+// SETUP FUNCTIONS
+// ============================================
+
+/**
+ * Setup headers automatically
+ * Run this manually once to create headers
+ */
+function setupHeaders() {
+  const sheet = getOrCreateSheet();
+  
+  const headers = [
+    'id',
+    'Registration ID',
+    'Timestamp',
+    'Team Name',
+    'Leader Name',
+    'Leader Email',
+    'Leader Phone',
+    'Leader Gender',
+    'Institute',
+    'Branch',
+    'Year',
+    'Team Size',
+    'Member 1 Name',
+    'Member 1 Email',
+    'Member 1 Phone',
+    'Member 1 Gender',
+    'Member 1 Branch',
+    'Member 1 Year',
+    'Member 2 Name',
+    'Member 2 Email',
+    'Member 2 Phone',
+    'Member 2 Gender',
+    'Member 2 Branch',
+    'Member 2 Year',
+    'Member 3 Name',
+    'Member 3 Email',
+    'Member 3 Phone',
+    'Member 3 Gender',
+    'Member 3 Branch',
+    'Member 3 Year',
+    'Transaction ID',
+    'Payment Screenshot URL',
+    'Status'
+  ];
+  
+  // Add headers
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+  
+  // Format headers
+  formatHeaders(sheet, headers.length);
+  
+  // Auto-resize columns
+  for (let i = 1; i <= headers.length; i++) {
+    sheet.autoResizeColumn(i);
+  }
+  
+  Logger.log('✅ Headers setup complete!');
+}
+
+/**
+ * Test function to verify everything is working
+ */
+function testSync() {
+  Logger.log('=== Testing Sync Functionality ===');
+  
+  // Test 1: Check script properties
+  const scriptProperties = PropertiesService.getScriptProperties();
+  const vercelAppUrl = scriptProperties.getProperty('VERCEL_APP_URL');
+  const apiKey = scriptProperties.getProperty('GOOGLE_APP_SCRIPT_API_KEY');
+  
+  Logger.log('1. Script Properties:');
+  Logger.log('   VERCEL_APP_URL: ' + (vercelAppUrl ? '✅ Set' : '❌ Missing'));
+  Logger.log('   API_KEY: ' + (apiKey ? '✅ Set' : '❌ Missing'));
+  
+  // Test 2: Check sheet
+  Logger.log('2. Sheet Check:');
+  const sheet = getOrCreateSheet();
+  Logger.log('   Sheet name: ' + sheet.getName());
+  Logger.log('   Rows: ' + sheet.getLastRow());
+  Logger.log('   Columns: ' + sheet.getLastColumn());
+  
+  // Test 3: Try to fetch data
+  if (vercelAppUrl && apiKey) {
+    Logger.log('3. Testing API Connection:');
+    try {
+      const data = fetchRegistrationsFromDatabase(vercelAppUrl, apiKey);
+      Logger.log('   ✅ API call successful!');
+      Logger.log('   Records found: ' + data.length);
+    } catch (e) {
+      Logger.log('   ❌ API call failed: ' + e.toString());
+    }
+  } else {
+    Logger.log('3. ❌ Cannot test API - missing configuration');
+  }
+  
+  Logger.log('=== Test Complete ===');
+}
+
+/**
+ * DEPLOYMENT CHECKLIST:
+ * 
+ * ✅ Step 1: Run setupHeaders() to create sheet structure
+ * ✅ Step 2: Set Script Properties (VERCEL_APP_URL, GOOGLE_APP_SCRIPT_API_KEY)
+ * ✅ Step 3: Run testSync() to verify everything works
+ * ✅ Step 4: Deploy as Web App for real-time sync
+ * ✅ Step 5: (Optional) Set up hourly trigger for syncFromDatabase()
+ * ✅ Step 6: Test by registering from your website
+ * 
+ * SYNC MODES:
+ * 
+ * 1. Real-time Sync: Happens automatically when user registers
+ * 2. Database Sync: Run syncFromDatabase() manually or set hourly trigger
+ * 
+ * TROUBLESHOOTING:
+ * 
+ * - Run testSync() to diagnose issues
+ * - Check View → Executions for detailed logs
+ * - Verify Script Properties are set correctly
+ * - Make sure API key matches between Apps Script and .env file
+ */

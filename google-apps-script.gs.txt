@@ -33,6 +33,12 @@ function doPost(e) {
   try {
     // Log incoming request for debugging
     Logger.log('Received POST request');
+    Logger.log('Request object: ' + JSON.stringify(e));
+    
+    // Check if postData exists
+    if (!e || !e.postData || !e.postData.contents) {
+      throw new Error('No data received in POST request. Make sure you are sending JSON data in the request body.');
+    }
     
     // Parse the JSON data sent from Next.js
     const data = JSON.parse(e.postData.contents);
@@ -45,52 +51,47 @@ function doPost(e) {
       throw new Error('Sheet "Registrations" not found. Please create it and add headers.');
     }
     
-    // Extract team members (up to 3 additional members)
-    const members = data.teamMembers || [];
-    const member1 = members[0] || {};
-    const member2 = members[1] || {};
-    const member3 = members[2] || {};
-    
     // Prepare row data matching the header columns
+    // Note: Next.js sends data with different field names (leaderName instead of teamLeaderName)
     const rowData = [
       data.registrationId || '',           // Registration ID
       data.timestamp || new Date(),        // Timestamp
       data.teamName || '',                 // Team Name
-      data.teamLeaderName || '',           // Leader Name
-      data.teamLeaderEmail || '',          // Leader Email
-      data.teamLeaderPhone || '',          // Leader Phone
-      data.teamLeaderGender || '',         // Leader Gender
+      data.leaderName || data.teamLeaderName || '',           // Leader Name
+      data.leaderEmail || data.teamLeaderEmail || '',         // Leader Email
+      data.leaderPhone || data.teamLeaderPhone || '',         // Leader Phone
+      data.leaderGender || data.teamLeaderGender || '',       // Leader Gender
       data.institute || '',                // Institute
       data.branch || '',                   // Branch
       data.year || '',                     // Year
       data.teamSize || 1,                  // Team Size
       
       // Member 1
-      member1.name || '',
-      member1.email || '',
-      member1.phone || '',
-      member1.gender || '',
-      member1.branch || '',
-      member1.year || '',
+      data.member1Name || '',
+      data.member1Email || '',
+      data.member1Phone || '',
+      data.member1Gender || '',
+      data.member1Branch || '',
+      data.member1Year || '',
       
       // Member 2
-      member2.name || '',
-      member2.email || '',
-      member2.phone || '',
-      member2.gender || '',
-      member2.branch || '',
-      member2.year || '',
+      data.member2Name || '',
+      data.member2Email || '',
+      data.member2Phone || '',
+      data.member2Gender || '',
+      data.member2Branch || '',
+      data.member2Year || '',
       
       // Member 3
-      member3.name || '',
-      member3.email || '',
-      member3.phone || '',
-      member3.gender || '',
-      member3.branch || '',
-      member3.year || '',
+      data.member3Name || '',
+      data.member3Email || '',
+      data.member3Phone || '',
+      data.member3Gender || '',
+      data.member3Branch || '',
+      data.member3Year || '',
       
       // Payment & Status
-      data.transactionId || '',            // Transaction ID
+      data.transactionId || 'N/A',         // Transaction ID
       data.paymentScreenshotUrl || '',     // Payment Screenshot URL
       data.status || 'pending'             // Status
     ];
