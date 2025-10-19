@@ -10,12 +10,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Search, TriangleAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  TriangleAlert,
+  Trophy,
+  ArrowRight,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEvents } from "@/context/eventContext";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 
 function EventCardSkeleton() {
   return (
@@ -111,6 +118,127 @@ export default function EventsPage() {
         </div>
       ) : (
         <>
+          {/* Featured Event: HACKATHON 2025 */}
+          <div className="mb-6">
+            <div className="mb-4 flex items-center gap-2">
+              <Trophy className="h-5 w-5 text-black" />
+              <h2 className="text-xl font-bold text-gray-900">
+                Featured Event
+              </h2>
+              <Badge className="bg-black hover:bg-gray-900">LIVE</Badge>
+            </div>
+
+            <Link href="/events/hackathon" className="block">
+              <div className="group relative overflow-hidden rounded-xl border-2 border-black bg-gradient-to-br from-gray-50 to-gray-100 p-6 shadow-lg transition-all hover:shadow-xl">
+                {/* Background Pattern */}
+                <div className="absolute right-0 top-0 h-full w-1/3 opacity-10">
+                  <div className="absolute right-4 top-4 text-8xl">🏆</div>
+                </div>
+
+                <div className="relative">
+                  {/* Badge */}
+                  <Badge className="mb-3 border-0 bg-black text-white hover:bg-gray-900">
+                    Hackathon • Competition
+                  </Badge>
+
+                  {/* Title */}
+                  <h3 className="mb-2 text-2xl font-bold text-gray-900 md:text-3xl">
+                    HACKATHON 2025
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mb-4 text-sm leading-relaxed text-gray-700 md:text-base">
+                    Two-round hackathon with exciting problem statements across
+                    FinTech, EdTech, AI & Blockchain, and more. Prize pool worth
+                    ₹13,000 + Internship opportunities!
+                  </p>
+
+                  {/* Event Details Grid */}
+                  <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+                    <div className="rounded-lg bg-white p-3 shadow-sm">
+                      <p className="text-xs text-gray-600">Event Date</p>
+                      <p className="text-sm font-bold text-gray-900">
+                        Nov 01, 2025
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-3 shadow-sm">
+                      <p className="text-xs text-gray-600">Location</p>
+                      <p className="text-sm font-bold text-gray-900">
+                        YCCE, Nagpur
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-3 shadow-sm">
+                      <p className="text-xs text-gray-600">Entry Fee</p>
+                      <p className="text-sm font-bold text-gray-900">
+                        ₹300/team
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-white p-3 shadow-sm">
+                      <p className="text-xs text-gray-600">Prize Pool</p>
+                      <p className="text-sm font-bold text-black">₹13,000</p>
+                    </div>
+                  </div>
+
+                  {/* Key Highlights */}
+                  <div className="mb-4 flex flex-wrap gap-2">
+                    <Badge
+                      variant="outline"
+                      className="border-black text-gray-900"
+                    >
+                      2-4 Members/Team
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="border-black text-gray-900"
+                    >
+                      Multiple Tracks
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="border-black text-gray-900"
+                    >
+                      2 Rounds
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="border-black text-gray-900"
+                    >
+                      Internship Offers
+                    </Badge>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="flex items-center gap-3">
+                    <Button
+                      className="bg-black font-semibold text-white shadow-md hover:bg-gray-900"
+                      asChild
+                    >
+                      <span className="flex items-center gap-2">
+                        View Details & Register
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </Button>
+                    <p className="text-xs text-gray-600">
+                      Registration Deadline:{" "}
+                      <span className="font-semibold text-black">
+                        Oct 29, 2025
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-gray-200"></div>
+            <p className="text-sm font-semibold text-gray-600">
+              Other Club Events
+            </p>
+            <div className="h-px flex-1 bg-gray-200"></div>
+          </div>
+
           <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredEvents.map((event) => (
               <Link
