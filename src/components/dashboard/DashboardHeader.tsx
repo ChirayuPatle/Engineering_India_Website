@@ -7,9 +7,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Bell, Menu } from "lucide-react";
+import { Bell, Menu, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCurrentUser } from "@/hooks/use-user";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 interface DashboardHeaderProps {
   sidebarOpen: boolean;
@@ -25,6 +27,17 @@ export function DashboardHeader({
   const router = useRouter();
 
   console.log("USER\n\n", user);
+
+  const handleLogout = async () => {
+    try {
+      await authClient.signOut();
+      toast.success("Logged out successfully");
+      router.push("/");
+    } catch (error) {
+      toast.error("Failed to logout");
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-30 h-16 border-b bg-background px-4 md:px-6">
@@ -51,6 +64,19 @@ export function DashboardHeader({
         </form>
 
         <div className="flex items-center gap-2">
+          {/* Mobile Logout Button - Only visible on mobile */}
+          {isMobile && (
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Logout"
+              className="text-muted-foreground"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
+          )}
+
           <Button
             variant="ghost"
             size="icon"

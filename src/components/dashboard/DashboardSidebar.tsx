@@ -107,7 +107,7 @@ export function DashboardSidebar({
 
       <div
         className={cn(
-          "fixed top-0 z-40 h-screen border-r bg-white transition-all duration-300 ease-in-out dark:bg-gray-900",
+          "fixed bottom-0 top-0 z-40 h-full border-r bg-white transition-all duration-300 ease-in-out dark:bg-gray-900",
           "w-[250px]",
           isMobile && (open ? "left-0" : "-left-[250px]"),
         )}

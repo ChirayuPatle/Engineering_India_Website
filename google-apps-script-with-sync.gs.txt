@@ -190,6 +190,7 @@ function fetchRegistrationsFromDatabase(appUrl, apiKey) {
 
 /**
  * Sync data to sheet, handling duplicates and updates
+ * Uses header-based mapping so column order doesn't matter
  */
 function syncDataToSheet(sheet, newData) {
   // Get existing data from the sheet
@@ -198,108 +199,169 @@ function syncDataToSheet(sheet, newData) {
   const existingRecords = existingData.slice(1); // Skip headers
 
   const newRecordsToAdd = [];
-  const updatedRecords = {}; // Map to store records that need updating
+  const recordsToUpdate = new Map(); // Map of row index to new data
 
-  // Get headers from new data
-  const newHeaders = Object.keys(newData[0]);
+  // Get the expected headers (standardized field names)
+  const standardHeaders = [
+    'id',
+    'Registration ID',
+    'Timestamp',
+    'Team Name',
+    'Leader Name',
+    'Leader Email',
+    'Leader Phone',
+    'Leader Gender',
+    'Institute',
+    'Branch',
+    'Year',
+    'Team Size',
+    'Member 1 Name',
+    'Member 1 Email',
+    'Member 1 Phone',
+    'Member 1 Gender',
+    'Member 1 Branch',
+    'Member 1 Year',
+    'Member 2 Name',
+    'Member 2 Email',
+    'Member 2 Phone',
+    'Member 2 Gender',
+    'Member 2 Branch',
+    'Member 2 Year',
+    'Member 3 Name',
+    'Member 3 Email',
+    'Member 3 Phone',
+    'Member 3 Gender',
+    'Member 3 Branch',
+    'Member 3 Year',
+    'Transaction ID',
+    'Payment Screenshot URL',
+    'Status'
+  ];
+
+  // Create header index map for existing data
+  const headerIndexMap = {};
+  existingHeaders.forEach((header, index) => {
+    headerIndexMap[header] = index;
+  });
 
   // Map existing records by their ID for efficient lookup
   const existingRecordsMap = new Map();
-  let idColumnIndex = -1;
+  const idColumnIndex = headerIndexMap['id'];
   
-  if (existingHeaders.includes('id')) {
-    idColumnIndex = existingHeaders.indexOf('id');
-    existingRecords.forEach(row => {
+  if (idColumnIndex !== undefined) {
+    existingRecords.forEach((row, rowIndex) => {
       if (row[idColumnIndex]) {
-        existingRecordsMap.set(row[idColumnIndex].toString(), row);
+        existingRecordsMap.set(row[idColumnIndex].toString(), rowIndex + 1); // +1 because of header row
       }
     });
   } else {
     Logger.log('⚠️ Warning: "id" column not found. Will add all records as new.');
   }
 
-  // Check each record from database
+  // Process each record from database
   newData.forEach(newRecord => {
     const recordId = newRecord.id ? newRecord.id.toString() : null;
+    
+    // Create data map for this record
+    const dataMap = {
+      'id': newRecord.id || newRecord.registrationId || '',
+      'Registration ID': newRecord.registrationId || '',
+      'Timestamp': newRecord.timestamp || new Date(),
+      'Team Name': newRecord.teamName || '',
+      'Leader Name': newRecord.leaderName || '',
+      'Leader Email': newRecord.leaderEmail || '',
+      'Leader Phone': newRecord.leaderPhone || '',
+      'Leader Gender': newRecord.leaderGender || '',
+      'Institute': newRecord.institute || '',
+      'Branch': newRecord.branch || '',
+      'Year': newRecord.year || '',
+      'Team Size': newRecord.teamSize || 1,
+      'Member 1 Name': newRecord.member1Name || '',
+      'Member 1 Email': newRecord.member1Email || '',
+      'Member 1 Phone': newRecord.member1Phone || '',
+      'Member 1 Gender': newRecord.member1Gender || '',
+      'Member 1 Branch': newRecord.member1Branch || '',
+      'Member 1 Year': newRecord.member1Year || '',
+      'Member 2 Name': newRecord.member2Name || '',
+      'Member 2 Email': newRecord.member2Email || '',
+      'Member 2 Phone': newRecord.member2Phone || '',
+      'Member 2 Gender': newRecord.member2Gender || '',
+      'Member 2 Branch': newRecord.member2Branch || '',
+      'Member 2 Year': newRecord.member2Year || '',
+      'Member 3 Name': newRecord.member3Name || '',
+      'Member 3 Email': newRecord.member3Email || '',
+      'Member 3 Phone': newRecord.member3Phone || '',
+      'Member 3 Gender': newRecord.member3Gender || '',
+      'Member 3 Branch': newRecord.member3Branch || '',
+      'Member 3 Year': newRecord.member3Year || '',
+      'Transaction ID': newRecord.transactionId || 'N/A',
+      'Payment Screenshot URL': newRecord.paymentScreenshotUrl || '',
+      'Status': newRecord.status || 'pending'
+    };
 
     if (recordId && existingRecordsMap.has(recordId)) {
       // Record exists - check if it needs updating
-      const existingRow = existingRecordsMap.get(recordId);
+      const existingRowIndex = existingRecordsMap.get(recordId);
+      const existingRow = existingData[existingRowIndex];
       let needsUpdate = false;
-      const updatedRow = [];
 
-      for (let i = 0; i < newHeaders.length; i++) {
-        const header = newHeaders[i];
-        const newValue = newRecord[header];
-        const existingColIndex = existingHeaders.indexOf(header);
-        const existingValue = existingColIndex >= 0 ? existingRow[existingColIndex] : null;
-
+      // Check each field to see if it changed
+      for (let header of existingHeaders) {
+        const existingValue = existingRow[headerIndexMap[header]];
+        const newValue = dataMap[header];
+        
         if (String(newValue) !== String(existingValue)) {
           needsUpdate = true;
+          break;
         }
-        updatedRow.push(newValue);
       }
 
       if (needsUpdate) {
-        updatedRecords[recordId] = updatedRow;
+        // Build row data based on existing header order
+        const rowData = [];
+        for (let header of existingHeaders) {
+          rowData.push(dataMap[header] !== undefined ? dataMap[header] : '');
+        }
+        recordsToUpdate.set(existingRowIndex, rowData);
         Logger.log(`📝 Will update record: ${newRecord.teamName}`);
       }
     } else {
       // New record - add to list
-      const row = [];
-      newHeaders.forEach(header => row.push(newRecord[header]));
-      newRecordsToAdd.push(row);
+      // Build row data based on existing header order (or standard if no headers)
+      const headersToUse = existingHeaders.length > 0 ? existingHeaders : standardHeaders;
+      const rowData = [];
+      for (let header of headersToUse) {
+        rowData.push(dataMap[header] !== undefined ? dataMap[header] : '');
+      }
+      newRecordsToAdd.push(rowData);
       Logger.log(`➕ Will add new record: ${newRecord.teamName}`);
     }
   });
 
-  // If sheet is empty or headers don't match, write headers
-  if (existingData.length === 0 || JSON.stringify(existingHeaders) !== JSON.stringify(newHeaders)) {
-    if (existingData.length > 0) {
-      Logger.log('📋 Headers changed, updating...');
-    }
-    sheet.getRange(1, 1, 1, newHeaders.length).setValues([newHeaders]);
-    formatHeaders(sheet, newHeaders.length);
+  // If sheet is empty, add headers
+  if (existingData.length === 0) {
+    Logger.log('📋 Adding headers to new sheet...');
+    sheet.getRange(1, 1, 1, standardHeaders.length).setValues([standardHeaders]);
+    formatHeaders(sheet, standardHeaders.length);
   }
 
   // Append new records
   if (newRecordsToAdd.length > 0) {
     const startRow = sheet.getLastRow() + 1;
-    sheet.getRange(startRow, 1, newRecordsToAdd.length, newHeaders.length).setValues(newRecordsToAdd);
+    const numCols = existingHeaders.length > 0 ? existingHeaders.length : standardHeaders.length;
+    sheet.getRange(startRow, 1, newRecordsToAdd.length, numCols).setValues(newRecordsToAdd);
     Logger.log(`✅ Added ${newRecordsToAdd.length} new records`);
   }
 
   // Update existing records
-  if (Object.keys(updatedRecords).length > 0) {
-    const allSheetData = sheet.getDataRange().getValues();
-    const headers = allSheetData[0];
-    const idColIndex = headers.indexOf('id');
-
-    if (idColIndex !== -1) {
-      for (let r = 1; r < allSheetData.length; r++) {
-        const rowId = allSheetData[r][idColIndex] ? allSheetData[r][idColIndex].toString() : null;
-        if (rowId && updatedRecords[rowId]) {
-          const updatedRow = updatedRecords[rowId];
-          const rowToSet = [];
-          
-          for (let c = 0; c < headers.length; c++) {
-            const headerName = headers[c];
-            const newHeaderIndex = newHeaders.indexOf(headerName);
-            if (newHeaderIndex !== -1) {
-              rowToSet.push(updatedRow[newHeaderIndex]);
-            } else {
-              rowToSet.push(allSheetData[r][c]);
-            }
-          }
-          
-          sheet.getRange(r + 1, 1, 1, rowToSet.length).setValues([rowToSet]);
-        }
-      }
-      Logger.log(`✅ Updated ${Object.keys(updatedRecords).length} existing records`);
-    }
+  if (recordsToUpdate.size > 0) {
+    recordsToUpdate.forEach((rowData, rowIndex) => {
+      sheet.getRange(rowIndex + 1, 1, 1, rowData.length).setValues([rowData]);
+    });
+    Logger.log(`✅ Updated ${recordsToUpdate.size} existing records`);
   }
 
-  if (newRecordsToAdd.length === 0 && Object.keys(updatedRecords).length === 0) {
+  if (newRecordsToAdd.length === 0 && recordsToUpdate.size === 0) {
     Logger.log('✅ All data is already in sync!');
   }
 }
@@ -328,58 +390,16 @@ function getOrCreateSheet() {
 }
 
 /**
- * Add a single registration to the sheet
+ * Add a single registration to the sheet using header-based mapping
+ * This ensures data goes to the correct column regardless of column order
  */
 function addRegistrationToSheet(sheet, data) {
-  // Prepare row data
-  const rowData = [
-    data.id || data.registrationId || '',
-    data.registrationId || '',
-    data.timestamp || new Date(),
-    data.teamName || '',
-    data.leaderName || data.teamLeaderName || '',
-    data.leaderEmail || data.teamLeaderEmail || '',
-    data.leaderPhone || data.teamLeaderPhone || '',
-    data.leaderGender || data.teamLeaderGender || '',
-    data.institute || '',
-    data.branch || '',
-    data.year || '',
-    data.teamSize || 1,
-    
-    // Member 1
-    data.member1Name || '',
-    data.member1Email || '',
-    data.member1Phone || '',
-    data.member1Gender || '',
-    data.member1Branch || '',
-    data.member1Year || '',
-    
-    // Member 2
-    data.member2Name || '',
-    data.member2Email || '',
-    data.member2Phone || '',
-    data.member2Gender || '',
-    data.member2Branch || '',
-    data.member2Year || '',
-    
-    // Member 3
-    data.member3Name || '',
-    data.member3Email || '',
-    data.member3Phone || '',
-    data.member3Gender || '',
-    data.member3Branch || '',
-    data.member3Year || '',
-    
-    // Payment
-    data.transactionId || 'N/A',
-    data.paymentScreenshotUrl || '',
-    data.status || 'pending'
-  ];
+  // Get headers from the sheet
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
   
   // Check if this registration already exists (by ID)
   const existingData = sheet.getDataRange().getValues();
   if (existingData.length > 1) {
-    const headers = existingData[0];
     const idIndex = headers.indexOf('id');
     
     if (idIndex >= 0 && (data.id || data.registrationId)) {
@@ -394,8 +414,61 @@ function addRegistrationToSheet(sheet, data) {
     }
   }
   
+  // Create a mapping of field names to data values
+  const dataMap = {
+    'id': data.id || data.registrationId || '',
+    'Registration ID': data.registrationId || '',
+    'Timestamp': data.timestamp || new Date(),
+    'Team Name': data.teamName || '',
+    'Leader Name': data.leaderName || data.teamLeaderName || '',
+    'Leader Email': data.leaderEmail || data.teamLeaderEmail || '',
+    'Leader Phone': data.leaderPhone || data.teamLeaderPhone || '',
+    'Leader Gender': data.leaderGender || data.teamLeaderGender || '',
+    'Institute': data.institute || '',
+    'Branch': data.branch || '',
+    'Year': data.year || '',
+    'Team Size': data.teamSize || 1,
+    
+    // Member 1
+    'Member 1 Name': data.member1Name || '',
+    'Member 1 Email': data.member1Email || '',
+    'Member 1 Phone': data.member1Phone || '',
+    'Member 1 Gender': data.member1Gender || '',
+    'Member 1 Branch': data.member1Branch || '',
+    'Member 1 Year': data.member1Year || '',
+    
+    // Member 2
+    'Member 2 Name': data.member2Name || '',
+    'Member 2 Email': data.member2Email || '',
+    'Member 2 Phone': data.member2Phone || '',
+    'Member 2 Gender': data.member2Gender || '',
+    'Member 2 Branch': data.member2Branch || '',
+    'Member 2 Year': data.member2Year || '',
+    
+    // Member 3
+    'Member 3 Name': data.member3Name || '',
+    'Member 3 Email': data.member3Email || '',
+    'Member 3 Phone': data.member3Phone || '',
+    'Member 3 Gender': data.member3Gender || '',
+    'Member 3 Branch': data.member3Branch || '',
+    'Member 3 Year': data.member3Year || '',
+    
+    // Payment
+    'Transaction ID': data.transactionId || 'N/A',
+    'Payment Screenshot URL': data.paymentScreenshotUrl || '',
+    'Status': data.status || 'pending'
+  };
+  
+  // Build row data based on actual header order
+  const rowData = [];
+  for (let i = 0; i < headers.length; i++) {
+    const header = headers[i];
+    rowData.push(dataMap[header] !== undefined ? dataMap[header] : '');
+  }
+  
   // Append the row
   sheet.appendRow(rowData);
+  Logger.log('✅ Added registration: ' + data.teamName);
 }
 
 /**

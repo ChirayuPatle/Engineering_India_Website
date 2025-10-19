@@ -17,18 +17,18 @@ import {
   XCircle,
   Calendar,
   Building,
-  GraduationCap,
-  MapPin,
-  Trophy,
-  DollarSign,
   MessageCircle,
   ExternalLink,
   Share2,
   FileText,
   Presentation,
   Download,
+  Edit,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
+import { EditTeamModal } from "./EditTeamModal";
+import { useCurrentUser } from "@/hooks/use-user";
 
 interface TeamMember {
   name: string;
@@ -63,6 +63,18 @@ interface HackathonRegistrationCardProps {
 export function HackathonRegistrationCard({
   registration,
 }: HackathonRegistrationCardProps) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { data: user } = useCurrentUser();
+
+  // Check if current user is the team leader
+  const isTeamLeader =
+    user?.email?.toLowerCase() === registration.teamLeaderEmail.toLowerCase();
+
+  const handleEditSuccess = () => {
+    // Force a re-fetch by reloading the page or triggering parent refresh
+    window.location.reload();
+  };
+
   const getStatusConfig = (status: string) => {
     switch (status) {
       case "verified":
@@ -106,16 +118,33 @@ export function HackathonRegistrationCard({
 
       {/* Compact Header */}
       <CardHeader className="border-b border-gray-100 px-3 py-2">
-        <CardTitle className="flex items-center gap-1.5 text-sm font-bold text-gray-900">
-          <Award className="h-3.5 w-3.5 flex-shrink-0 text-black" />
-          <span className="truncate">{registration.teamName}</span>
-        </CardTitle>
-        <CardDescription className="mt-0.5 flex items-center gap-1 text-[10px]">
-          <Calendar className="h-2.5 w-2.5 flex-shrink-0" />
-          <span>
-            {new Date(registration.createdAt).toLocaleDateString("en-GB")}
-          </span>
-        </CardDescription>
+        <div className="flex items-center justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <CardTitle className="flex items-center gap-1.5 text-sm font-bold text-gray-900">
+              <Award className="h-3.5 w-3.5 flex-shrink-0 text-black" />
+              <span className="truncate">{registration.teamName}</span>
+            </CardTitle>
+            <CardDescription className="mt-0.5 flex items-center gap-1 text-[10px]">
+              <Calendar className="h-2.5 w-2.5 flex-shrink-0" />
+              <span>
+                {new Date(registration.createdAt).toLocaleDateString("en-GB")}
+              </span>
+            </CardDescription>
+          </div>
+
+          {/* Edit Button - Only visible to team leader */}
+          {isTeamLeader && (
+            <Button
+              size="sm"
+              onClick={() => setIsEditModalOpen(true)}
+              className="h-8 flex-shrink-0 gap-1.5 bg-black px-3 font-semibold text-white shadow-md hover:bg-gray-800 hover:shadow-lg"
+            >
+              <Edit className="h-3.5 w-3.5" />
+              <span className="hidden text-xs sm:inline">Edit</span>
+              <span className="text-xs sm:hidden">✏️</span>
+            </Button>
+          )}
+        </div>
       </CardHeader>
 
       <CardContent className="space-y-2.5 px-3 py-2.5">
@@ -311,6 +340,24 @@ export function HackathonRegistrationCard({
           </p>
         </div>
       </CardContent>
+
+      {/* Edit Team Modal */}
+      <EditTeamModal
+        open={isEditModalOpen}
+        onOpenChange={setIsEditModalOpen}
+        registrationId={registration.id}
+        currentTeamName={registration.teamName}
+        currentLeaderDetails={{
+          name: registration.teamLeaderName,
+          phone: registration.teamLeaderPhone,
+          gender: registration.teamLeaderGender,
+          institute: registration.institute,
+          branch: registration.branch,
+          year: registration.year,
+        }}
+        currentMembers={registration.teamMembers}
+        onSuccess={handleEditSuccess}
+      />
     </Card>
   );
 }
