@@ -478,6 +478,37 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     Register Now
                   </Button>
                 )}
+
+                {/* Rulebook Section - Mobile */}
+                <div className="mt-4 rounded-lg border-2 border-purple-600 bg-gradient-to-br from-purple-50 to-blue-50 p-3 shadow-md">
+                  <div className="mb-2 flex items-center gap-2">
+                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-purple-600">
+                      <FileText className="h-4 w-4 text-white" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-xs font-bold text-gray-900">
+                        📖 Official Rulebook
+                      </h3>
+                      <p className="text-[10px] text-gray-600">Must read!</p>
+                    </div>
+                  </div>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="h-9 w-full bg-purple-600 font-semibold text-white shadow-sm hover:bg-purple-700"
+                  >
+                    <a
+                      href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpDuf8FEqCMnKOdXvABaVlJfIyukFmYtgz1wpZ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      <span className="text-xs">Download PDF</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </Button>
+                </div>
               </div>
 
               {/* Tabs Section */}
@@ -672,6 +703,55 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                                 <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
                               </a>
                             </Button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Rulebook Section - NEW */}
+                      <div className="relative overflow-hidden rounded-lg border-2 border-purple-600 bg-gradient-to-br from-purple-50 to-blue-50 p-4 shadow-lg sm:rounded-xl sm:p-6 md:p-8">
+                        <div className="relative space-y-3 sm:space-y-4">
+                          {/* Rulebook Header */}
+                          <div className="flex items-center gap-2 sm:gap-3">
+                            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-purple-600 shadow-md sm:h-12 sm:w-12">
+                              <FileText className="h-5 w-5 text-white sm:h-6 sm:w-6" />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <h3 className="text-base font-bold text-gray-900 sm:text-lg md:text-xl">
+                                📖 Official Hackathon Rulebook
+                              </h3>
+                              <p className="text-xs text-gray-600 sm:text-sm">
+                                Complete rules, guidelines & submission format
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Download Button */}
+                          <div className="pt-1 sm:pt-2">
+                            <Button
+                              asChild
+                              size="lg"
+                              className="h-12 w-full bg-purple-600 text-sm font-bold text-white shadow-md transition-all hover:bg-purple-700 hover:shadow-lg sm:h-14 sm:text-base md:h-16 md:text-lg"
+                            >
+                              <a
+                                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpDuf8FEqCMnKOdXvABaVlJfIyukFmYtgz1wpZ"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center gap-2 sm:gap-3"
+                              >
+                                <Download className="h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                                <span className="truncate">
+                                  Download Rulebook PDF
+                                </span>
+                                <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                              </a>
+                            </Button>
+                          </div>
+
+                          {/* Important Notice */}
+                          <div className="rounded-lg border border-purple-300 bg-white p-3 sm:p-4">
+                            <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
+                              <strong className="text-purple-700">⚠️ Important:</strong> All participants must read and follow the official rulebook. It contains detailed information about submission formats, judging criteria, code of conduct, and disqualification policies.
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -1302,6 +1382,37 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                   >
                     <Share2 className="mr-2 h-4 w-4" />
                     Share Event
+                  </Button>
+                </div>
+
+                {/* Rulebook Section - Prominent */}
+                <div className="mt-6 rounded-lg border-2 border-purple-600 bg-gradient-to-br from-purple-50 to-blue-50 p-4 shadow-md">
+                  <div className="mb-3 flex items-center gap-2">
+                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-purple-600">
+                      <FileText className="h-4 w-4 text-white" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-sm font-bold text-gray-900">
+                        📖 Official Rulebook
+                      </h3>
+                      <p className="text-xs text-gray-600">Must read before registration</p>
+                    </div>
+                  </div>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="h-10 w-full bg-purple-600 font-semibold text-white shadow-sm hover:bg-purple-700"
+                  >
+                    <a
+                      href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpDuf8FEqCMnKOdXvABaVlJfIyukFmYtgz1wpZ"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <Download className="h-4 w-4" />
+                      <span>Download PDF</span>
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
                   </Button>
                 </div>
 

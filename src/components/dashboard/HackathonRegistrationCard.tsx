@@ -298,6 +298,23 @@ export function HackathonRegistrationCard({
           </div>
 
           <div className="space-y-1.5">
+            {/* Rulebook Button - FEATURED */}
+            <Button
+              asChild
+              className="h-8 w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-[11px] font-bold text-white shadow-md transition-all hover:from-purple-700 hover:to-indigo-700 hover:shadow-lg"
+            >
+              <a
+                href="https://ebqqc80v6n.ufs.sh/f/JM14HErelurpDuf8FEqCMnKOdXvABaVlJfIyukFmYtgz1wpZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5"
+              >
+                <FileText className="h-3.5 w-3.5" />
+                <span>📖 Official Rulebook</span>
+                <Download className="h-3.5 w-3.5" />
+              </a>
+            </Button>
+
             {/* Problem Statement Button */}
             <Button
               asChild
@@ -335,8 +352,7 @@ export function HackathonRegistrationCard({
           </div>
 
           <p className="text-[10px] leading-relaxed text-gray-600">
-            📄 Download the problem statement and use our PPT template for your
-            presentation
+            � <strong>Read the rulebook first!</strong> Then download the problem statement and use our PPT template
           </p>
         </div>
       </CardContent>

@@ -71,24 +71,19 @@ export function EditTeamModal({
 }: EditTeamModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-  } = useForm<EditTeamFormData>({
-    defaultValues: {
-      teamName: currentTeamName,
-      teamLeaderName: currentLeaderDetails.name,
-      teamLeaderPhone: currentLeaderDetails.phone,
-      teamLeaderGender: currentLeaderDetails.gender,
-      institute: currentLeaderDetails.institute,
-      branch: currentLeaderDetails.branch,
-      year: currentLeaderDetails.year,
-      teamMembers: currentMembers.length > 0 ? currentMembers : [],
-    },
-  });
+  const { register, control, handleSubmit, watch, setValue } =
+    useForm<EditTeamFormData>({
+      defaultValues: {
+        teamName: currentTeamName,
+        teamLeaderName: currentLeaderDetails.name,
+        teamLeaderPhone: currentLeaderDetails.phone,
+        teamLeaderGender: currentLeaderDetails.gender,
+        institute: currentLeaderDetails.institute,
+        branch: currentLeaderDetails.branch,
+        year: currentLeaderDetails.year,
+        teamMembers: currentMembers.length > 0 ? currentMembers : [],
+      },
+    });
 
   const { fields, append, remove } = useFieldArray({
     control,
