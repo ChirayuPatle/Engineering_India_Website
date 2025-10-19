@@ -750,7 +750,13 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                           {/* Important Notice */}
                           <div className="rounded-lg border border-purple-300 bg-white p-3 sm:p-4">
                             <p className="text-xs leading-relaxed text-gray-700 sm:text-sm">
-                              <strong className="text-purple-700">⚠️ Important:</strong> All participants must read and follow the official rulebook. It contains detailed information about submission formats, judging criteria, code of conduct, and disqualification policies.
+                              <strong className="text-purple-700">
+                                ⚠️ Important:
+                              </strong>{" "}
+                              All participants must read and follow the official
+                              rulebook. It contains detailed information about
+                              submission formats, judging criteria, code of
+                              conduct, and disqualification policies.
                             </p>
                           </div>
                         </div>
@@ -1395,7 +1401,9 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                       <h3 className="text-sm font-bold text-gray-900">
                         📖 Official Rulebook
                       </h3>
-                      <p className="text-xs text-gray-600">Must read before registration</p>
+                      <p className="text-xs text-gray-600">
+                        Must read before registration
+                      </p>
                     </div>
                   </div>
                   <Button

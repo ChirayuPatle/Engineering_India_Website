@@ -352,7 +352,8 @@ export function HackathonRegistrationCard({
           </div>
 
           <p className="text-[10px] leading-relaxed text-gray-600">
-            � <strong>Read the rulebook first!</strong> Then download the problem statement and use our PPT template
+            � <strong>Read the rulebook first!</strong> Then download the
+            problem statement and use our PPT template
           </p>
         </div>
       </CardContent>
