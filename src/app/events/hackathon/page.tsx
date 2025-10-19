@@ -341,26 +341,81 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
 
                 {/* Registration Status or Deadline */}
                 {isRegistered ? (
-                  <div className="mb-4 rounded-lg border-2 border-green-500 bg-green-50 p-4">
-                    <div className="mb-1 flex items-center gap-2 text-green-700">
-                      <CheckCircle2 className="h-5 w-5 text-green-600" />
-                      <span className="text-sm font-semibold uppercase text-green-800">
+                  <div
+                    className={`mb-4 rounded-lg border-2 p-4 ${
+                      registration?.status === "verified"
+                        ? "border-green-500 bg-green-50"
+                        : registration?.status === "rejected"
+                          ? "border-red-500 bg-red-50"
+                          : "border-yellow-500 bg-yellow-50"
+                    }`}
+                  >
+                    <div
+                      className={`mb-1 flex items-center gap-2 ${
+                        registration?.status === "verified"
+                          ? "text-green-700"
+                          : registration?.status === "rejected"
+                            ? "text-red-700"
+                            : "text-yellow-700"
+                      }`}
+                    >
+                      <CheckCircle2
+                        className={`h-5 w-5 ${
+                          registration?.status === "verified"
+                            ? "text-green-600"
+                            : registration?.status === "rejected"
+                              ? "text-red-600"
+                              : "text-yellow-600"
+                        }`}
+                      />
+                      <span
+                        className={`text-sm font-semibold uppercase ${
+                          registration?.status === "verified"
+                            ? "text-green-800"
+                            : registration?.status === "rejected"
+                              ? "text-red-800"
+                              : "text-yellow-800"
+                        }`}
+                      >
                         You're Registered!
                       </span>
                     </div>
-                    <p className="mt-2 text-sm font-medium text-green-700">
+                    <p
+                      className={`mt-2 text-sm font-medium ${
+                        registration?.status === "verified"
+                          ? "text-green-700"
+                          : registration?.status === "rejected"
+                            ? "text-red-700"
+                            : "text-yellow-700"
+                      }`}
+                    >
                       Team:{" "}
                       <span className="font-bold">
                         {registration?.teamName}
                       </span>
                     </p>
-                    <Badge className="mt-2 border-0 bg-green-600 text-white hover:bg-green-700">
-                      {registration?.status === "verified"
-                        ? "Payment Verified"
-                        : registration?.status === "rejected"
-                          ? "Payment Rejected"
-                          : "Payment Pending"}
-                    </Badge>
+
+                    {/* Status Badge */}
+                    <div className="mt-3 flex items-center gap-2">
+                      <span className="text-xs font-semibold text-gray-600">
+                        Status:
+                      </span>
+                      <Badge
+                        className={`border-0 text-white ${
+                          registration?.status === "verified"
+                            ? "bg-green-600 hover:bg-green-700"
+                            : registration?.status === "rejected"
+                              ? "bg-red-600 hover:bg-red-700"
+                              : "bg-yellow-600 hover:bg-yellow-700"
+                        }`}
+                      >
+                        {registration?.status === "verified"
+                          ? "✓ Verified"
+                          : registration?.status === "rejected"
+                            ? "✗ Rejected"
+                            : "⏳ Pending Verification"}
+                      </Badge>
+                    </div>
                   </div>
                 ) : (
                   <div className="mb-4 rounded-lg border-2 border-black bg-black p-4">
@@ -1095,26 +1150,81 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
 
                 {/* Registration Status or Deadline */}
                 {isRegistered ? (
-                  <div className="mb-5 rounded-lg border-2 border-green-500 bg-green-50 p-4">
-                    <div className="mb-1 flex items-center gap-2 text-green-700">
-                      <CheckCircle2 className="h-5 w-5 text-green-600" />
-                      <span className="text-sm font-semibold uppercase text-green-800">
+                  <div
+                    className={`mb-5 rounded-lg border-2 p-4 ${
+                      registration?.status === "verified"
+                        ? "border-green-500 bg-green-50"
+                        : registration?.status === "rejected"
+                          ? "border-red-500 bg-red-50"
+                          : "border-yellow-500 bg-yellow-50"
+                    }`}
+                  >
+                    <div
+                      className={`mb-1 flex items-center gap-2 ${
+                        registration?.status === "verified"
+                          ? "text-green-700"
+                          : registration?.status === "rejected"
+                            ? "text-red-700"
+                            : "text-yellow-700"
+                      }`}
+                    >
+                      <CheckCircle2
+                        className={`h-5 w-5 ${
+                          registration?.status === "verified"
+                            ? "text-green-600"
+                            : registration?.status === "rejected"
+                              ? "text-red-600"
+                              : "text-yellow-600"
+                        }`}
+                      />
+                      <span
+                        className={`text-sm font-semibold uppercase ${
+                          registration?.status === "verified"
+                            ? "text-green-800"
+                            : registration?.status === "rejected"
+                              ? "text-red-800"
+                              : "text-yellow-800"
+                        }`}
+                      >
                         You're Registered!
                       </span>
                     </div>
-                    <p className="mt-2 text-sm font-medium text-green-700">
+                    <p
+                      className={`mt-2 text-sm font-medium ${
+                        registration?.status === "verified"
+                          ? "text-green-700"
+                          : registration?.status === "rejected"
+                            ? "text-red-700"
+                            : "text-yellow-700"
+                      }`}
+                    >
                       Team:{" "}
                       <span className="font-bold">
                         {registration?.teamName}
                       </span>
                     </p>
-                    <Badge className="mt-2 border-0 bg-green-600 text-white hover:bg-green-700">
-                      {registration?.status === "verified"
-                        ? "Payment Verified"
-                        : registration?.status === "rejected"
-                          ? "Payment Rejected"
-                          : "Payment Pending"}
-                    </Badge>
+
+                    {/* Status Badge */}
+                    <div className="mt-3 flex items-center gap-2">
+                      <span className="text-xs font-semibold text-gray-600">
+                        Status:
+                      </span>
+                      <Badge
+                        className={`border-0 text-white ${
+                          registration?.status === "verified"
+                            ? "bg-green-600 hover:bg-green-700"
+                            : registration?.status === "rejected"
+                              ? "bg-red-600 hover:bg-red-700"
+                              : "bg-yellow-600 hover:bg-yellow-700"
+                        }`}
+                      >
+                        {registration?.status === "verified"
+                          ? "✓ Verified"
+                          : registration?.status === "rejected"
+                            ? "✗ Rejected"
+                            : "⏳ Pending Verification"}
+                      </Badge>
+                    </div>
                   </div>
                 ) : (
                   <div className="mb-5 rounded-lg border-2 border-black bg-black p-4">

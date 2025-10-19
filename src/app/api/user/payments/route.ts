@@ -1,6 +1,6 @@
 import { db } from "@/database/db";
 import { auth } from "@/lib/auth";
-import { payment, type event, hackathon } from "@/database/schema";
+import { payment, type event, type hackathon } from "@/database/schema";
 import { eq, and } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -53,9 +53,35 @@ export async function GET(req: Request) {
     });
 
     // Fetch hackathon registrations (they also count as payments)
-    const hackathonRegistrations = await db.query.hackathon.findMany({
-      where: eq(hackathon.userId, session.user.id),
-    });
+    const userEmail = session.user.email;
+    let hackathonRegistrations: any[] = [];
+
+    if (userEmail) {
+      // Fetch ALL hackathon registrations and filter by email
+      const allHackathonRegs = await db.query.hackathon.findMany();
+
+      hackathonRegistrations = allHackathonRegs.filter((reg) => {
+        // Check if user is team leader
+        if (reg.teamLeaderEmail.toLowerCase() === userEmail.toLowerCase()) {
+          return true;
+        }
+
+        // Check if user is in team members array
+        try {
+          const members = reg.teamMembers ? JSON.parse(reg.teamMembers) : [];
+          if (Array.isArray(members)) {
+            return members.some(
+              (m) =>
+                m.email && m.email.toLowerCase() === userEmail.toLowerCase(),
+            );
+          }
+        } catch (e) {
+          console.error("[PAYMENTS] Error parsing team members:", e);
+        }
+
+        return false;
+      });
+    }
 
     type EventType = typeof event.$inferSelect;
 

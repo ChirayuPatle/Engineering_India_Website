@@ -42,9 +42,47 @@ export async function GET(req: Request) {
     console.log("[REGISTRATIONS] Fetching hackathon registrations...");
     let hackathonRegistrations: any[] = [];
     try {
-      hackathonRegistrations = await db.query.hackathon.findMany({
-        where: (hack, { eq }) => eq(hack.userId, session.user.id),
-      });
+      const userEmail = session.user.email;
+      if (!userEmail) {
+        console.log(
+          "[REGISTRATIONS] No email in session, skipping hackathon check",
+        );
+      } else {
+        // Fetch ALL hackathon registrations
+        const allHackathonRegs = await db.query.hackathon.findMany();
+        console.log(
+          "[REGISTRATIONS] Total hackathon registrations in DB:",
+          allHackathonRegs.length,
+        );
+
+        // Filter to find registrations where user is team leader OR team member
+        hackathonRegistrations = allHackathonRegs.filter((reg) => {
+          // Check if user is team leader
+          if (reg.teamLeaderEmail.toLowerCase() === userEmail.toLowerCase()) {
+            return true;
+          }
+
+          // Check if user is in team members array
+          try {
+            const members = reg.teamMembers ? JSON.parse(reg.teamMembers) : [];
+            if (Array.isArray(members)) {
+              return members.some(
+                (m) =>
+                  m.email && m.email.toLowerCase() === userEmail.toLowerCase(),
+              );
+            }
+          } catch (e) {
+            console.error(
+              "[REGISTRATIONS] Error parsing team members for reg:",
+              reg.id,
+              e,
+            );
+          }
+
+          return false;
+        });
+      }
+
       console.log(
         "[REGISTRATIONS] Hackathon registrations count:",
         hackathonRegistrations.length,

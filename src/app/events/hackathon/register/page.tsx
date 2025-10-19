@@ -81,7 +81,24 @@ export default function HackathonRegistrationPage() {
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
-  // Check authentication and registration status
+  // Initialize form first
+  const {
+    register,
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<HackathonFormData>({
+    defaultValues: {
+      teamMembers: [
+        { name: "", email: "", phone: "", gender: "", branch: "", year: "" },
+      ],
+      declarationAccepted: false,
+    },
+  });
+
+  // Check authentication and registration status, and auto-fill user details
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -91,6 +108,45 @@ export default function HackathonRegistrationPage() {
           // Not logged in, redirect to auth page with return URL
           router.push(`/auth?redirect=/events/hackathon/register`);
           return;
+        }
+
+        const userData = session.data.user as any; // Type assertion for extended user fields
+
+        // Auto-fill team leader details from user profile
+        if (userData) {
+          console.log("[AUTO-FILL] User data:", userData);
+
+          // Set team leader name
+          if (userData.name) {
+            setValue("teamLeaderName", userData.name);
+          }
+
+          // Set team leader email
+          if (userData.email) {
+            setValue("teamLeaderEmail", userData.email);
+          }
+
+          // Set team leader phone
+          if (userData.phone) {
+            setValue("teamLeaderPhone", userData.phone);
+          }
+
+          // Set institute (college name)
+          if (userData.collegeName) {
+            setValue("institute", userData.collegeName);
+          }
+
+          // Set branch
+          if (userData.branch) {
+            setValue("branch", userData.branch);
+          }
+
+          // Set year
+          if (userData.year) {
+            setValue("year", userData.year);
+          }
+
+          console.log("[AUTO-FILL] Form pre-filled with user details");
         }
 
         // Check if user is already registered
@@ -119,23 +175,7 @@ export default function HackathonRegistrationPage() {
     };
 
     checkAuth();
-  }, [router]);
-
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<HackathonFormData>({
-    defaultValues: {
-      teamMembers: [
-        { name: "", email: "", phone: "", gender: "", branch: "", year: "" },
-      ],
-      declarationAccepted: false,
-    },
-  });
+  }, [router, setValue]);
 
   const { fields, append, remove } = useFieldArray({
     control,

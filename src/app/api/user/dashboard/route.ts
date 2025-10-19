@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
       recentPayments,
       currentUser,
       membershipFormStatus,
-      hackathonRegistrations,
+      allHackathonRegistrations,
     ] = await Promise.all([
       db
         .select()
@@ -68,8 +68,36 @@ export async function GET(req: NextRequest) {
       recentPaymentsPromise,
       db.select().from(user).where(eq(user.id, userId)),
       db.select().from(membershipForm).where(eq(membershipForm.userId, userId)),
-      db.select().from(hackathon).where(eq(hackathon.userId, userId)),
+      db.select().from(hackathon), // Fetch ALL to filter by email
     ]);
+
+    // Filter hackathon registrations by email (team leader or member)
+    const userEmail = session.user.email;
+    let hackathonRegistrations: any[] = [];
+
+    if (userEmail) {
+      hackathonRegistrations = allHackathonRegistrations.filter((reg) => {
+        // Check if user is team leader
+        if (reg.teamLeaderEmail.toLowerCase() === userEmail.toLowerCase()) {
+          return true;
+        }
+
+        // Check if user is in team members array
+        try {
+          const members = reg.teamMembers ? JSON.parse(reg.teamMembers) : [];
+          if (Array.isArray(members)) {
+            return members.some(
+              (m) =>
+                m.email && m.email.toLowerCase() === userEmail.toLowerCase(),
+            );
+          }
+        } catch (e) {
+          console.error("[DASHBOARD] Error parsing team members:", e);
+        }
+
+        return false;
+      });
+    }
 
     console.log("[DASHBOARD] All data fetched successfully");
     console.log(
