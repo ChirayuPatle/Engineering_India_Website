@@ -18,9 +18,12 @@ export async function GET(req: Request) {
     }
 
     const { searchParams } = new URL(req.url);
-    const validatedParams = paymentStatusSchema.parse({
-      status: searchParams.get("status"),
-    });
+    const statusParam = searchParams.get("status");
+
+    // Only validate if status is provided
+    const validatedParams = statusParam
+      ? paymentStatusSchema.parse({ status: statusParam })
+      : { status: undefined };
 
     const { status } = validatedParams;
 
@@ -94,6 +97,7 @@ export async function GET(req: Request) {
         status: p.rejected ? "rejected" : p.verified ? "paid" : "pending",
         transactionId: p.transactionId,
         paymentScreenshot: null,
+        isHackathon: false,
         date: new Date(
           p.paymentDate ?? p.createdAt ?? Date.now(),
         ).toLocaleDateString("en-GB"),
@@ -110,11 +114,12 @@ export async function GET(req: Request) {
 
         return {
           id: h.id,
-          eventName: "Hackathon 2025",
-          amount: 300, // Fixed hackathon registration fee
+          eventName: "HACKATHON 2025",
+          amount: 200, // Hackathon registration fee
           status: statusMap[h.status as keyof typeof statusMap] || "pending",
           transactionId: h.transactionId || "N/A",
           paymentScreenshot: h.paymentScreenshot,
+          isHackathon: true,
           date: new Date(h.createdAt).toLocaleDateString("en-GB"),
         };
       },

@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowLeft, Inbox, TriangleAlert, Rocket } from "lucide-react";
+import { ArrowLeft, Inbox, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import RegistrationCard, {
   type Registration,
 } from "@/components/dashboard/RegistrationCard";
-import { HackathonInfoCard } from "@/components/dashboard/HackathonInfoCard";
+import { HackathonRegistrationCard } from "@/components/dashboard/HackathonRegistrationCard";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import api from "@/lib/api";
@@ -31,11 +31,21 @@ function RegistrationCardSkeleton() {
   );
 }
 
+const fetchHackathonRegistration = async (): Promise<any> => {
+  const res = await fetch("/api/hackathon/my-registration");
+  if (!res.ok) {
+    if (res.status === 401) return null;
+    throw new Error("Failed to fetch hackathon registration.");
+  }
+  const data = (await res.json()) as { registration: any };
+  return data.registration;
+};
+
 export default function RegistrationsPage() {
   const router = useRouter();
 
   const {
-    data: registrations = [],
+    data: allRegistrations = [],
     status,
     isFetching,
   } = useQuery<Registration[]>({
@@ -46,6 +56,20 @@ export default function RegistrationsPage() {
     },
     retry: false, // Don't retry endlessly on server errors
   });
+
+  const { data: hackathonRegistration, isLoading: isLoadingHackathon } =
+    useQuery({
+      queryKey: ["hackathonRegistration"],
+      queryFn: fetchHackathonRegistration,
+    });
+
+  // Filter out hackathon registrations from the list (they'll be shown separately)
+  const eventRegistrations = allRegistrations.filter(
+    (reg) => reg.type !== "hackathon",
+  );
+
+  const hasHackathon = !!hackathonRegistration;
+  const hasEvents = eventRegistrations.length > 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -63,7 +87,7 @@ export default function RegistrationsPage() {
         </h1>
       </div>
 
-      {status === "pending" || isFetching ? (
+      {status === "pending" || isFetching || isLoadingHackathon ? (
         <div className="grid gap-6">
           {[...Array(3)].map((_, i) => (
             <RegistrationCardSkeleton key={i} />
@@ -79,52 +103,71 @@ export default function RegistrationsPage() {
             We couldn't load your registrations. Please try again later.
           </p>
         </div>
-      ) : registrations.length === 0 ? (
+      ) : !hasHackathon && !hasEvents ? (
         <div className="space-y-6">
-          {/* Hackathon 2025 Info Card - Featured */}
-          {/* <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Rocket className="h-5 w-5 text-purple-600" />
-              <h2 className="text-xl font-bold text-gray-900">
-                Featured Event: HACKATHON 2025
-              </h2>
-            </div>
-            <HackathonInfoCard />
-          </div> */}
-
           {/* No registrations message */}
-          {/* <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-12 text-center">
+          <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 py-12 text-center">
             <Inbox className="mb-4 h-12 w-12 text-gray-400" />
             <h3 className="text-lg font-semibold text-gray-900">
-              No Event Registrations Yet
+              No Registrations Yet
             </h3>
             <p className="mt-2 max-w-md text-sm text-gray-600">
-              You haven't registered for any events yet. Check out the featured
-              hackathon above or explore more events!
+              You haven't registered for any events yet. Check out upcoming
+              events and hackathons!
             </p>
-          </div> */}
+            <div className="mt-4 flex gap-3">
+              <Button onClick={() => router.push("/events")} variant="outline">
+                Browse Events
+              </Button>
+              <Button
+                onClick={() => router.push("/events/hackathon")}
+                className="bg-black hover:bg-gray-900"
+              >
+                View Hackathon
+              </Button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Hackathon 2025 Info Card - Featured */}
-          <div className="space-y-3">
-            {/* <div className="flex items-center gap-2">
-              <Rocket className="h-5 w-5 text-purple-600" />
+          {/* Hackathon Registration Section */}
+          {hasHackathon && (
+            <div className="space-y-3">
               <h2 className="text-xl font-bold text-gray-900">
-                Featured Event: HACKATHON 2025
+                Hackathon Registration
               </h2>
-            </div> */}
-            {/* <HackathonInfoCard /> */}
-          </div>
-
-          {/* Separator */}
-          <div className="">
-            <div className="grid gap-6">
-              {registrations.map((reg) => (
-                <RegistrationCard reg={reg} key={reg.id} />
-              ))}
+              <div className="w-full sm:max-w-md lg:max-w-lg">
+                <HackathonRegistrationCard
+                  registration={hackathonRegistration}
+                />
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Event Registrations Section */}
+          {hasEvents && (
+            <div className="space-y-3">
+              {hasHackathon && (
+                <div className="flex items-center gap-4">
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                  <p className="text-sm font-semibold text-gray-600">
+                    Event Registrations
+                  </p>
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                </div>
+              )}
+              {!hasHackathon && (
+                <h2 className="text-xl font-bold text-gray-900">
+                  Event Registrations
+                </h2>
+              )}
+              <div className="grid gap-6">
+                {eventRegistrations.map((reg) => (
+                  <RegistrationCard reg={reg} key={reg.id} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

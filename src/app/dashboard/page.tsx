@@ -3,7 +3,14 @@
 import { StatCard } from "@/components/dashboard/StatCard";
 import { PaymentCard } from "@/components/dashboard/PaymentCard";
 import { HackathonRegistrationCard } from "@/components/dashboard/HackathonRegistrationCard";
-import { Calendar, CreditCard, TriangleAlert } from "lucide-react";
+import { EventCard } from "@/components/dashboard/EventCard";
+import {
+  Calendar,
+  CreditCard,
+  TriangleAlert,
+  CheckCircle,
+  Trophy,
+} from "lucide-react";
 import { type PaymentStatus } from "@/components/dashboard/PaymentCard";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -17,6 +24,7 @@ export interface Payment {
   date: string;
   status: PaymentStatus;
   transactionId: string;
+  isHackathon?: boolean; // Flag to identify hackathon payments
 }
 
 interface Registration {
@@ -24,6 +32,15 @@ interface Registration {
   eventId: string;
   userId: string;
   createdAt: string;
+  event: {
+    id: string;
+    title: string;
+    description: string | null;
+    startDate: string;
+    venue: string | null;
+    category: string | null;
+    price: number;
+  };
 }
 
 interface DashboardResponse {
@@ -35,6 +52,7 @@ interface DashboardResponse {
   };
   stats?: {
     totalRegistrations: number;
+    totalEventsAvailable: number;
     eventRegistrations: number;
     hackathonRegistrations: number;
   };
@@ -103,9 +121,16 @@ export default function DashboardPage() {
   const payments = data?.payments ?? [];
   const stats = data?.stats ?? {
     totalRegistrations: 0,
+    totalEventsAvailable: 0,
     eventRegistrations: 0,
     hackathonRegistrations: 0,
   };
+
+  // Debug logging
+  console.log("Dashboard data:", data);
+  console.log("Stats:", stats);
+  console.log("Registered Events:", registeredEvents);
+  console.log("Hackathon Registration:", hackathonRegistration);
 
   const greeting = useMemo(() => getGreeting(), []);
 
@@ -140,14 +165,14 @@ export default function DashboardPage() {
         {/* Stats */}
         <div className="flex w-full flex-col gap-3 sm:flex-row sm:gap-4">
           <StatCard
-            title="Total Registrations"
-            value={String(stats.totalRegistrations)}
+            title="Total Events"
+            value={String(stats.totalEventsAvailable)}
             icon={<Calendar className="h-4 w-4" />}
           />
           <StatCard
-            title="Event Registrations"
-            value={String(stats.eventRegistrations)}
-            icon={<CreditCard className="h-4 w-4" />}
+            title="My Registrations"
+            value={String(stats.totalRegistrations)}
+            icon={<CheckCircle className="h-4 w-4" />}
           />
         </div>
 
@@ -181,16 +206,26 @@ export default function DashboardPage() {
             Your Registered Events
           </h2>
           {registeredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 gap-3">
-              {/* You'll need to create a component for displaying registered events */}
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
-                <span className="text-base font-semibold sm:text-lg">
-                  Display Registered Events Here
-                </span>
-                <p className="mt-1 text-xs sm:text-sm">
-                  This section will show events you've registered for.
-                </p>
-              </div>
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
+              {registeredEvents.map((registration) => (
+                <EventCard
+                  key={registration.id}
+                  id={registration.event.id}
+                  title={registration.event.title}
+                  description={registration.event.description || ""}
+                  start_date={new Date(
+                    registration.event.startDate,
+                  ).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                  venue={registration.event.venue || "TBA"}
+                  category={registration.event.category || "General"}
+                  price={registration.event.price}
+                  isRegistered={true}
+                />
+              ))}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-4 text-center text-muted-foreground shadow-sm sm:p-6">
@@ -219,6 +254,7 @@ export default function DashboardPage() {
                   date={new Date(payment.date).toLocaleDateString("en-GB")}
                   status={payment.status}
                   transactionId={payment.transactionId}
+                  isHackathon={payment.isHackathon}
                 />
               ))}
             </div>

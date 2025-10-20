@@ -1,4 +1,4 @@
-import { Check, Clock, X, Image as ImageIcon } from "lucide-react";
+import { Check, Clock, X, Image as ImageIcon, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
 
 export type PaymentStatus = "paid" | "pending" | "failed";
 
@@ -21,6 +22,7 @@ interface PaymentCardProps {
   status: PaymentStatus;
   transactionId: string;
   paymentScreenshot?: string | null;
+  isHackathon?: boolean;
   onViewDetails?: (id: string) => void;
 }
 
@@ -32,6 +34,7 @@ export function PaymentCard({
   status,
   transactionId,
   paymentScreenshot,
+  isHackathon = false,
   onViewDetails,
 }: PaymentCardProps) {
   return (
@@ -39,9 +42,17 @@ export function PaymentCard({
       <CardHeader className="w-full border-b border-gray-200 px-4 pb-3 pt-4 dark:border-gray-700 sm:px-6 sm:pt-6">
         <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center sm:gap-x-5">
           <div className="min-w-0 flex-1">
-            <CardTitle className="break-words text-base font-semibold text-gray-900 dark:text-gray-100 sm:text-lg">
-              {eventName}
-            </CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle className="break-words text-base font-semibold text-gray-900 dark:text-gray-100 sm:text-lg">
+                {eventName}
+              </CardTitle>
+              {isHackathon && (
+                <Badge className="bg-black text-white hover:bg-gray-900">
+                  <Trophy className="mr-1 h-3 w-3" />
+                  Hackathon
+                </Badge>
+              )}
+            </div>
             <CardDescription className="text-xs text-gray-600 dark:text-gray-400 sm:text-sm">
               {date}
             </CardDescription>

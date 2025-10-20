@@ -25,12 +25,13 @@ export async function GET(req: NextRequest) {
     console.log("[DASHBOARD] User ID:", session.user.id);
     const userId = session.user.id;
 
-    // First fetch user registrations to check if there are any
+    // First fetch user registrations WITH event details
     console.log("[DASHBOARD] Fetching user registrations...");
     const userRegistrations = await db
       .select()
       .from(registration)
-      .where(eq(registration.userId, userId));
+      .where(eq(registration.userId, userId))
+      .leftJoin(event, eq(registration.eventId, event.id));
 
     console.log(
       "[DASHBOARD] User registrations count:",
@@ -46,7 +47,7 @@ export async function GET(req: NextRequest) {
             .where(
               inArray(
                 payment.registrationId,
-                userRegistrations.map((r) => r.id),
+                userRegistrations.map((r) => r.registration.id),
               ),
             )
             .orderBy(desc(payment.paymentDate))
@@ -55,6 +56,7 @@ export async function GET(req: NextRequest) {
 
     const [
       upcomingEvents,
+      allEvents,
       recentPayments,
       currentUser,
       membershipFormStatus,
@@ -65,6 +67,7 @@ export async function GET(req: NextRequest) {
         .from(event)
         .where(gt(event.startDate, new Date()))
         .orderBy(desc(event.startDate)),
+      db.select().from(event), // Fetch ALL events for count
       recentPaymentsPromise,
       db.select().from(user).where(eq(user.id, userId)),
       db.select().from(membershipForm).where(eq(membershipForm.userId, userId)),
@@ -105,20 +108,79 @@ export async function GET(req: NextRequest) {
       hackathonRegistrations.length,
     );
 
-    // Total registrations count (event registrations + hackathon registrations)
+    // Total AVAILABLE events count (all events in DB + hackathon)
+    const totalEventsAvailable = allEvents.length + 1; // +1 for hackathon
+
+    // Total USER registrations count (events user registered for + hackathon)
     const totalRegistrations =
       userRegistrations.length + hackathonRegistrations.length;
 
+    console.log("[DASHBOARD] Total Events Available:", totalEventsAvailable);
+    console.log("[DASHBOARD] Total User Registrations:", totalRegistrations);
+    console.log("[DASHBOARD] Event Registrations:", userRegistrations.length);
+    console.log(
+      "[DASHBOARD] Hackathon Registrations:",
+      hackathonRegistrations.length,
+    );
+
+    // Format registered events with full event details
+    const formattedRegisteredEvents = userRegistrations
+      .filter((reg) => reg.event !== null) // Only include events that exist
+      .map((reg) => ({
+        id: reg.registration.id,
+        eventId: reg.registration.eventId,
+        userId: reg.registration.userId,
+        createdAt: reg.registration.createdAt,
+        event: reg.event, // Full event details
+      }));
+
+    console.log(
+      "[DASHBOARD] Formatted Events:",
+      formattedRegisteredEvents.length,
+    );
+
+    // Format hackathon registrations as payments
+    const hackathonPayments = hackathonRegistrations.map((hack) => ({
+      id: hack.id,
+      eventName: "HACKATHON 2025",
+      amount: 200, // Hackathon fee
+      date: hack.createdAt,
+      status:
+        hack.status === "verified"
+          ? "completed"
+          : hack.status === "pending"
+            ? "pending"
+            : "failed",
+      transactionId: hack.transactionId || "N/A",
+      paymentScreenshot: hack.paymentScreenshot,
+      isHackathon: true, // Flag to identify hackathon payments
+    }));
+
+    // Combine event payments and hackathon payments
+    const allPayments = [...recentPayments, ...hackathonPayments].sort(
+      (a, b) => {
+        const dateA = "paymentDate" in a ? a.paymentDate : a.date;
+        const dateB = "paymentDate" in b ? b.paymentDate : b.date;
+        return new Date(dateB || 0).getTime() - new Date(dateA || 0).getTime();
+      },
+    );
+
+    console.log(
+      "[DASHBOARD] Total Payments (Events + Hackathon):",
+      allPayments.length,
+    );
+
     return NextResponse.json({
-      registeredEvents: userRegistrations,
+      registeredEvents: formattedRegisteredEvents,
       upcomingEvents,
-      payments: recentPayments,
+      payments: allPayments,
       user: currentUser[0],
       membership: {
         hasSubmitted: membershipFormStatus.length > 0,
       },
       stats: {
         totalRegistrations,
+        totalEventsAvailable, // Total events in system (events + hackathon)
         eventRegistrations: userRegistrations.length,
         hackathonRegistrations: hackathonRegistrations.length,
       },
