@@ -1,7 +1,6 @@
 "use client";
 
 import { StatCard } from "@/components/dashboard/StatCard";
-import { PaymentCard } from "@/components/dashboard/PaymentCard";
 import { HackathonRegistrationCard } from "@/components/dashboard/HackathonRegistrationCard";
 import { EventCard } from "@/components/dashboard/EventCard";
 import {
@@ -241,7 +240,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Payments */}
-        <div className="space-y-3 sm:space-y-4">
+        {/* <div className="space-y-3 sm:space-y-4">
           <h2 className="text-lg font-bold sm:text-xl">Recent Payments</h2>
           {payments.length > 0 ? (
             <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2">
@@ -269,7 +268,7 @@ export default function DashboardPage() {
               </p>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ export const hackathon = sqliteTable("hackathon", {
     .references(() => user.id, { onDelete: "cascade" }),
 
   // Team Information
-  teamName: text("team_name").notNull().unique(),
+  teamName: text("team_name").notNull(),
 
   // Team Leader Information
   teamLeaderName: text("team_leader_name").notNull(),
@@ -43,6 +43,11 @@ export const hackathon = sqliteTable("hackathon", {
 
   // Status
   status: text("status").notNull().default("pending"), // pending | verified | rejected
+
+  // Round 1 Submission (PPT Upload)
+  round1PptUrl: text("round1_ppt_url"), // URL to uploaded PPT
+  round1SubmittedAt: integer("round1_submitted_at", { mode: "timestamp" }), // Submission timestamp
+  round1Status: text("round1_status").default("not_submitted"), // not_submitted | submitted | reviewed
 
   // Timestamps
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),

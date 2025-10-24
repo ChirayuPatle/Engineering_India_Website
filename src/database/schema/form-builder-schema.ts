@@ -11,42 +11,34 @@ import { v4 as uuid } from "uuid";
  * Event Form Schema
  * Stores the complete form configuration for each event
  */
-export const eventForm = sqliteTable(
-  "event_form",
-  {
-    id: text("id")
-      .primaryKey()
-      .$defaultFn(() => uuid()),
+export const eventForm = sqliteTable("event_form", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuid()),
 
-    eventId: text("event_id")
-      .notNull()
-      .references(() => event.id, { onDelete: "cascade" }),
+  eventId: text("event_id")
+    .notNull()
+    .references(() => event.id, { onDelete: "cascade" }),
 
-    // Store the complete form configuration as JSON
-    formSchema: text("form_schema", { mode: "json" })
-      .notNull()
-      .$type<FormField[]>(),
+  // Store the complete form configuration as JSON
+  formSchema: text("form_schema", { mode: "json" })
+    .notNull()
+    .$type<FormField[]>(),
 
-    // Form settings
-    title: text("title"),
-    description: text("description"),
-    successMessage: text("success_message").default(
-      "Thank you for registering!",
-    ),
-    formImage: text("form_image"), // QR code or banner image URL
+  // Form settings
+  title: text("title"),
+  description: text("description"),
+  successMessage: text("success_message").default("Thank you for registering!"),
+  formImage: text("form_image"), // QR code or banner image URL
 
-    // Timestamps
-    createdAt: integer("created_at", { mode: "timestamp" })
-      .notNull()
-      .$defaultFn(() => new Date()),
-    updatedAt: integer("updated_at", { mode: "timestamp" })
-      .notNull()
-      .$defaultFn(() => new Date()),
-  },
-  (table) => ({
-    eventIdIdx: uniqueIndex("event_form_event_id_unique").on(table.eventId),
-  }),
-);
+  // Timestamps
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .$defaultFn(() => new Date()),
+});
 
 /**
  * Form Field Type Definition

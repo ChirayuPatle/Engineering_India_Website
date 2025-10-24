@@ -106,7 +106,7 @@ export default function CreateFormPage() {
         throw new Error("Failed to create form");
       }
 
-      const data = await response.json();
+      await response.json();
       toast.success("Form created successfully!");
       router.push(`/admin/dashboard/forms`);
     } catch (error) {
@@ -227,7 +227,7 @@ export default function CreateFormPage() {
             </div>
 
             <div className="space-y-4">
-              {fields.map((field, index) => (
+              {fields.map((field) => (
                 <Card key={field.id} className="border-2 p-4">
                   <div className="flex items-start gap-4">
                     <div className="mt-2 cursor-move">

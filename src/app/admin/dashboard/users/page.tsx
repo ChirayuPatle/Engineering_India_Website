@@ -18,12 +18,6 @@ async function getUsers() {
 export default async function UsersPage() {
   const users = await getUsers();
 
-  const roleColors = {
-    ADMIN: "bg-red-100 text-red-800",
-    MODERATOR: "bg-blue-100 text-blue-800",
-    USER: "bg-gray-100 text-gray-800",
-  };
-
   return (
     <div className="space-y-6">
       {/* Header */}

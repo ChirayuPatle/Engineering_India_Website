@@ -50,6 +50,40 @@ const events: Event[] = [
     prizes: "worth ₹13,000",
     registrationLink: "/events/hackathon",
   },
+  {
+    id: "ideathon",
+    title: "⚡ IDEATHON – StartupWave ⚡",
+    subtitle: "",
+    description:
+      "A thrilling Ideathon where creativity meets innovation! Dive into brainstorming, designing, and pitching groundbreaking ideas that solve real-world problems. Think. Create. Revolutionize.",
+    icon: Code,
+    date: "Nov 01, 2025",
+    registrationDeadline: "Limited Slots",
+    venue: "IT Department, YCCE",
+    category: "Ideathon",
+    registrationFee: 269,
+    teamSize: "Up to 6 members",
+    prizes: "worth ₹10,000",
+    registrationLink:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfcnZKYUT4ShdMc16rmpw9d50Q0e4OUcTmA-99YHQIiKEPwyA/viewform",
+  },
+  {
+    id: "treasure-hunt",
+    title: "🗝️ Treasure Hunt – Decode. Discover. Dominate. 🔍",
+    subtitle: "",
+    description:
+      "An electrifying quest packed with mystery, logic, and excitement! Follow the trail of riddles, puzzles, and hidden hints scattered across the campus. Think fast. Move smart. Hunt harder.",
+    icon: Code,
+    date: "Nov 01, 2025",
+    registrationDeadline: "Limited Slots",
+    venue: "YCCE Campus",
+    category: "Adventure",
+    registrationFee: 250,
+    teamSize: "3-5 members",
+    prizes: "worth ₹2,500",
+    registrationLink:
+      "https://docs.google.com/forms/d/e/1FAIpQLScRvth2ZZr3alsOYSLi7yoMKQTAHdfPfNoqhuD3pghTCEpibQ/viewform",
+  },
 ];
 
 export default function PrarambhPage() {
@@ -131,14 +165,14 @@ export default function PrarambhPage() {
             <h2
               className={`${bebasNeue.className} mb-4 text-5xl font-bold text-gray-900`}
             >
-              Featured Event
+              Featured Events
             </h2>
             <p className="mx-auto max-w-2xl text-lg text-gray-600">
               Our flagship events. Limited seats available - Register now!
             </p>
           </div>
 
-          <div className="mx-auto max-w-3xl">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {events.map((event) => {
               return (
                 <Card
@@ -195,7 +229,13 @@ export default function PrarambhPage() {
                     <Button
                       className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
                       size="lg"
-                      onClick={() => router.push(event.registrationLink)}
+                      onClick={() => {
+                        if (event.registrationLink.startsWith("http")) {
+                          window.open(event.registrationLink, "_blank");
+                        } else {
+                          router.push(event.registrationLink);
+                        }
+                      }}
                     >
                       Register Now
                       <ArrowRight className="ml-2 h-5 w-5" />

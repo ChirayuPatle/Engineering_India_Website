@@ -1,6 +1,6 @@
 import { db } from "@/database/db";
 import { event, registration, user } from "@/database/schema";
-import { eq, count, desc } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import {
   ArrowLeft,
   Search,

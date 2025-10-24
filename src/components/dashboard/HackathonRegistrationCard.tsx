@@ -24,6 +24,7 @@ import {
   Presentation,
   Download,
   Edit,
+  Upload,
 } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -352,10 +353,38 @@ export function HackathonRegistrationCard({
           </div>
 
           <p className="text-[10px] leading-relaxed text-gray-600">
-            � <strong>Read the rulebook first!</strong> Then download the
+            💡 <strong>Read the rulebook first!</strong> Then download the
             problem statement and use our PPT template
           </p>
         </div>
+
+        {/* Round 1 Submission - Team Leader Only */}
+        {isTeamLeader && registration.status === "verified" && (
+          <div className="rounded-lg border-2 border-yellow-500 bg-gradient-to-br from-yellow-50 to-orange-50 p-3 shadow-md">
+            <div className="mb-2 flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-yellow-500">
+                <Upload className="h-4 w-4 text-white" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-gray-900">
+                  Round 1 Submission
+                </h3>
+                <p className="text-[10px] text-gray-600">
+                  Oct 25 - Oct 29, 2025
+                </p>
+              </div>
+            </div>
+            <Button
+              asChild
+              className="h-9 w-full bg-yellow-600 text-xs font-bold text-white hover:bg-yellow-700"
+            >
+              <a href="/dashboard/hackathon/submit-round1">
+                <Upload className="mr-2 h-4 w-4" />
+                Submit Round 1 PPT
+              </a>
+            </Button>
+          </div>
+        )}
       </CardContent>
 
       {/* Edit Team Modal */}

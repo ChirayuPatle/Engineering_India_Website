@@ -70,7 +70,6 @@ export default function EventFormPage({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = use(params);
-  const router = useRouter();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -370,7 +369,7 @@ export default function EventFormPage({
                 </div>
               )}
 
-              {formData.formSchema.map((field, index) => (
+              {formData.formSchema.map((field) => (
                 <Card
                   key={field.id}
                   className="border-2 p-4 transition-colors hover:border-blue-300"

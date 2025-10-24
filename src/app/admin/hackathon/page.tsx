@@ -41,6 +41,10 @@ import {
   Image as ImageIcon,
   Loader2,
   Trophy,
+  FileText,
+  PlayCircle,
+  StopCircle,
+  RotateCcw,
 } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -69,6 +73,9 @@ interface HackathonRegistration {
   paymentScreenshot: string | null;
   transactionId: string | null;
   status: "pending" | "verified" | "rejected";
+  round1PptUrl: string | null;
+  round1SubmittedAt: string | null;
+  round1Status: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -78,12 +85,61 @@ interface RegistrationsResponse {
   total: number;
 }
 
+interface ControlResponse {
+  currentTime: string;
+  automaticPeriod: { start: string; end: string; isActive: boolean };
+  override: {
+    isActive: boolean;
+    manuallyControlled: boolean;
+    overrideStart: string | null;
+    overrideEnd: string | null;
+  };
+  effectiveStatus: boolean;
+}
+
 const fetchRegistrations = async (): Promise<RegistrationsResponse> => {
   const res = await fetch("/api/admin/hackathon/registrations");
+  const data: unknown = await res.json();
   if (!res.ok) {
-    throw new Error("Failed to fetch registrations");
+    const error =
+      data && typeof data === "object" && "error" in data
+        ? (data as { error: string }).error
+        : "Failed to fetch registrations";
+    throw new Error(error);
   }
-  return res.json() as Promise<RegistrationsResponse>;
+  return data as RegistrationsResponse;
+};
+
+const fetchSubmissionControl = async (): Promise<ControlResponse> => {
+  const res = await fetch("/api/admin/hackathon/submission-control");
+  const data: unknown = await res.json();
+  if (!res.ok) {
+    const error =
+      data && typeof data === "object" && "error" in data
+        ? (data as { error: string }).error
+        : "Failed to fetch submission control";
+    throw new Error(error);
+  }
+  return data as ControlResponse;
+};
+
+const controlSubmissionPeriod = async (
+  action: "start" | "end" | "reset",
+): Promise<{ message: string; override?: any }> => {
+  const res = await fetch("/api/admin/hackathon/submission-control", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action }),
+  });
+  const data: unknown = await res.json();
+  if (!res.ok) {
+    const error =
+      data && typeof data === "object" && "error" in data
+        ? (data as { error: string }).error
+        : "Failed to control submission period";
+    throw new Error(error);
+  }
+  return data as { message: string; override?: any };
 };
 
 const updateRegistrationStatus = async ({
@@ -424,12 +480,14 @@ function RegistrationDetailsDialog({
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() =>
-                            window.open(
-                              registration.paymentScreenshot!,
-                              "_blank",
-                            )
-                          }
+                          onClick={() => {
+                            if (registration.paymentScreenshot) {
+                              window.open(
+                                registration.paymentScreenshot,
+                                "_blank",
+                              );
+                            }
+                          }}
                         >
                           Open in New Tab
                         </Button>
@@ -447,6 +505,59 @@ function RegistrationDetailsDialog({
                 )}
             </CardContent>
           </Card>
+
+          {/* Round 1 Submission */}
+          <Card
+            className={
+              registration.round1PptUrl ? "border-green-300 bg-green-50" : ""
+            }
+          >
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <FileText className="h-5 w-5" />
+                Round 1 PPT Submission
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {registration.round1SubmittedAt ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Badge className="border-green-300 bg-green-100 text-green-700">
+                      <CheckCircle className="mr-1 h-3 w-3" />
+                      Submitted
+                    </Badge>
+                    <span className="text-sm text-gray-600">
+                      {new Date(registration.round1SubmittedAt).toLocaleString(
+                        "en-IN",
+                      )}
+                    </span>
+                  </div>
+
+                  {registration.round1PptUrl ? (
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        if (registration.round1PptUrl) {
+                          window.open(registration.round1PptUrl, "_blank");
+                        }
+                      }}
+                    >
+                      <FileText className="mr-2 h-4 w-4" />
+                      View Submitted PPT
+                    </Button>
+                  ) : (
+                    <span className="text-gray-500">No PPT URL</span>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <Clock className="h-4 w-4" />
+                  <span>Not submitted yet</span>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </DialogContent>
     </Dialog>
@@ -462,6 +573,23 @@ export default function AdminHackathonRegistrationsPage() {
     queryKey: ["hackathonRegistrations"],
     queryFn: fetchRegistrations,
     refetchInterval: 10000, // Auto-refresh every 10 seconds
+  });
+
+  const { data: controlData, refetch: refetchControl } = useQuery({
+    queryKey: ["submissionControl"],
+    queryFn: fetchSubmissionControl,
+    refetchInterval: 5000, // Refresh every 5 seconds
+  });
+
+  const controlMutation = useMutation({
+    mutationFn: controlSubmissionPeriod,
+    onSuccess: (data) => {
+      toast.success(data.message);
+      refetchControl();
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to update submission period");
+    },
   });
 
   const filteredRegistrations =
@@ -510,6 +638,144 @@ export default function AdminHackathonRegistrationsPage() {
           Manage and review all hackathon team registrations
         </p>
       </div>
+
+      {/* Submission Period Control Panel */}
+      <Card className="border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Clock className="h-5 w-5 text-purple-700" />
+            Round 1 Submission Control
+          </CardTitle>
+          <CardDescription>
+            Manually start or end the submission period
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {controlData && (
+            <div className="space-y-4">
+              {/* Status Display */}
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="rounded-lg border bg-white p-4">
+                  <p className="text-sm font-medium text-gray-500">
+                    Current Status
+                  </p>
+                  <div className="mt-2 flex items-center gap-2">
+                    {controlData.effectiveStatus ? (
+                      <Badge className="border-green-300 bg-green-100 text-green-700">
+                        <PlayCircle className="mr-1 h-3 w-3" />
+                        Active - Accepting Submissions
+                      </Badge>
+                    ) : (
+                      <Badge className="border-red-300 bg-red-100 text-red-700">
+                        <StopCircle className="mr-1 h-3 w-3" />
+                        Closed - Not Accepting
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+
+                <div className="rounded-lg border bg-white p-4">
+                  <p className="text-sm font-medium text-gray-500">
+                    Control Mode
+                  </p>
+                  <div className="mt-2">
+                    <Badge variant="outline">
+                      {controlData.override.manuallyControlled
+                        ? "Manual Override"
+                        : "Automatic"}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              {/* Automatic Period Info */}
+              <div className="rounded-lg border bg-white p-4">
+                <p className="mb-2 text-sm font-medium text-gray-700">
+                  Automatic Schedule:
+                </p>
+                <div className="space-y-1 text-sm text-gray-600">
+                  <p>
+                    Start:{" "}
+                    {new Date(controlData.automaticPeriod.start).toLocaleString(
+                      "en-IN",
+                    )}
+                  </p>
+                  <p>
+                    End:{" "}
+                    {new Date(controlData.automaticPeriod.end).toLocaleString(
+                      "en-IN",
+                    )}
+                  </p>
+                  <p className="mt-1 text-xs italic">
+                    {controlData.automaticPeriod.isActive
+                      ? "Currently within automatic period"
+                      : "Currently outside automatic period"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Control Buttons */}
+              <div className="flex gap-3">
+                <Button
+                  onClick={() => controlMutation.mutate("start")}
+                  disabled={
+                    controlMutation.isPending || controlData.effectiveStatus
+                  }
+                  className="flex-1 bg-green-600 hover:bg-green-700"
+                >
+                  {controlMutation.isPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <PlayCircle className="mr-2 h-4 w-4" />
+                  )}
+                  Start Submissions
+                </Button>
+
+                <Button
+                  onClick={() => controlMutation.mutate("end")}
+                  disabled={
+                    controlMutation.isPending || !controlData.effectiveStatus
+                  }
+                  variant="destructive"
+                  className="flex-1"
+                >
+                  {controlMutation.isPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <StopCircle className="mr-2 h-4 w-4" />
+                  )}
+                  End Submissions
+                </Button>
+
+                <Button
+                  onClick={() => controlMutation.mutate("reset")}
+                  disabled={
+                    controlMutation.isPending ||
+                    !controlData.override.manuallyControlled
+                  }
+                  variant="outline"
+                  className="flex-1"
+                >
+                  {controlMutation.isPending ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <RotateCcw className="mr-2 h-4 w-4" />
+                  )}
+                  Reset to Auto
+                </Button>
+              </div>
+
+              <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
+                <p className="text-xs text-yellow-800">
+                  <strong>Note:</strong> Manual control overrides the automatic
+                  schedule. Use "Reset to Auto" to return to the automatic Oct
+                  25-29 schedule.
+                </p>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
@@ -581,6 +847,131 @@ export default function AdminHackathonRegistrationsPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Round 1 Submissions Overview */}
+      <Card className="border-yellow-300 bg-gradient-to-br from-yellow-50 to-orange-50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-yellow-700" />
+            Round 1 Submissions
+          </CardTitle>
+          <CardDescription>
+            PPT submissions for Round 1 (Oct 25 - Oct 29, 2025)
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="rounded-lg border bg-white p-4">
+                <p className="text-sm font-medium text-gray-500">
+                  Total Submissions
+                </p>
+                <p className="text-2xl font-bold text-gray-900">
+                  {data?.registrations.filter((r) => r.round1PptUrl).length ||
+                    0}
+                </p>
+              </div>
+              <div className="rounded-lg border bg-white p-4">
+                <p className="text-sm font-medium text-gray-500">Pending</p>
+                <p className="text-2xl font-bold text-yellow-600">
+                  {data?.registrations.filter(
+                    (r) => r.status === "verified" && !r.round1PptUrl,
+                  ).length || 0}
+                </p>
+              </div>
+              <div className="rounded-lg border bg-white p-4">
+                <p className="text-sm font-medium text-gray-500">
+                  Submission Rate
+                </p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {stats.verified > 0
+                    ? Math.round(
+                        ((data?.registrations.filter((r) => r.round1PptUrl)
+                          .length ?? 0) /
+                          stats.verified) *
+                          100,
+                      )
+                    : 0}
+                  %
+                </p>
+              </div>
+            </div>
+
+            {(data?.registrations.filter((r) => r.round1PptUrl).length ?? 0) >
+              0 && (
+              <div className="rounded-lg border bg-white">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Team Name</TableHead>
+                      <TableHead>Leader</TableHead>
+                      <TableHead>Submitted At</TableHead>
+                      <TableHead>Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data?.registrations
+                      .filter((r) => r.round1PptUrl)
+                      .sort(
+                        (a, b) =>
+                          new Date(b.round1SubmittedAt ?? 0).getTime() -
+                          new Date(a.round1SubmittedAt ?? 0).getTime(),
+                      )
+                      .map((registration) => (
+                        <TableRow key={registration.id}>
+                          <TableCell className="font-medium">
+                            {registration.teamName}
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <p className="text-sm font-medium">
+                                {registration.teamLeaderName}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {registration.teamLeaderEmail}
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-sm">
+                            {registration.round1SubmittedAt
+                              ? new Date(
+                                  registration.round1SubmittedAt,
+                                ).toLocaleString("en-IN", {
+                                  dateStyle: "medium",
+                                  timeStyle: "short",
+                                })
+                              : "—"}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => {
+                                  if (registration.round1PptUrl)
+                                    window.open(
+                                      registration.round1PptUrl,
+                                      "_blank",
+                                    );
+                                }}
+                              >
+                                <FileText className="mr-2 h-4 w-4" />
+                                View PPT
+                              </Button>
+                              <RegistrationDetailsDialog
+                                registration={registration}
+                              />
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Filters */}
       <Card>

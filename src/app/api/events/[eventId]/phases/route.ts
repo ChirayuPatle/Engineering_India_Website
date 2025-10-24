@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/database/db";
 import { eventPhase } from "@/database/schema";
-import { eq, and } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export async function GET(
   req: Request,

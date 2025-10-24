@@ -20,6 +20,23 @@ export const ourFileRouter = {
 
       return { uploadedBy: metadata.userId, url: file.url };
     }),
+
+  hackathonRound1Ppt: f({
+    pdf: { maxFileSize: "16MB", maxFileCount: 1 },
+  })
+    .middleware(async ({ req }) => {
+      const session = await auth.api.getSession({ headers: req.headers });
+
+      if (!session?.user) throw new Error("Unauthorized");
+
+      return { userId: session.user.id, userEmail: session.user.email };
+    })
+    .onUploadComplete(async ({ metadata, file }) => {
+      console.log("Round 1 PPT upload complete for:", metadata.userEmail);
+      console.log("file url", file.url);
+
+      return { uploadedBy: metadata.userId, url: file.url };
+    }),
 } satisfies FileRouter;
 
 export type OurFileRouter = typeof ourFileRouter;

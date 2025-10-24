@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/database/db";
 import { eventResource } from "@/database/schema";
-import { eq, and, or } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/auth-helpers";
 
 export async function GET(
