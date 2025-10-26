@@ -35,6 +35,23 @@ interface Event {
 
 const events: Event[] = [
   {
+    id: "ai-workshop",
+    title: "AI Workshop ✨",
+    subtitle: "⚡ INNOVATE WORKSHOP 2025 – Skill Up. Stand Out. Succeed. ⚡",
+    description:
+      "Turn curiosity into capability! Join this hands-on workshop to learn from industry experts about real-world AI applications and emerging trends. Explore Agentic AI, Generative AI, Intelligent Automation, and work with Azure AI, Python frameworks, and ML pipelines.",
+    icon: Code,
+    date: "Nov 01, 2025",
+    registrationDeadline: "Oct 31, 2025",
+    venue: "Old CCC Seminar Hall, YCCE Campus",
+    category: "Workshop",
+    registrationFee: 60,
+    teamSize: "Individual",
+    prizes: "Participation Certificate",
+    registrationLink:
+      "https://docs.google.com/forms/d/e/1FAIpQLScP85Ev2P5va6rUaPx81aJTvApdC8XTcNBIwSmPxQDJ8FxwkQ/viewform",
+  },
+  {
     id: "hackathon",
     title: "HACKATHON 2025",
     subtitle: "",
