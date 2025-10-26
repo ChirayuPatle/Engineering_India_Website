@@ -24,6 +24,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Log for debugging
+    console.log("[ROUND1_POST] User email from session:", userEmail);
+
     // Hard constraint: Enforce minimum start date (Oct 25, 2025)
     const now = new Date();
     if (now < SUBMISSION_START) {
@@ -67,9 +70,33 @@ export async function POST(req: NextRequest) {
     // Fetch ALL hackathon registrations to find user's team
     const allRegistrations = await db.select().from(hackathon);
 
-    // Find registration where user is team LEADER (not member)
+    // Log all team leader emails for debugging
+    console.log(
+      "[ROUND1_POST] All team leader emails:",
+      allRegistrations.map((r) => ({
+        teamName: r.teamName,
+        email: r.teamLeaderEmail,
+        status: r.status,
+      })),
+    );
+
+    // Find registration where user is team LEADER (not member) - with trim for safety
     const userRegistration = allRegistrations.find(
-      (reg) => reg.teamLeaderEmail.toLowerCase() === userEmail.toLowerCase(),
+      (reg) =>
+        reg.teamLeaderEmail.toLowerCase().trim() ===
+        userEmail.toLowerCase().trim(),
+    );
+
+    console.log(
+      "[ROUND1_POST] Found registration:",
+      userRegistration
+        ? {
+            teamName: userRegistration.teamName,
+            email: userRegistration.teamLeaderEmail,
+            status: userRegistration.status,
+            hasSubmitted: !!userRegistration.round1PptUrl?.trim(),
+          }
+        : null,
     );
 
     if (!userRegistration) {
@@ -77,6 +104,8 @@ export async function POST(req: NextRequest) {
         {
           error:
             "Only team leaders can submit PPT. You are either not registered or not a team leader.",
+          userEmail: userEmail,
+          hint: "Make sure you're logged in with the same email used during team registration.",
         },
         { status: 403 },
       );
@@ -153,18 +182,42 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    // Log for debugging
+    console.log("[ROUND1_GET] User email from session:", userEmail);
+
     const allRegistrations = await db.select().from(hackathon);
 
+    // Log all team leader emails for debugging
+    console.log(
+      "[ROUND1_GET] All team leader emails:",
+      allRegistrations.map((r) => ({
+        teamName: r.teamName,
+        email: r.teamLeaderEmail,
+        status: r.status,
+      })),
+    );
+
     const userRegistration = allRegistrations.find(
-      (reg) => reg.teamLeaderEmail.toLowerCase() === userEmail.toLowerCase(),
+      (reg) =>
+        reg.teamLeaderEmail.toLowerCase().trim() ===
+        userEmail.toLowerCase().trim(),
     );
 
     if (!userRegistration) {
       return NextResponse.json(
-        { error: "You are not a team leader" },
+        {
+          error: "You are not a team leader",
+          userEmail: userEmail,
+          hint: "Make sure you're logged in with the same email used during team registration as the team leader.",
+        },
         { status: 403 },
       );
     }
+
+    console.log(
+      "[ROUND1_GET] Returning status for team:",
+      userRegistration.teamName,
+    );
 
     return NextResponse.json({
       teamName: userRegistration.teamName,

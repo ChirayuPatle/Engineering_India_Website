@@ -52,6 +52,13 @@ export default function Round1SubmissionPage() {
     queryFn: async (): Promise<SubmissionStatus> => {
       const res = await fetch("/api/hackathon/submit-round1");
       const data: SubmissionStatus | { error: string } = await res.json();
+
+      console.log("[SUBMIT_PAGE] Fetch response:", {
+        ok: res.ok,
+        status: res.status,
+        data,
+      });
+
       if (!res.ok) {
         throw new Error(
           "error" in data ? data.error : "Failed to fetch status",

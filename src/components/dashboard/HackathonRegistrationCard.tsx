@@ -67,9 +67,17 @@ export function HackathonRegistrationCard({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { data: user } = useCurrentUser();
 
-  // Check if current user is the team leader
+  // Check if current user is the team leader - with trim for safety
   const isTeamLeader =
-    user?.email?.toLowerCase() === registration.teamLeaderEmail.toLowerCase();
+    user?.email?.toLowerCase().trim() ===
+    registration.teamLeaderEmail.toLowerCase().trim();
+
+  console.log("[HACKATHON_CARD] isTeamLeader check:", {
+    userEmail: user?.email,
+    teamLeaderEmail: registration.teamLeaderEmail,
+    isTeamLeader,
+    status: registration.status,
+  });
 
   const handleEditSuccess = () => {
     // Force a re-fetch by reloading the page or triggering parent refresh
