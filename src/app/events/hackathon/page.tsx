@@ -70,11 +70,8 @@ export default function HackathonPage() {
   };
 
   const handleRegister = () => {
-    if (isRegistered) {
-      router.push("/dashboard");
-    } else {
-      router.push("/events/hackathon/register");
-    }
+    // Registrations are closed, redirect to main page
+    router.push("/dashboard");
   };
 
   const timeline = [
@@ -418,14 +415,17 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     </div>
                   </div>
                 ) : (
-                  <div className="mb-4 rounded-lg border-2 border-black bg-black p-4">
-                    <div className="mb-1 flex items-center gap-2 text-gray-300">
-                      <Clock className="h-4 w-4 text-white" />
-                      <span className="text-xs font-semibold uppercase text-white">
-                        Registration Deadline
+                  <div className="mb-4 rounded-lg border-2 border-red-600 bg-red-50 p-4">
+                    <div className="mb-1 flex items-center gap-2 text-red-700">
+                      <Clock className="h-4 w-4 text-red-600" />
+                      <span className="text-xs font-semibold uppercase text-red-700">
+                        Registration Status
                       </span>
                     </div>
-                    <p className="text-lg font-bold text-white">Oct 29, 2025</p>
+                    <p className="text-lg font-bold text-red-700">CLOSED</p>
+                    <p className="mt-1 text-xs text-red-600">
+                      Hackathon registrations are now closed
+                    </p>
                   </div>
                 )}
 
@@ -441,9 +441,9 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     </p>
                     <p className="text-lg font-bold text-black">₹13,000</p>
                   </div>
-                  <div className="rounded-lg bg-gray-50 p-2 text-center">
-                    <p className="mb-1 text-xs text-gray-600">Reg. Ends</p>
-                    <p className="text-lg font-bold text-black">Oct 29</p>
+                  <div className="rounded-lg bg-red-50 p-2 text-center">
+                    <p className="mb-1 text-xs text-red-600">Registration</p>
+                    <p className="text-lg font-bold text-red-700">CLOSED</p>
                   </div>
                   <div className="rounded-lg bg-gray-50 p-2 text-center">
                     <p className="mb-1 text-xs text-gray-600">Event Date</p>
@@ -472,10 +472,10 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                 ) : (
                   <Button
                     size="lg"
-                    className="h-11 w-full bg-black font-semibold text-white shadow-md hover:bg-gray-900"
-                    onClick={handleRegister}
+                    className="h-11 w-full cursor-not-allowed bg-gray-400 font-semibold text-gray-700 shadow-md"
+                    disabled
                   >
-                    Register Now
+                    Registrations Closed
                   </Button>
                 )}
 
@@ -1313,14 +1313,17 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                     </div>
                   </div>
                 ) : (
-                  <div className="mb-5 rounded-lg border-2 border-black bg-black p-4">
-                    <div className="mb-1 flex items-center gap-2 text-gray-300">
-                      <Clock className="h-4 w-4 text-white" />
-                      <span className="text-xs font-semibold uppercase text-white">
-                        Registration Deadline
+                  <div className="mb-5 rounded-lg border-2 border-red-600 bg-red-50 p-4">
+                    <div className="mb-1 flex items-center gap-2 text-red-700">
+                      <Clock className="h-4 w-4 text-red-600" />
+                      <span className="text-xs font-semibold uppercase text-red-700">
+                        Registration Status
                       </span>
                     </div>
-                    <p className="text-lg font-bold text-white">Oct 29, 2025</p>
+                    <p className="text-lg font-bold text-red-700">CLOSED</p>
+                    <p className="mt-1 text-xs text-red-600">
+                      Hackathon registrations are now closed
+                    </p>
                   </div>
                 )}
 
@@ -1340,9 +1343,11 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">
-                      Registration Ends
+                      Registration Status
                     </span>
-                    <span className="text-lg font-bold text-black">Oct 29</span>
+                    <span className="text-lg font-bold text-red-700">
+                      CLOSED
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-gray-600">Event Date</span>
@@ -1374,10 +1379,10 @@ Join us at **Engineering India Hackathon 2025** — where ideas meet opportunity
                   ) : (
                     <Button
                       size="lg"
-                      className="h-12 w-full bg-black font-semibold text-white shadow-md hover:bg-gray-900"
-                      onClick={handleRegister}
+                      className="h-12 w-full cursor-not-allowed bg-gray-400 font-semibold text-gray-700 shadow-md"
+                      disabled
                     >
-                      Register Now
+                      Registrations Closed
                     </Button>
                   )}
 

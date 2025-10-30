@@ -9,6 +9,15 @@ import { syncToGoogleSheets } from "@/lib/google-sheets";
 
 export async function POST(request: NextRequest) {
   try {
+    // HACKATHON REGISTRATIONS ARE CLOSED
+    return NextResponse.json(
+      { error: "Hackathon registrations are closed." },
+      { status: 403 },
+    );
+
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    /* UNREACHABLE CODE - Registration is closed */
+    /*
     // Check authentication
     const session = await auth.api.getSession({ headers: request.headers });
 
@@ -295,6 +304,8 @@ export async function POST(request: NextRequest) {
       },
       { status: 201 },
     );
+    */
+    /* eslint-enable @typescript-eslint/no-unused-vars */
   } catch (error) {
     console.error("Registration error:", error);
     console.error("Error details:", {

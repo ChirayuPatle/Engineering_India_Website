@@ -59,7 +59,7 @@ const events: Event[] = [
       "Unleash your creativity and technical prowess in our flagship hackathon!`",
     icon: Code,
     date: "Nov 01, 2025",
-    registrationDeadline: "Oct 29, 2025",
+    registrationDeadline: "CLOSED",
     venue: "YCCE, Nagpur",
     category: "Hackathon",
     registrationFee: 300,
@@ -231,12 +231,16 @@ export default function PrarambhPage() {
                         </div>
                         <div>
                           <p className="text-xs font-semibold text-red-600">
-                            Registration Deadline
+                            Registration Status
                           </p>
                           <p className="text-xl font-bold text-red-700">
                             {event.registrationDeadline}
                           </p>
-                          <p className="text-xs text-red-500">Hurry up!</p>
+                          <p className="text-xs text-red-500">
+                            {event.registrationDeadline === "CLOSED"
+                              ? "No longer accepting registrations"
+                              : "Hurry up!"}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -244,9 +248,13 @@ export default function PrarambhPage() {
 
                   <CardFooter className="bg-gray-50 pt-6">
                     <Button
-                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl"
+                      className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-xl disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-500"
                       size="lg"
+                      disabled={event.registrationDeadline === "CLOSED"}
                       onClick={() => {
+                        if (event.registrationDeadline === "CLOSED") {
+                          return;
+                        }
                         if (event.registrationLink.startsWith("http")) {
                           window.open(event.registrationLink, "_blank");
                         } else {
@@ -254,8 +262,14 @@ export default function PrarambhPage() {
                         }
                       }}
                     >
-                      Register Now
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      {event.registrationDeadline === "CLOSED" ? (
+                        "Registrations Closed"
+                      ) : (
+                        <>
+                          Register Now
+                          <ArrowRight className="ml-2 h-5 w-5" />
+                        </>
+                      )}
                     </Button>
                   </CardFooter>
                 </Card>
