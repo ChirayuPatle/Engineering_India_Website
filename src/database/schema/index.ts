@@ -47,3 +47,5 @@ export { blog, blogComment } from "./blog-schema";
 export * as blogSchema from "./blog-schema";
 export { hackathon } from "./hackathon-schema";
 export * as hackathonSchema from "./hackathon-schema";
+export { hackathonFeedback } from "./hackathon-feedback-schema";
+export * as hackathonFeedbackSchema from "./hackathon-feedback-schema";
