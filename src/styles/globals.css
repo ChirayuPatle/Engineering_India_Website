@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.font-play {
+  font-family: var(--font-playfair), serif;
+}
+.font-fraunces {
+  font-family: var(--font-fraunces), serif;
+}
+
 /* Hide NProgress spinner (black dot) */
 #nprogress .spinner {
   display: none !important;

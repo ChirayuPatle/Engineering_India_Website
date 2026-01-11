@@ -101,7 +101,8 @@ export default function Navbar() {
                   router.push("/auth");
                 }
               }
-              variant="default"
+              variant="premium"
+              size={"lg"}
             >
               Login
             </Button>
@@ -110,7 +111,7 @@ export default function Navbar() {
 
         <div className="flex md:hidden">
           <Button
-            variant="default"
+            variant="premium"
             aria-label="Toggle Menu"
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -159,8 +160,9 @@ export default function Navbar() {
                   // authClient.signIn.social({ provider: "google" });
                   // setIsOpen(false);
                 }}
-                variant="default"
-                className="w-full"
+                variant="premium"
+                size={"lg"}
+                className="w-full hover:scale-100"
               >
                 Login
               </Button>

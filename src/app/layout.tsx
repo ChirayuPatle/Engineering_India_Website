@@ -1,7 +1,7 @@
 import "@uploadthing/react/styles.css";
 import "@/styles/globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Inter } from "next/font/google";
+import { Fraunces, Geist, Inter, Playfair } from "next/font/google";
 
 import { EventProvider } from "@/context/eventContext";
 // import { UserProvider } from "@/context/userContext";
@@ -13,9 +13,19 @@ import { Toaster } from "react-hot-toast";
 import { Toaster as SonnerToaster } from "sonner";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
+});
+
+const playFair = Playfair({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
 });
 
 export const metadata: Metadata = {
@@ -32,8 +42,11 @@ export default function RootLayout({
     // <UserProvider>
     <ReactQueryProvider>
       <EventProvider>
-        <html lang="en" className={`${inter.variable}`}>
-          <body className={`${inter.className} space`}>
+        <html
+          lang="en"
+          className={`${geist.variable} ${playFair.variable} ${fraunces.variable}`}
+        >
+          <body className={`${geist.className} space`}>
             <UnregisterServiceWorker />
             <Toaster position="top-center" />
             <SonnerToaster position="top-center" richColors />
