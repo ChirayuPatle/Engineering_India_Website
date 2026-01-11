@@ -49,6 +49,11 @@ export const hackathon = sqliteTable("hackathon", {
   round1SubmittedAt: integer("round1_submitted_at", { mode: "timestamp" }), // Submission timestamp
   round1Status: text("round1_status").default("not_submitted"), // not_submitted | submitted | reviewed
 
+  // Round 2 Selection
+  round2Qualified: integer("round2_qualified", { mode: "boolean" })
+    .default(false)
+    .notNull(),
+
   // Timestamps
   createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
   updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
