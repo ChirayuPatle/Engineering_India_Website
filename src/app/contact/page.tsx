@@ -67,7 +67,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <main className="container mx-auto mt-[6rem] px-4 py-16 sm:px-6 lg:px-8">
+      <main className="container mx-auto px-4 py-16 pt-24 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
             <Typography variant="h1" className="mb-6">

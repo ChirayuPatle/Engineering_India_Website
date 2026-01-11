@@ -54,8 +54,8 @@ export default function TeamPage() {
 
   return (
     <>
-      <div className="h-full w-full">
-        <h1 className="-mb-10 mt-20 text-center text-4xl font-bold text-zinc-600">
+      <div className="h-full w-full pt-24">
+        <h1 className="-mb-10 text-center text-4xl font-bold text-zinc-600">
           Our Team Leads
         </h1>
         <div className="mt-[2rem] flex items-start justify-start gap-6 overflow-auto p-10 md:flex-wrap md:justify-center md:overflow-hidden lg:ml-0">

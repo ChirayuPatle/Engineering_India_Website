@@ -62,7 +62,7 @@ const Blog = () => {
     <>
       <div
         id="main"
-        className="flex min-h-screen w-full items-start justify-center gap-3 bg-gray-100 py-14"
+        className="flex min-h-screen w-full items-start justify-center gap-3 bg-gray-100 pb-14 pt-24"
       >
         <div className="min-h-30 sticky top-20 hidden w-[250px] gap-7 rounded-xl bg-slate-200 py-10 pt-[3rem] opacity-0 shadow-md lg:block">
           <div className="m-wun flex w-full items-center justify-center gap-2">

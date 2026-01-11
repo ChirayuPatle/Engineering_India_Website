@@ -10,7 +10,11 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && (
+        <div className="mx-auto flex w-full">
+          <Navbar />
+        </div>
+      )}
       {children}
       {!isAdminRoute && <Footer />}
     </>

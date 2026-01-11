@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <main className="container mx-auto mt-12 px-6 py-16 sm:px-8 lg:px-12">
+    <main className="container mx-auto px-6 py-16 pt-24 sm:px-8 lg:px-24">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-12">
         <div>
           <Typography variant="h2" className="mb-6 font-bold">
