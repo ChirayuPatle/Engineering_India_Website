@@ -76,14 +76,19 @@ export default function CloudDecorations({
 
       // Varied sizes for depth
       const sizeOptions = ["120px", "160px", "200px", "240px", "180px"];
-      const width = sizeOptions[Math.floor(seededRandom(seed + 2) * sizeOptions.length)] ?? "160px";
+      const width =
+        sizeOptions[Math.floor(seededRandom(seed + 2) * sizeOptions.length)] ??
+        "160px";
 
       // Opacity varies for depth effect
       const opacity = 0.15 + seededRandom(seed + 3) * 0.25;
 
       generatedClouds.push({
         id: i,
-        src: cloudImages[Math.floor(seededRandom(seed + 4) * cloudImages.length)] ?? cloudImages[0]!,
+        src:
+          cloudImages[
+            Math.floor(seededRandom(seed + 4) * cloudImages.length)
+          ] ?? cloudImages[0]!,
         top: `${topValue}%`,
         left: `${leftValue}%`,
         width,

@@ -37,7 +37,7 @@ export default function Section({
         className,
       )}
     >
-      {clouds && <CloudDecorations density={cloudDensity as "low" | "medium" | "high"} />}
+      {clouds && <CloudDecorations density={cloudDensity} />}
       {circle && (
         <>
           {/* <div className={cn("z-10", leftCircleClasses, circleClasses)} /> */}
