@@ -74,7 +74,7 @@ export default function HomePage() {
     <>
       {/* Announcement Marquee */}
 
-      <Section className="relative min-h-screen pb-16 pt-32">
+      <Section className="relative min-h-screen pb-16 pt-32" clouds="low">
         <div className="absolute top-0 z-0 min-h-screen w-full bg-transparent">
           {/* upper - part */}
           <div className="relative z-0 h-72 w-96">
@@ -230,7 +230,7 @@ export default function HomePage() {
 
       {[AboutSection, EventsGallery, Timeline, Magzine, Faq, Feedback].map(
         (Component, index) => (
-          <Section key={index}>
+          <Section key={index} clouds={index % 2 === 0 ? "medium" : "low"}>
             <div className="min-h-screen w-full">
               <Component />
             </div>

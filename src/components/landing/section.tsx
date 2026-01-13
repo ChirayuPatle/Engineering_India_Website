@@ -2,12 +2,14 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import CloudDecorations from "./CloudDecorations";
 
 export interface SectionProps {
   children: React.ReactNode;
   className?: string;
   gradientVariant?: "default" | "cool" | "warm" | "green";
   circle?: boolean;
+  clouds?: boolean | "low" | "medium" | "high";
 }
 
 export default function Section({
@@ -15,6 +17,7 @@ export default function Section({
   className,
   gradientVariant = "default",
   circle = true,
+  clouds = false,
 }: SectionProps) {
   const gradientMap = {
     default: "bg-gradient-to-b from-white to-white",
@@ -24,6 +27,7 @@ export default function Section({
   };
 
   const bgClasses = gradientMap[gradientVariant];
+  const cloudDensity = clouds === true ? "medium" : clouds || "medium";
 
   return (
     <div
@@ -33,6 +37,7 @@ export default function Section({
         className,
       )}
     >
+      {clouds && <CloudDecorations density={cloudDensity as "low" | "medium" | "high"} />}
       {circle && (
         <>
           {/* <div className={cn("z-10", leftCircleClasses, circleClasses)} /> */}
