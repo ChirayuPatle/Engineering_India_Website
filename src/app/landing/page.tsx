@@ -32,6 +32,12 @@ const LandingPage = () => {
     isMobile ? ["0%", "8%"] : ["0%", "15%"],
   );
 
+  const fortY = useTransform(
+    scrollYProgress,
+    [0.3, 0.8],
+    isMobile ? ["15%", "-5%"] : ["20%", "-10%"],
+  );
+
   return (
     <div ref={containerRef} className="relative w-full overflow-x-hidden">
       <div className="relative z-10 min-h-screen w-full bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#C6B8CC]">
@@ -81,8 +87,94 @@ const LandingPage = () => {
         />
       </motion.div>
 
-      <div className="relative z-20 min-h-screen w-full bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]">
-        <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24"></div>
+      <div className="z-15 relative hidden w-full bg-gradient-to-b from-[#C6B8CC] to-[#C6B8CC] sm:block sm:h-[30vh]" />
+
+      <div className="relative z-20 min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="absolute left-4 right-4 top-16 z-30 space-y-2 text-center sm:right-auto sm:top-[30%] sm:w-[45%] sm:-translate-y-1/2 sm:space-y-3 sm:text-left md:left-10 md:max-w-xl md:space-y-4 lg:left-14 lg:max-w-2xl xl:left-20"
+        >
+          <h3 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
+            About Engineering India
+          </h3>
+          <p className="text-xs leading-relaxed text-white/75 sm:text-sm md:text-base lg:text-lg">
+            A dynamic student-led organization at YCCE College, Nagpur,
+            dedicated to fostering innovation, technical excellence, and social
+            responsibility among engineering students.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 pt-2 sm:justify-start sm:gap-6 md:gap-8 md:pt-4">
+            <div className="text-center sm:text-left">
+              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                50+
+              </p>
+              <p className="text-[10px] text-white/70 sm:text-xs md:text-sm">
+                Events Organized
+              </p>
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                250+
+              </p>
+              <p className="text-[10px] text-white/70 sm:text-xs md:text-sm">
+                Student Members
+              </p>
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                8+
+              </p>
+              <p className="text-[10px] text-white/70 sm:text-xs md:text-sm">
+                Social Initiatives
+              </p>
+            </div>
+          </div>
+
+          <div className="pt-2 sm:pt-4 md:pt-6">
+            <Button
+              className="group h-8 border-white/50 px-3 font-bold text-white hover:bg-white/10 sm:h-10 sm:px-5 md:h-11 md:px-6"
+              variant="premium"
+              size="sm"
+            >
+              <span className="text-xs sm:text-sm md:text-base">
+                Learn More
+              </span>
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1 sm:h-4 sm:w-4" />
+            </Button>
+          </div>
+        </motion.div>
+
+        <motion.div
+          style={{ y: fortY }}
+          className="absolute bottom-0 right-[-20%] z-10 h-full w-[100%] sm:right-0 sm:w-[65%] md:w-[60%] lg:w-[62%]"
+        >
+          <img
+            src="/landing/str/rajgad-fort-upt.png"
+            className="absolute bottom-0 right-0 h-[65%] w-auto max-w-none object-contain object-right-bottom sm:h-[85%] md:h-[90%] lg:h-[95%]"
+            alt="Rajgad Fort - The Crown Jewel of Maratha Empire"
+            style={{
+              willChange: "transform",
+              transform: "translateZ(0)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+              maskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+            }}
+          />
+
+          <div
+            className="pointer-events-none absolute -bottom-8 -right-[50%] z-20 h-48 sm:-bottom-10 sm:h-56 md:h-64 lg:h-72 xl:h-80"
+            style={{
+              background:
+                "linear-gradient(to top, #6183B1 0%, #6183B1 40%, transparent 100%)",
+              left: "-100vw",
+              width: "200vw",
+            }}
+          />
+        </motion.div>
       </div>
 
       <div className="relative z-20 min-h-screen w-full bg-[#6183B1]">
