@@ -11,7 +11,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="pb-6 pt-16">
+    <footer className="bg-[#6183B1] pb-6 pt-16">
       <div className="container mx-auto px-4 text-[#C8CFE1]">
         <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* About */}
