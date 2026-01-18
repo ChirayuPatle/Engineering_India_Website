@@ -12,12 +12,11 @@ import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 
 const navItems = [
-  { name: "About", href: "#about" },
-  { name: "Events", href: "#events" },
-  { name: "Journey", href: "#journey" },
+  { name: "About", href: "/about" },
+  { name: "Events", href: "/events" },
   { name: "Team", href: "/team" },
   { name: "Blogs", href: "/blog" },
-  { name: "Contact", href: "#contact" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
