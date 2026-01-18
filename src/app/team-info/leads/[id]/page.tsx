@@ -1,45 +1,44 @@
 "use client";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import { Typography } from "@/components/ui/typography";
 import { teamMembers } from "@/team-info";
 import {
   LinkedinIcon,
   MessageSquareHeartIcon,
   TriangleAlert,
+  ArrowLeft,
+  Mail,
+  Linkedin,
+  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion"; // Changed to standard import
+import { FloatingCloud } from "@/components/landing/FloatingCloud";
+import { Button } from "@/components/ui/button";
 
 const TeamInfoPageSkeleton = () => (
-  <div className="h-screen w-full">
-    <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
-      <div className="flex flex-col items-center justify-center gap-2">
-        <Skeleton className="h-32 w-32 rounded-full" />
-        <div className="leading-2 flex flex-col items-center justify-center">
-          <Skeleton className="h-8 w-48" />
-          <Skeleton className="mt-2 h-6 w-32" />
+  <div className="min-h-screen bg-[#0F1B40] text-white">
+    <div className="flex h-[40vh] w-full items-center justify-center bg-gradient-to-b from-[#6183B1] to-[#0F1B40]">
+      <div className="flex flex-col items-center justify-center gap-6">
+        <Skeleton className="h-40 w-40 rounded-full bg-white/10" />
+        <div className="space-y-4">
+          <Skeleton className="mx-auto h-10 w-64 bg-white/10" />
+          <Skeleton className="mx-auto h-6 w-48 bg-white/10" />
         </div>
       </div>
     </div>
-    <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
-      <div className="hidden h-36 w-80 lg:block">
-        <Skeleton className="h-full w-full" />
-      </div>
-      <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
-        <Skeleton className="h-8 w-64" />
-        <div className="mt-3 flex flex-col gap-1">
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-6 w-48" />
-        </div>
-      </div>
+    <div className="container mx-auto max-w-4xl px-4 py-16">
+      <Skeleton className="h-64 w-full rounded-[40px] bg-white/5" />
     </div>
   </div>
 );
 
 function TeamInfoPage(): JSX.Element {
   const { id } = useParams();
+  const router = useRouter();
   const [lead, setLead] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +48,6 @@ function TeamInfoPage(): JSX.Element {
       setIsLoading(true);
       setError(null);
       try {
-        // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
         const foundLead = teamMembers.find(
           (member) => member.teamId === Number(id),
@@ -60,7 +58,6 @@ function TeamInfoPage(): JSX.Element {
           setError("Team lead not found");
         }
       } catch {
-        // eslint-disable-line @typescript-eslint/no-unused-vars
         setError("Failed to load team lead data.");
       } finally {
         setIsLoading(false);
@@ -73,89 +70,203 @@ function TeamInfoPage(): JSX.Element {
     return <TeamInfoPageSkeleton />;
   }
 
-  if (error) {
+  if (error || !lead) {
     return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-red-400 bg-red-50 p-6 text-center text-red-700 shadow-sm">
-          <TriangleAlert className="mb-4 h-12 w-12 text-red-500" />
-          <span className="text-xl font-semibold">Error: {error}</span>
-          <p className="mt-2 text-sm">
-            Please try again later or go back to the team page.
+      <div className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F1B40] px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center justify-center rounded-[40px] border border-white/10 bg-white/5 p-12 text-center backdrop-blur-xl"
+        >
+          <TriangleAlert className="mb-6 h-16 w-16 text-[#D4EBFF]" />
+          <h1 className="font-fraunces mb-4 text-3xl font-bold text-white">
+            {error || "Member Not Found"}
+          </h1>
+          <p className="mb-8 max-w-sm text-white/50">
+            We couldn't find the team member you're looking for. They might have
+            moved to a different role.
           </p>
-          <Link href="/team">
-            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-              Go to Team Page
-            </button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  if (!lead) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-muted bg-muted/50 p-6 text-center text-muted-foreground shadow-sm">
-          <TriangleAlert className="mb-4 h-12 w-12 text-muted-foreground" />
-          <Typography variant="h1" className="mb-6">
-            Team Lead Not Found
-          </Typography>
-          <Typography className="mb-8 text-muted-foreground">
-            The team lead you're looking for doesn't exist.
-          </Typography>
-          <Link href="/team">
-            <button className="mt-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-              Back to Team
-            </button>
-          </Link>
-        </div>
+          <Button
+            variant="default"
+            size="lg"
+            onClick={() => router.push("/team")}
+          >
+            Back to Team
+          </Button>
+        </motion.div>
       </div>
     );
   }
 
   return (
-    <div className="h-screen w-full">
-      <div className="flex h-80 w-full items-center justify-center border-b-4 border-dotted bg-[#4286F5] bg-[url(https://i.pinimg.com/736x/32/b6/bf/32b6bf0d142ae2c4b05aa64f68e04115.jpg)] bg-no-repeat">
-        <div className="flex flex-col items-center justify-center gap-2">
-          <div className="relative h-32 w-32 overflow-hidden rounded-full border-2">
-            <Image
-              className="object-cover"
-              src={lead.image}
-              alt={lead.name}
-              fill
-            />
+    <main className="relative min-h-screen overflow-x-hidden bg-[#0F1B40] pb-24 text-white">
+      {/* Hero Section */}
+      {/* Added overflow-hidden to prevent clouds 1 & 2 from spilling out */}
+      <section className="relative z-10 flex min-h-[45vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-32 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-20 flex flex-col items-center"
+        >
+          {/* Profile Image */}
+          <div className="group relative mb-8">
+            <div className="absolute inset-0 rounded-full bg-[#D4EBFF] opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
+            <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-105 md:h-56 md:w-56">
+              <Image
+                src={lead.image}
+                alt={lead.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
-          <div className="leading-2 flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold text-white">{lead.name}</h1>
-            <h1 className="text-md font-bold text-zinc-200">{lead.position}</h1>
+
+          <div className="space-y-4">
+            <h1 className="font-fraunces text-4xl font-bold text-white md:text-6xl">
+              {lead.name}
+            </h1>
+            <p className="font-sans text-sm font-bold uppercase tracking-[0.3em] text-[#D4EBFF]">
+              {lead.position}
+            </p>
           </div>
-        </div>
-      </div>
-      <div className="flex h-96 w-full flex-col items-center justify-start gap-16 md:flex-row md:pl-48">
-        <div className="hidden h-36 w-80 lg:block">
-          <Image src="/image/logo.png" alt="" width={50} height={50} />
-        </div>
-        <div className="flex h-96 w-96 flex-col items-center justify-start py-16">
-          <h1 className="text-2xl">Connect with Our Team</h1>
-          <div className="mt-3 flex flex-col gap-1">
-            {lead.linkedin && (
-              <div className="flex items-center justify-center gap-1 text-zinc-600">
-                <LinkedinIcon />
-                <Link target="_blank" href={lead.linkedin}>
-                  <h1 className="cursor-pointer text-xl">Linkedin</h1>
-                </Link>
+        </motion.div>
+
+        <FloatingCloud
+          top="10%"
+          left="5%"
+          speed={0.5}
+          cloudNum={1}
+          opacity="opacity-20"
+        />
+        <FloatingCloud
+          top="30%"
+          left="85%"
+          speed={0.8}
+          cloudNum={2}
+          opacity="opacity-15"
+          scale={0.8}
+        />
+      </section>
+
+      {/* Info Section */}
+      <section className="relative z-20 -mt-10 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="rounded-[40px] border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl md:p-16"
+          >
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+              {/* Bio/About */}
+              <div className="space-y-8">
+                <div>
+                  <h2 className="font-fraunces mb-6 text-3xl font-bold text-white">
+                    About
+                  </h2>
+                  <p className="font-sans text-lg leading-relaxed text-white/60">
+                    A dedicated member of Engineering India, contributing to
+                    technical excellence and community growth.
+                  </p>
+                </div>
+
+                <div className="h-1 w-20 rounded-full bg-[#D4EBFF]/20 shadow-inner" />
+
+                <div className="flex items-center gap-6">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                    <Image
+                      src="/image/logo.png"
+                      alt="EI Logo"
+                      width={32}
+                      height={32}
+                    />
+                  </div>
+                  <div>
+                    <p className="font-bold text-white">Engineering India</p>
+                    <p className="text-sm uppercase tracking-widest text-white/40">
+                      YCCE Chapter
+                    </p>
+                  </div>
+                </div>
               </div>
-            )}
-            {lead.Email && (
-              <div className="flex items-center justify-center gap-1 text-zinc-600">
-                <MessageSquareHeartIcon />
-                <h1 className="cursor-pointer text-xl">{lead.Email}</h1>
+
+              {/* Connections */}
+              <div className="space-y-8">
+                <h2 className="font-fraunces mb-6 text-3xl font-bold text-white">
+                  Connect
+                </h2>
+
+                <div className="space-y-4">
+                  {lead.linkedin && (
+                    <Link
+                      href={lead.linkedin}
+                      target="_blank"
+                      className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:bg-[#D4EBFF] hover:text-[#0F1B40]"
+                    >
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 transition-colors group-hover:bg-white/20">
+                        <Linkedin className="h-6 w-6" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs font-bold uppercase tracking-widest opacity-60">
+                          LinkedIn
+                        </p>
+                        <p className="flex items-center gap-2 text-lg font-bold">
+                          Profile <ExternalLink className="h-4 w-4" />
+                        </p>
+                      </div>
+                    </Link>
+                  )}
+
+                  {lead.Email && (
+                    <div className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:border-[#D4EBFF]/30">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#D4EBFF]/10 text-[#D4EBFF] transition-colors">
+                        <Mail className="h-6 w-6" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs font-bold uppercase tracking-widest opacity-60">
+                          Email
+                        </p>
+                        <p className="max-w-[200px] truncate text-lg font-bold">
+                          {lead.Email}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {!lead.linkedin && !lead.Email && (
+                    <p className="rounded-3xl border-2 border-dashed border-white/5 py-8 text-center italic text-white/40">
+                      No social links available at the moment.
+                    </p>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
+            </div>
+          </motion.div>
         </div>
+      </section>
+
+      {/* Background Decor - Wrapped in absolute inset-0 with overflow-hidden to fix scroll issues */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <FloatingCloud
+          top="70%"
+          left="-5%"
+          speed={0.4}
+          cloudNum={3}
+          opacity="opacity-10"
+          scale={1.5}
+        />
+        <FloatingCloud
+          top="85%"
+          left="90%"
+          speed={0.6}
+          cloudNum={4}
+          opacity="opacity-10"
+          scale={1.2}
+        />
       </div>
-    </div>
+    </main>
   );
 }
 
