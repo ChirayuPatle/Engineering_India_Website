@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { siteConfig } from "@/lib/constants";
@@ -33,23 +33,27 @@ const OfferItem = ({
 export default function AboutPage() {
   return (
     <main className="relative w-full overflow-hidden bg-[#0F1B40]">
+      {/* Clouds only in Hero Section */}
+
       {/* Hero Section */}
-      <section className="relative z-10 flex min-h-[60vh] flex-col items-center justify-center bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-32 text-center text-white">
+      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-40 text-center text-white">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="container mx-auto max-w-4xl"
         >
-          <h1 className="font-fraunces mb-6 text-4xl font-bold leading-tight md:text-6xl">
-            About {siteConfig.name} <br />
-            <span className="text-[#D4EBFF]">at YCCE</span>
+          <h1 className="font-fraunces mb-6 text-4xl font-bold md:text-7xl">
+            About <span className="text-[#D4EBFF]">{siteConfig.name}</span>{" "}
+            <br />
+            <span className="text-2xl font-normal text-[#D4EBFF] md:text-4xl">
+              at YCCE
+            </span>
           </h1>
-          <p className="font-fraunces mx-auto max-w-2xl text-lg italic text-white/80 md:text-xl">
+          <p className="mx-auto max-w-xl font-sans text-white/70">
             "Engineering India is not just a club but a thought process."
           </p>
         </motion.div>
-
         <FloatingCloud
           top="20%"
           left="5%"
@@ -175,22 +179,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <FloatingCloud
-          top="70%"
-          left="15%"
-          speed={0.4}
-          cloudNum={3}
-          opacity="opacity-15"
-          scale={1.5}
-        />
-        <FloatingCloud
-          top="85%"
-          left="75%"
-          speed={0.6}
-          cloudNum={4}
-          opacity="opacity-20"
-          scale={1.1}
-        />
+        {/* Clouds moved behind all content */}
       </section>
 
       {/* Community Image */}

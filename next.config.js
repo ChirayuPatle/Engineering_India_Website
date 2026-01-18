@@ -53,6 +53,10 @@ const config = {
       },
       {
         protocol: "https",
+        hostname: "ui-avatars.com",
+      },
+      {
+        protocol: "https",
         hostname: "media.istockphoto.com",
       },
 

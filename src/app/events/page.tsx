@@ -130,22 +130,7 @@ export default function EventsPage() {
           )}
         </div>
 
-        <FloatingCloud
-          top="60%"
-          left="-5%"
-          speed={0.4}
-          cloudNum={3}
-          opacity="opacity-15"
-          scale={1.2}
-        />
-        <FloatingCloud
-          top="80%"
-          left="85%"
-          speed={0.6}
-          cloudNum={4}
-          opacity="opacity-20"
-          scale={1.1}
-        />
+        {/* Clouds only in Hero Section */}
       </section>
     </main>
   );
