@@ -1,10 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Typography } from "@/components/ui/typography";
-import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { CalendarIcon, MapPinIcon, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 interface EventCardProps {
   title: string;
@@ -24,57 +24,64 @@ export function EventCard({
   const [formattedDate, setFormattedDate] = useState<string>("");
 
   useEffect(() => {
-    // Format date only on client side to avoid hydration mismatch
-    setFormattedDate(date.toLocaleDateString("en-GB"));
+    setFormattedDate(
+      date.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    );
   }, [date]);
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-background p-2 transition-all">
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.3 }}
+      className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-3 backdrop-blur-md transition-all"
+    >
       {/* Image Section */}
-      <div className="aspect-[16/9] w-full overflow-hidden rounded-md">
+      <div className="aspect-[16/10] w-full overflow-hidden rounded-[24px]">
         <Image
           src={imageUrl}
           alt={title}
-          width={400}
-          height={225}
-          className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          width={600}
+          height={400}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-1 flex-col justify-between p-4">
-        {/* Top: Title, Date, Location, Description */}
+      <div className="flex flex-1 flex-col justify-between p-5 pt-6">
         <div>
-          <Typography as="h3" className="line-clamp-1">
+          <h3 className="font-fraunces mb-3 line-clamp-1 text-xl font-semibold text-white md:text-2xl">
             {title}
-          </Typography>
-          <div className="mt-2 flex flex-wrap items-center gap-4 text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <CalendarIcon className="h-4 w-4" />
-              <span className="text-sm" suppressHydrationWarning>
-                {formattedDate || date.toLocaleDateString("en-GB")}
+          </h3>
+
+          <div className="mb-4 flex flex-col gap-2">
+            <div className="flex items-center gap-2 text-white/50">
+              <CalendarIcon className="h-3.5 w-3.5" />
+              <span className="font-sans text-xs" suppressHydrationWarning>
+                {formattedDate}
               </span>
             </div>
-            <div className="flex items-center gap-1">
-              <MapPinIcon className="h-4 w-4" />
-              <span className="text-sm">{location}</span>
+            <div className="flex items-center gap-2 text-white/50">
+              <MapPinIcon className="h-3.5 w-3.5" />
+              <span className="font-sans text-xs">{location}</span>
             </div>
           </div>
-          <Typography
-            as="p"
-            className="mt-2 line-clamp-2 text-muted-foreground"
-          >
+
+          <p className="mb-6 line-clamp-2 font-sans text-sm leading-relaxed text-white/60">
             {description}
-          </Typography>
+          </p>
         </div>
 
-        {/* Bottom: Button */}
-        <div className="mt-4">
-          <Button variant="default" className="w-full">
-            Explore
-          </Button>
-        </div>
+        <Button variant="premium" className="group/btn w-full rounded-xl py-6">
+          <span className="flex items-center justify-center gap-2 text-sm font-bold">
+            View Details
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+          </span>
+        </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -48,10 +48,7 @@ export default function ClubHeads() {
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {clubHeads.map((head) => (
-            <Card
-              key={head.name}
-              className="overflow-hidden transition-all hover:shadow-lg"
-            >
+            <Card key={head.name} className="overflow-hidden transition-all">
               <div className="relative aspect-square">
                 <Image
                   src={head.image || "/placeholder.svg"}

@@ -1,111 +1,217 @@
 "use client";
 
-import { Typography } from "@/components/ui/typography";
-import { siteConfig } from "@/lib/constants";
+import { motion } from "motion/react";
 import Image from "next/image";
+import { FloatingCloud } from "@/components/landing/FloatingCloud";
+import { siteConfig } from "@/lib/constants";
+
+const OfferItem = ({
+  title,
+  description,
+  index,
+}: {
+  title: string;
+  description: string;
+  index: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ delay: index * 0.1, duration: 0.5 }}
+    viewport={{ once: true }}
+    className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-md transition-all duration-300 hover:bg-white/10"
+  >
+    <h3 className="font-fraunces mb-3 text-xl font-semibold text-white md:text-2xl">
+      {title}
+    </h3>
+    <p className="font-sans text-sm leading-relaxed text-white/60">
+      {description}
+    </p>
+  </motion.div>
+);
 
 export default function AboutPage() {
   return (
-    <main className="container mx-auto px-6 py-16 pt-24 sm:px-8 lg:px-24">
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-12">
-        <div>
-          <Typography variant="h2" className="mb-6 font-bold">
-            About {siteConfig.name} | YCCE
-          </Typography>
-          <Typography className="mb-4">
-            Welcome to Engineering India YCCE, established in 2022, harnessing
-            the power of youth to build a better India. We've grown to over 250
-            members, fostering a community where technical skills meet social
-            awareness.
-          </Typography>
-          <Typography className="mb-4">
-            Beyond learning and collaboration, we empower young engineers to
-            directly address local challenges through innovative, sustainable
-            projects.
-          </Typography>
-          <Typography className="mb-4">
-            Our motive is to "Think Nationally, Act Locally". We celebrate our
-            Indian heritage through culturally infused events and collaborative
-            projects, creating a space where innovation and tradition
-            harmoniously build a brighter future.
-          </Typography>
-          <Typography className="mb-4">
-            We conduct workshops and initiatives that tackle real-world issues,
-            cultivating socially responsible leaders. By connecting technical
-            expertise with community needs through mentorship and practical
-            projects, we are building a generation of youth who are not just
-            engineers, but agents of positive change for India's future.
-          </Typography>
-          <Typography className="mb-4 italic text-gray-700">
+    <main className="relative w-full overflow-hidden bg-[#0F1B40]">
+      {/* Hero Section */}
+      <section className="relative z-10 flex min-h-[60vh] flex-col items-center justify-center bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-32 text-center text-white">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="container mx-auto max-w-4xl"
+        >
+          <h1 className="font-fraunces mb-6 text-4xl font-bold leading-tight md:text-6xl">
+            About {siteConfig.name} <br />
+            <span className="text-[#D4EBFF]">at YCCE</span>
+          </h1>
+          <p className="font-fraunces mx-auto max-w-2xl text-lg italic text-white/80 md:text-xl">
             "Engineering India is not just a club but a thought process."
-          </Typography>
-        </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-lg border shadow-md">
-          <Image
-            src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA"
-            alt="Students collaborating"
-            fill
-            className="object-cover"
-          />
-        </div>
-      </div>
-      <div className="relative mt-12 aspect-[16/9] overflow-hidden rounded-lg border shadow-md">
-        <Image
-          src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/aboutpage.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvYWJvdXRwYWdlLkpQRyIsImlhdCI6MTc0MzE3OTc2MiwiZXhwIjoyMDU4NTM5NzYyfQ.AJPbrx-_EfKnLs0R_EhE2KeLXMfXrRSzUGCXdmJzr_M"
-          alt="Students collaborating"
-          fill
-          className="object-cover"
+          </p>
+        </motion.div>
+
+        <FloatingCloud
+          top="20%"
+          left="5%"
+          speed={0.5}
+          cloudNum={1}
+          opacity="opacity-30"
         />
-      </div>
-      <div className="mt-16 text-center">
-        <Typography variant="h2" className="mb-8 font-bold">
-          What We Offer
-        </Typography>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            {
-              title: "Team Building",
-              description:
-                "Connect with coordinators and get the opportunity to work with them.",
-            },
-            {
-              title: "Self Development",
-              description:
-                "Collaborating and working with a team enhances your soft skills.",
-            },
-            {
-              title: "Workshops & Training",
-              description:
-                "Regular hands-on sessions covering the latest technologies and programming concepts.",
-            },
-            {
-              title: "Networking Events",
-              description:
-                "Connect with industry professionals and fellow tech enthusiasts.",
-            },
-            {
-              title: "Project Collaboration",
-              description:
-                "Work on real-world projects and build your portfolio with other members.",
-            },
-            {
-              title: "Social Work",
-              description:
-                "Empowers youth to use their engineering skills for impactful social work projects within their communities.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="cursor-pointer rounded-lg border bg-white p-6 shadow-lg transition-transform duration-300 ease-out hover:-translate-y-2 hover:scale-105 hover:bg-gray-900 hover:text-white hover:shadow-xl"
+        <FloatingCloud
+          top="40%"
+          left="80%"
+          speed={0.8}
+          cloudNum={2}
+          opacity="opacity-20"
+          scale={0.8}
+        />
+      </section>
+
+      {/* Story Section */}
+      <section className="relative z-20 px-4 py-24 sm:px-6 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-6"
             >
-              <Typography variant="h3" className="mb-2 font-semibold">
-                {item.title}
-              </Typography>
-              <Typography>{item.description}</Typography>
-            </div>
-          ))}
+              <h2 className="font-fraunces text-3xl font-semibold text-white md:text-4xl">
+                Our Motive
+              </h2>
+              <div className="space-y-4 font-sans text-sm leading-relaxed text-white/70 md:text-base">
+                <p>
+                  Welcome to Engineering India YCCE, established in 2022,
+                  harnessing the power of youth to build a better India. We've
+                  grown to over 250 members, fostering a community where
+                  technical skills meet social awareness.
+                </p>
+                <p>
+                  Our motive is to{" "}
+                  <span className="font-bold text-[#D4EBFF]">
+                    "Think Nationally, Act Locally"
+                  </span>
+                  . We celebrate our Indian heritage through culturally infused
+                  events and collaborative projects, creating a space where
+                  innovation and tradition harmoniously build a brighter future.
+                </p>
+                <p>
+                  Beyond learning and collaboration, we empower young engineers
+                  to directly address local challenges through innovative,
+                  sustainable projects.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="relative aspect-[4/3] overflow-hidden rounded-[3rem] border-[12px] border-white/5 shadow-2xl"
+            >
+              <Image
+                src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA"
+                alt="Students collaborating"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0F1B40]/40 to-transparent" />
+            </motion.div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Offerings Section */}
+      <section className="relative z-20 bg-gradient-to-b from-transparent to-[#1D317D]/30 px-4 py-24 sm:px-6 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="mb-16 text-center">
+            <h2 className="font-fraunces mb-4 text-3xl font-semibold text-white md:text-5xl">
+              What We Offer
+            </h2>
+            <p className="mx-auto max-w-xl text-white/50">
+              Empowering engineers through technical excellence, leadership, and
+              social impact.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Team Building",
+                description:
+                  "Connect with coordinators and get the opportunity to work with them in a high-impact environment.",
+              },
+              {
+                title: "Self Development",
+                description:
+                  "Collaborating and working with a dynamic team enhances your soft skills and leadership traits.",
+              },
+              {
+                title: "Workshops & Training",
+                description:
+                  "Regular hands-on sessions covering the latest technologies and progressive engineering concepts.",
+              },
+              {
+                title: "Networking Events",
+                description:
+                  "Connect with industry professionals, esteemed alumni, and fellow technology enthusiasts.",
+              },
+              {
+                title: "Project Collaboration",
+                description:
+                  "Work on real-world projects and build a robust professional portfolio with fellow members.",
+              },
+              {
+                title: "Social Work",
+                description:
+                  "Empowers youth to use their engineering skills for impactful social work within their communities.",
+              },
+            ].map((item, i) => (
+              <OfferItem key={item.title} {...item} index={i} />
+            ))}
+          </div>
+        </div>
+
+        <FloatingCloud
+          top="70%"
+          left="15%"
+          speed={0.4}
+          cloudNum={3}
+          opacity="opacity-15"
+          scale={1.5}
+        />
+        <FloatingCloud
+          top="85%"
+          left="75%"
+          speed={0.6}
+          cloudNum={4}
+          opacity="opacity-20"
+          scale={1.1}
+        />
+      </section>
+
+      {/* Community Image */}
+      <section className="relative z-20 px-4 py-24">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="relative aspect-[21/9] overflow-hidden rounded-[3rem] border-[12px] border-white/5"
+          >
+            <Image
+              src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/aboutpage.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvYWJvdXRwYWdlLkpQRyIsImlhdCI6MTc0MzE3OTc2MiwiZXhwIjoyMDU4NTM5NzYyfQ.AJPbrx-_EfKnLs0R_EhE2KeLXMfXrRSzUGCXdmJzr_M"
+              alt="Community"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -12,11 +12,12 @@ import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 
 const navItems = [
-  { name: "Events", href: "/events" },
-  { name: "About", href: "/about" },
-  { name: "Blogs", href: "/blog" },
+  { name: "About", href: "#about" },
+  { name: "Events", href: "#events" },
+  { name: "Journey", href: "#journey" },
   { name: "Team", href: "/team" },
-  { name: "Contact", href: "/contact" },
+  { name: "Blogs", href: "/blog" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -84,13 +85,13 @@ export default function Navbar() {
           {isPending ? null : user ? (
             <Button
               onClick={() => router.push("/dashboard")}
-              variant="ghost"
-              className="relative h-8 w-8 rounded-full"
+              variant="premium"
+              className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full p-0"
             >
               <UserAvatar
                 name={user.name}
                 image={user.image}
-                className="h-8 w-8"
+                className="h-full w-full"
               />
             </Button>
           ) : (
@@ -121,16 +122,16 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden">
-          <div className="flex flex-col space-y-4 bg-background px-4 py-6 shadow-md">
+        <div className="mt-2 md:hidden">
+          <div className="flex flex-col space-y-4 rounded-3xl bg-white/20 px-6 py-8 backdrop-blur-md">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-semibold transition-colors hover:text-blue-600 ${
+                className={`text-sm font-semibold transition-colors hover:text-white/70 ${
                   pathname === item.href
-                    ? "text-blue-600"
-                    : "text-muted-foreground"
+                    ? "font-semibold text-white"
+                    : "text-white/90"
                 }`}
                 onClick={() => setIsOpen(false)}
               >
@@ -144,13 +145,13 @@ export default function Navbar() {
                   router.push("/dashboard");
                   setIsOpen(false);
                 }}
-                variant="ghost"
-                className="relative h-8 w-8 rounded-full border-none outline-none"
+                variant="premium"
+                className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full p-0"
               >
                 <UserAvatar
                   name={user.name}
                   image={user.image}
-                  className="h-8 w-8"
+                  className="h-full w-full"
                 />
               </Button>
             ) : (
