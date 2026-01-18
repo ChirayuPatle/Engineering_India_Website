@@ -37,7 +37,7 @@ const TeamCard = ({
     >
       {/* Profile Image Container */}
       <div className="relative mb-6">
-        <div className="h-32 w-32 overflow-hidden rounded-full border-4 border-white/10 transition-all duration-500 group-hover:scale-105 group-hover:border-[#D4EBFF] md:h-40 md:w-40">
+        <div className="h-32 w-32 scale-105 overflow-hidden rounded-full border-4 border-white/10 transition-all duration-500 md:h-40 md:w-40">
           <Image
             src={image}
             alt={name}
@@ -96,14 +96,6 @@ export default function TeamPage() {
           cloudNum={1}
           opacity="opacity-30"
         />
-        <FloatingCloud
-          top="35%"
-          left="85%"
-          speed={0.8}
-          cloudNum={2}
-          opacity="opacity-20"
-          scale={0.8}
-        />
       </section>
 
       {/* Team Sections */}
@@ -119,7 +111,7 @@ export default function TeamPage() {
             </div>
 
             {teamMembers.length > 0 ? (
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {teamMembers.map((details, index) => (
                   <TeamCard
                     key={`lead-${index}`}
@@ -139,15 +131,6 @@ export default function TeamPage() {
             )}
           </div>
 
-          <FloatingCloud
-            top="30%"
-            left="-5%"
-            speed={0.4}
-            cloudNum={3}
-            opacity="opacity-15"
-            scale={1.2}
-          />
-
           {/* Developers */}
           <div>
             <div className="mb-16 text-center md:text-left">
@@ -158,7 +141,7 @@ export default function TeamPage() {
             </div>
 
             {Devlopers.length > 0 ? (
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 justify-items-center gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {Devlopers.map((details, index) => (
                   <TeamCard
                     key={`dev-${index}`}
@@ -178,15 +161,6 @@ export default function TeamPage() {
             )}
           </div>
         </div>
-
-        <FloatingCloud
-          top="70%"
-          left="90%"
-          speed={0.6}
-          cloudNum={4}
-          opacity="opacity-20"
-          scale={1.1}
-        />
       </section>
     </main>
   );
