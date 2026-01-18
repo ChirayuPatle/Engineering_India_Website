@@ -63,9 +63,9 @@ export default function Footer() {
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    { name: "About Us", href: "#about" },
-                    { name: "Events", href: "#events" },
-                    { name: "Journey", href: "#journey" },
+                    { name: "About Us", href: "/landing#about" },
+                    { name: "Events", href: "/landing#events" },
+                    { name: "Journey", href: "/landing#journey" },
                     { name: "Team", href: "/team" },
                     { name: "Blogs", href: "/blog" },
                   ].map((link) => (
@@ -86,8 +86,8 @@ export default function Footer() {
                 </h4>
                 <ul className="space-y-2">
                   {[
-                    { name: "Contact", href: "#contact" },
-                    { name: "FAQ", href: "#faq" },
+                    { name: "Contact", href: "/contact" },
+                    { name: "FAQ", href: "/landing#faq" },
                     { name: "Privacy Policy", href: "/privacy" },
                   ].map((link) => (
                     <li key={link.name}>
@@ -111,12 +111,14 @@ export default function Footer() {
                 sustainable future."
               </p>
               <div className="flex flex-wrap gap-4 lg:justify-end">
-                <Button
-                  variant="premium"
-                  className="rounded-full border-none bg-[#1D317D] px-8 text-white hover:bg-[#2B416C]"
-                >
-                  Contact Us
-                </Button>
+                <Link href="/contact">
+                  <Button
+                    variant="premium"
+                    className="rounded-full border-none bg-[#1D317D] px-8 text-white hover:bg-[#2B416C]"
+                  >
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
             </div>
 
