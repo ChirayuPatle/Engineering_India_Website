@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className="relative z-20 w-full overflow-hidden bg-[#FCFAF2] px-4 py-24 sm:px-6 md:px-8">
       <div className="container relative mx-auto max-w-7xl">
         <div className="relative z-10 grid grid-cols-1 items-end gap-20 lg:grid-cols-2">
-          <div className="space-y-12">
+          <div className="flex flex-col items-center space-y-12 text-center lg:items-start lg:text-left">
             <div className="flex items-center gap-3">
               <div className="flex h-[3.0rem] w-[3.0rem] items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
                 <img
@@ -26,7 +26,8 @@ export default function Footer() {
               </h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <div className="grid w-full grid-cols-1 justify-items-center gap-8 sm:grid-cols-3">
+              {/* Connect */}
               <div className="space-y-4">
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#1D317D]/40">
                   Connect
@@ -35,14 +36,12 @@ export default function Footer() {
                   {[
                     {
                       name: "Instagram",
-                      href: "https://instagram.com/engineering_india_ycce",
+                      href: "https://www.instagram.com/engineering.india_ycce/",
                     },
                     {
                       name: "LinkedIn",
                       href: "https://linkedin.com/company/engineering-india-ycce",
                     },
-                    { name: "Twitter", href: "#" },
-                    { name: "Facebook", href: "#" },
                   ].map((link) => (
                     <li key={link.name}>
                       <a
@@ -57,6 +56,7 @@ export default function Footer() {
                   ))}
                 </ul>
               </div>
+              {/* General */}
               <div className="space-y-4">
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#1D317D]/40">
                   General
@@ -80,6 +80,7 @@ export default function Footer() {
                   ))}
                 </ul>
               </div>
+              {/* Support (moved up) */}
               <div className="space-y-4">
                 <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#1D317D]/40">
                   Support
@@ -104,13 +105,13 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="space-y-10 lg:text-right">
-            <div className="max-w-md lg:ml-auto">
+          <div className="flex w-full flex-col items-center space-y-10 text-center lg:items-end lg:text-right">
+            <div className="w-full max-w-md lg:ml-auto">
               <p className="font-fraunces mb-6 text-lg font-medium italic leading-relaxed text-[#1D317D]">
                 "Empowering engineers to think nationally and act locally for a
                 sustainable future."
               </p>
-              <div className="flex flex-wrap gap-4 lg:justify-end">
+              <div className="flex flex-wrap justify-center gap-4 lg:justify-end">
                 <Link href="/contact">
                   <Button
                     variant="premium"
@@ -122,12 +123,50 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 border-t border-[#1D317D]/10 pt-10 text-[10px] font-medium uppercase tracking-widest text-[#1D317D]/40 sm:flex-row sm:justify-between">
-              <p>
+            <div className="flex w-full flex-col items-center gap-4 border-t border-[#1D317D]/10 pt-10 text-[10px] font-medium uppercase tracking-widest text-[#1D317D]/40">
+              <p className="w-full text-center text-[12px]">
                 © {new Date().getFullYear()} Engineering India YCCE. All rights
                 reserved.
+                <br />
+                <br />
+                Developed by
+                <a
+                  href="https://www.linkedin.com/in/priyanshukayarkar/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-1 font-bold capitalize text-[#1D317D] underline hover:text-blue-600"
+                >
+                  Priyanshu Kayarkar
+                </a>
+                ,
+                <a
+                  href="https://www.linkedin.com/in/chirayu-patle-a78502290/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-1 font-bold capitalize text-[#1D317D] underline hover:text-blue-600"
+                >
+                  Chirayu Patle
+                </a>
+                ,
+                <a
+                  href="https://www.linkedin.com/in/muchkund-thote/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-1 font-bold capitalize text-[#1D317D] underline hover:text-blue-600"
+                >
+                  Muchkund Raje
+                </a>{" "}
+                and
+                <a
+                  href="https://www.linkedin.com/in/samyak-umathe-9b8a6a295/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-1 font-bold capitalize text-[#1D317D] underline hover:text-blue-600"
+                >
+                  Samyak Umathe
+                </a>
               </p>
-              <div className="flex gap-6">
+              <div className="flex w-full justify-center gap-6 lg:justify-end">
                 <Link
                   href="/privacy"
                   className="transition-colors hover:text-[#1D317D]"
