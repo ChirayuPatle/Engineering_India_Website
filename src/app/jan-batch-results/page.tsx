@@ -30,6 +30,11 @@ const janBatchResults = [
   "Siddhi pokale",
   "Kartik Tajne",
   "Rohit Pradhan",
+  "Sharvari Itankar",
+  "Siddhi Ballal",
+  "Palak Madhav Lanjewar",
+  "Samruddhi Vywahare",
+  "Sakshi Khante"
 ];
 
 export default function JanBatchResultsPage() {
