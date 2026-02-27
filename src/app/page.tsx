@@ -597,7 +597,7 @@ const LandingPage = () => {
             className="absolute bottom-20 right-4 aspect-[4/3] w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-white/10 backdrop-blur-sm sm:right-8 md:right-12 lg:right-20"
           >
             <img
-              src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA&w=640&q=75"
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=600&fit=crop"
               className="h-full w-full object-cover"
               alt="Engineering India Team"
             />

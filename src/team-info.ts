@@ -7,194 +7,207 @@ type TeamMember = {
   Email: string;
 };
 
-const teamMembers: TeamMember[] = [
+type DepartmentCoordinator = {
+  name: string;
+  department: string;
+  teamId: number;
+  image: string;
+  linkedin: string;
+  Email: string;
+};
+
+const coreCommittee: TeamMember[] = [
   {
     teamId: 1,
-    name: "Laxmikant Dhawade",
-    position: "College Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/LaxmikantDhawande.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9MYXhtaWthbnREaGF3YW5kZS5qcGciLCJpYXQiOjE3NDM0MzM3MDEsImV4cCI6MjA1ODc5MzcwMX0.WnU4mIIkhJZWXSHEWP-NsNAitfE-cVERObIuyRJN6js",
+    name: "Samyak Umathe",
+    position: "College Coordinator\nCollege President",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/laxmikant-dhawade/",
   },
   {
     teamId: 2,
-    name: "Swastika Tinkhede",
-    position: "Club Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/SwastikaTinkhede.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9Td2FzdGlrYVRpbmtoZWRlLmpwZyIsImlhdCI6MTc0MzI3MzM4NSwiZXhwIjoyMDU4NjMzMzg1fQ.1H87ZxOvBIqRXuy6W7oC7E79C5yqYiDt1SJYntxja5g",
-    Email: "swastikatinkhede@gmail.com",
-    linkedin:
-      "https://www.linkedin.com/in/swastika-tinkhede-544141263?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    name: "V. S. Pavithra",
+    position: "Club Head\nVice President",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 3,
-    name: "Virendra Lokhande",
-    position: "Secretary",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/VirendraLokhande.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9WaXJlbmRyYUxva2hhbmRlLkpQRyIsImlhdCI6MTc0MzI3MzA3OSwiZXhwIjoyMDU4NjMzMDc5fQ.QJYAXihJf2FLe2ynsezIovAZj6seE5iekj31W-m6XoU",
-    Email: "virendralokhande007@gmail.com",
-    linkedin: "http://www.linkedin.com/in/virendralokhande",
+    name: "Chirayu Patle",
+    position: "Secretary & Database Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 4,
-    name: "Piyush Piprewar",
-    position: "Database Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PiyushPiprewar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QaXl1c2hQaXByZXdhci5wbmciLCJpYXQiOjE3NDMzNTI3NzMsImV4cCI6MjA1ODcxMjc3M30.336VFziEQj0nYlihIEiLyE9LJLKsRnHEMnrBiyAh7us",
-    Email: "piyushnpiprewar07@gmail.com",
-    linkedin: "https://www.linkedin.com/in/piyush-piprewar/",
+    name: "Shailaija Patle",
+    position: "Secretary & Event Management Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKHOSeNTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 5,
-    name: "Jahanvi Parshivninkar",
-    position: "Secretary - Event Management",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/JanhviParshivanikar.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9KYW5odmlQYXJzaGl2YW5pa2FyLmpwZyIsImlhdCI6MTc0MzI3MjgzOCwiZXhwIjoyMDU4NjMyODM4fQ.YGiIealMC5HTPijm-URU2-tBXiYgpY5LffzMVRvCEk8",
-    Email: "parshivanikarjanhvi@gmail.com",
-    linkedin: "https://www.linkedin.com/in/janhvi-parshivanikar-974596264/",
+    name: "Mansi Jalandhar",
+    position: "Secretary",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YBUmcB9dX07nFuGgApY3LIbBDVxsaiEWvk4qN",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 6,
-    name: "Ujwal Bokde",
-    position: "Secretary - Technical Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/UjjwalBokde.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9Vamp3YWxCb2tkZS5qcGciLCJpYXQiOjE3NDMyNzE5ODUsImV4cCI6MjA1ODYzMTk4NX0.HjoALjVAeVOFi7vyt0wIlsosS1rV3Sxnzct2-fzuz-s",
-    Email: "ujjwalbokde370@gmail.com",
-    linkedin: "https://www.linkedin.com/in/ujjwal370",
+    name: "Priyanshu Kayarkar",
+    position: "Technical Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 7,
-    name: "Himanshu Kukde",
-    position: "Secretary - Publicity Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Himanshukukde.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9IaW1hbnNodWt1a2RlLmpwZyIsImlhdCI6MTc0MzI3MTg1NSwiZXhwIjoyMDU4NjMxODU1fQ.y_Z4hnc5hRV-oXmSEA9Q64lHPDLV4Hmiy4ryFMFwlCU",
-    Email: "kukdehimanshu2@gmail.com",
-    linkedin:
-      "https://www.linkedin.com/in/himanshu-kukde-916179280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    name: "Harsh Kapte",
+    position: "Publicity Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YRH9jwebsECkVBO3tDbHI2PpL7mWqcvT1N6KG",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 8,
-    name: "Surbhi Ninawe",
-    position: "Secretary - Other Colleges Co-ordination",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/SurbhiNinawe.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TdXJiaGlOaW5hd2UuanBlZyIsImlhdCI6MTc0MzM1NTg5MSwiZXhwIjoyMDU4NzE1ODkxfQ.N4TGaxcTIS94zsHwO3Qf_2uNTi_2p--75NKsvcA5JSY",
-    Email: " surbhininave7@gmail.com",
-    linkedin: "https://www.linkedin.com/in/surbhi-ninave/",
+    name: "Siddheshwar Madne",
+    position: "Publicity Head",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 9,
-    name: "Sejula Chopde",
-    position: "Joint Secretary",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Sejula.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TZWp1bGEuSlBHIiwiaWF0IjoxNzQzMzUyNjgwLCJleHAiOjIwNTg3MTI2ODB9.LuTfPU9KNvBpgK5C0rfmzegYVGxtsrNqTt7gGBpzmfM",
+    name: "Ishika Lanjewar",
+    position: "Publicity Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YvJsTwjcOBfKwjtA7i6CNnraLcWTPvEsD0JMH",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/sejula-chopde/",
   },
   {
     teamId: 10,
-    name: "Shivam Saraf",
-    position: "Social Media and Photography Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Shivam.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TaGl2YW0uanBlZyIsImlhdCI6MTc0MzM1MjY1MCwiZXhwIjoyMDU4NzEyNjUwfQ.XNrx33-h0u9LbvTE6C7EpcaDo_a1bwjTC3M7BfgJfQA",
+    name: "Aarya Kothe",
+    position: "Design Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/shivam-saraf-342707288/",
   },
   {
     teamId: 11,
-    name: "Astha Chilbilwar",
+    name: "Om Ingle",
     position: "Design Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/AasthaChilbilwar.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9BYXN0aGFDaGlsYmlsd2FyLmpwZyIsImlhdCI6MTc0MzI3MjA1NywiZXhwIjoyMDU4NjMyMDU3fQ.5VlT_mzRMqmwcYilO7gsnvzN5Lb8MQbsH_peZeCaK_4",
-    Email: "aastha.04ac@gmail.com",
-    linkedin: "https://www.linkedin.com/in/aastha-chilbilwar",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YTZVVuXOr7b9KQXzyCuE6BWn1l2ctFZv4gd3M",
+    linkedin: "",
+    Email: "",
   },
   {
     teamId: 12,
-    name: "Malay Lokhande",
-    position: "Design Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Malay.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9NYWxheS5qcGVnIiwiaWF0IjoxNzQzMjczNTA1LCJleHAiOjIwNTg2MzM1MDV9.2nV3X2YDCdZ3Y8FoAUTcN6efaj-KDJ8lgjvEG6m40vI",
+    name: "Payal Dongre",
+    position: "Literature Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YLr8sqgKNvlAtR9SFIuEYU4OWr7TZ8eML5igB",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/malay-lokhande/",
   },
   {
     teamId: 13,
-    name: "Vanshvardhan Sorte",
-    position: "Public Relation and Event Management Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Vanshwardhan.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9WYW5zaHdhcmRoYW4uSlBHIiwiaWF0IjoxNzQzMjczNDUyLCJleHAiOjIwNTg2MzM0NTJ9.yIiTnbXwx0M-SnqVBMqqoXwB-kpb05SQxjmUlUsbIGQ",
-
+    name: "Sakshi Kadu",
+    position: "Literature Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Y3sECXJ5UxkNCoJRpD2yuWGnilqgjMTBm7EeX",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/vanshvardhan-sorte-550717280/",
   },
   {
     teamId: 14,
-    name: "Pragati Wange",
-    position: "Literature Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PRAGATIWANGE.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QUkFHQVRJV0FOR0UuanBnIiwiaWF0IjoxNzQzMjcyNDcyLCJleHAiOjE3NjkxOTI0NzJ9.l3dyn8tktHgKBX16Uowk5YAMdxjvHYSWtKX7EzXNN4o",
-    Email: "wangepragati21@gmail.com",
-    linkedin: "https://www.linkedin.com/in/pragati-wange-she-her-7931b1347",
-  },
-  {
-    teamId: 15,
-    name: "Sakshi Gedam",
-    position: "Literature Head",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/SakshiGedam.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9TYWtzaGlHZWRhbS5qcGciLCJpYXQiOjE3NDMyNzIzNTQsImV4cCI6MjA1ODYzMjM1NH0.C37MOVsKKxwvjnYHqLjM-kxAwvGMX3brKlVJtsGsM6Q",
-    Email: "sakshigedam80@gmail.com ",
-    linkedin:
-      "https://www.linkedin.com/in/sakshi-gedam-b10568281?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  },
-  {
-    teamId: 16,
-    name: "Romi Pun",
-    position: "IT Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/RomiPun.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9Sb21pUHVuLmpwZyIsImlhdCI6MTc0MzI3MjUyOSwiZXhwIjoyMDU4NjMyNTI5fQ.n2z1TE-pabt_HGgZZBm0FMRPVZfM7_y9qfntdbvPldY",
-    Email: "romipun81@gmail.com",
-    linkedin: "https://www.linkedin.com/in/romipun/",
-  },
-  {
-    teamId: 17,
-    name: "Vaideesh Deshmukh",
-    position: "CSE Departmental Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Vaidesh.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9WYWlkZXNoLnBuZyIsImlhdCI6MTc0MzM1MjczMywiZXhwIjoyMDU4NzEyNzMzfQ.b8JN5whXjGblnSm9uIxol9kwUYTI7AYGvD5rK-nmpQM",
+    name: "Sayali Padmane",
+    position: "Photography Head",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YMiRZSyJCRHOYLQvmMWn8KB1A73Jd9PwU20tp",
+    linkedin: "",
     Email: "",
-    linkedin: "https://www.linkedin.com/in/vaideesh-deshmukh/",
-  },
-  {
-    teamId: 18,
-    name: "Pratik Borkar",
-    position: "Mechanical Department Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/PratikBorkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9QcmF0aWtCb3JrYXIucG5nIiwiaWF0IjoxNzQzMzUyNzAxLCJleHAiOjIwNTg3MTI3MDF9.z66MiqiTPUoLUnUNurLOb5XoSTdv7qaE4UhqrFQEGyI",
-    Email: "pratikborkar1507@gmail.com",
-    linkedin:
-      "https://www.linkedin.com/in/pratik-borkar-83a203280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-  },
-  {
-    teamId: 19,
-    name: "Rewant Chaudhari",
-    position: "ETC Departmental Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Rewant.Chaudhari.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9SZXdhbnQuQ2hhdWRoYXJpLmpwZyIsImlhdCI6MTc0MzI3MTc2NSwiZXhwIjoyMDU4NjMxNzY1fQ.cKxoLkCCIyngrvBE_qSI50Wt-Z-Mmpnanbwd_90TPkc",
-    Email: "rewantc95@gmail.com",
-    linkedin: "https://www.linkedin.com/in/rewant-chaudhari-031a27260",
-  },
-  {
-    teamId: 20,
-    name: "Atharva Pophali",
-    position: "C-Tech Departmental Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/AtharvaPophali.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9BdGhhcnZhUG9waGFsaS5wbmciLCJpYXQiOjE3NDMyNzIyNDIsImV4cCI6MjA1ODYzMjI0Mn0.qZeK6tL63mOD8qXQ5-ETk-6o7NP0kehBBMQ7aOHtTkY",
-    Email: "atharvapophali3@gmail.com",
-    linkedin:
-      "https://www.linkedin.com/in/atharva-pophali-a90061257?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
   },
 ];
+
+const departmentalCoordinators: DepartmentCoordinator[] = [
+  {
+    teamId: 1,
+    name: "Aliya Sayyed",
+    department: "CSE",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 2,
+    name: "Parth Dehare",
+    department: "CSE AIML",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 3,
+    name: "Muchkundraje Thote",
+    department: "AIDS",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 4,
+    name: "Piyush Meshram",
+    department: "IT / CSD",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 5,
+    name: "Saakshi Krishnani",
+    department: "C-Tech",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 6,
+    name: "Rudresh Bokade",
+    department: "Mechanical",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 7,
+    name: "Sakshi Vairagade",
+    department: "ETC / VLSI / IOT / EE",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 8,
+    name: "Khushi Chaudhari",
+    department: "Electrical",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+  {
+    teamId: 9,
+    name: "Charvi Kadbe",
+    department: "Civil",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    linkedin: "",
+    Email: "",
+  },
+];
+
+// Keep the old teamMembers array for backward compatibility
+const teamMembers = coreCommittee;
 
 const SecondYear: TeamMember[] = [
   {
@@ -580,8 +593,7 @@ const ThirdYear: TeamMember[] = [
     teamId: 6,
     name: "Himanshu Kukde",
     position: "Member",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Himanshukukde.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9IaW1hbnNodWt1a2RlLmpwZyIsImlhdCI6MTc0MzI3MTg1NSwiZXhwIjoyMDU4NjMxODU1fQ.y_Z4hnc5hRV-oXmSEA9Q64lHPDLV4Hmiy4ryFMFwlCU",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
   },
@@ -589,8 +601,7 @@ const ThirdYear: TeamMember[] = [
     teamId: 7,
     name: "Janhvi Parshivnikar",
     position: "Member",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/janhviParshivanikar.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9qYW5odmlQYXJzaGl2YW5pa2FyLmpwZyIsImlhdCI6MTc0MzI3MTkzMCwiZXhwIjoyMDU4NjMxOTMwfQ.OAWC_x3SUUWuYIyJgbPVbuoGMIpVj-F0M4NBzuQ1Wco",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
   },
@@ -614,8 +625,7 @@ const ThirdYear: TeamMember[] = [
     teamId: 10,
     name: "Malay Lokhande",
     position: "Member",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Leads-Images/Malay.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0xlYWRzLUltYWdlcy9NYWxheS5qcGVnIiwiaWF0IjoxNzQzMjczNTA1LCJleHAiOjIwNTg2MzM1MDV9.2nV3X2YDCdZ3Y8FoAUTcN6efaj-KDJ8lgjvEG6m40vI",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
   },
@@ -762,8 +772,7 @@ const Devlopers: TeamMember[] = [
     teamId: 1,
     name: "Priyanshu Kayarkar",
     position: "Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/PriyanshuKayarkar.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1ByaXlhbnNodUtheWFya2FyLnBuZyIsImlhdCI6MTc0MzM1NDU5MSwiZXhwIjoyMDU4NzE0NTkxfQ.688wSsq0XWzsmmPd_dRPFKam8zq_BtmqgRKP2J3FqJc",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://www.linkedin.com/in/priyanshukayarkar",
     Email: "priyanshu.kayarkar009@gmail.com",
   },
@@ -789,10 +798,9 @@ const Devlopers: TeamMember[] = [
     teamId: 4,
     name: "Samyak Umathe",
     position: "Co-ordinator",
-    image:
-      "https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Devs-Images/SamyakUmathe.jpeg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0RldnMtSW1hZ2VzL1NhbXlha1VtYXRoZS5qcGVnIiwiaWF0IjoxNzQzMzU0NzA1LCJleHAiOjIwNTg3MTQ3MDV9.Rj5V06cg9dJjrJbpCRemMs5gnmarh4HHYm2vwBT9F-Y",
+    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
     Email: "samyakumathe@gmail.com",
   },
 ];
-export { teamMembers, Devlopers, SecondYear, ThirdYear };
+export { coreCommittee, departmentalCoordinators, teamMembers, Devlopers, SecondYear, ThirdYear };

@@ -72,6 +72,14 @@ const config = {
         protocol: "https",
         hostname: "ebqqc80v6n.ufs.sh",
       },
+      {
+        protocol: "https",
+        hostname: "xxdyayurwn.ufs.sh",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn-icons-png.flaticon.com",
+      },
     ],
   },
   experimental: {},

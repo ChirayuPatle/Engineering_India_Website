@@ -117,7 +117,7 @@ export default function AboutPage() {
               className="relative aspect-[4/3] overflow-hidden rounded-[3rem] border-[12px] border-white/5 shadow-2xl"
             >
               <Image
-                src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/IMG_6124%20(1).jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvSU1HXzYxMjQgKDEpLmpwZyIsImlhdCI6MTc0MzA5NzMwNSwiZXhwIjoyMDU4NDU3MzA1fQ.RJUntXH9XN5nhLN91rJCsX4EgQpEvvlWPle5VU2kQTA"
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=600&fit=crop"
                 alt="Students collaborating"
                 fill
                 className="object-cover"
@@ -193,7 +193,7 @@ export default function AboutPage() {
             className="relative aspect-[21/9] overflow-hidden rounded-[3rem] border-[12px] border-white/5"
           >
             <Image
-              src="https://hmrvazaoddsexmrgydqx.supabase.co/storage/v1/object/sign/Engineering-India-Storage/Events-Images/aboutpage.JPG?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJFbmdpbmVlcmluZy1JbmRpYS1TdG9yYWdlL0V2ZW50cy1JbWFnZXMvYWJvdXRwYWdlLkpQRyIsImlhdCI6MTc0MzE3OTc2MiwiZXhwIjoyMDU4NTM5NzYyfQ.AJPbrx-_EfKnLs0R_EhE2KeLXMfXrRSzUGCXdmJzr_M"
+              src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b?w=1200&h=600&fit=crop"
               alt="Community"
               fill
               className="object-cover"
