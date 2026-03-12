@@ -34,7 +34,7 @@ const janBatchResults = [
   "Siddhi Ballal",
   "Palak Madhav Lanjewar",
   "Samruddhi Vywahare",
-  "Sakshi Khante"
+  "Sakshi Khante",
 ];
 
 export default function JanBatchResultsPage() {

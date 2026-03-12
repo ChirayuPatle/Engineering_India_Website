@@ -50,7 +50,7 @@ const DepartmentCoordinatorCard = ({
 
       {/* Details */}
       <div className="mb-6 space-y-2 text-center">
-        <h3 className="font-fraunces text-xl font-bold text-white transition-colors group-hover:text-[#D4EBFF] md:text-2xl whitespace-nowrap">
+        <h3 className="font-fraunces whitespace-nowrap text-xl font-bold text-white transition-colors group-hover:text-[#D4EBFF] md:text-2xl">
           {name}
         </h3>
         <p className="font-sans text-xs uppercase tracking-[0.2em] text-white/50 md:text-sm">
@@ -112,10 +112,10 @@ const TeamCard = ({
 
       {/* Details */}
       <div className="mb-6 space-y-2 text-center">
-        <h3 className="font-fraunces text-xl font-bold text-white transition-colors group-hover:text-[#D4EBFF] md:text-2xl whitespace-nowrap">
+        <h3 className="font-fraunces whitespace-nowrap text-xl font-bold text-white transition-colors group-hover:text-[#D4EBFF] md:text-2xl">
           {name}
         </h3>
-        <p className="font-sans text-xs uppercase tracking-[0.2em] text-white/50 md:text-sm whitespace-pre-wrap">
+        <p className="whitespace-pre-wrap font-sans text-xs uppercase tracking-[0.2em] text-white/50 md:text-sm">
           {position}
         </p>
       </div>

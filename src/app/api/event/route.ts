@@ -7,9 +7,26 @@ export async function GET() {
   try {
     const events = await db.select().from(event);
 
-    console.log("\nEVENTS\n :- ", events);
+    // Filter events that have actual data (not empty/null values)
+    const validEvents = events.filter(event => {
+      return event.name && 
+             event.name.trim() !== '' &&
+             (event.startDate || event.endDate || event.description || 
+              event.timeline || event.prizes || event.faqs || 
+              event.bannerImage || event.gallery || event.details || 
+              event.rules || event.location || event.category);
+    });
 
-    return NextResponse.json(events);
+    // Sort events by date (most recent first)
+    const sortedEvents = validEvents.sort((a, b) => {
+      const dateA = a.startDate || a.endDate || a.createdAt || new Date(0);
+      const dateB = b.startDate || b.endDate || b.createdAt || new Date(0);
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
+    });
+
+    console.log("\nVALID EVENTS (with data):- ", sortedEvents);
+
+    return NextResponse.json(sortedEvents);
   } catch (error) {
     console.error("Error fetching events:", error);
     return NextResponse.json(

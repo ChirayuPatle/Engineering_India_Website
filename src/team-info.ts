@@ -5,6 +5,8 @@ type TeamMember = {
   image: string;
   linkedin: string;
   Email: string;
+  bio?: string;
+  github?: string;
 };
 
 type DepartmentCoordinator = {
@@ -14,6 +16,8 @@ type DepartmentCoordinator = {
   image: string;
   linkedin: string;
   Email: string;
+  bio?: string;
+  github?: string;
 };
 
 const coreCommittee: TeamMember[] = [
@@ -21,7 +25,8 @@ const coreCommittee: TeamMember[] = [
     teamId: 1,
     name: "Samyak Umathe",
     position: "College Coordinator\nCollege President",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
     linkedin: "",
     Email: "",
   },
@@ -37,7 +42,8 @@ const coreCommittee: TeamMember[] = [
     teamId: 3,
     name: "Chirayu Patle",
     position: "Secretary & Database Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
     linkedin: "",
     Email: "",
   },
@@ -45,15 +51,19 @@ const coreCommittee: TeamMember[] = [
     teamId: 4,
     name: "Shailaija Patle",
     position: "Secretary & Event Management Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKHOSeNTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKHOSeNTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    linkedin:
+      "https://www.linkedin.com/in/shailaja-patle-967971289?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    Email: "shailajapatle17@gmail.com",
+    bio: "Grateful (and super excited!) to serve as the Event Management Head at the Engineering India Club. From brainstorming fun ideas to turning them into successful events, I love being part of every step — planning, organizing, and making sure everything runs smoothly. I enjoy bringing people together, creating memorable experiences, and adding a little extra energy to every event. For me, it's all about teamwork, good vibes, and making each club activity better than the last!",
   },
   {
     teamId: 5,
     name: "Mansi Jalandhar",
     position: "Secretary",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YBUmcB9dX07nFuGgApY3LIbBDVxsaiEWvk4qN",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YBUmcB9dX07nFuGgApY3LIbBDVxsaiEWvk4qN",
     linkedin: "",
     Email: "",
   },
@@ -61,7 +71,8 @@ const coreCommittee: TeamMember[] = [
     teamId: 6,
     name: "Priyanshu Kayarkar",
     position: "Technical Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "",
     Email: "",
   },
@@ -69,7 +80,8 @@ const coreCommittee: TeamMember[] = [
     teamId: 7,
     name: "Harsh Kapte",
     position: "Publicity Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YRH9jwebsECkVBO3tDbHI2PpL7mWqcvT1N6KG",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YRH9jwebsECkVBO3tDbHI2PpL7mWqcvT1N6KG",
     linkedin: "",
     Email: "",
   },
@@ -85,15 +97,19 @@ const coreCommittee: TeamMember[] = [
     teamId: 9,
     name: "Ishika Lanjewar",
     position: "Publicity Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YvJsTwjcOBfKwjtA7i6CNnraLcWTPvEsD0JMH",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YvJsTwjcOBfKwjtA7i6CNnraLcWTPvEsD0JMH",
+    linkedin: "https://www.linkedin.com/in/ishika-lanjewar-59465b359",
+    Email: "lanjewarishika@gmail.com",
+    github: "https://github.com/account",
+    bio: "My name is Ishika Lanjewar from 6th sem IT, YCCE. I am a student with a strong interest in software development and AI-based systems. I have hands-on experience working with Spring Boot, SQL databases, and frontend technologies like HTML and CSS. I enjoy building real-world projects such as authentication systems and AI-powered chatbots and I am continuously learning to enhance my technical and problem-solving skills.",
   },
   {
     teamId: 10,
     name: "Aarya Kothe",
     position: "Design Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
     linkedin: "",
     Email: "",
   },
@@ -101,31 +117,43 @@ const coreCommittee: TeamMember[] = [
     teamId: 11,
     name: "Om Ingle",
     position: "Design Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YTZVVuXOr7b9KQXzyCuE6BWn1l2ctFZv4gd3M",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YPxqMonHWc4F8GNPCblUYokEgpSthiByjT26d",
+    linkedin: "https://www.linkedin.com/in/om-ingle-55811028b/",
+    Email: "omingle71@gmail.com",
+    github: "https://github.com/Om-ingle",
+    bio: "Love Exploring",
   },
   {
     teamId: 12,
     name: "Payal Dongre",
     position: "Literature Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YLr8sqgKNvlAtR9SFIuEYU4OWr7TZ8eML5igB",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YLr8sqgKNvlAtR9SFIuEYU4OWr7TZ8eML5igB",
+    linkedin:
+      "https://www.linkedin.com/in/payal-dongare?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    Email: "payaldongare94@gmail.com",
+    github: "",
+    bio: "I am currently pursuing my third year in Computer Technology and serve as Literature Head of Engineering India Club. I combine my technical knowledge with creativity to manage content writing, event documentation, and literary coordination within the club.",
   },
   {
     teamId: 13,
     name: "Sakshi Kadu",
     position: "Literature Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Y3sECXJ5UxkNCoJRpD2yuWGnilqgjMTBm7EeX",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Y3sECXJ5UxkNCoJRpD2yuWGnilqgjMTBm7EeX",
+    linkedin:
+      "https://www.linkedin.com/in/sakshi-kadu-40a441322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    Email: "kadusakshi945@gmail.com",
+    github: "",
+    bio: "I'm Full Stack Developer.",
   },
   {
     teamId: 14,
     name: "Sayali Padmane",
     position: "Photography Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YMiRZSyJCRHOYLQvmMWn8KB1A73Jd9PwU20tp",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YMiRZSyJCRHOYLQvmMWn8KB1A73Jd9PwU20tp",
     linkedin: "",
     Email: "",
   },
@@ -144,15 +172,19 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 2,
     name: "Parth Dehare",
     department: "CSE AIML",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKeb4qw4TRBNfpGxchseSwoU2buA0HQ3jCVYO",
+    linkedin: "https://www.linkedin.com/in/parth-dehare-b91a53293/",
+    Email: "parthdehare97@gmail.com",
+    github: "https://github.com/ParthDehare",
+    bio: "CSE (AI & ML) student passionate about AI, software development, and building real-world tech solutions through projects.",
   },
   {
     teamId: 3,
     name: "Muchkundraje Thote",
     department: "AIDS",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753201045/much-org-1_xp2amh.jpg",
     linkedin: "",
     Email: "",
   },
@@ -192,17 +224,11 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 8,
     name: "Khushi Chaudhari",
     department: "Electrical",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
-  },
-  {
-    teamId: 9,
-    name: "Charvi Kadbe",
-    department: "Civil",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YOJ0VXOectmvHhMGYNVSTXoy324adFLuEADnr",
+    linkedin: "https://www.linkedin.com/in/khushichaudhari",
+    Email: "khushichaudhari1805@gmail.com",
+    bio: "Electrical Engineering student passionate about Cybersecurity, Power Systems, and Blockchain.",
   },
 ];
 
@@ -309,14 +335,6 @@ const SecondYear: TeamMember[] = [
   {
     teamId: 13,
     name: "Aarya Kothe",
-    position: "Member",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
-  },
-  {
-    teamId: 14,
-    name: "Charvi Kadbe",
     position: "Member",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
@@ -772,7 +790,8 @@ const Devlopers: TeamMember[] = [
     teamId: 1,
     name: "Priyanshu Kayarkar",
     position: "Co-ordinator",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://www.linkedin.com/in/priyanshukayarkar",
     Email: "priyanshu.kayarkar009@gmail.com",
   },
@@ -798,9 +817,17 @@ const Devlopers: TeamMember[] = [
     teamId: 4,
     name: "Samyak Umathe",
     position: "Co-ordinator",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
     linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
     Email: "samyakumathe@gmail.com",
   },
 ];
-export { coreCommittee, departmentalCoordinators, teamMembers, Devlopers, SecondYear, ThirdYear };
+export {
+  coreCommittee,
+  departmentalCoordinators,
+  teamMembers,
+  Devlopers,
+  SecondYear,
+  ThirdYear,
+};
