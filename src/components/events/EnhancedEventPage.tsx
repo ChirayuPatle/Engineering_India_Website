@@ -15,18 +15,14 @@ import {
   Calendar,
   Clock,
   MapPin,
-  Users,
   Trophy,
   Download,
   FileText,
-  Upload,
   DollarSign,
   CheckCircle,
   AlertCircle,
-  ExternalLink,
   PhoneCall,
   Mail,
-  MessageSquare,
 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -57,14 +53,12 @@ export default function EnhancedEventPage({
 
   const fetchEventData = async () => {
     try {
-      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all(
-        [
-          fetch(`/api/events/${eventId}`),
-          fetch(`/api/events/${eventId}/phases`),
-          fetch(`/api/events/${eventId}/resources`),
-          fetch(`/api/events/${eventId}/payment-config`),
-        ],
-      );
+      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all([
+        fetch(`/api/events/${eventId}`),
+        fetch(`/api/events/${eventId}/phases`),
+        fetch(`/api/events/${eventId}/resources`),
+        fetch(`/api/events/${eventId}/payment-config`),
+      ]);
 
       if (eventRes.ok) setEvent(await eventRes.json());
       if (phasesRes.ok) setPhases(await phasesRes.json());

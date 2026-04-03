@@ -61,14 +61,14 @@ export default function EventPaymentConfig({ eventId }: { eventId: string }) {
     } catch (error) {
       console.error("Error fetching payment config:", error);
     } finally {
-      setLoading(false);
+      setUploading(false);
     }
   };
 
   const [qrFile, setQrFile] = useState<File | null>(null);
   const [qrPreview, setQrPreview] = useState<string | null>(null);
   const [newUpiId, setNewUpiId] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const handleQrUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -165,7 +165,7 @@ export default function EventPaymentConfig({ eventId }: { eventId: string }) {
     }
   };
 
-  if (loading) {
+  if (uploading) {
     return (
       <div className="flex h-64 items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
