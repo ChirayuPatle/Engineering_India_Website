@@ -1,18 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -20,33 +16,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Plus,
-  FileText,
-  Trash2,
-  Download,
-  Upload as UploadIcon,
-} from "lucide-react";
-import { toast } from "sonner";
+import { Plus, FileText, Download, Trash2 } from "lucide-react";
 
 interface Resource {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   type: string;
   fileUrl: string;
   fileName: string;
   accessLevel: string;
-  phaseId?: string;
+  phaseId: string;
+  downloadCount?: number;
 }
 
-export default function EventResourcesManager({
-  eventId,
-}: {
-  eventId: string;
-}) {
-  const [resources, setResources] = useState<any[]>([]);
-  const [phases, setPhases] = useState<any[]>([]);
+interface Phase {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export default function EventResourcesManager({ eventId }: { eventId: string }) {
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [phases, setPhases] = useState<Phase[]>([]);
   const [showDialog, setShowDialog] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState<Resource>({
@@ -58,18 +50,6 @@ export default function EventResourcesManager({
     accessLevel: "public",
     phaseId: "",
   });
-
-  const fetchResources = async () => {
-    try {
-      const response = await fetch(`/api/events/${eventId}/resources`);
-      if (response.ok) {
-        const data = await response.json();
-        setResources(data);
-      }
-    } catch (error) {
-      console.error("Error fetching resources:", error);
-    }
-  };
 
   const fetchPhases = async () => {
     try {
@@ -83,26 +63,36 @@ export default function EventResourcesManager({
     }
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 10 * 1024 * 1024) {
-      toast.error("File size must be less than 10MB");
-      return;
-    }
-
-    setUploading(true);
+  const fetchResources = async () => {
     try {
-      const formData = new FormData();
-      formData.append("file", file);
+      const response = await fetch(`/api/events/${eventId}/resources`);
+      if (response.ok) {
+        const data = await response.json();
+        setResources(data);
+      }
+    } catch (error) {
+      console.error("Error fetching resources:", error);
+    }
+  };
 
-      const response = await fetch("/api/upload", {
+  useEffect(() => {
+    fetchResources();
+    fetchPhases();
+  }, [eventId, fetchResources, fetchPhases]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.fileUrl) return;
+    setUploading(true);
+
+    try {
+      const response = await fetch(`/api/events/${eventId}/resources`, {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Upload failed");
+      if (!response.ok) throw new Error("Failed to create resource");
 
       const data = await response.json();
       setFormData((prev) => ({
@@ -115,32 +105,6 @@ export default function EventResourcesManager({
       toast.error("Failed to upload file");
     } finally {
       setUploading(false);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.fileUrl) {
-      toast.error("Please upload a file");
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/events/${eventId}/resources`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) throw new Error("Failed to create resource");
-
-      toast.success("Resource added!");
-      setShowDialog(false);
-      resetForm();
-      fetchResources();
-    } catch (_error) {
-      toast.error("Failed to add resource");
     }
   };
 
@@ -176,129 +140,111 @@ export default function EventResourcesManager({
     });
   };
 
-  const getResourceIcon = (type: string) => {
-    return <FileText className="h-5 w-5 text-blue-600" />;
+  const getAccessLevelBadge = (level: string) => {
+    switch (level) {
+      case "public":
+        return "bg-green-100 text-green-800";
+      case "registered":
+        return "bg-blue-100 text-blue-800";
+      case "paid":
+        return "bg-yellow-100 text-yellow-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
   };
 
-  const getAccessLevelBadge = (level: string) => {
-    const colors = {
-      public: "bg-green-100 text-green-700",
-      registered: "bg-blue-100 text-blue-700",
-      approved: "bg-purple-100 text-purple-700",
-    };
-    return colors[level as keyof typeof colors] || "bg-gray-100 text-gray-700";
+  const getResourceIcon = (type: string) => {
+    switch (type) {
+      case "template":
+        return <FileText className="h-4 w-4" />;
+      case "document":
+        return <FileText className="h-4 w-4" />;
+      case "video":
+        return <FileText className="h-4 w-4" />;
+      default:
+        return <FileText className="h-4 w-4" />;
+    }
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">Event Resources</h2>
-          <p className="text-gray-600">
-            Manage downloadable files and templates
-          </p>
-        </div>
-        <Dialog
-          open={showDialog}
-          onOpenChange={(open) => {
-            setShowDialog(open);
-            if (!open) resetForm();
-          }}
-        >
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Resource
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>Add New Resource</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                  placeholder="e.g., PPT Template"
-                  required
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                  placeholder="Brief description of the resource"
-                  rows={3}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+    <div className="container mx-auto max-w-6xl p-6">
+      <div className="mb-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">Resources</h1>
+          <Dialog open={showDialog} onOpenChange={(open) => setShowDialog(open)}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Add Resource
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Add New Resource</DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="type">Resource Type</Label>
-                  <Select
-                    value={formData.type}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, type: value })
-                    }
-                  >
+                  <Label htmlFor="title">Title *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    placeholder="Resource title"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    placeholder="Resource description"
+                    rows={3}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="type">Type</Label>
+                  <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value })}>
                     <SelectTrigger>
-                      <SelectValue />
+                      <SelectValue placeholder="Select resource type" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="template">Template</SelectItem>
-                      <SelectItem value="guideline">Guideline</SelectItem>
-                      <SelectItem value="reference">Reference</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="document">Document</SelectItem>
+                      <SelectItem value="video">Video</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-
+                <div>
+                  <Label htmlFor="fileUrl">File URL</Label>
+                  <Input
+                    id="fileUrl"
+                    value={formData.fileUrl}
+                    onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })}
+                    placeholder="External file URL"
+                  />
+                </div>
                 <div>
                   <Label htmlFor="accessLevel">Access Level</Label>
-                  <Select
-                    value={formData.accessLevel}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, accessLevel: value })
-                    }
-                  >
+                  <Select value={formData.accessLevel} onValueChange={(value) => setFormData({ ...formData, accessLevel: value })}>
                     <SelectTrigger>
-                      <SelectValue />
+                      <SelectValue placeholder="Select access level" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="public">Public</SelectItem>
-                      <SelectItem value="registered">
-                        Registered Only
-                      </SelectItem>
-                      <SelectItem value="approved">Approved Only</SelectItem>
+                      <SelectItem value="registered">Registered Users</SelectItem>
+                      <SelectItem value="paid">Paid Users</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-              </div>
-
-              {phases.length > 0 && (
                 <div>
-                  <Label htmlFor="phaseId">Link to Phase (Optional)</Label>
-                  <Select
-                    value={formData.phaseId}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, phaseId: value })
-                    }
-                  >
+                  <Label htmlFor="phaseId">Phase (Optional)</Label>
+                  <Select value={formData.phaseId} onValueChange={(value) => setFormData({ ...formData, phaseId: value })}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a phase" />
+                      <SelectValue placeholder="Select phase" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">No specific phase</SelectItem>
                       {phases.map((phase) => (
                         <SelectItem key={phase.id} value={phase.id}>
                           {phase.name}
@@ -307,70 +253,19 @@ export default function EventResourcesManager({
                     </SelectContent>
                   </Select>
                 </div>
-              )}
-
-              <div>
-                <Label htmlFor="file">Upload File *</Label>
-                <div className="mt-2">
-                  {formData.fileUrl ? (
-                    <div className="flex items-center gap-3 rounded-lg bg-green-50 p-3">
-                      <FileText className="h-5 w-5 text-green-600" />
-                      <span className="flex-1 text-sm">
-                        {formData.fileName}
-                      </span>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() =>
-                          setFormData({
-                            ...formData,
-                            fileUrl: "",
-                            fileName: "",
-                          })
-                        }
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="rounded-lg border-2 border-dashed border-gray-300 p-6 text-center">
-                      <input
-                        type="file"
-                        id="file"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                        disabled={uploading}
-                      />
-                      <label htmlFor="file" className="cursor-pointer">
-                        <UploadIcon className="mx-auto mb-2 h-8 w-8 text-gray-400" />
-                        <p className="text-sm text-gray-600">
-                          {uploading ? "Uploading..." : "Click to upload file"}
-                        </p>
-                        <p className="mt-1 text-xs text-gray-500">Max 10MB</p>
-                      </label>
-                    </div>
-                  )}
+                <div className="flex justify-end gap-2">
+                  <Button type="button" variant="outline" onClick={() => setShowDialog(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" disabled={uploading || !formData.fileUrl}>
+                    Add Resource
+                  </Button>
                 </div>
-              </div>
-
-              <div className="flex justify-end gap-2 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setShowDialog(false)}
-                >
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={uploading || !formData.fileUrl}>
-                  Add Resource
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
-      )}
-    </div>
+              </form>
+            </DialogContent>
+          </Dialog>
+        )}
+      </div>
 
       {/* Resources List */}
       {resources.length > 0 ? (
@@ -390,9 +285,6 @@ export default function EventResourcesManager({
                       >
                         {resource.accessLevel}
                       </span>
-                      <span className="rounded-full bg-gray-100 px-2 py-1 text-xs text-gray-700">
-                        {resource.type}
-                      </span>
                     </div>
                     {resource.description && (
                       <p className="mb-2 text-sm text-gray-600">
@@ -405,27 +297,27 @@ export default function EventResourcesManager({
                         <span>Downloads: {resource.downloadCount}</span>
                       )}
                     </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" asChild>
+                        <a
+                          href={resource.fileUrl}
+                          download
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Download className="h-4 w-4" />
+                        </a>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDelete(resource.id)}
+                        className="text-red-600 hover:text-red-700"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={resource.fileUrl}
-                      download
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Download className="h-4 w-4" />
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDelete(resource.id)}
-                    className="text-red-600 hover:text-red-700"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
                 </div>
               </div>
             </Card>

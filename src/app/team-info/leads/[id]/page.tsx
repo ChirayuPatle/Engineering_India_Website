@@ -3,13 +3,9 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { teamMembers } from "@/team-info";
 import {
-  LinkedinIcon,
-  MessageSquareHeartIcon,
   TriangleAlert,
-  ArrowLeft,
   Mail,
   Linkedin,
-  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

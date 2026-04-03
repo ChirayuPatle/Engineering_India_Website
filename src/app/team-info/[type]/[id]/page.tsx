@@ -100,7 +100,7 @@ function TeamInfoPage(): JSX.Element {
             Team Member Not Found
           </h1>
           <p className="mb-8 max-w-sm text-white/50">
-            We couldn't find the team member you're looking for.
+            We couldn&apos;t find the team member you&apos;re looking for.
           </p>
           <Button
             variant="premium"

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { Upload, X, Plus, Trash2, QrCode, Loader2 } from "lucide-react";
+import { QrCode, Loader2, X, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 
@@ -39,13 +39,6 @@ export default function EventPaymentConfig({ eventId }: { eventId: string }) {
     paymentInstructions: "",
     paymentDeadline: "",
   });
-  const [newUpiId, setNewUpiId] = useState("");
-  const [qrFile, setQrFile] = useState<File | null>(null);
-  const [qrPreview, setQrPreview] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchConfig();
-  }, [eventId]);
 
   const fetchConfig = async () => {
     try {
@@ -56,18 +49,13 @@ export default function EventPaymentConfig({ eventId }: { eventId: string }) {
           setConfig({
             paymentRequired: data.paymentRequired || false,
             amount: data.amount || "",
-            currency: data.currency || "INR",
+            currency: data.currency || "",
             upiIds: data.upiIds || [],
             qrCodeUrl: data.qrCodeUrl || null,
-            bankDetails: data.bankDetails || null,
-            paymentInstructions: data.paymentInstructions || "",
-            paymentDeadline: data.paymentDeadline
-              ? new Date(data.paymentDeadline).toISOString().slice(0, 16)
-              : "",
+            bankDetails: null,
+            paymentInstructions: "",
+            paymentDeadline: "",
           });
-          if (data.qrCodeUrl) {
-            setQrPreview(data.qrCodeUrl);
-          }
         }
       }
     } catch (error) {
@@ -76,6 +64,11 @@ export default function EventPaymentConfig({ eventId }: { eventId: string }) {
       setLoading(false);
     }
   };
+
+  const [qrFile, setQrFile] = useState<File | null>(null);
+  const [qrPreview, setQrPreview] = useState<string | null>(null);
+  const [newUpiId, setNewUpiId] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleQrUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
