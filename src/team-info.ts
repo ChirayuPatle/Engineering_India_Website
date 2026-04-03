@@ -31,16 +31,18 @@ const coreCommittee: TeamMember[] = [
     position: "College Coordinator\nCollege President",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
-    linkedin: "",
-    Email: "",
+    linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
+    Email: "samyakumathe@gmail.com",
+    bio: "I am proud to serve as the College President and College Coordinator of Engineering India. I am passionate about technology and innovation, and I am dedicated to driving the club's growth and fostering a culture of excellence.",
   },
   {
     teamId: 2,
     name: "V. S. Pavithra",
     position: "Club Head\nVice President",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/pavitthra-v-s-32478b322/",
     Email: "",
+    // bio: "Experienced project manager and web developer with a Bachelor's degree currently working as a software engineer at Red Hat. I am passionate about technology and innovation, and I am dedicated to driving the club's growth and fostering a culture of creativity and collaboration."
   },
   {
     teamId: 3,
@@ -48,8 +50,9 @@ const coreCommittee: TeamMember[] = [
     position: "Secretary & Database Head",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
-    linkedin: "",
-    Email: "",
+    linkedin: "https://www.linkedin.com/in/chirayupatle/",
+    Email: "chirayupatle2@gmail.com",
+    bio: "Passionate about technology and innovation, I'm dedicated to driving the club's growth and fostering a culture of creativity and collaboration. As Secretary & Database Head, I focus on streamlining operations and building strong connections within our community.",
   },
   {
     teamId: 4,
@@ -94,7 +97,7 @@ const coreCommittee: TeamMember[] = [
     name: "Siddheshwar Madne",
     position: "Publicity Head",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/sidhashwar-madne/",
     Email: "",
   },
   {
@@ -114,8 +117,8 @@ const coreCommittee: TeamMember[] = [
     position: "Design Head",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
-    linkedin: "",
-    Email: "",
+    linkedin: "https://www.linkedin.com/in/aarya-kothe-3887b62b5/",
+    Email: "aarryakothe2@gmail.com",
   },
   {
     teamId: 11,

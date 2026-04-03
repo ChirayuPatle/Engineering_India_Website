@@ -53,7 +53,7 @@ export default function EnhancedEventPage({
 
   useEffect(() => {
     fetchEventData();
-  }, [eventId]);
+  }, [eventId, fetchEventData]);
 
   const fetchEventData = async () => {
     try {

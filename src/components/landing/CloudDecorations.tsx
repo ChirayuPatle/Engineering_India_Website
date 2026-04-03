@@ -101,7 +101,7 @@ export default function CloudDecorations({
     }
 
     return generatedClouds;
-  }, [density]);
+  }, [density, cloudImages]);
 
   return (
     <div
