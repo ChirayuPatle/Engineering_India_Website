@@ -8,7 +8,7 @@
     "check": "next lint && tsc --noEmit",
     "dev": " next dev --turbo",
     "lint": "next lint && tsc --noEmit",
-    "lint:fix": "NODE_OPTIONS='--max-old-space-size=4096' next lint --fix",
+    "lint:fix": "next lint --fix && tsc --noEmit",
     "preview": "next build && next start",
     "start": "next start",
     "typecheck": "tsc --noEmit",

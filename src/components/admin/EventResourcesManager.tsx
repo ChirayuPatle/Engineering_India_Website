@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
@@ -41,7 +41,7 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
   const [phases, setPhases] = useState<Phase[]>([]);
   const [showDialog, setShowDialog] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [formData, setFormData] = useState<Resource>({
+  const [formData, setFormData] = useState<Partial<Resource>>({
     title: "",
     description: "",
     type: "template",
@@ -268,7 +268,8 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
       </div>
 
       {/* Resources List */}
-      {resources.length > 0 ? (
+      <div>
+        {resources.length > 0 ? (
         <div className="grid gap-4">
           {resources.map((resource) => (
             <Card key={resource.id} className="p-6">

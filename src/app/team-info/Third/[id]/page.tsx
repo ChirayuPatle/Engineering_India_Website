@@ -8,6 +8,7 @@ import {
   TriangleAlert,
   Mail,
   Linkedin,
+  ExternalLink,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
