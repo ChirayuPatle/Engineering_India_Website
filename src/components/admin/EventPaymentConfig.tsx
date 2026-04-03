@@ -27,7 +27,6 @@ interface PaymentConfig {
 }
 
 export default function EventPaymentConfig({ eventId }: { eventId: string }) {
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [config, setConfig] = useState<PaymentConfig>({
     paymentRequired: false,

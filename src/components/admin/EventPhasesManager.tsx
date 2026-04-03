@@ -45,7 +45,7 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
 
   useEffect(() => {
     fetchPhases();
-  }, [eventId]);
+  }, [eventId, fetchPhases]);
 
   const fetchPhases = async () => {
     try {
@@ -79,7 +79,7 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
       setShowDialog(false);
       resetForm();
       fetchPhases();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to save phase");
     }
   };
@@ -96,7 +96,7 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
 
       toast.success("Phase deleted!");
       fetchPhases();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to delete phase");
     }
   };
