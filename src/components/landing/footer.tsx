@@ -14,11 +14,7 @@ export default function Footer() {
           <div className="flex flex-col items-center space-y-12 text-center lg:items-start lg:text-left">
             <div className="flex items-center gap-3">
               <div className="flex h-[3.0rem] w-[3.0rem] items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
-                <img
-                  src="/logo1.png"
-                  alt="Logo"
-                  className="h-8 w-8 object-contain"
-                />
+                <div className="text-2xl font-bold text-gray-800">EI</div>
               </div>
               <h3 className="font-fraunces text-2xl font-bold text-[#1D317D]">
                 Engineering India

@@ -59,11 +59,6 @@ export default function EventResourcesManager({
     phaseId: "",
   });
 
-  useEffect(() => {
-    fetchResources();
-    fetchPhases();
-  }, [eventId]);
-
   const fetchResources = async () => {
     try {
       const response = await fetch(`/api/events/${eventId}/resources`);
@@ -116,7 +111,7 @@ export default function EventResourcesManager({
         fileName: data.filename,
       }));
       toast.success("File uploaded!");
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to upload file");
     } finally {
       setUploading(false);
@@ -144,7 +139,7 @@ export default function EventResourcesManager({
       setShowDialog(false);
       resetForm();
       fetchResources();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to add resource");
     }
   };
@@ -164,7 +159,7 @@ export default function EventResourcesManager({
 
       toast.success("Resource deleted!");
       fetchResources();
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to delete resource");
     }
   };
@@ -374,7 +369,8 @@ export default function EventResourcesManager({
             </form>
           </DialogContent>
         </Dialog>
-      </div>
+      )}
+    </div>
 
       {/* Resources List */}
       {resources.length > 0 ? (
