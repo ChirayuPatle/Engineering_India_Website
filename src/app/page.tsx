@@ -259,9 +259,7 @@ const JourneyTimeline = () => {
               variant="premium"
               className="rounded-full px-8"
             >
-              <span className="">
-                {isExpanded ? "Show Less" : "Show More"}
-              </span>
+              <span className="">{isExpanded ? "Show Less" : "Show More"}</span>
             </Button>
           </div>
         </div>
@@ -543,53 +541,55 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="w-full space-y-4 text-center sm:w-1/2 sm:text-left lg:max-w-2xl"
           >
-          <h3 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
-            About Engineering India
-          </h3>
-          <p className="text-xs leading-relaxed text-white/75 sm:text-sm md:text-base lg:text-lg">
-            A dynamic student-led organization at YCCE College, Nagpur,
-            dedicated to fostering innovation, technical excellence, and social
-            responsibility among engineering students.
-          </p>
+            <h3 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
+              About Engineering India
+            </h3>
+            <p className="text-xs leading-relaxed text-white/75 sm:text-sm md:text-base lg:text-lg">
+              A dynamic student-led organization at YCCE College, Nagpur,
+              dedicated to fostering innovation, technical excellence, and
+              social responsibility among engineering students.
+            </p>
 
-          <div className="flex flex-wrap justify-center gap-4 pt-4 sm:justify-start sm:gap-6 md:gap-8 md:pt-4">
-            <div className="text-center sm:text-left">
-              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                50+
-              </p>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                Events
-              </p>
+            <div className="flex flex-wrap justify-center gap-4 pt-4 sm:justify-start sm:gap-6 md:gap-8 md:pt-4">
+              <div className="text-center sm:text-left">
+                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                  50+
+                </p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
+                  Events
+                </p>
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                  250+
+                </p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
+                  Members
+                </p>
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
+                  8+
+                </p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
+                  Social Leads
+                </p>
+              </div>
             </div>
-            <div className="text-center sm:text-left">
-              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                250+
-              </p>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                Members
-              </p>
-            </div>
-            <div className="text-center sm:text-left">
-              <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                8+
-              </p>
-              <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                Social Leads
-              </p>
-            </div>
-          </div>
 
-          <div className="pt-2 sm:pt-4 md:pt-6">
-            <Button
-              className="group h-10 rounded-full border-white/50 px-5 font-bold text-white hover:bg-white/10"
-              variant="premium"
-              size="sm"
-            >
-              <span className="text-xs sm:text-sm md:text-base">Our Story</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </div>
-        </motion.div>
+            <div className="pt-2 sm:pt-4 md:pt-6">
+              <Button
+                className="group h-10 rounded-full border-white/50 px-5 font-bold text-white hover:bg-white/10"
+                variant="premium"
+                size="sm"
+              >
+                <span className="text-xs sm:text-sm md:text-base">
+                  Our Story
+                </span>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </div>
+          </motion.div>
 
           {/* Right Image */}
           <motion.div
@@ -597,7 +597,7 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
             viewport={{ once: true }}
-            className="w-full sm:w-1/2 flex items-center justify-center"
+            className="flex w-full items-center justify-center sm:w-1/2"
           >
             <div className="relative w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-white/10 backdrop-blur-sm">
               <img

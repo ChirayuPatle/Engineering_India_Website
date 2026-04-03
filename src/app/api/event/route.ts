@@ -8,13 +8,23 @@ export async function GET() {
     const events = await db.select().from(event);
 
     // Filter events that have actual data (not empty/null values)
-    const validEvents = events.filter(event => {
-      return event.name && 
-             event.name.trim() !== '' &&
-             (event.startDate || event.endDate || event.description || 
-              event.timeline || event.prizes || event.faqs || 
-              event.bannerImage || event.gallery || event.details || 
-              event.rules || event.location || event.category);
+    const validEvents = events.filter((event) => {
+      return (
+        event.name &&
+        event.name.trim() !== "" &&
+        (event.startDate ||
+          event.endDate ||
+          event.description ||
+          event.timeline ||
+          event.prizes ||
+          event.faqs ||
+          event.bannerImage ||
+          event.gallery ||
+          event.details ||
+          event.rules ||
+          event.location ||
+          event.category)
+      );
     });
 
     // Sort events by date (most recent first)

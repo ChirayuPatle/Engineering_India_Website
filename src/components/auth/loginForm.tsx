@@ -96,11 +96,17 @@ export function LoginForm({
 
       <div className="mt-4 text-center text-xs text-gray-500">
         By clicking continue, you agree to our{" "}
-        <Link href="/terms" className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+        <Link
+          href="/terms"
+          className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        >
           Terms of Service
         </Link>{" "}
         and{" "}
-        <Link href="/privacy" className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+        <Link
+          href="/privacy"
+          className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        >
           Privacy Policy
         </Link>
         .

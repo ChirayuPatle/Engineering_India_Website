@@ -7,6 +7,8 @@ type TeamMember = {
   Email: string;
   bio?: string;
   github?: string;
+  resume?: string;
+  department?: string;
 };
 
 type DepartmentCoordinator = {
@@ -18,6 +20,8 @@ type DepartmentCoordinator = {
   Email: string;
   bio?: string;
   github?: string;
+  position: string;
+  resume?: string;
 };
 
 const coreCommittee: TeamMember[] = [
@@ -164,6 +168,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 1,
     name: "Aliya Sayyed",
     department: "CSE",
+    position: "Departmental Coordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
@@ -172,6 +177,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 2,
     name: "Parth Dehare",
     department: "CSE AIML",
+    position: "Departmental Coordinator",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKeb4qw4TRBNfpGxchseSwoU2buA0HQ3jCVYO",
     linkedin: "https://www.linkedin.com/in/parth-dehare-b91a53293/",
@@ -183,6 +189,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 3,
     name: "Muchkundraje Thote",
     department: "AIDS",
+    position: "Departmental Coordinator",
     image:
       "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753201045/much-org-1_xp2amh.jpg",
     linkedin: "",
@@ -192,6 +199,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 4,
     name: "Piyush Meshram",
     department: "IT / CSD",
+    position: "Departmental Coordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
@@ -200,6 +208,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 5,
     name: "Saakshi Krishnani",
     department: "C-Tech",
+    position: "Departmental Coordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
@@ -208,6 +217,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 6,
     name: "Rudresh Bokade",
     department: "Mechanical",
+    position: "Departmental Coordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
@@ -216,6 +226,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 7,
     name: "Sakshi Vairagade",
     department: "ETC / VLSI / IOT / EE",
+    position: "Departmental Coordinator",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
     linkedin: "",
     Email: "",
@@ -224,6 +235,7 @@ const departmentalCoordinators: DepartmentCoordinator[] = [
     teamId: 8,
     name: "Khushi Chaudhari",
     department: "Electrical",
+    position: "Departmental Coordinator",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YOJ0VXOectmvHhMGYNVSTXoy324adFLuEADnr",
     linkedin: "https://www.linkedin.com/in/khushichaudhari",
@@ -449,8 +461,8 @@ const SecondYear: TeamMember[] = [
     name: "Samyak Umathe",
     position: "Member",
     image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
+    linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
+    Email: "samyakumathe@gmail.com",
   },
   {
     teamId: 29,
@@ -801,7 +813,7 @@ const Devlopers: TeamMember[] = [
     position: "Co-ordinator",
     image:
       "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753200516/chiryu_a91uyo.jpg",
-    linkedin: "https://www.linkedin.com/in/chirayu-patle-a78502290/",
+    linkedin: "https://www.linkedin.com/in/chirayupatle/",
     Email: "chirayupatle2@gmail.com",
   },
   {
@@ -830,4 +842,6 @@ export {
   Devlopers,
   SecondYear,
   ThirdYear,
+  type TeamMember,
+  type DepartmentCoordinator,
 };

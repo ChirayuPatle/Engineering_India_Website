@@ -129,29 +129,33 @@ export default function EditEventPage({
         try {
           // Clean up the JSON string before parsing
           const cleanedPrizes = formData.prizes
-            .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
-            .replace(/\\n/g, '\\\\n') // Fix escaped newlines
+            .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+            .replace(/\\n/g, "\\\\n") // Fix escaped newlines
             .trim();
-          
+
           const parsedPrizes = JSON.parse(cleanedPrizes);
           if (Array.isArray(parsedPrizes)) {
             parsedPrizes.forEach((prize: any, index: number) => {
-              if (typeof prize !== 'object' || prize === null) {
+              if (typeof prize !== "object" || prize === null) {
                 throw new Error(`Prize ${index + 1} must be an object`);
               }
               if (!prize.position) {
                 throw new Error(`Prize ${index + 1} missing 'position' field`);
               }
               if (!prize.description) {
-                throw new Error(`Prize ${index + 1} missing 'description' field`);
+                throw new Error(
+                  `Prize ${index + 1} missing 'description' field`,
+                );
               }
-              if (prize.amount && typeof prize.amount !== 'string') {
+              if (prize.amount && typeof prize.amount !== "string") {
                 throw new Error(`Prize ${index + 1} 'amount' must be a string`);
               }
             });
           }
         } catch (parseError) {
-          throw new Error(`Invalid prizes format: ${parseError instanceof Error ? parseError.message : 'Unknown error'}`);
+          throw new Error(
+            `Invalid prizes format: ${parseError instanceof Error ? parseError.message : "Unknown error"}`,
+          );
         }
       }
 
@@ -160,7 +164,9 @@ export default function EditEventPage({
         try {
           JSON.parse(formData.gallery);
         } catch (galleryError) {
-          throw new Error(`Invalid gallery format: ${galleryError instanceof Error ? galleryError.message : 'Unknown error'}`);
+          throw new Error(
+            `Invalid gallery format: ${galleryError instanceof Error ? galleryError.message : "Unknown error"}`,
+          );
         }
       }
 
@@ -170,15 +176,21 @@ export default function EditEventPage({
         try {
           const parsed = JSON.parse(gallery);
           // If it's a simple array of strings, convert to objects
-          if (Array.isArray(parsed) && parsed.length > 0 && typeof parsed[0] === 'string') {
-            return JSON.stringify(parsed.map((src, index) => ({
-              src,
-              alt: `Gallery image ${index + 1}`
-            })));
+          if (
+            Array.isArray(parsed) &&
+            parsed.length > 0 &&
+            typeof parsed[0] === "string"
+          ) {
+            return JSON.stringify(
+              parsed.map((src, index) => ({
+                src,
+                alt: `Gallery image ${index + 1}`,
+              })),
+            );
           }
           // If it's already in correct format, return as is
           return gallery;
-        } catch (e) {
+        } catch (_e) {
           return "[]";
         }
       };
@@ -203,7 +215,9 @@ export default function EditEventPage({
       router.push(`/admin/dashboard/events/${id}`);
     } catch (error) {
       console.error("Error updating event:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to update event");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update event",
+      );
     } finally {
       setSaving(false);
     }
@@ -286,11 +300,16 @@ export default function EditEventPage({
           <div className="grid gap-6 md:grid-cols-2">
             {/* Basic Info */}
             <div className="space-y-4 md:col-span-2">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
-              
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Basic Information
+              </h3>
+
               {/* Event Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Event Name *
                 </label>
                 <input
@@ -306,7 +325,10 @@ export default function EditEventPage({
 
               {/* Description */}
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Description
                 </label>
                 <textarea
@@ -322,7 +344,10 @@ export default function EditEventPage({
               {/* Dates */}
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
-                  <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="startDate"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Start Date *
                   </label>
                   <input
@@ -337,7 +362,10 @@ export default function EditEventPage({
                 </div>
 
                 <div>
-                  <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="endDate"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     End Date
                   </label>
                   <input
@@ -354,7 +382,10 @@ export default function EditEventPage({
               {/* Location and Category */}
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
-                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="location"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Location
                   </label>
                   <input
@@ -368,7 +399,10 @@ export default function EditEventPage({
                 </div>
 
                 <div>
-                  <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="category"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Category
                   </label>
                   <select
@@ -391,10 +425,14 @@ export default function EditEventPage({
 
             {/* Banner Image */}
             <div className="space-y-4 md:col-span-2">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Images & Media</h3>
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                Images & Media
+              </h3>
               <ImageUpload
                 value={formData.bannerImage}
-                onChange={(url) => setFormData(prev => ({ ...prev, bannerImage: url }))}
+                onChange={(url) =>
+                  setFormData((prev) => ({ ...prev, bannerImage: url }))
+                }
                 label="Banner Image"
                 placeholder="Enter banner image URL or upload new image"
               />
@@ -405,7 +443,10 @@ export default function EditEventPage({
           <div className="grid gap-6 md:grid-cols-2">
             {/* Registration Fee */}
             <div>
-              <label htmlFor="registrationFee" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="registrationFee"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Registration Fee
               </label>
               <input
@@ -424,7 +465,10 @@ export default function EditEventPage({
 
             {/* Timeline */}
             <div>
-              <label htmlFor="timeline" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="timeline"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Timeline
               </label>
               <textarea
@@ -441,7 +485,10 @@ export default function EditEventPage({
           {/* Prizes */}
           <div className="grid gap-6 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label htmlFor="prizes" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="prizes"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Prizes (JSON array)
               </label>
               <textarea
@@ -458,35 +505,53 @@ export default function EditEventPage({
                 className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <p className="mt-2 text-xs text-gray-500">
-                Format: JSON array with position, amount, and description properties
+                Format: JSON array with position, amount, and description
+                properties
               </p>
-              
+
               {/* Prizes Preview */}
               {formData.prizes && (
                 <div className="mt-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Prizes Preview:</p>
+                  <p className="mb-2 text-sm font-medium text-gray-700">
+                    Prizes Preview:
+                  </p>
                   <div className="space-y-2">
                     {(() => {
                       try {
                         const parsed = JSON.parse(formData.prizes);
-                        const prizes = Array.isArray(parsed) ? parsed.slice(0, 3) : [];
+                        const prizes = Array.isArray(parsed)
+                          ? parsed.slice(0, 3)
+                          : [];
                         return prizes.map((prize: any, index: number) => (
-                          <div key={index} className="flex items-center justify-between rounded-lg border border-gray-200 p-3 bg-gray-50">
+                          <div
+                            key={index}
+                            className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3"
+                          >
                             <div className="flex-1">
-                              <p className="font-medium text-gray-900">{prize?.position || `Prize ${index + 1}`}</p>
+                              <p className="font-medium text-gray-900">
+                                {prize?.position || `Prize ${index + 1}`}
+                              </p>
                               {prize?.description && (
-                                <p className="text-sm text-gray-600">{prize.description}</p>
+                                <p className="text-sm text-gray-600">
+                                  {prize.description}
+                                </p>
                               )}
                             </div>
                             {prize?.amount && (
                               <div className="ml-4 text-right">
-                                <p className="font-bold text-green-600">{prize.amount}</p>
+                                <p className="font-bold text-green-600">
+                                  {prize.amount}
+                                </p>
                               </div>
                             )}
                           </div>
                         ));
-                      } catch (e) {
-                        return <p className="text-sm text-red-500">Invalid JSON format</p>;
+                      } catch (_e) {
+                        return (
+                          <p className="text-sm text-red-500">
+                            Invalid JSON format
+                          </p>
+                        );
                       }
                     })()}
                   </div>
@@ -495,9 +560,13 @@ export default function EditEventPage({
                       const parsed = JSON.parse(formData.prizes);
                       const prizes = Array.isArray(parsed) ? parsed : [];
                       if (prizes.length > 3) {
-                        return <p className="text-xs text-gray-500 mt-2">Showing first 3 of {prizes.length} prizes</p>;
+                        return (
+                          <p className="mt-2 text-xs text-gray-500">
+                            Showing first 3 of {prizes.length} prizes
+                          </p>
+                        );
                       }
-                    } catch (e) {
+                    } catch (_e) {
                       return null;
                     }
                   })()}
@@ -509,7 +578,10 @@ export default function EditEventPage({
           {/* FAQs */}
           <div className="grid gap-6 md:grid-cols-2">
             <div>
-              <label htmlFor="faqs" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="faqs"
+                className="block text-sm font-medium text-gray-700"
+              >
                 FAQs (JSON array)
               </label>
               <textarea
@@ -525,7 +597,10 @@ export default function EditEventPage({
 
             {/* Gallery */}
             <div>
-              <label htmlFor="gallery" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="gallery"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Gallery Images (JSON array)
               </label>
               <textarea
@@ -538,29 +613,47 @@ export default function EditEventPage({
                 className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <p className="mt-2 text-xs text-gray-500">
-                Format: JSON array with objects containing "src" and optional "alt" properties
+                Format: JSON array with objects containing "src" and optional
+                "alt" properties
               </p>
-              
+
               {/* Gallery Preview */}
               {formData.gallery && (
                 <div className="mt-4">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Gallery Preview:</p>
+                  <p className="mb-2 text-sm font-medium text-gray-700">
+                    Gallery Preview:
+                  </p>
                   <div className="grid grid-cols-3 gap-2">
                     {(() => {
                       try {
                         const parsed = JSON.parse(formData.gallery);
-                        const images = Array.isArray(parsed) ? parsed.slice(0, 6) : [];
+                        const images = Array.isArray(parsed)
+                          ? parsed.slice(0, 6)
+                          : [];
                         return images.map((img: any, index: number) => (
-                          <div key={index} className="relative aspect-video rounded-lg overflow-hidden border border-gray-200">
+                          <div
+                            key={index}
+                            className="relative aspect-video overflow-hidden rounded-lg border border-gray-200"
+                          >
                             <img
-                              src={typeof img === 'string' ? img : img?.src || ''}
-                              alt={typeof img === 'string' ? `Gallery image ${index + 1}` : img?.alt || `Gallery image ${index + 1}`}
-                              className="w-full h-full object-cover"
+                              src={
+                                typeof img === "string" ? img : img?.src || ""
+                              }
+                              alt={
+                                typeof img === "string"
+                                  ? `Gallery image ${index + 1}`
+                                  : img?.alt || `Gallery image ${index + 1}`
+                              }
+                              className="h-full w-full object-cover"
                             />
                           </div>
                         ));
-                      } catch (e) {
-                        return <p className="col-span-3 text-sm text-red-500">Invalid JSON format</p>;
+                      } catch (_e) {
+                        return (
+                          <p className="col-span-3 text-sm text-red-500">
+                            Invalid JSON format
+                          </p>
+                        );
                       }
                     })()}
                   </div>
@@ -569,9 +662,13 @@ export default function EditEventPage({
                       const parsed = JSON.parse(formData.gallery);
                       const images = Array.isArray(parsed) ? parsed : [];
                       if (images.length > 6) {
-                        return <p className="text-xs text-gray-500 mt-2">Showing first 6 of {images.length} images</p>;
+                        return (
+                          <p className="mt-2 text-xs text-gray-500">
+                            Showing first 6 of {images.length} images
+                          </p>
+                        );
                       }
-                    } catch (e) {
+                    } catch (_e) {
                       return null;
                     }
                   })()}
@@ -582,10 +679,15 @@ export default function EditEventPage({
 
           {/* Contact Info */}
           <div className="grid gap-6 md:grid-cols-2">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 md:col-span-2">Contact Information</h3>
-            
+            <h3 className="mb-4 text-lg font-semibold text-gray-900 md:col-span-2">
+              Contact Information
+            </h3>
+
             <div>
-              <label htmlFor="organizerContact" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="organizerContact"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Organizer Contact
               </label>
               <input
@@ -599,7 +701,10 @@ export default function EditEventPage({
             </div>
 
             <div>
-              <label htmlFor="coOrganizerContact" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="coOrganizerContact"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Co-organizer Contact
               </label>
               <input
@@ -615,10 +720,15 @@ export default function EditEventPage({
 
           {/* Social Links */}
           <div className="grid gap-6 md:grid-cols-2">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 md:col-span-2">Social Links</h3>
-            
+            <h3 className="mb-4 text-lg font-semibold text-gray-900 md:col-span-2">
+              Social Links
+            </h3>
+
             <div>
-              <label htmlFor="discordLink" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="discordLink"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Discord Link
               </label>
               <input
@@ -632,7 +742,10 @@ export default function EditEventPage({
             </div>
 
             <div>
-              <label htmlFor="whatsappLink" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="whatsappLink"
+                className="block text-sm font-medium text-gray-700"
+              >
                 WhatsApp Link
               </label>
               <input
@@ -649,7 +762,10 @@ export default function EditEventPage({
           {/* Event Details */}
           <div className="grid gap-6 md:grid-cols-2">
             <div>
-              <label htmlFor="details" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="details"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Event Details
               </label>
               <textarea
@@ -663,7 +779,10 @@ export default function EditEventPage({
             </div>
 
             <div>
-              <label htmlFor="rules" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="rules"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Event Rules
               </label>
               <textarea

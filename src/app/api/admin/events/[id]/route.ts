@@ -72,15 +72,15 @@ export async function PATCH(
     if (body.rules !== undefined) updateData.rules = body.rules;
     if (body.registrationFee !== undefined)
       updateData.registrationFee = body.registrationFee;
-    
+
     // Handle JSON fields
     const cleanJsonString = (jsonString: string): string => {
       if (!jsonString) return "[]";
       try {
         // Clean up the JSON string before parsing
         return jsonString
-          .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
-          .replace(/\\n/g, '\\\\n') // Fix escaped newlines
+          .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+          .replace(/\\n/g, "\\\\n") // Fix escaped newlines
           .trim();
       } catch (e) {
         return "[]";
@@ -89,17 +89,24 @@ export async function PATCH(
 
     if (body.prizes !== undefined) {
       const cleanedPrizes = cleanJsonString(body.prizes);
-      updateData.prizes = typeof body.prizes === "string" ? cleanedPrizes : JSON.stringify(body.prizes);
+      updateData.prizes =
+        typeof body.prizes === "string"
+          ? cleanedPrizes
+          : JSON.stringify(body.prizes);
     }
     if (body.faqs !== undefined) {
       const cleanedFaqs = cleanJsonString(body.faqs);
-      updateData.faqs = typeof body.faqs === "string" ? cleanedFaqs : JSON.stringify(body.faqs);
+      updateData.faqs =
+        typeof body.faqs === "string" ? cleanedFaqs : JSON.stringify(body.faqs);
     }
     if (body.gallery !== undefined) {
       const cleanedGallery = cleanJsonString(body.gallery);
-      updateData.gallery = typeof body.gallery === "string" ? cleanedGallery : JSON.stringify(body.gallery);
+      updateData.gallery =
+        typeof body.gallery === "string"
+          ? cleanedGallery
+          : JSON.stringify(body.gallery);
     }
-    
+
     if (body.organizerContact !== undefined)
       updateData.organizerContact = body.organizerContact;
     if (body.coOrganizerContact !== undefined)
@@ -141,8 +148,11 @@ export async function PATCH(
       console.error("Database update error:", error);
       console.error("Update data:", updateData);
       return NextResponse.json(
-        { error: "Failed to update event", details: error instanceof Error ? error.message : "Unknown error" },
-        { status: 500 }
+        {
+          error: "Failed to update event",
+          details: error instanceof Error ? error.message : "Unknown error",
+        },
+        { status: 500 },
       );
     }
   } catch (error) {

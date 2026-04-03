@@ -10,7 +10,12 @@ interface ImageUploadProps {
   placeholder?: string;
 }
 
-export function ImageUpload({ value, onChange, label, placeholder = "Enter image URL or upload" }: ImageUploadProps) {
+export function ImageUpload({
+  value,
+  onChange,
+  label,
+  placeholder = "Enter image URL or upload",
+}: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,12 +23,12 @@ export function ImageUpload({ value, onChange, label, placeholder = "Enter image
     if (!file) return;
 
     setUploading(true);
-    
+
     try {
       // Create a temporary URL for preview
       const previewUrl = URL.createObjectURL(file);
       onChange(previewUrl);
-      
+
       // Here you would typically upload to your storage service
       // For now, we'll use the preview URL
       toast.success("Image uploaded successfully!");
@@ -41,9 +46,7 @@ export function ImageUpload({ value, onChange, label, placeholder = "Enter image
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-gray-700">{label}</label>
       <div className="flex gap-2">
         <input
           type="url"
@@ -58,7 +61,7 @@ export function ImageUpload({ value, onChange, label, placeholder = "Enter image
             accept="image/*,.heic,.heif"
             onChange={handleFileUpload}
             disabled={uploading}
-            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
           />
           <Button
             type="button"
@@ -68,14 +71,14 @@ export function ImageUpload({ value, onChange, label, placeholder = "Enter image
             className="pointer-events-none"
           >
             {uploading ? (
-              <div className="animate-spin h-4 w-4" />
+              <div className="h-4 w-4 animate-spin" />
             ) : (
               <Upload className="h-4 w-4" />
             )}
           </Button>
         </div>
       </div>
-      
+
       {value && (
         <div className="relative mt-2">
           <img
@@ -88,7 +91,7 @@ export function ImageUpload({ value, onChange, label, placeholder = "Enter image
             variant="destructive"
             size="sm"
             onClick={() => onChange("")}
-            className="absolute top-2 right-2"
+            className="absolute right-2 top-2"
           >
             <X className="h-4 w-4" />
           </Button>

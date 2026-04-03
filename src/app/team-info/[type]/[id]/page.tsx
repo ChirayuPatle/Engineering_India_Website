@@ -1,26 +1,27 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { useParams, useRouter } from "next/navigation";
-import { coreCommittee, departmentalCoordinators, Devlopers } from "@/team-info";
+import {
+  coreCommittee,
+  departmentalCoordinators,
+  Devlopers,
+  type TeamMember,
+} from "@/team-info";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   TriangleAlert,
-  ArrowLeft,
   Mail,
   Linkedin,
   Github,
   FileText,
   ExternalLink,
-  User,
-  Briefcase,
-  GraduationCap,
 } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+import { motion } from "motion/react";
 
 const TeamInfoPageSkeleton = () => (
   <div className="min-h-screen bg-[#0F1B40] text-white">
@@ -42,7 +43,7 @@ const TeamInfoPageSkeleton = () => (
 function TeamInfoPage(): JSX.Element {
   const { type, id } = useParams();
   const router = useRouter();
-  const [member, setMember] = useState<any>(null);
+  const [member, setMember] = useState<TeamMember | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,26 +51,30 @@ function TeamInfoPage(): JSX.Element {
       setIsLoading(true);
       try {
         await new Promise((resolve) => setTimeout(resolve, 500));
-        let foundMember = null;
+        let foundMember: TeamMember | null = null;
 
         switch (type) {
           case "leadership":
           case "secretaries":
           case "domain":
-            foundMember = coreCommittee.find((m) => m.teamId === Number(id));
+            foundMember =
+              coreCommittee.find((m) => m.teamId === Number(id)) ?? null;
             break;
           case "departmental":
-            foundMember = departmentalCoordinators.find((m) => m.teamId === Number(id));
+            foundMember =
+              departmentalCoordinators.find((m) => m.teamId === Number(id)) ??
+              null;
             break;
           case "developers":
-            foundMember = Devlopers.find((m) => m.teamId === Number(id));
+            foundMember =
+              Devlopers.find((m) => m.teamId === Number(id)) ?? null;
             break;
         }
 
         if (foundMember) {
           setMember(foundMember);
         }
-      } catch (e: any) {
+      } catch (e: unknown) {
         console.error("Failed to load member data:", e);
       } finally {
         setIsLoading(false);
@@ -109,45 +114,11 @@ function TeamInfoPage(): JSX.Element {
     );
   }
 
-  const getRoleIcon = () => {
-    switch (type) {
-      case "leadership":
-        return <User className="h-6 w-6" />;
-      case "secretaries":
-        return <Briefcase className="h-6 w-6" />;
-      case "domain":
-        return <GraduationCap className="h-6 w-6" />;
-      case "departmental":
-        return <User className="h-6 w-6" />;
-      case "developers":
-        return <GraduationCap className="h-6 w-6" />;
-      default:
-        return <User className="h-6 w-6" />;
-    }
-  };
-
-  const getRoleTitle = () => {
-    switch (type) {
-      case "leadership":
-        return "Leadership Team";
-      case "secretaries":
-        return "Secretaries";
-      case "domain":
-        return "Domain Heads";
-      case "departmental":
-        return "Departmental Coordinators";
-      case "developers":
-        return "Development Team";
-      default:
-        return "Team Member";
-    }
-  };
-
-  const getPosition = () => {
-    if (type === "departmental") {
+  const getPosition = (): string => {
+    if (type === "departmental" && member?.department) {
       return `Departmental Coordinator - ${member.department}`;
     }
-    return member.position;
+    return member?.position || "";
   };
 
   return (
@@ -165,8 +136,8 @@ function TeamInfoPage(): JSX.Element {
             <div className="absolute inset-0 rounded-full bg-[#D4EBFF] opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40" />
             <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-105 md:h-56 md:w-56">
               <Image
-                src={member.image}
-                alt={member.name}
+                src={member?.image || ""}
+                alt={member?.name || ""}
                 fill
                 className="object-cover"
                 priority
@@ -176,9 +147,9 @@ function TeamInfoPage(): JSX.Element {
 
           <div className="space-y-4">
             <h1 className="font-fraunces text-4xl font-bold text-white md:text-6xl">
-              {member.name}
+              {member?.name}
             </h1>
-            <p className="font-sans text-sm font-bold uppercase tracking-[0.3em] text-[#D4EBFF] whitespace-pre-wrap">
+            <p className="whitespace-pre-wrap font-sans text-sm font-bold uppercase tracking-[0.3em] text-[#D4EBFF]">
               {getPosition()}
             </p>
           </div>
@@ -218,19 +189,18 @@ function TeamInfoPage(): JSX.Element {
                     About
                   </h2>
                   <p className="font-sans text-lg leading-relaxed text-white/60">
-                    {member.bio || 
-                      (type === "leadership" 
+                    {member?.bio ||
+                      (type === "leadership"
                         ? "A key member of our leadership team, driving the vision and strategic direction of Engineering India."
                         : type === "secretaries"
-                        ? "An essential part of our secretarial team, ensuring smooth operations and effective communication."
-                        : type === "domain"
-                        ? "A domain expert leading technical initiatives and innovation in their specialized area."
-                        : type === "departmental"
-                        ? "A dedicated coordinator representing their department and fostering inter-departmental collaboration."
-                        : type === "developers"
-                        ? "A core developer at Engineering India, building robust digital solutions and driving technological progress."
-                        : "A valued member of the Engineering India team contributing to our mission and goals."
-                    )}
+                          ? "An essential part of our secretarial team, ensuring smooth operations and effective communication."
+                          : type === "domain"
+                            ? "A domain expert leading technical initiatives and innovation in their specialized area."
+                            : type === "departmental"
+                              ? "A dedicated coordinator representing their department and fostering inter-departmental collaboration."
+                              : type === "developers"
+                                ? "A core developer at Engineering India, building robust digital solutions and driving technological progress."
+                                : "A valued member of the Engineering India team contributing to our mission and goals.")}
                   </p>
                 </div>
               </div>
@@ -242,7 +212,7 @@ function TeamInfoPage(): JSX.Element {
                 </h2>
 
                 <div className="space-y-4">
-                  {member.linkedin && (
+                  {member?.linkedin && (
                     <Link
                       href={member.linkedin}
                       target="_blank"
@@ -262,7 +232,7 @@ function TeamInfoPage(): JSX.Element {
                     </Link>
                   )}
 
-                  {member.github && (
+                  {member?.github && (
                     <Link
                       href={member.github}
                       target="_blank"
@@ -282,7 +252,7 @@ function TeamInfoPage(): JSX.Element {
                     </Link>
                   )}
 
-                  {member.Email && (
+                  {member?.Email && (
                     <Link
                       href={`mailto:${member.Email}`}
                       className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:border-[#D4EBFF]/30"
@@ -295,13 +265,13 @@ function TeamInfoPage(): JSX.Element {
                           Email
                         </p>
                         <p className="max-w-[200px] truncate text-lg font-bold">
-                          {member.Email}
+                          {member?.Email}
                         </p>
                       </div>
                     </Link>
                   )}
 
-                  {member.resume && (
+                  {member?.resume && (
                     <Link
                       href={member.resume}
                       target="_blank"
@@ -321,11 +291,14 @@ function TeamInfoPage(): JSX.Element {
                     </Link>
                   )}
 
-                  {!member.linkedin && !member.github && !member.Email && !member.resume && (
-                    <p className="rounded-3xl border-2 border-dashed border-white/5 py-8 text-center italic text-white/40">
-                      No contact information available at the moment.
-                    </p>
-                  )}
+                  {!member?.linkedin &&
+                    !member?.github &&
+                    !member?.Email &&
+                    !member?.resume && (
+                      <p className="rounded-3xl border-2 border-dashed border-white/5 py-8 text-center italic text-white/40">
+                        No contact information available at the moment.
+                      </p>
+                    )}
                 </div>
               </div>
             </div>

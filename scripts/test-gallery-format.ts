@@ -6,21 +6,28 @@ const normalizedOld = normalizeGalleryData(oldFormat);
 console.log("Old format -> Normalized:", normalizedOld);
 
 // Test 2: Object array (new format)
-const newFormat = '[{"src": "image1.jpg", "alt": "Description 1"}, {"src": "image2.jpg", "alt": "Description 2"}]';
+const newFormat =
+  '[{"src": "image1.jpg", "alt": "Description 1"}, {"src": "image2.jpg", "alt": "Description 2"}]';
 const normalizedNew = normalizeGalleryData(newFormat);
 console.log("New format -> Normalized:", normalizedNew);
 
 // Helper function from admin page
-function normalizeGalleryData(gallery) {
+function normalizeGalleryData(gallery: string): string {
   if (!gallery) return "[]";
   try {
     const parsed = JSON.parse(gallery);
     // If it's a simple array of strings, convert to objects
-    if (Array.isArray(parsed) && parsed.length > 0 && typeof parsed[0] === 'string') {
-      return JSON.stringify(parsed.map((src, index) => ({
-        src,
-        alt: `Gallery image ${index + 1}`
-      })));
+    if (
+      Array.isArray(parsed) &&
+      parsed.length > 0 &&
+      typeof parsed[0] === "string"
+    ) {
+      return JSON.stringify(
+        parsed.map((src, index) => ({
+          src,
+          alt: `Gallery image ${index + 1}`,
+        })),
+      );
     }
     // If it's already in correct format, return as is
     return gallery;
