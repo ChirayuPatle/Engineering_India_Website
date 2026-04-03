@@ -12,6 +12,7 @@ export const event = sqliteTable("event", {
   endDate: integer("end_date", { mode: "timestamp" }),
   timeline: text("timeline"),
   prizes: text("prizes"), // JSON stringified array
+  registrationFee: text("registration_fee"), // Registration fee amount
   faqs: text("faqs"), // JSON stringified array of Q&A
   organizerContact: text("organizer_contact"),
   coOrganizerContact: text("co_organizer_contact"),

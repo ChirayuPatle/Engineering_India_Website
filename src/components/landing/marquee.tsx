@@ -1,12 +1,11 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
+import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AnnouncementMarquee() {
   const [isVisible, setIsVisible] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     // Check if user has previously dismissed the marquee
@@ -15,10 +14,6 @@ export default function AnnouncementMarquee() {
       setIsVisible(true);
     }
   }, []);
-
-  const handleClick = () => {
-    router.push("/prarambh");
-  };
 
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -32,35 +27,34 @@ export default function AnnouncementMarquee() {
       {isVisible && (
         <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-blue-700 to-blue-600 py-1 text-white sm:py-2">
           <div
-            className="animate-marquee flex cursor-pointer items-center whitespace-nowrap"
-            onClick={handleClick}
+            className="animate-marquee flex items-center whitespace-nowrap"
           >
             <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               🎉 EI YCCE Flagship Event is Here!
             </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            <Link href="/prarambh" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               🚀 Prarambh 2025 - Register Now!
-            </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            </Link>
+            <Link href="/events/hackathon" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               🏆 Hackathon 2025 - Nov 1st, 2025
-            </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            </Link>
+            <Link href="/events" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               ⚡ Limited Seats - Don't Miss Out!
-            </span>
+            </Link>
             <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
               <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
               🎉 EI YCCE Flagship Event is Here!
             </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            <Link href="/prarambh" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               🚀 Prarambh 2025 - Register Now!
-            </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            </Link>
+            <Link href="/events/hackathon" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               🏆 Hackathon 2025 - Nov 1st, 2025
-            </span>
-            <span className="mx-4 inline-flex items-center text-sm font-semibold sm:mx-8 sm:text-base md:text-lg">
+            </Link>
+            <Link href="/events" className="mx-4 inline-flex cursor-pointer items-center text-sm font-semibold hover:underline sm:mx-8 sm:text-base md:text-lg">
               ⚡ Limited Seats - Don't Miss Out!
-            </span>
+            </Link>
           </div>
           <button
             onClick={handleClose}

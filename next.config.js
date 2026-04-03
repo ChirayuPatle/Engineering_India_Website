@@ -33,6 +33,10 @@ const config = {
       },
       {
         protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
+      {
+        protocol: "https",
         hostname: "hebbkx1anhila5yf.public.blob.vercel-storage.com",
       },
       {
@@ -79,6 +83,14 @@ const config = {
       {
         protocol: "https",
         hostname: "cdn-icons-png.flaticon.com",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "tbn0.gstatic.com",
       },
     ],
   },

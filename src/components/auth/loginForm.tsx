@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
+import Link from "next/link";
 import toast from "react-hot-toast";
 
 import { useState } from "react";
@@ -95,13 +96,13 @@ export function LoginForm({
 
       <div className="mt-4 text-center text-xs text-gray-500">
         By clicking continue, you agree to our{" "}
-        <a href="#" className="underline hover:text-gray-800">
+        <Link href="/terms" className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
           Terms of Service
-        </a>{" "}
+        </Link>{" "}
         and{" "}
-        <a href="#" className="underline hover:text-gray-800">
+        <Link href="/privacy" className="underline hover:text-gray-800 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
           Privacy Policy
-        </a>
+        </Link>
         .
       </div>
     </div>

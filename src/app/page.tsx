@@ -13,6 +13,7 @@ import {
   Zap,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 const FAQItem = ({
@@ -258,7 +259,7 @@ const JourneyTimeline = () => {
               variant="premium"
               className="rounded-full px-8"
             >
-              <span className="text-white">
+              <span className="">
                 {isExpanded ? "Show Less" : "Show More"}
               </span>
             </Button>
@@ -430,6 +431,7 @@ const FeedbackSection = () => {
 const LandingPage = () => {
   const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -468,13 +470,14 @@ const LandingPage = () => {
             ENGINEERING INDIA YCCE
           </h2>
           <p className="xs:text-sm font-fraunces xs:max-w-xs mt-2 max-w-[85vw] text-xs italic tracking-tight text-white/80 sm:mt-3 sm:max-w-sm sm:text-base md:max-w-md md:text-lg lg:text-xl">
-            "Think Nationaly, Act Locally."
+            "Think Nationally, Act Locally."
           </p>
           <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
             <Button
               className="group relative z-50 h-10 px-4 font-bold sm:h-12 sm:px-6 md:px-8"
               variant="premium"
               size="xl"
+              onClick={() => router.push("/events")}
             >
               <span className="text-sm font-bold text-[#193486] sm:text-base md:text-lg">
                 Join Now
@@ -531,13 +534,15 @@ const LandingPage = () => {
         id="about"
         className="relative z-20 min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]"
       >
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="absolute left-4 right-4 top-16 z-30 space-y-4 text-center sm:right-auto sm:top-[25%] sm:w-[50%] sm:-translate-y-1/2 sm:space-y-4 sm:text-left md:left-10 md:max-w-xl md:space-y-5 lg:left-14 lg:max-w-2xl xl:left-20"
-        >
+        <div className="flex min-h-screen flex-col items-center justify-between px-4 py-16 sm:flex-row sm:px-10 lg:px-14 xl:px-20">
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="w-full space-y-4 text-center sm:w-1/2 sm:text-left lg:max-w-2xl"
+          >
           <h3 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
             About Engineering India
           </h3>
@@ -586,34 +591,34 @@ const LandingPage = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          style={{ y: fortY }}
-          className="absolute bottom-[10%] right-[-10%] z-20 h-full w-[100%] sm:right-0 sm:w-[55%] md:w-[50%] lg:w-[52%]"
-        >
+          {/* Right Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, rotate: 2 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 1 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2 }}
-            className="absolute bottom-20 right-4 aspect-[4/3] w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-white/10 backdrop-blur-sm sm:right-8 md:right-12 lg:right-20"
+            viewport={{ once: true }}
+            className="w-full sm:w-1/2 flex items-center justify-center"
           >
-            <img
-              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&h=600&fit=crop"
-              className="h-full w-full object-cover"
-              alt="Engineering India Team"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <div className="relative w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-white/10 backdrop-blur-sm">
+              <img
+                src="/landing/about.png"
+                className="h-full w-full object-cover"
+                alt="Engineering India Team"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            </div>
           </motion.div>
+        </div>
 
-          <div
-            className="pointer-events-none absolute -bottom-8 -right-[50%] z-10 h-48 sm:-bottom-10 sm:h-56 md:h-64 lg:h-72 xl:h-80"
-            style={{
-              background:
-                "linear-gradient(to top, #6183B1 0%, #6183B1 40%, transparent 100%)",
-              left: "-100vw",
-              width: "200vw",
-            }}
-          />
-        </motion.div>
+        <div
+          className="pointer-events-none absolute -bottom-8 -right-[50%] z-10 h-48 sm:-bottom-10 sm:h-56 md:h-64 lg:h-72 xl:h-80"
+          style={{
+            background:
+              "linear-gradient(to top, #6183B1 0%, #6183B1 40%, transparent 100%)",
+            left: "-100vw",
+            width: "200vw",
+          }}
+        />
       </div>
 
       {/* ========== BENTO GRID EVENTS SECTION ========== */}

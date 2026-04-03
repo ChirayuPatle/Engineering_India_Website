@@ -70,6 +70,36 @@ export async function PATCH(
     if (body.timeline !== undefined) updateData.timeline = body.timeline;
     if (body.details !== undefined) updateData.details = body.details;
     if (body.rules !== undefined) updateData.rules = body.rules;
+    if (body.registrationFee !== undefined)
+      updateData.registrationFee = body.registrationFee;
+    
+    // Handle JSON fields
+    const cleanJsonString = (jsonString: string): string => {
+      if (!jsonString) return "[]";
+      try {
+        // Clean up the JSON string before parsing
+        return jsonString
+          .replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // Remove control characters
+          .replace(/\\n/g, '\\\\n') // Fix escaped newlines
+          .trim();
+      } catch (e) {
+        return "[]";
+      }
+    };
+
+    if (body.prizes !== undefined) {
+      const cleanedPrizes = cleanJsonString(body.prizes);
+      updateData.prizes = typeof body.prizes === "string" ? cleanedPrizes : JSON.stringify(body.prizes);
+    }
+    if (body.faqs !== undefined) {
+      const cleanedFaqs = cleanJsonString(body.faqs);
+      updateData.faqs = typeof body.faqs === "string" ? cleanedFaqs : JSON.stringify(body.faqs);
+    }
+    if (body.gallery !== undefined) {
+      const cleanedGallery = cleanJsonString(body.gallery);
+      updateData.gallery = typeof body.gallery === "string" ? cleanedGallery : JSON.stringify(body.gallery);
+    }
+    
     if (body.organizerContact !== undefined)
       updateData.organizerContact = body.organizerContact;
     if (body.coOrganizerContact !== undefined)
@@ -85,41 +115,36 @@ export async function PATCH(
 
     // Handle date fields - convert to Date objects for Drizzle
     if (body.startDate) {
-      updateData.startDate = new Date(body.startDate);
+      // Check if it's already a Date object or ISO string
+      const date = new Date(body.startDate);
+      updateData.startDate = isNaN(date.getTime()) ? null : date;
     }
     if (body.endDate) {
-      updateData.endDate = new Date(body.endDate);
+      // Check if it's already a Date object or ISO string
+      const date = new Date(body.endDate);
+      updateData.endDate = isNaN(date.getTime()) ? null : date;
     }
 
-    // Handle JSON fields
-    if (body.prizes !== undefined) {
-      updateData.prizes =
-        typeof body.prizes === "string"
-          ? body.prizes
-          : JSON.stringify(body.prizes);
-    }
-    if (body.faqs !== undefined) {
-      updateData.faqs =
-        typeof body.faqs === "string" ? body.faqs : JSON.stringify(body.faqs);
-    }
-    if (body.gallery !== undefined) {
-      updateData.gallery =
-        typeof body.gallery === "string"
-          ? body.gallery
-          : JSON.stringify(body.gallery);
-    }
+    try {
+      const updatedEvent = await db
+        .update(event)
+        .set(updateData)
+        .where(eq(event.id, id))
+        .returning();
 
-    const updatedEvent = await db
-      .update(event)
-      .set(updateData)
-      .where(eq(event.id, id))
-      .returning();
+      if (updatedEvent.length === 0) {
+        return NextResponse.json({ error: "Event not found" }, { status: 404 });
+      }
 
-    if (updatedEvent.length === 0) {
-      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+      return NextResponse.json(updatedEvent[0]);
+    } catch (error) {
+      console.error("Database update error:", error);
+      console.error("Update data:", updateData);
+      return NextResponse.json(
+        { error: "Failed to update event", details: error instanceof Error ? error.message : "Unknown error" },
+        { status: 500 }
+      );
     }
-
-    return NextResponse.json(updatedEvent[0]);
   } catch (error) {
     console.error("Error updating event:", error);
     return NextResponse.json(

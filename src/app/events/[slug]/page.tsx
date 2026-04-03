@@ -28,6 +28,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface Prize {
   position: string;
   description: string;
+  amount?: string;
   value?: string;
 }
 
@@ -362,8 +363,13 @@ export default function EventPage() {
                                 <p className="mb-4 text-white/60">
                                   {prize.description}
                                 </p>
+                                {prize.amount && (
+                                  <div className="text-2xl font-bold text-[#00C853]">
+                                    {prize.amount}
+                                  </div>
+                                )}
                                 {prize.value && (
-                                  <div className="text-3xl font-bold text-[#D4EBFF]">
+                                  <div className="text-2xl font-bold text-[#D4EBFF]">
                                     {prize.value}
                                   </div>
                                 )}
@@ -429,6 +435,11 @@ export default function EventPage() {
                                   }
                                   fill
                                   className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                  onError={(e) => {
+                                    // Fallback for HEIC if not supported
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = '/notfound.svg';
+                                  }}
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity group-hover:opacity-100">
                                   <ImageIcon className="h-8 w-8 text-white" />
@@ -495,7 +506,7 @@ export default function EventPage() {
                   <div className="flex items-center justify-between rounded-2xl bg-white/5 p-4">
                     <span className="font-sans text-white/60">Entry Fee</span>
                     <span className="text-xl font-bold text-[#D4EBFF]">
-                      {event.price === 0 ? "FREE" : `₹${event.price}`}
+                      {!(event as any).registrationFee || (event as any).registrationFee === "0" ? "FREE" : `₹${(event as any).registrationFee}`}
                     </span>
                   </div>
                   {parsedPrizes.length > 0 && parsedPrizes[0]?.value && (

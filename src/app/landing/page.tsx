@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useScroll, useTransform, motion } from "motion/react";
 import { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2, CheckCircle } from "lucide-react";
@@ -415,7 +416,7 @@ const FeedbackSection = () => {
                 type="submit"
                 variant="premium"
                 disabled={isLoading}
-                className="h-12 w-full rounded-xl bg-white font-bold transition-all disabled:opacity-50"
+                className="h-12 w-full rounded-xl font-bold transition-all disabled:opacity-50"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -434,6 +435,7 @@ const FeedbackSection = () => {
 const LandingPage = () => {
   const containerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -472,13 +474,14 @@ const LandingPage = () => {
             ENGINEERING INDIA YCCE
           </h2>
           <p className="xs:text-sm font-fraunces xs:max-w-xs mt-2 max-w-[85vw] text-xs italic tracking-tight text-white/80 sm:mt-3 sm:max-w-sm sm:text-base md:max-w-md md:text-lg lg:text-xl">
-            "Think Nationaly, Act Locally."
+            "Think Nationally, Act Locally."
           </p>
           <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
             <Button
               className="group relative z-50 h-10 px-4 font-bold sm:h-12 sm:px-6 md:px-8"
               variant="premium"
               size="xl"
+              onClick={() => router.push("/events")}
             >
               <span className="text-sm font-bold text-[#193486] sm:text-base md:text-lg">
                 Join Now
@@ -583,6 +586,7 @@ const LandingPage = () => {
               className="group h-10 rounded-full border-white/50 px-5 font-bold text-white hover:bg-white/10"
               variant="premium"
               size="sm"
+              onClick={() => router.push("/about")}
             >
               <span className="text-xs sm:text-sm md:text-base">Our Story</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -987,7 +991,8 @@ const LandingPage = () => {
               <div className="mt-12">
                 <Button
                   variant="premium"
-                  className="group flex items-center gap-2 rounded-full bg-white px-8 py-5 text-sm font-bold text-[#1D317D] transition-all duration-300 hover:scale-105 hover:bg-[#FCFAF2] active:scale-95"
+                  className="group flex items-center gap-2 rounded-full px-8 py-5 text-sm font-bold text-[#1D317D] transition-all duration-300 hover:scale-105 active:scale-95"
+                  onClick={() => router.push("/auth")}
                 >
                   Join the Club
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

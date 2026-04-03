@@ -1,5 +1,6 @@
 import HTMLFlipBook from "react-pageflip";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 function magzine() {
   const magazinePages = [
@@ -62,11 +63,19 @@ function magzine() {
           {" "}
           <div className="flex h-[95%] w-full flex-col items-center justify-center rounded-br-xl rounded-tr-xl border-2 bg-zinc-300">
             <h1 className="text-xl">Check out our full Magazine here</h1>
-            <a href="https://drive.google.com/file/d/1WMluuxtqOV73IiqzbUaA_4Fb7wm2WN6h/view?usp=drivesdk">
-              <button className="hover:blue-200 mt-2 rounded-xl bg-zinc-400 px-2 py-2">
-                Click!!{" "}
-              </button>
-            </a>
+            <Button
+              variant="premium"
+              className="mt-2"
+              onClick={() =>
+                window.open(
+                  "https://drive.google.com/file/d/1WMluuxtqOV73IiqzbUaA_4Fb7wm2WN6h/view?usp=drivesdk",
+                  "_blank",
+                  "noopener,noreferrer",
+                )
+              }
+            >
+              View Full Magazine
+            </Button>
           </div>{" "}
         </div>
       </HTMLFlipBook>
