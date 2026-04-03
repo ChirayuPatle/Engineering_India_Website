@@ -6,11 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { authClient } from "@/lib/auth-client";
 import {
-  ArrowRight,
   CheckCircle,
-  ClipboardCheck,
   Loader2,
-  Zap,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRouter } from "next/navigation";

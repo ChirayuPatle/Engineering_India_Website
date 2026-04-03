@@ -4,7 +4,7 @@ import { event } from "@/database/schema";
 import { requireAdmin } from "@/lib/auth-helpers";
 import { v4 as uuid } from "uuid";
 
-export async function POST(_req: NextRequest) {
+export async function POST() {
   // Check admin authentication
   const authResult = await requireAdmin();
   if (!authResult.authorized || !authResult.user) {

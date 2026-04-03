@@ -47,11 +47,11 @@ export default function AboutPage() {
             About <span className="text-[#D4EBFF]">{siteConfig.name}</span>{" "}
             <br />
             <span className="text-2xl font-normal text-[#D4EBFF] md:text-4xl">
-              at YCCE
+              &quot;at YCCE&quot;
             </span>
           </h1>
           <p className="mx-auto max-w-xl font-sans text-white/70">
-            "Engineering India is not just a club but a thought process."
+            &quot;Engineering India is not just a club but a thought process.&quot;
           </p>
         </motion.div>
         <FloatingCloud
