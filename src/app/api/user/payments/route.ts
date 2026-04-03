@@ -40,7 +40,7 @@ export async function GET(req: Request) {
 
     const conditions = [baseCondition, statusCondition].filter(
       Boolean,
-    ) as any[];
+    ) as (typeof baseCondition | typeof statusCondition)[];
 
     const userPayments = await db.query.payment.findMany({
       where: and(...conditions),
