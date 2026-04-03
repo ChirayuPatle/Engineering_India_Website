@@ -82,25 +82,6 @@ const eventsData = [
     category: "Educational/Workshop",
   },
   {
-    name: "ABHYUDAYA 25.0 Hackathon",
-    description:
-      "Central India's biggest hackathon held at IIIT Nagpur to foster innovation and practical IT skills.",
-    startDate: "2026-02-01T07:00:00Z",
-    endDate: "2026-02-01T18:00:00Z",
-    timeline: "7:00 AM to 6:00 PM",
-    prizes: '["Prize Pool: ₹21,000", "Industry Verified Certificates"]',
-    faqs: "[]",
-    organizerContact: "Yashpal Chandewar (7821903083)",
-    coOrganizerContact: "Priyanshu Kayarkar (7559425066)",
-    bannerImage: "Abhyudaya_Hackathon_Poster",
-    gallery: '["IIITN_Hackathon_Floor"]',
-    details:
-      "Part of Abhyudaya 25.0. 600+ Participants. Evaluated by alumni and HCL members.",
-    rules: "Team size 3-5. Entry fee ₹500 (includes lunch).",
-    location: "Indian Institute of Information Technology (IIITN), Nagpur",
-    category: "Technical/Hackathon",
-  },
-  {
     name: "Donation Drive",
     description:
       "Social initiative to support underprivileged children from orphanages and blind schools.",
