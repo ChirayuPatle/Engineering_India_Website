@@ -205,7 +205,7 @@ const JourneyTimeline = () => {
     <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#4F6D9A] to-[#3D5783] px-4 py-20 sm:px-6 md:px-8">
       <div className="container mx-auto max-w-5xl">
         <div className="mb-12 text-center md:text-left">
-          <h3 className="font-fraunces mb-3 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
+          <h3 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
             Our Journey
           </h3>
           <p className="mx-auto max-w-xl text-xs leading-relaxed text-white/60 sm:text-sm md:mx-0">
@@ -234,7 +234,7 @@ const JourneyTimeline = () => {
                   <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-[#D4EBFF]/60">
                     {event.year}
                   </span>
-                  <h3 className="font-fraunces mb-2 text-lg font-medium text-white transition-colors md:text-xl">
+                  <h3 className="mb-2 font-fraunces text-lg font-medium text-white transition-colors md:text-xl">
                     {event.title}
                   </h3>
                   <p className="max-w-xl font-sans text-xs leading-relaxed text-white/60 md:text-sm">
@@ -333,7 +333,7 @@ const FeedbackSection = () => {
     <div className="relative z-20 w-full bg-[#0F1B40] px-4 py-20 sm:px-6 md:px-8">
       <div className="container mx-auto max-w-xl">
         <div className="mb-10 text-center md:mb-12">
-          <h2 className="font-fraunces mb-4 text-3xl font-semibold text-white md:text-4xl">
+          <h2 className="mb-4 font-fraunces text-3xl font-semibold text-white md:text-4xl">
             Share Your Feedback
           </h2>
           <p className="mx-auto max-w-md font-sans text-xs text-white/60 md:text-sm">
@@ -350,7 +350,7 @@ const FeedbackSection = () => {
               className="flex flex-col items-center justify-center py-10"
             >
               <CheckCircle className="mb-6 h-16 w-16 text-green-400" />
-              <h3 className="font-fraunces mb-2 text-2xl font-bold text-white">
+              <h3 className="mb-2 font-fraunces text-2xl font-bold text-white">
                 Thank You!
               </h3>
               <p className="text-center text-white/60">
@@ -471,10 +471,10 @@ const LandingPage = () => {
     <div ref={containerRef} className="relative w-full overflow-hidden">
       <div className="relative z-10 min-h-screen w-full bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#C6B8CC]">
         <div className="relative z-50 flex min-h-screen flex-col items-center justify-center px-4 pb-20 text-center text-white sm:mb-0 sm:px-6 md:px-8">
-          <h2 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight sm:max-w-none sm:text-4xl">
+          <h2 className="xxs:text-3xl xs:text-4xl max-w-[90vw] font-fraunces text-2xl font-semibold leading-tight sm:max-w-none sm:text-4xl">
             ENGINEERING INDIA YCCE
           </h2>
-          <p className="xs:text-sm font-fraunces xs:max-w-xs mt-2 max-w-[85vw] text-xs italic tracking-tight text-white/80 sm:mt-3 sm:max-w-sm sm:text-base md:max-w-md md:text-lg lg:text-xl">
+          <p className="xs:text-sm xs:max-w-xs mt-2 max-w-[85vw] font-fraunces text-xs italic tracking-tight text-white/80 sm:mt-3 sm:max-w-sm sm:text-base md:max-w-md md:text-lg lg:text-xl">
             "Think Nationally, Act Locally."
           </p>
           <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
@@ -496,7 +496,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      
+
       <motion.div
         style={{
           x: cloudX,
@@ -548,7 +548,7 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="w-full space-y-4 text-center sm:w-1/2 sm:text-left lg:max-w-2xl"
           >
-            <h3 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
+            <h3 className="xxs:text-3xl xs:text-4xl max-w-[90vw] font-fraunces text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
               About Engineering India
             </h3>
             <p className="text-xs leading-relaxed text-white/75 sm:text-sm md:text-base lg:text-lg">
@@ -635,7 +635,7 @@ const LandingPage = () => {
       >
         <div className="container mx-auto max-w-5xl">
           <div className="mb-10 text-center md:mb-12">
-            <h3 className="font-fraunces mb-3 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
+            <h3 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
               Our Events
             </h3>
             <p className="mx-auto max-w-xl px-4 text-xs leading-relaxed text-white/60 sm:text-sm">
@@ -761,10 +761,10 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="mb-12 text-center"
           >
-            <h2 className="font-fraunces mb-3 px-4 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
+            <h2 className="mb-3 px-4 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
               Here's how it works:
             </h2>
-            <p className="font-fraunces mx-auto max-w-xl px-6 text-sm italic tracking-tight text-white/80 sm:text-base">
+            <p className="mx-auto max-w-xl px-6 font-fraunces text-sm italic tracking-tight text-white/80 sm:text-base">
               At Engineering India, we believe learning begins with engagement.
             </p>
           </motion.div>
@@ -779,7 +779,7 @@ const LandingPage = () => {
               className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#1D317D] p-6 pb-0 transition-transform hover:scale-[1.02]"
             >
               <div>
-                <h3 className="font-fraunces mb-3 text-xl font-medium text-white">
+                <h3 className="mb-3 font-fraunces text-xl font-medium text-white">
                   1. Discovery
                 </h3>
                 <p className="mb-6 font-sans text-xs leading-relaxed text-white/70">
@@ -805,7 +805,7 @@ const LandingPage = () => {
               className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#FCFAF2] p-6 transition-transform hover:scale-[1.02]"
             >
               <div>
-                <h3 className="font-fraunces mb-3 text-xl font-medium text-[#1D317D]">
+                <h3 className="mb-3 font-fraunces text-xl font-medium text-[#1D317D]">
                   2. Peer Mentorship
                 </h3>
                 <p className="mb-6 font-sans text-xs leading-relaxed text-[#1D317D]/70">
@@ -815,7 +815,7 @@ const LandingPage = () => {
 
                 <div className="space-y-4">
                   <div className="border-l-2 border-[#1D317D]/10 pl-3">
-                    <p className="font-fraunces mb-1 text-3xl font-bold leading-none text-[#1D317D]">
+                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-[#1D317D]">
                       20+
                     </p>
                     <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#1D317D]/40">
@@ -823,7 +823,7 @@ const LandingPage = () => {
                     </p>
                   </div>
                   <div className="border-l-2 border-[#1D317D]/10 pl-3">
-                    <p className="font-fraunces mb-1 text-3xl font-bold leading-none text-[#1D317D]">
+                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-[#1D317D]">
                       50+
                     </p>
                     <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#1D317D]/40">
@@ -850,7 +850,7 @@ const LandingPage = () => {
               className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#1D317D] p-6 transition-transform hover:scale-[1.02]"
             >
               <div className="mb-0">
-                <h3 className="font-fraunces mb-3 text-xl font-medium text-white">
+                <h3 className="mb-3 font-fraunces text-xl font-medium text-white">
                   3. Skill Building
                 </h3>
                 <p className="mb-6 font-sans text-xs leading-relaxed text-white/70">
@@ -860,7 +860,7 @@ const LandingPage = () => {
               </div>
 
               <div className="mt-auto">
-                <p className="font-fraunces mb-3 text-5xl font-bold leading-none text-white">
+                <p className="mb-3 font-fraunces text-5xl font-bold leading-none text-white">
                   +98%
                 </p>
                 <p className="text-sm font-medium text-white/70">
@@ -893,7 +893,7 @@ const LandingPage = () => {
       <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#2B416C] to-[#1D317D] px-4 py-20 sm:px-6 md:px-8">
         <div className="container mx-auto max-w-5xl">
           <div className="mb-12 text-center md:text-left">
-            <h2 className="font-fraunces mb-3 text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
+            <h2 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
               How we can help you
             </h2>
             <p className="mx-auto max-w-xl px-4 font-sans text-xs text-white/60 sm:text-sm md:mx-0 md:px-0 md:text-base">
@@ -951,7 +951,7 @@ const LandingPage = () => {
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
-              <h2 className="font-fraunces mb-6 text-3xl font-semibold leading-tight text-white md:text-4xl">
+              <h2 className="mb-6 font-fraunces text-3xl font-semibold leading-tight text-white md:text-4xl">
                 No more confusion, or missed opportunities.
               </h2>
               <p className="mb-10 max-w-lg font-sans text-sm leading-relaxed text-white/70">
@@ -966,7 +966,7 @@ const LandingPage = () => {
                     <ClipboardCheck className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-fraunces mb-1 text-lg font-medium text-white">
+                    <h4 className="mb-1 font-fraunces text-lg font-medium text-white">
                       Resources & Benefits
                     </h4>
                     <p className="font-sans text-xs leading-relaxed text-white/60">
@@ -981,7 +981,7 @@ const LandingPage = () => {
                     <Zap className="h-5 w-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-fraunces mb-1 text-lg font-medium text-white">
+                    <h4 className="mb-1 font-fraunces text-lg font-medium text-white">
                       Projects & Certifications
                     </h4>
                     <p className="font-sans text-xs leading-relaxed text-white/60">
@@ -1028,29 +1028,31 @@ const LandingPage = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-12 text-center"
           >
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-6">
-              <Zap className="w-5 h-5 text-yellow-400" />
-              <span className="text-sm font-semibold text-white">Upcoming Event</span>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 backdrop-blur-sm">
+              <Zap className="h-5 w-5 text-yellow-400" />
+              <span className="text-sm font-semibold text-white">
+                Upcoming Event
+              </span>
             </div>
-            <h2 className="font-fraunces text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            <h2 className="mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text font-fraunces text-4xl font-black text-transparent md:text-6xl">
               VIBE-A-THON
             </h2>
-            <p className="text-xl md:text-2xl font-bold mb-4 text-purple-200">
+            <p className="mb-4 text-xl font-bold text-purple-200 md:text-2xl">
               Code the Vibe. Own the Era.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
-                <Calendar className="w-5 h-5 text-purple-400" />
+            <div className="mb-8 flex flex-wrap justify-center gap-4">
+              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 backdrop-blur-sm">
+                <Calendar className="h-5 w-5 text-purple-400" />
                 <span className="text-white">9th April 2026</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
-                <Clock className="w-5 h-5 text-purple-400" />
+              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 backdrop-blur-sm">
+                <Clock className="h-5 w-5 text-purple-400" />
                 <span className="text-white">3 Hours</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
-                <Trophy className="w-5 h-5 text-purple-400" />
+              <div className="flex items-center gap-2 rounded-lg bg-white/10 px-4 py-2 backdrop-blur-sm">
+                <Trophy className="h-5 w-5 text-purple-400" />
                 <span className="text-white">₹2000 Prize Pool</span>
               </div>
             </div>
@@ -1061,28 +1063,38 @@ const LandingPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+            className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3"
           >
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-white" />
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600">
+                <Users className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-white">Teams of 2</h3>
-              <p className="text-purple-200">Gather your partner and register together</p>
+              <h3 className="mb-2 text-xl font-bold text-white">Teams of 2</h3>
+              <p className="text-purple-200">
+                Gather your partner and register together
+              </p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wand2 className="w-8 h-8 text-white" />
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600">
+                <Wand2 className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-white">AI Tools Allowed</h3>
-              <p className="text-purple-200">Use Cursor, Bolt, Claude, and any AI tools</p>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                AI Tools Allowed
+              </h3>
+              <p className="text-purple-200">
+                Use Cursor, Bolt, Claude, and any AI tools
+              </p>
             </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Code className="w-8 h-8 text-white" />
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-pink-600">
+                <Code className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-white">Build & Present</h3>
-              <p className="text-purple-200">Create a working prototype and present via PPT</p>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                Build & Present
+              </h3>
+              <p className="text-purple-200">
+                Create a working prototype and present via PPT
+              </p>
             </div>
           </motion.div>
 
@@ -1095,8 +1107,8 @@ const LandingPage = () => {
           >
             <Button
               variant="premium"
-              className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 active:scale-95 mx-auto"
-              onClick={() => window.location.href = "/vibeathon"}
+              className="group mx-auto flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 active:scale-95"
+              onClick={() => (window.location.href = "/vibeathon")}
             >
               Register Now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

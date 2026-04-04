@@ -1,4 +1,4 @@
-import { getTeamMemberData, type TeamMemberData } from './team-database';
+import { getTeamMemberData, type TeamMemberData } from "./team-database";
 
 type TeamMember = {
   name: string;
@@ -27,7 +27,12 @@ type DepartmentCoordinator = {
 };
 
 // Helper function to create team member with consistent data
-function createTeamMember(name: string, position: string, teamId: number, overrides?: Partial<TeamMemberData>): TeamMember {
+function createTeamMember(
+  name: string,
+  position: string,
+  teamId: number,
+  overrides?: Partial<TeamMemberData>,
+): TeamMember {
   const data = getTeamMemberData(name);
   return {
     teamId,
@@ -44,7 +49,12 @@ function createTeamMember(name: string, position: string, teamId: number, overri
   };
 }
 
-function createDepartmentCoordinator(name: string, department: string, teamId: number, overrides?: Partial<TeamMemberData>): DepartmentCoordinator {
+function createDepartmentCoordinator(
+  name: string,
+  department: string,
+  teamId: number,
+  overrides?: Partial<TeamMemberData>,
+): DepartmentCoordinator {
   const data = getTeamMemberData(name);
   return {
     teamId,
@@ -62,7 +72,11 @@ function createDepartmentCoordinator(name: string, department: string, teamId: n
 }
 
 const coreCommittee: TeamMember[] = [
-  createTeamMember("Samyak Umathe", "College Coordinator\nCollege President", 1),
+  createTeamMember(
+    "Samyak Umathe",
+    "College Coordinator\nCollege President",
+    1,
+  ),
   createTeamMember("V. S. Pavithra", "Club Head\nVice President", 2),
   createTeamMember("Chirayu Patle", "Secretary & Database Head", 3),
   createTeamMember("Shailaija Patle", "Secretary & Event Management Head", 4),

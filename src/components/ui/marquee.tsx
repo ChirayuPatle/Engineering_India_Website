@@ -1,35 +1,39 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface MarqueeProps {
   children: React.ReactNode;
   className?: string;
-  speed?: 'slow' | 'normal' | 'fast';
+  speed?: "slow" | "normal" | "fast";
 }
 
-export function Marquee({ children, className = '', speed = 'normal' }: MarqueeProps) {
+export function Marquee({
+  children,
+  className = "",
+  speed = "normal",
+}: MarqueeProps) {
   const speedMap = {
-    slow: '40s',
-    normal: '20s',
-    fast: '10s'
+    slow: "40s",
+    normal: "20s",
+    fast: "10s",
   };
 
   return (
     <div className={`relative overflow-hidden whitespace-nowrap ${className}`}>
-      <div 
-        className="inline-block animate-marquee"
+      <div
+        className="animate-marquee inline-block"
         style={{
           animation: `marquee ${speedMap[speed]} linear infinite`,
         }}
       >
         {children}
       </div>
-      <div 
-        className="inline-block animate-marquee"
+      <div
+        className="animate-marquee inline-block"
         style={{
           animation: `marquee ${speedMap[speed]} linear infinite`,
-          animationDelay: '10s',
+          animationDelay: "10s",
         }}
       >
         {children}

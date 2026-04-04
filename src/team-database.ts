@@ -16,59 +16,69 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   // Core Committee Members
   "Samyak Umathe": {
     name: "Samyak Umathe",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yxs8hweLapZLNdSFOi1eyCwz342kPKltEIQr0",
     linkedin: "https://www.linkedin.com/in/samyak-umathe-9b8a6a295/",
     Email: "samyakumathe@gmail.com",
     bio: "I am proud to serve as the College President and College Coordinator of Engineering India. I am passionate about technology and innovation, and I am dedicated to driving the club's growth and fostering a culture of excellence.",
   },
   "V. S. Pavithra": {
     name: "V. S. Pavithra",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKovKBDTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKovKBDTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
     linkedin: "https://www.linkedin.com/in/pavitthra-v-s-32478b322/",
     Email: "",
   },
   "Chirayu Patle": {
     name: "Chirayu Patle",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKmvvV1TRBNfpGxchseSwoU2buA0HQ3jCVYOP",
     linkedin: "https://www.linkedin.com/in/chirayupatle/",
     Email: "chirayupatle2@gmail.com",
     bio: "Passionate about technology and innovation, I'm dedicated to driving the club's growth and fostering a culture of creativity and collaboration. As Secretary & Database Head, I focus on streamlining operations and building strong connections within our community.",
   },
   "Shailaija Patle": {
     name: "Shailaija Patle",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YXpW7RnMNk4ohSiMGKTxj9CpfcPyez0JaB87r",
-    linkedin: "https://www.linkedin.com/in/shailaja-patle-967971289?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YXpW7RnMNk4ohSiMGKTxj9CpfcPyez0JaB87r",
+    linkedin:
+      "https://www.linkedin.com/in/shailaja-patle-967971289?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     Email: "shailajapatle17@gmail.com",
     bio: "Grateful (and super excited!) to serve as the Event Management Head at the Engineering India Club. From brainstorming fun ideas to turning them into successful events, I love being part of every step — planning, organizing, and making sure everything runs smoothly. I enjoy bringing people together, creating memorable experiences, and adding a little extra energy to every event. For me, it's all about teamwork, good vibes, and making each club activity better than the last!",
   },
   "Mansi Jalandhar": {
     name: "Mansi Jalandhar",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YBUmcB9dX07nFuGgApY3LIbBDVxsaiEWvk4qN",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YBUmcB9dX07nFuGgApY3LIbBDVxsaiEWvk4qN",
     linkedin: "",
     Email: "",
   },
   "Priyanshu Kayarkar": {
     name: "Priyanshu Kayarkar",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://linkedin.com/in/priyanshukayarkar",
     Email: "priyanshudotdev@gmail.com",
     bio: "Person who love's to build stuff.",
   },
   "Harsh Kapte": {
     name: "Harsh Kapte",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YRH9jwebsECkVBO3tDbHI2PpL7mWqcvT1N6KG",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YRH9jwebsECkVBO3tDbHI2PpL7mWqcvT1N6KG",
     linkedin: "",
     Email: "",
   },
   "Siddheshwar Madne": {
     name: "Siddheshwar Madne",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YSXDGuPZyCJH4Ua8uPBSgrmMOknAQEtLKY7cN",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YSXDGuPZyCJH4Ua8uPBSgrmMOknAQEtLKY7cN",
     linkedin: "https://www.linkedin.com/in/sidhashwar-madne/",
     Email: "",
   },
   "Ishika Lanjewar": {
     name: "Ishika Lanjewar",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YvJsTwjcOBfKwjtA7i6CNnraLcWTPvEsD0JMH",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YvJsTwjcOBfKwjtA7i6CNnraLcWTPvEsD0JMH",
     linkedin: "https://www.linkedin.com/in/ishika-lanjewar-59465b359",
     Email: "lanjewarishika@gmail.com",
     github: "https://github.com/account",
@@ -76,13 +86,15 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "Aarya Kothe": {
     name: "Aarya Kothe",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Yg1eRy3FTq1JW2LQ8ZiVj3bh0NczFX7KGso9w",
     linkedin: "https://www.linkedin.com/in/aarya-kothe-3887b62b5/",
     Email: "aarryakothe2@gmail.com",
   },
   "Om Ingle": {
     name: "Om Ingle",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YPxqMonHWc4F8GNPCblUYokEgpSthiByjT26d",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YPxqMonHWc4F8GNPCblUYokEgpSthiByjT26d",
     linkedin: "https://www.linkedin.com/in/om-ingle-55811028b/",
     Email: "omingle71@gmail.com",
     github: "https://github.com/Om-ingle",
@@ -90,23 +102,28 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "Payal Dongre": {
     name: "Payal Dongre",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YLr8sqgKNvlAtR9SFIuEYU4OWr7TZ8eML5igB",
-    linkedin: "https://www.linkedin.com/in/payal-dongare?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YLr8sqgKNvlAtR9SFIuEYU4OWr7TZ8eML5igB",
+    linkedin:
+      "https://www.linkedin.com/in/payal-dongare?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     Email: "payaldongare94@gmail.com",
     github: "",
     bio: "I am currently pursuing my third year in Computer Technology and serve as Literature Head of Engineering India Club. I combine my technical knowledge with creativity to manage content writing, event documentation, and literary coordination within the club.",
   },
   "Sakshi Kadu": {
     name: "Sakshi Kadu",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Y3sECXJ5UxkNCoJRpD2yuWGnilqgjMTBm7EeX",
-    linkedin: "https://www.linkedin.com/in/sakshi-kadu-40a441322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3Y3sECXJ5UxkNCoJRpD2yuWGnilqgjMTBm7EeX",
+    linkedin:
+      "https://www.linkedin.com/in/sakshi-kadu-40a441322?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
     Email: "kadusakshi945@gmail.com",
     github: "",
     bio: "I'm Full Stack Developer.",
   },
   "Sayali Padmane": {
     name: "Sayali Padmane",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YMiRZSyJCRHOYLQvmMWn8KB1A73Jd9PwU20tp",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YMiRZSyJCRHOYLQvmMWn8KB1A73Jd9PwU20tp",
     linkedin: "",
     Email: "",
   },
@@ -121,7 +138,8 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "Parth Dehare": {
     name: "Parth Dehare",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKeb4qw4TRBNfpGxchseSwoU2buA0HQ3jCVYO",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKeb4qw4TRBNfpGxchseSwoU2buA0HQ3jCVYO",
     linkedin: "https://www.linkedin.com/in/parth-dehare-b91a53293/",
     Email: "parthdehare97@gmail.com",
     github: "https://github.com/ParthDehare",
@@ -130,7 +148,8 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "Muchkundraje Thote": {
     name: "Muchkundraje Thote",
-    image: "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753201045/much-org-1_xp2amh.jpg",
+    image:
+      "https://res.cloudinary.com/priyanshukayarkar/image/upload/v1753201045/much-org-1_xp2amh.jpg",
     linkedin: "https://www.linkedin.com/in/muchkund-thote/",
     Email: "muchkundthote@gmail.com",
     department: "AIDS",
@@ -165,7 +184,8 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "Khushi Chaudhari": {
     name: "Khushi Chaudhari",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YOJ0VXOectmvHhMGYNVSTXoy324adFLuEADnr",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YOJ0VXOectmvHhMGYNVSTXoy324adFLuEADnr",
     linkedin: "https://www.linkedin.com/in/khushichaudhari",
     Email: "khushichaudhari1805@gmail.com",
     bio: "Electrical Engineering student passionate about Cybersecurity, Power Systems, and Blockchain.",
@@ -503,10 +523,12 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
 
 // Helper function to get team member data
 export function getTeamMemberData(name: string): TeamMemberData {
-  return TEAM_MEMBER_DATABASE[name] || {
-    name,
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
-    linkedin: "",
-    Email: "",
-  };
+  return (
+    TEAM_MEMBER_DATABASE[name] || {
+      name,
+      image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+      linkedin: "",
+      Email: "",
+    }
+  );
 }

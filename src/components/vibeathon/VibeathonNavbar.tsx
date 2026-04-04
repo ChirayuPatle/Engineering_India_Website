@@ -1,41 +1,86 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function VibeathonNavbar() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <nav className="sticky top-0 z-100 bg-[#f5f5f0] border-b-2 border-black">
-      
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2.5 text-black no-underline">
-          <div className="w-8 h-8 bg-yellow-400 border-2 border-black rounded flex items-center justify-center text-base shadow-[2px_2px_0_#000]">
-            🏆
+    <nav className="z-100 sticky top-0 border-b-2 border-black bg-[#f5f5f0]">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <a
+          href="#"
+          className="flex items-center gap-2.5 text-black no-underline"
+        >
+          <div className="flex h-8 w-8 items-center justify-center rounded border-2 border-black bg-yellow-400 text-base shadow-[2px_2px_0_#000]">
+          <Image
+            src="/logo2.png"
+            alt="Logo"
+            className="h-full w-full object-cover"
+            width={50}
+            height={50}
+          />
+            
           </div>
-          <span className="font-black text-base">Vibe-A-Thon</span>
+          <span className="text-base font-black">Vibe-A-Thon</span>
         </a>
-        
-        <ul className="hidden md:flex items-center gap-6 list-none m-0 p-0">
-          <li><a href="#about" className="text-black font-medium text-sm no-underline hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px] transition-all">About</a></li>
-          <li><a href="#details" className="text-black font-medium text-sm no-underline hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px] transition-all">Details</a></li>
-          <li><a href="#schedule" className="text-black font-medium text-sm no-underline hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px] transition-all">Schedule</a></li>
-          <li><a href="#faq" className="text-black font-medium text-sm no-underline hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px] transition-all">FAQ</a></li>
-          <li><a href="#contact" className="text-black font-medium text-sm no-underline hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px] transition-all">Contact</a></li>
+
+        <ul className="m-0 hidden list-none items-center gap-6 p-0 md:flex">
+          <li>
+            <a
+              href="#about"
+              className="text-sm font-medium text-black no-underline transition-all hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px]"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#details"
+              className="text-sm font-medium text-black no-underline transition-all hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px]"
+            >
+              Details
+            </a>
+          </li>
+          <li>
+            <a
+              href="#schedule"
+              className="text-sm font-medium text-black no-underline transition-all hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px]"
+            >
+              Schedule
+            </a>
+          </li>
+          <li>
+            <a
+              href="#faq"
+              className="text-sm font-medium text-black no-underline transition-all hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px]"
+            >
+              FAQ
+            </a>
+          </li>
+          <li>
+            <a
+              href="#contact"
+              className="text-sm font-medium text-black no-underline transition-all hover:underline hover:decoration-yellow-400 hover:decoration-[3px] hover:underline-offset-[3px]"
+            >
+              Contact
+            </a>
+          </li>
         </ul>
-        
-        <div className="flex gap-2.5 items-center">
-          <a 
+
+        <div className="flex items-center gap-2.5">
+          <a
             href="https://docs.google.com/forms/d/e/1FAIpQLSdXvYBE2zzEtiPJVAyICJgp99GXXQ3IKFnNfZOJmj2QiK0snw/viewform"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-yellow-400 text-black border-2 border-black rounded px-3 py-1.5 text-xs font-bold hover:transform hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all shadow-[2px_2px_0_#000] hover:shadow-[3px_3px_0_#000] inline-flex items-center gap-1 whitespace-nowrap"
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded border-2 border-black bg-yellow-400 px-3 py-1.5 text-xs font-bold text-black shadow-[2px_2px_0_#000] transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:transform hover:shadow-[3px_3px_0_#000]"
           >
             Register ↗
           </a>
