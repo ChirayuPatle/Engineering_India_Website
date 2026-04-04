@@ -4,6 +4,7 @@ import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Marquee } from "@/components/ui/marquee";
 import { authClient } from "@/lib/auth-client";
 import {
   ArrowRight,
@@ -495,7 +496,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-
+      
       <motion.div
         style={{
           x: cloudX,

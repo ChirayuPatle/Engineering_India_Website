@@ -23,7 +23,7 @@ export const TEAM_MEMBER_DATABASE: Record<string, TeamMemberData> = {
   },
   "V. S. Pavithra": {
     name: "V. S. Pavithra",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKovKBDTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
     linkedin: "https://www.linkedin.com/in/pavitthra-v-s-32478b322/",
     Email: "",
   },
