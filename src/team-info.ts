@@ -97,7 +97,8 @@ const coreCommittee: TeamMember[] = [
     teamId: 8,
     name: "Siddheshwar Madne",
     position: "Publicity Head",
-    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YSXDGuPZyCJH4Ua8uPBSgrmMOknAQEtLKY7cN",
+    image:
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YSXDGuPZyCJH4Ua8uPBSgrmMOknAQEtLKY7cN",
     linkedin: "https://www.linkedin.com/in/sidhashwar-madne/",
     Email: "",
   },

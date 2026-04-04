@@ -2,12 +2,7 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { teamMembers } from "@/team-info";
-import {
-  TriangleAlert,
-  Mail,
-  Linkedin,
-  ExternalLink,
-} from "lucide-react";
+import { TriangleAlert, Mail, Linkedin, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";

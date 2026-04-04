@@ -51,12 +51,14 @@ export default function EnhancedEventPage({
 
   const fetchEventData = async () => {
     try {
-      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all([
-        fetch(`/api/events/${eventId}`),
-        fetch(`/api/events/${eventId}/phases`),
-        fetch(`/api/events/${eventId}/resources`),
-        fetch(`/api/events/${eventId}/payment-config`),
-      ]);
+      const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all(
+        [
+          fetch(`/api/events/${eventId}`),
+          fetch(`/api/events/${eventId}/phases`),
+          fetch(`/api/events/${eventId}/resources`),
+          fetch(`/api/events/${eventId}/payment-config`),
+        ],
+      );
 
       if (eventRes.ok && phasesRes.ok && resourcesRes.ok) {
         const [eventData, phasesData, resourcesData] = await Promise.all([
@@ -64,11 +66,11 @@ export default function EnhancedEventPage({
           phasesRes.json(),
           resourcesRes.json(),
         ]);
-        
+
         setEvent(eventData);
         setPhases(phasesData);
         setResources(resourcesData);
-        
+
         if (paymentRes.ok) {
           const paymentData = await paymentRes.json();
           setPaymentConfig(paymentData);

@@ -51,7 +51,8 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="mx-auto max-w-xl font-sans text-white/70">
-            &quot;Engineering India is not just a club but a thought process.&quot;
+            &quot;Engineering India is not just a club but a thought
+            process.&quot;
           </p>
         </motion.div>
         <FloatingCloud

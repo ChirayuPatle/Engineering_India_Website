@@ -385,7 +385,8 @@ export default function PrarambhPage() {
                 Ready to make history?
               </h3>
               <p className="mx-auto max-w-2xl text-xl font-medium leading-relaxed text-white/80">
-                Be part of the legacy. Join Engineering India YCCE and let&apos;s innovate together.
+                Be part of the legacy. Join Engineering India YCCE and
+                let&apos;s innovate together.
               </p>
               <div className="flex flex-col items-center justify-center gap-6 pt-6 sm:flex-row">
                 <Button

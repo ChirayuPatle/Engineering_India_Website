@@ -4,12 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { SecondYear } from "@/team-info";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import {
-  TriangleAlert,
-  Mail,
-  Linkedin,
-  ExternalLink,
-} from "lucide-react";
+import { TriangleAlert, Mail, Linkedin, ExternalLink } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { motion } from "framer-motion"; // Changed to standard import

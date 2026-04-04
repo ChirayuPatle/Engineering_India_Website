@@ -11,6 +11,9 @@
 .font-fraunces {
   font-family: var(--font-fraunces), serif;
 }
+.font-geist {
+  font-family: var(--font-geist), sans-serif;
+}
 
 /* Hide NProgress spinner (black dot) */
 #nprogress .spinner {
@@ -94,9 +97,6 @@
   
 }
 
-.space {
-  font-family: var(--font-dm-sans), sans-serif;
-}
 
 @layer base {
   * {
