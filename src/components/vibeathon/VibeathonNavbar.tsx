@@ -19,15 +19,14 @@ export default function VibeathonNavbar() {
           href="#"
           className="flex items-center gap-2.5 text-black no-underline"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded border-2 border-black bg-yellow-400 text-base shadow-[2px_2px_0_#000]">
-          <Image
-            src="/logo2.png"
-            alt="Logo"
-            className="h-full w-full object-cover"
-            width={50}
-            height={50}
-          />
-            
+          <div className="flex h-8 w-8 items-center justify-center rounded">
+            <Image
+              src="/logo1.png"
+              alt="Logo"
+              className="h-full w-full object-cover"
+              width={50}
+              height={50}
+            />
           </div>
           <span className="text-base font-black">Vibe-A-Thon</span>
         </a>
