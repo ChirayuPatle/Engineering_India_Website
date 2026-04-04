@@ -59,7 +59,7 @@ const coreCommittee: TeamMember[] = [
     name: "Shailaija Patle",
     position: "Secretary & Event Management Head",
     image:
-      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YKHOSeNTRBNfpGxchseSwoU2buA0HQ3jCVYOP",
+      "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YXpW7RnMNk4ohSiMGKTxj9CpfcPyez0JaB87r",
     linkedin:
       "https://www.linkedin.com/in/shailaja-patle-967971289?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     Email: "shailajapatle17@gmail.com",
@@ -82,7 +82,7 @@ const coreCommittee: TeamMember[] = [
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://linkedin.com/in/priyanshukayarkar",
     Email: "priyanshudotdev@gmail.com",
-    bio: "Person who love's to build stuff."
+    bio: "Person who love's to build stuff.",
   },
   {
     teamId: 7,
@@ -97,7 +97,7 @@ const coreCommittee: TeamMember[] = [
     teamId: 8,
     name: "Siddheshwar Madne",
     position: "Publicity Head",
-    image: "https://cdn-icons-png.flaticon.com/128/456/456212.png",
+    image: "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YSXDGuPZyCJH4Ua8uPBSgrmMOknAQEtLKY7cN",
     linkedin: "https://www.linkedin.com/in/sidhashwar-madne/",
     Email: "",
   },
@@ -810,7 +810,7 @@ const Devlopers: TeamMember[] = [
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://www.linkedin.com/in/priyanshukayarkar",
     Email: "priyanshudotdev@gmail.com",
-   bio: "Person who love's to build stuff."
+    bio: "Person who love's to build stuff.",
   },
   {
     teamId: 2,
