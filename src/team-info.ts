@@ -80,8 +80,9 @@ const coreCommittee: TeamMember[] = [
     position: "Technical Head",
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
-    linkedin: "",
-    Email: "",
+    linkedin: "https://linkedin.com/in/priyanshukayarkar",
+    Email: "priyanshudotdev@gmail.com",
+    bio: "Person who love's to build stuff."
   },
   {
     teamId: 7,
@@ -808,7 +809,8 @@ const Devlopers: TeamMember[] = [
     image:
       "https://xxdyayurwn.ufs.sh/f/U6UD7bkQZy3YwowtJzUiYMgLRNj147yBaeFsUHhvAoqJcbdW",
     linkedin: "https://www.linkedin.com/in/priyanshukayarkar",
-    Email: "priyanshu.kayarkar009@gmail.com",
+    Email: "priyanshudotdev@gmail.com",
+   bio: "Person who love's to build stuff."
   },
   {
     teamId: 2,

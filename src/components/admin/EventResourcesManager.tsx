@@ -264,7 +264,6 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
               </form>
             </DialogContent>
           </Dialog>
-        )}
       </div>
 
       {/* Resources List */}
@@ -333,6 +332,8 @@ export default function EventResourcesManager({ eventId }: { eventId: string }) 
           </p>
         </Card>
       )}
+      </div>
+      </div>
     </div>
   );
 }

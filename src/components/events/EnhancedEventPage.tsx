@@ -23,6 +23,8 @@ import {
   AlertCircle,
   PhoneCall,
   Mail,
+  MessageSquare,
+  Upload,
 } from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -47,10 +49,6 @@ export default function EnhancedEventPage({
   const [showPhaseDialog, setShowPhaseDialog] = useState(false);
   const [selectedPhase, setSelectedPhase] = useState<any>(null);
 
-  useEffect(() => {
-    fetchEventData();
-  }, [eventId, fetchEventData]);
-
   const fetchEventData = async () => {
     try {
       const [eventRes, phasesRes, resourcesRes, paymentRes] = await Promise.all([
@@ -60,17 +58,33 @@ export default function EnhancedEventPage({
         fetch(`/api/events/${eventId}/payment-config`),
       ]);
 
-      if (eventRes.ok) setEvent(await eventRes.json());
-      if (phasesRes.ok) setPhases(await phasesRes.json());
-      if (resourcesRes.ok) setResources(await resourcesRes.json());
-      if (paymentRes.ok) setPaymentConfig(await paymentRes.json());
+      if (eventRes.ok && phasesRes.ok && resourcesRes.ok) {
+        const [eventData, phasesData, resourcesData] = await Promise.all([
+          eventRes.json(),
+          phasesRes.json(),
+          resourcesRes.json(),
+        ]);
+        
+        setEvent(eventData);
+        setPhases(phasesData);
+        setResources(resourcesData);
+        
+        if (paymentRes.ok) {
+          const paymentData = await paymentRes.json();
+          setPaymentConfig(paymentData);
+        }
+      }
     } catch (error) {
       console.error("Error fetching event data:", error);
-      toast.error("Failed to load event details");
+      toast.error("Failed to load event data");
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchEventData();
+  }, [eventId, fetchEventData]);
 
   const handleDownloadResource = async (resourceId: string) => {
     try {

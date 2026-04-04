@@ -43,10 +43,6 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
     instructions: "",
   });
 
-  useEffect(() => {
-    fetchPhases();
-  }, [eventId, fetchPhases]);
-
   const fetchPhases = async () => {
     try {
       const response = await fetch(`/api/events/${eventId}/phases`);
@@ -58,6 +54,10 @@ export default function EventPhasesManager({ eventId }: { eventId: string }) {
       console.error("Error fetching phases:", error);
     }
   };
+
+  useEffect(() => {
+    fetchPhases();
+  }, [eventId, fetchPhases]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
