@@ -11,6 +11,12 @@ import {
   Zap,
   CheckCircle,
   Loader2,
+  Calendar,
+  Clock,
+  Trophy,
+  Users,
+  Wand2,
+  Code,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRouter } from "next/navigation";
@@ -1012,6 +1018,91 @@ const LandingPage = () => {
       {/* ========== FEEDBACK SECTION ========== */}
       <div id="contact">
         <FeedbackSection />
+      </div>
+
+      {/* ========== VIBE-A-THON PROMO SECTION ========== */}
+      <div className="relative z-20 w-full bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 px-4 py-20 sm:px-6 md:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-6">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              <span className="text-sm font-semibold text-white">Upcoming Event</span>
+            </div>
+            <h2 className="font-fraunces text-4xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+              VIBE-A-THON
+            </h2>
+            <p className="text-xl md:text-2xl font-bold mb-4 text-purple-200">
+              Code the Vibe. Own the Era.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                <Calendar className="w-5 h-5 text-purple-400" />
+                <span className="text-white">9th April 2026</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                <Clock className="w-5 h-5 text-purple-400" />
+                <span className="text-white">3 Hours</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                <Trophy className="w-5 h-5 text-purple-400" />
+                <span className="text-white">₹2000 Prize Pool</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          >
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-white">Teams of 2</h3>
+              <p className="text-purple-200">Gather your partner and register together</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Wand2 className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-white">AI Tools Allowed</h3>
+              <p className="text-purple-200">Use Cursor, Bolt, Claude, and any AI tools</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Code className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-white">Build & Present</h3>
+              <p className="text-purple-200">Create a working prototype and present via PPT</p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="text-center"
+          >
+            <Button
+              variant="premium"
+              className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:from-purple-700 hover:to-pink-700 active:scale-95 mx-auto"
+              onClick={() => window.location.href = "/vibeathon"}
+            >
+              Register Now
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <p className="mt-4 text-purple-300">Entry Fee: ₹100 per team</p>
+          </motion.div>
+        </div>
       </div>
 
       {/* ========== FAQ SECTION (Callbaba Style) ========== */}
