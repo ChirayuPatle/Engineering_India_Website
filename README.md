@@ -1,1 +1,0 @@
-# We made khichdi of website
