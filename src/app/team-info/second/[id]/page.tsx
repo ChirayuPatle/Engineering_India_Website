@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { SecondYear } from "@/team-info";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { TriangleAlert, Mail, Linkedin, ExternalLink } from "lucide-react";
+import { TriangleAlert, Mail, Globe, ExternalLink } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { motion } from "framer-motion"; // Changed to standard import
@@ -28,7 +28,7 @@ const TeamInfoPageSkeleton = () => (
   </div>
 );
 
-function TeamInfoPage(): JSX.Element {
+function TeamInfoPage(): React.JSX.Element {
   const { id } = useParams();
   const router = useRouter();
   const [member, setMember] = useState<any>(null);
@@ -191,7 +191,7 @@ function TeamInfoPage(): JSX.Element {
                       className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:bg-[#D4EBFF] hover:text-[#0F1B40]"
                     >
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 transition-colors group-hover:bg-white/20">
-                        <Linkedin className="h-6 w-6" />
+                        <Globe className="h-6 w-6" />
                       </div>
                       <div className="flex-1">
                         <p className="text-xs font-bold uppercase tracking-widest opacity-60">

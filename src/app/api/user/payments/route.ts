@@ -148,7 +148,7 @@ export async function GET(req: Request) {
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { message: "Invalid request parameters", errors: err.errors },
+        { message: "Invalid request parameters", errors: err.issues },
         { status: 400 },
       );
     }

@@ -56,7 +56,7 @@ export async function PATCH(req: NextRequest) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
-        { message: "Invalid request body", errors: error.errors },
+        { message: "Invalid request body", errors: error.issues },
         { status: 400 },
       );
     }

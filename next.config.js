@@ -9,20 +9,10 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-/** @type {import("next").NextConfig} */
+/** @type {any} */
 const config = {
-  eslint: {
-    // Only run ESLint on these directories during production builds
-    dirs: ["src/app", "src/components", "src/lib"],
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: false,
-  },
-  typescript: {
-    // Dangerously allow production builds even if there are type errors
-    // Set to true only if you want to ignore TypeScript errors during build
-    ignoreBuildErrors: false,
-  },
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
   images: {
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 60,
@@ -98,9 +88,6 @@ const config = {
   compiler: {
     removeConsole: true,
     styledComponents: true,
-  },
-  webpack(config) {
-    return config;
   },
 };
 

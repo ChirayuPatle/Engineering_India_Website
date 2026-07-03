@@ -88,7 +88,7 @@ export const formSubmissionSchema = z.object({
   formId: z.string().min(1, "Form ID is required"),
   eventId: z.string().min(1, "Event ID is required"),
   userId: z.string().optional(),
-  responses: z.record(z.any()),
+  responses: z.record(z.string(), z.any()),
   ipAddress: z.string().optional(),
   userAgent: z.string().optional(),
 });

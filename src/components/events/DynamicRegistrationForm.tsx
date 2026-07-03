@@ -325,6 +325,7 @@ export function DynamicRegistrationForm({
                     type={field.type}
                     placeholder={field.placeholder}
                     {...formField}
+                    value={formField.value as any}
                   />
                 </FormControl>
                 {field.helpText && (
@@ -353,6 +354,7 @@ export function DynamicRegistrationForm({
                     type="number"
                     placeholder={field.placeholder}
                     {...formField}
+                    value={formField.value as any}
                   />
                 </FormControl>
                 {field.helpText && (
@@ -378,7 +380,7 @@ export function DynamicRegistrationForm({
                   {field.required && <span className="text-red-500"> *</span>}
                 </FormLabel>
                 <FormControl>
-                  <Input type={field.type} {...formField} />
+                  <Input type={field.type} {...formField} value={formField.value as any} />
                 </FormControl>
                 {field.helpText && (
                   <FormDescription>{field.helpText}</FormDescription>
@@ -407,6 +409,7 @@ export function DynamicRegistrationForm({
                     className="resize-none"
                     rows={4}
                     {...formField}
+                    value={formField.value as any}
                   />
                 </FormControl>
                 {field.helpText && (
@@ -432,7 +435,7 @@ export function DynamicRegistrationForm({
                 </FormLabel>
                 <Select
                   onValueChange={formField.onChange}
-                  defaultValue={formField.value}
+                  defaultValue={formField.value as any}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -473,7 +476,7 @@ export function DynamicRegistrationForm({
                 <FormControl>
                   <RadioGroup
                     onValueChange={formField.onChange}
-                    defaultValue={formField.value}
+                    defaultValue={formField.value as any}
                     className="flex flex-col space-y-1"
                   >
                     {field.options?.map((option) => (
@@ -510,8 +513,8 @@ export function DynamicRegistrationForm({
               <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                 <FormControl>
                   <Checkbox
-                    checked={formField.value}
-                    onCheckedChange={formField.onChange}
+                    checked={formField.value as any}
+                    onCheckedChange={formField.onChange as any}
                   />
                 </FormControl>
                 <div className="space-y-1 leading-none">

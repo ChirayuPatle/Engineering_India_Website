@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Linkedin, Mail } from "lucide-react";
+import { Globe, Mail } from "lucide-react";
 
 const clubHeads = [
   {
@@ -69,7 +69,7 @@ export default function ClubHeads() {
                     rel="noopener noreferrer"
                     className="text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <Linkedin size={18} />
+                    <Globe size={18} />
                     <span className="sr-only">LinkedIn</span>
                   </a>
                   <a

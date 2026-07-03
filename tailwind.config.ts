@@ -1,16 +1,16 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
-  darkMode: ["class"],
+  darkMode: "class",
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", ...fontFamily.sans],
-        geist: ["var(--font-geist)", ...fontFamily.sans],
-        playfair: ["var(--font-playfair)", ...fontFamily.serif],
-        fraunces: ["var(--font-fraunces)", ...fontFamily.serif],
+        sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
+        geist: ["var(--font-geist)", ...defaultTheme.fontFamily.sans],
+        playfair: ["var(--font-playfair)", ...defaultTheme.fontFamily.serif],
+        fraunces: ["var(--font-fraunces)", ...defaultTheme.fontFamily.serif],
       },
       borderRadius: {
         lg: "var(--radius)",

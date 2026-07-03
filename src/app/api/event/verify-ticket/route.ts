@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json(
-        { message: "Invalid request parameters", errors: err.errors },
+        { message: "Invalid request data", errors: err.issues },
         { status: 400 },
       );
     }

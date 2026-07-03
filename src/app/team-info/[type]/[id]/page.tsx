@@ -15,8 +15,8 @@ import Link from "next/link";
 import {
   TriangleAlert,
   Mail,
-  Linkedin,
-  Github,
+  Globe,
+  Code,
   FileText,
   ExternalLink,
 } from "lucide-react";
@@ -40,7 +40,7 @@ const TeamInfoPageSkeleton = () => (
   </div>
 );
 
-function TeamInfoPage(): JSX.Element {
+function TeamInfoPage(): React.JSX.Element {
   const { type, id } = useParams();
   const router = useRouter();
   const [member, setMember] = useState<TeamMember | null>(null);
@@ -219,7 +219,7 @@ function TeamInfoPage(): JSX.Element {
                       className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:bg-[#D4EBFF] hover:text-[#0F1B40]"
                     >
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 transition-colors group-hover:bg-white/20">
-                        <Linkedin className="h-6 w-6" />
+                        <Globe className="h-6 w-6" />
                       </div>
                       <div className="flex-1">
                         <p className="text-xs font-bold uppercase tracking-widest opacity-60">
@@ -239,7 +239,7 @@ function TeamInfoPage(): JSX.Element {
                       className="group flex items-center gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:bg-[#D4EBFF] hover:text-[#0F1B40]"
                     >
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5 transition-colors group-hover:bg-white/20">
-                        <Github className="h-6 w-6" />
+                        <Code className="h-6 w-6" />
                       </div>
                       <div className="flex-1">
                         <p className="text-xs font-bold uppercase tracking-widest opacity-60">
