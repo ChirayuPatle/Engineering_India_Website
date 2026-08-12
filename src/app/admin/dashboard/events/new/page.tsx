@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+import { useEvents } from "@/context/eventContext";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
@@ -9,7 +11,8 @@ import toast from "react-hot-toast";
 
 export default function CreateEventPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+const { addEvent } = useEvents();
+const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -17,38 +20,46 @@ export default function CreateEventPage() {
     endDate: "",
     location: "",
     category: "",
+     googleFormLink: "",
     bannerImage: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const response = await fetch("/api/admin/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          startDate: formData.startDate ? new Date(formData.startDate) : null,
-          endDate: formData.endDate ? new Date(formData.endDate) : null,
-        }),
-      });
+  try {
+    const id = crypto.randomUUID();
+    const now = Date.now();
 
-      if (!response.ok) {
-        throw new Error("Failed to create event");
-      }
+    addEvent({
+      id,
+      name: formData.name,
+      description: formData.description || null,
+      startDate: formData.startDate
+        ? new Date(formData.startDate).getTime()
+        : null,
+      endDate: formData.endDate
+        ? new Date(formData.endDate).getTime()
+        : null,
+      location: formData.location || null,
+      category: formData.category || null,
+      googleFormLink: formData.googleFormLink || null,
+      bannerImage: formData.bannerImage || null,
+      createdAt: now,
+      updatedAt: now,
+    });
 
-      const data = await response.json();
-      toast.success("Event created successfully!");
-      router.push(`/admin/dashboard/events/${data.id}`);
-    } catch (error) {
-      console.error("Error creating event:", error);
-      toast.error("Failed to create event");
-    } finally {
-      setLoading(false);
-    }
-  };
+    toast.success("Event created successfully!");
+
+    router.push(`/events/${id}`);
+  } catch (error) {
+    console.error("Error creating event:", error);
+    toast.error("Failed to create event");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -183,7 +194,20 @@ export default function CreateEventPage() {
                 <option value="other">Other</option>
               </select>
             </div>
-
+            {/* Google Form Link */}
+<div className="md:col-span-2">
+  <label className="block text-sm font-medium text-gray-700">
+    Google Form Link
+  </label>
+  <input
+    type="url"
+    name="googleFormLink"
+    value={formData.googleFormLink}
+    onChange={handleChange}
+    className="mt-1 w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+    placeholder="https://forms.google.com/..."
+  />
+</div>
             {/* Banner Image URL */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700">
