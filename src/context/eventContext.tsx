@@ -1,6 +1,8 @@
 "use client";
 
 import { createContext, useContext, type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/api";
 
 export type Event = {
   id: string;
@@ -48,7 +50,7 @@ This Independence Day, Engineering India, YCCE presents ज्ञानदीप
 
 Challenge yourself, test your knowledge, and celebrate the essence of Independence Day in an exciting way!
 
-📅 16th August 2026
+📅 18th August 2026
 ⏰ 10:00 AM onwards
 💻 Online
 💰 Entry Fee: ₹29/-
@@ -62,9 +64,9 @@ Let your knowledge be the light that guides you forward.
 With Regards,
 Engineering India, YCCE 🇮🇳`,
 
-  startDate: new Date("2026-08-16T10:00:00").getTime(),
+  startDate: new Date("2026-08-18T10:00:00").getTime(),
 
-  endDate: new Date("2026-08-16T23:59:59").getTime(),
+  endDate: new Date("2026-08-18T23:59:59").getTime(),
 
   location: "Online",
 
@@ -72,7 +74,7 @@ Engineering India, YCCE 🇮🇳`,
 
   registrationFee: "29",
 
-  bannerImage: "/gyaandeep-3.png",
+  bannerImage: "/gyaandeep 3.0.jpeg",
 
   googleFormLink:
     "https://forms.gle/jA2urQ8VVq97k8hv6",
@@ -91,12 +93,32 @@ Engineering India, YCCE 🇮🇳`,
 };
 
 export function EventProvider({ children }: { children: ReactNode }) {
+  const {
+    data: apiEvents = [],
+    isLoading,
+    error,
+  } = useQuery<Event[]>({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const response = await api.get<Event[]>("/event");
+      return response.data;
+    },
+  });
+
+  // Keep all previous events from the API
+  // and add the new Gyaandeep event.
+  const events = [
+    gyaandeepEvent,
+    ...apiEvents.filter((event) => event.id !== gyaandeepEvent.id),
+    
+  ];
+
   return (
     <EventContext.Provider
       value={{
-        events: [gyaandeepEvent],
-        loading: false,
-        error: null,
+        events,
+        loading: isLoading,
+        error: error ? error.message : null,
       }}
     >
       {children}

@@ -11,8 +11,23 @@ import toast from "react-hot-toast";
 
 export default function CreateEventPage() {
   const router = useRouter();
-const { addEvent } = useEvents();
-const [loading, setLoading] = useState(false);
+  const eventContext = useEvents() as ReturnType<typeof useEvents> & {
+    addEvent?: (event: {
+      id: string;
+      name: string;
+      description?: string | null;
+      startDate?: number | null;
+      endDate?: number | null;
+      location?: string | null;
+      category?: string | null;
+      googleFormLink?: string | null;
+      bannerImage?: string | null;
+      createdAt: number;
+      updatedAt: number;
+    }) => void;
+  };
+  const { addEvent } = eventContext;
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -20,46 +35,55 @@ const [loading, setLoading] = useState(false);
     endDate: "",
     location: "",
     category: "",
-     googleFormLink: "",
+    googleFormLink: "",
     bannerImage: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
+    e.preventDefault();
 
-  try {
-    const id = crypto.randomUUID();
-    const now = Date.now();
+    if (!addEvent) {
+      toast.error("Event creation is unavailable right now.");
+      return;
+    }
 
-    addEvent({
-      id,
-      name: formData.name,
-      description: formData.description || null,
-      startDate: formData.startDate
-        ? new Date(formData.startDate).getTime()
-        : null,
-      endDate: formData.endDate
-        ? new Date(formData.endDate).getTime()
-        : null,
-      location: formData.location || null,
-      category: formData.category || null,
-      googleFormLink: formData.googleFormLink || null,
-      bannerImage: formData.bannerImage || null,
-      createdAt: now,
-      updatedAt: now,
-    });
+    setLoading(true);
 
-    toast.success("Event created successfully!");
+    try {
+      const id =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `event-${Date.now()}`;
+      const now = Date.now();
 
-    router.push(`/events/${id}`);
-  } catch (error) {
-    console.error("Error creating event:", error);
-    toast.error("Failed to create event");
-  } finally {
-    setLoading(false);
-  }
-};
+      addEvent({
+        id,
+        name: formData.name,
+        description: formData.description || null,
+        startDate: formData.startDate
+          ? new Date(formData.startDate).getTime()
+          : null,
+        endDate: formData.endDate
+          ? new Date(formData.endDate).getTime()
+          : null,
+        location: formData.location || null,
+        category: formData.category || null,
+        googleFormLink: formData.googleFormLink || null,
+        bannerImage: formData.bannerImage || null,
+        createdAt: now,
+        updatedAt: now,
+      });
+
+      toast.success("Event created successfully!");
+
+      router.push(`/events/${id}`);
+    } catch (error) {
+      console.error("Error creating event:", error);
+      toast.error("Failed to create event");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
