@@ -14,7 +14,7 @@ import Image from "next/image";
 const navItems = [
   { name: "About", href: "/about" },
   { name: "Events", href: "/events" },
-  { name: "VIBE-A-THON", href: "/vibeathon" },
+  // { name: "VIBE-A-THON", href: "/vibeathon" },
   { name: "Team", href: "/team" },
   { name: "Blogs", href: "/blog" },
   { name: "Contact", href: "/contact" },
@@ -45,13 +45,17 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed left-1/2 top-4 z-50 mx-auto w-full max-w-4xl -translate-x-1/2 px-4 py-4 transition-all duration-300 lg:px-20`}
-    >
+  className="fixed left-1/2 top-10 z-50 w-full max-w-5xl -translate-x-1/2 px-5 transition-all duration-500"
+>
       <div
-        className={`container mx-auto flex h-10 items-center justify-between rounded-3xl px-6 py-10 backdrop-blur-sm transition-all duration-300 ${scrolled ? "bg-white/30 shadow-md" : "bg-white/20"}`}
-      >
+  className={`mx-auto flex h-[72px] items-center justify-between rounded-full border px-8 transition-all duration-500 backdrop-blur-2xl ${
+    scrolled
+      ? "border-cyan-400/20 bg-[#081221]/90 shadow-[0_15px_50px_rgba(0,0,0,.45)]"
+      : "border-white/10 bg-[#07111F]/45"
+  }`}
+>
         <Link href="/" className="flex items-center space-x-2">
-          <div className="w-[2.2rem] md:w-[3.0rem]">
+          <div className="w-12 transition-transform duration-300 hover:scale-110 hover:rotate-2 md:w-14">
             <Image
               src="/logo1.png"
               className="h-full w-full object-cover"
@@ -63,18 +67,26 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className="hidden items-center space-x-6 md:flex">
+        <nav className="hidden items-center space-x-8 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className={`text-sm font-semibold transition-colors hover:text-white/70 ${
+              className={`group relative text-sm font-medium tracking-wide transition-all duration-300 ${
                 pathname === item.href
-                  ? "font-semibold text-white"
-                  : "text-white/90"
+                  ? "text-cyan-300"
+                  : "text-slate-200 hover:text-cyan-300"
               }`}
             >
               {item.name}
+
+              <span
+                className={`absolute -bottom-2 left-0 h-[2px] rounded-full bg-cyan-400 transition-all duration-300 ${
+                  pathname === item.href
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                }`}
+              />
             </Link>
           ))}
 
@@ -100,7 +112,8 @@ export default function Navbar() {
               }
               variant="premium"
               size={"lg"}
-            >
+              className="rounded-full px-7 shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-cyan-400/30"
+              >
               Login
             </Button>
           )}
@@ -119,7 +132,7 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="mt-2 md:hidden">
-          <div className="flex flex-col space-y-4 rounded-3xl bg-white/20 px-6 py-8 backdrop-blur-md">
+          <div className="flex flex-col space-y-5 rounded-3xl border border-white/10 bg-[#081221]/95 px-6 py-8 backdrop-blur-2xl">
             {navItems.map((item) => (
               <Link
                 key={item.name}
