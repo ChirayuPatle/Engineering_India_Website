@@ -733,6 +733,7 @@ const LandingPage = () => {
                 className={`${secondaryButtonClass} h-10 px-5 font-bold`}
                 variant="premium"
                 size="sm"
+                onClick={() => router.push("/blog")}
               >
                 <span className="text-xs sm:text-sm md:text-base">
                   Our Story
@@ -1141,6 +1142,7 @@ const LandingPage = () => {
                 <Button
                   variant="premium"
                   className={`${premiumButtonClass} flex items-center gap-2 px-8 py-5 text-sm font-bold`}
+                  onClick={() => router.push("/contact")}
                 >
                   Join the Club
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
