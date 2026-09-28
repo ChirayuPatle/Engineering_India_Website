@@ -113,6 +113,11 @@ const Blog = () => {
       <section className="relative z-20 -mt-10 px-4">
         <div className="container mx-auto flex max-w-7xl flex-col items-start gap-12 lg:flex-row">
           {/* Main Feed */}
+          <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="rounded-[32px] border border-cyan-400/10 bg-white/[0.04] p-8 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_30px_rgba(34,211,238,.15)]"
+            >
           <div className="order-2 w-full flex-1 lg:order-1">
             {isLoading ? (
               <div className="space-y-8">
@@ -163,7 +168,7 @@ const Blog = () => {
                 </p>
               </div>
             )}
-          </div>
+          </div></motion.div>
 
           {/* Sidebar */}
           <aside className="order-1 w-full space-y-8 lg:sticky lg:top-24 lg:order-2 lg:w-[400px]">

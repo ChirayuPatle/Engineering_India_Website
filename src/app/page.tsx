@@ -753,7 +753,7 @@ const LandingPage = () => {
           >
             <div className="relative w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-cyan-200/20 shadow-2xl shadow-cyan-900/30 backdrop-blur-sm">
               <img
-                src="/landing/about.png"
+                src="/landing/about.jpeg"
                 className="h-full w-full object-cover"
                 alt="Engineering India Team"
               />

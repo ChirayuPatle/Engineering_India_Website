@@ -90,7 +90,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-          {isPending ? null : user ? (
+          {/* {isPending ? null : user ? (
             <Button
               onClick={() => router.push("/dashboard")}
               variant="premium"
@@ -116,7 +116,7 @@ export default function Navbar() {
               >
               Login
             </Button>
-          )}
+          )} */}
         </nav>
 
         <div className="flex md:hidden">
