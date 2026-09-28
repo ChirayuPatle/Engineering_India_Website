@@ -8,7 +8,8 @@ import { useCurrentUser } from "@/hooks/use-user";
 import { siteConfig } from "@/lib/constants";
 import { CheckCircle, Loader2, Mail, MapPin, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+// import { FloatingCloud } from "@/components/landing/FloatingCloud";
+import BlueprintBackground from "@/components/animations/BlueprintBackground";
 
 export default function ContactPage() {
   const { data: user } = useCurrentUser();
@@ -62,9 +63,11 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="relative w-full overflow-x-hidden bg-[#0F1B40]">
+    <main className="relative w-full min-h-dvh overflow-x-hidden bg-[#07152E]">
+        <BlueprintBackground />
+<div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#07152E]/70 via-[#07152E]/60 to-[#0B1F33]/75" />  
       {/* Hero Section */}
-      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-40 text-center text-white">
+      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center px-4 pb-20 pt-40 text-center text-white">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -78,21 +81,6 @@ export default function ContactPage() {
             Have questions about {siteConfig.name}? We'd love to hear from you.
           </p>
         </motion.div>
-        <FloatingCloud
-          top="20%"
-          left="5%"
-          speed={0.5}
-          cloudNum={1}
-          opacity="opacity-30"
-        />
-        <FloatingCloud
-          top="40%"
-          left="80%"
-          speed={0.8}
-          cloudNum={2}
-          opacity="opacity-20"
-          scale={0.8}
-        />
       </section>
 
       {/* Contact Content */}
