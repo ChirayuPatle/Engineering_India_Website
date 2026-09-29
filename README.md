@@ -73,4 +73,4 @@ When contributing to this repository, please ensure that you:
 2. Run `pnpm run typecheck` and `pnpm lint:fix` before committing.
 3. Write clear and concise commit messages.
 
-Enjoy building!
+Enjoy building the site!
