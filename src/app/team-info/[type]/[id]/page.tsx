@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+// import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { useParams, useRouter } from "next/navigation";
 import {
   coreCommittee,
@@ -22,10 +22,11 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { motion } from "motion/react";
+import BlueprintBackground from "@/components/animations/BlueprintBackground";
 
 const TeamInfoPageSkeleton = () => (
   <div className="min-h-screen bg-[#0F1B40] text-white">
-    <div className="flex h-[40vh] w-full items-center justify-center bg-gradient-to-b from-[#6183B1] to-[#0F1B40]">
+    <div className="flex h-[40vh] w-full items-center justify-center ">
       <div className="flex flex-col items-center justify-center gap-6">
         <Skeleton className="h-40 w-40 rounded-full bg-white/10" />
         <div className="space-y-4">
@@ -122,9 +123,10 @@ function TeamInfoPage(): React.JSX.Element {
   };
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden bg-[#0F1B40] pb-24 text-white">
+    <main className="relative min-h-screen overflow-x-hidden bg-[#07152E] pb-24 text-white">
+      <BlueprintBackground />
       {/* Hero Section */}
-      <section className="relative z-10 flex min-h-[45vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-32 text-center">
+      <section className="relative z-10 flex min-h-[45vh] flex-col items-center justify-center overflow-hidden bg-transparent px-4 pb-20 pt-32 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -155,21 +157,7 @@ function TeamInfoPage(): React.JSX.Element {
           </div>
         </motion.div>
 
-        <FloatingCloud
-          top="10%"
-          left="5%"
-          speed={0.5}
-          cloudNum={1}
-          opacity="opacity-20"
-        />
-        <FloatingCloud
-          top="30%"
-          left="85%"
-          speed={0.8}
-          cloudNum={2}
-          opacity="opacity-15"
-          scale={0.8}
-        />
+        
       </section>
 
       {/* Info Section */}
@@ -308,22 +296,7 @@ function TeamInfoPage(): React.JSX.Element {
 
       {/* Background Decor - Wrapped to fix overflow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <FloatingCloud
-          top="70%"
-          left="-5%"
-          speed={0.4}
-          cloudNum={3}
-          opacity="opacity-10"
-          scale={1.5}
-        />
-        <FloatingCloud
-          top="85%"
-          left="90%"
-          speed={0.6}
-          cloudNum={4}
-          opacity="opacity-10"
-          scale={1.2}
-        />
+        
       </div>
     </main>
   );

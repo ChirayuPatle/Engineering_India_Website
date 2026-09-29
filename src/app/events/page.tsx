@@ -5,7 +5,7 @@ import Link from "next/link";
 import { EventCard } from "@/components/events/eventCard";
 import { useEvents } from "@/context/eventContext";
 import { TriangleAlert, Loader2 } from "lucide-react";
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+// import { FloatingCloud } from "@/components/landing/FloatingCloud";
 
 function EventCardSkeleton() {
   return (
@@ -25,39 +25,31 @@ export default function EventsPage() {
   const { events, loading, error } = useEvents();
 
   return (
-    <main className="relative w-full overflow-hidden bg-[#0F1B40]">
+    <main className="relative w-full overflow-hidden bg-[#07111F]">
       {/* Hero Section */}
-      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-20 pt-40 text-center text-white">
+      <section className="relative z-10 flex min-h-[65vh] flex-col items-center justify-center px-4 pb-20 pt-40 text-center text-white">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
           className="container mx-auto max-w-4xl"
         >
-          <h1 className="font-fraunces mb-6 text-4xl font-bold md:text-7xl">
-            Our <span className="text-[#D4EBFF]">Events</span>
+           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-2 text-sm tracking-[0.3em] text-cyan-300">
+            ⚙ ENGINEERING COMMUNITY
+          </div>
+          <h1 className="mb-8 font-fraunces text-5xl font-black leading-tight tracking-tight md:text-7xl lg:text-8xl">
+            Our{" "}
+            <span className="bg-gradient-to-r from-cyan-300 via-white to-cyan-300 bg-clip-text text-transparent">
+              Events
+            </span>
           </h1>
-          <p className="mx-auto max-w-xl font-sans text-white/70">
+          <p className="mx-auto max-w-2xl text-lg leading-8 text-slate-300">
             A celebration of innovation, technical excellence, and social
             responsibility within the engineering community.
           </p>
+          <div className="mx-auto mt-10 h-[2px] w-32 rounded-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
         </motion.div>
 
-        <FloatingCloud
-          top="20%"
-          left="5%"
-          speed={0.5}
-          cloudNum={1}
-          opacity="opacity-30"
-        />
-        <FloatingCloud
-          top="40%"
-          left="80%"
-          speed={0.8}
-          cloudNum={2}
-          opacity="opacity-20"
-          scale={0.8}
-        />
       </section>
 
       {/* Events Grid */}

@@ -201,3 +201,40 @@ img.circle.loaded {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+/* Engineering Club Theme */
+
+body {
+  background: #050B18;
+  color: white;
+}
+
+/* Animated blueprint grid */
+.engineering-bg {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(45,127,249,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,127,249,0.08) 1px, transparent 1px),
+    radial-gradient(circle at top, #102447 0%, #050B18 70%);
+  background-size: 40px 40px, 40px 40px, cover;
+}
+
+.engineering-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(0,229,255,.08) 2px, transparent 2px);
+  background-size: 120px 120px;
+  animation: floatDots 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatDots {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-120px);
+  }
+}

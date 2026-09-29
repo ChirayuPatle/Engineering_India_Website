@@ -1,9 +1,10 @@
 "use client";
-
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+import DataNetwork from "@/components/animations/DataNetwork";
+// import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+// import { Marquee } from "@/components/ui/marquee";
 import { authClient } from "@/lib/auth-client";
 import {
   ArrowRight,
@@ -11,11 +12,75 @@ import {
   Zap,
   CheckCircle,
   Loader2,
+  Calendar,
+  Clock,
+  Trophy,
+  Users,
+  Wand2,
+  Code,
 } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+const premiumButtonClass = `
+  group relative isolate overflow-hidden
+  rounded-full
+  border border-cyan-300/30
+  bg-white/10
+  text-white
+  backdrop-blur-xl
+  shadow-[0_0_20px_rgba(79,195,247,0.08)]
+  transition-all duration-300 ease-out
+  hover:scale-[1.03]
+  hover:border-cyan-300/70
+  hover:bg-cyan-400/10
+  hover:shadow-[0_0_30px_rgba(79,195,247,0.22)]
+  active:scale-[0.97]
 
+  before:pointer-events-none
+  before:absolute
+  before:inset-0
+  before:-z-10
+  before:rounded-full
+  before:bg-gradient-to-r
+  before:from-transparent
+  before:via-cyan-300/30
+  before:to-transparent
+  before:-translate-x-full
+  before:transition-transform
+  before:duration-700
+  hover:before:translate-x-full
+`;
+
+const secondaryButtonClass = `
+  group relative isolate overflow-hidden
+  rounded-full
+  border border-white/20
+  bg-white/5
+  text-white
+  backdrop-blur-xl
+  shadow-[0_0_15px_rgba(255,255,255,0.04)]
+  transition-all duration-300 ease-out
+  hover:scale-[1.03]
+  hover:border-cyan-300/50
+  hover:bg-white/10
+  hover:shadow-[0_0_25px_rgba(79,195,247,0.15)]
+  active:scale-[0.97]
+
+  before:pointer-events-none
+  before:absolute
+  before:inset-0
+  before:-z-10
+  before:rounded-full
+  before:bg-gradient-to-r
+  before:from-transparent
+  before:via-white/20
+  before:to-transparent
+  before:-translate-x-full
+  before:transition-transform
+  before:duration-700
+  hover:before:translate-x-full
+`;
 const FAQItem = ({
   faq,
   index,
@@ -195,11 +260,12 @@ const JourneyTimeline = () => {
     : timelineEvents.slice(0, 3);
 
   return (
-    <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#4F6D9A] to-[#3D5783] px-4 py-20 sm:px-6 md:px-8">
+    <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#0B1F33]/80 via-[#123B5D]/70 to-[#1E5F74]/80 px-4 py-20 sm:px-6 md:px-8">
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
       <div className="container mx-auto max-w-5xl">
         <div className="mb-12 text-center md:text-left">
           <h3 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
-            Our Journey
+            Our <span className="text-cyan-300">Journey</span>
           </h3>
           <p className="mx-auto max-w-xl text-xs leading-relaxed text-white/60 sm:text-sm md:mx-0">
             From humble beginnings to a thriving community of innovators and
@@ -209,7 +275,7 @@ const JourneyTimeline = () => {
 
         <div className="relative">
           {/* Vertical Line */}
-          <div className="absolute bottom-0 left-4 top-0 w-px -translate-x-1/2 bg-white/20 md:left-6" />
+          <div className="absolute bottom-0 left-4 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-cyan-400/60 via-cyan-300/30 to-transparent md:left-6" />
 
           <div className="space-y-12 md:space-y-16">
             {displayedEvents.map((event, index) => (
@@ -221,10 +287,10 @@ const JourneyTimeline = () => {
                 viewport={{ once: true }}
                 className="relative pl-10 md:pl-20"
               >
-                <div className="absolute left-4 top-1.5 z-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-white md:left-6" />
+                <div className="absolute left-4 top-1.5 z-10 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-cyan-300 shadow-lg shadow-cyan-400/40 md:left-6" />
 
                 <div className="max-w-2xl">
-                  <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-[#D4EBFF]/60">
+                  <span className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-cyan-300">
                     {event.year}
                   </span>
                   <h3 className="mb-2 font-fraunces text-lg font-medium text-white transition-colors md:text-xl">
@@ -239,12 +305,12 @@ const JourneyTimeline = () => {
                       initial={{ scale: 0.98, opacity: 0 }}
                       whileInView={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.6, delay: 0.2 }}
-                      className="mt-6 overflow-hidden rounded-2xl border border-white/5"
+                      className="mt-6 overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-cyan-900/20"
                     >
                       <img
-                        src="https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217526/UST-Home_page_rnhpsv.jpg"
+                        src="\image\events\concept.png"
                         alt="Concept"
-                        className="h-auto max-h-[300px] w-full object-cover"
+                        className="h-auto max-h-[300px] w-full object-cover transition-all duration-300 hover:translate-x-2"
                       />
                     </motion.div>
                   )}
@@ -257,7 +323,7 @@ const JourneyTimeline = () => {
             <Button
               onClick={() => setIsExpanded(!isExpanded)}
               variant="premium"
-              className="rounded-full px-8"
+              className={`${secondaryButtonClass} px-8`}
             >
               <span className="">{isExpanded ? "Show Less" : "Show More"}</span>
             </Button>
@@ -323,26 +389,29 @@ const FeedbackSection = () => {
   };
 
   return (
-    <div className="relative z-20 w-full bg-[#0F1B40] px-4 py-20 sm:px-6 md:px-8">
+    <div className="via-[#081726]/72 relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#0B1F33]/80 to-[#081726]/80 px-4 py-20 sm:px-6 md:px-8">
+      <div className="bg-cyan-400/8 pointer-events-none absolute -left-32 top-20 h-[450px] w-[450px] rounded-full blur-[150px]" />
+
+      <div className="bg-blue-500/8 pointer-events-none absolute bottom-0 right-[-120px] h-[350px] w-[350px] rounded-full blur-[120px]" />
       <div className="container mx-auto max-w-xl">
         <div className="mb-10 text-center md:mb-12">
           <h2 className="mb-4 font-fraunces text-3xl font-semibold text-white md:text-4xl">
-            Share Your Feedback
+            Share Your <span className="text-cyan-300">Feedback</span>
           </h2>
-          <p className="mx-auto max-w-md font-sans text-xs text-white/60 md:text-sm">
+          <p className="mx-auto max-w-md font-sans text-xs text-blue-100/70 md:text-sm">
             We value your thoughts. Let us know how we can make Engineering
             India even better.
           </p>
         </div>
 
-        <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 backdrop-blur-md md:p-10">
+        <div className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-cyan-900/20 backdrop-blur-md backdrop-blur-xl md:p-10">
           {submitted ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="flex flex-col items-center justify-center py-10"
             >
-              <CheckCircle className="mb-6 h-16 w-16 text-green-400" />
+              <CheckCircle className="mb-6 h-16 w-16 text-cyan-300" />
               <h3 className="mb-2 font-fraunces text-2xl font-bold text-white">
                 Thank You!
               </h3>
@@ -360,7 +429,7 @@ const FeedbackSection = () => {
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-white/60">
+                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-blue-100/80">
                     Name
                   </label>
                   <Input
@@ -369,13 +438,13 @@ const FeedbackSection = () => {
                       setFormState({ ...formState, name: e.target.value })
                     }
                     placeholder="Your Name"
-                    className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:ring-[#6183B1]"
+                    className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-cyan-300 focus:ring-cyan-400"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-white/60">
+                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-blue-100/80">
                     Email
                   </label>
                   <Input
@@ -385,13 +454,13 @@ const FeedbackSection = () => {
                     }
                     placeholder="your@email.com"
                     type="email"
-                    className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:ring-[#6183B1]"
+                    className="h-12 rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-cyan-300 focus:ring-cyan-400"
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-white/60">
+                  <label className="ml-1 text-xs font-bold uppercase tracking-wider text-blue-100/80">
                     Message
                   </label>
                   <Textarea
@@ -400,7 +469,7 @@ const FeedbackSection = () => {
                       setFormState({ ...formState, message: e.target.value })
                     }
                     placeholder="Tell us what you think..."
-                    className="min-h-[120px] rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:ring-[#6183B1]"
+                    className="min-h-[120px] rounded-xl border-white/10 bg-white/5 text-white placeholder:text-white/20 focus:border-cyan-300 focus:ring-cyan-400"
                     required
                   />
                 </div>
@@ -410,12 +479,38 @@ const FeedbackSection = () => {
                 type="submit"
                 variant="premium"
                 disabled={isLoading}
-                className="h-12 w-full rounded-xl bg-white font-bold transition-all disabled:opacity-50"
+                className="
+  group relative isolate h-12 w-full overflow-hidden
+  rounded-xl
+  border border-cyan-300/30
+  bg-cyan-400/10
+  font-bold text-white
+  backdrop-blur-xl
+  transition-all duration-300 ease-out
+  hover:scale-[1.01]
+  hover:border-cyan-300/70
+  hover:bg-cyan-400/15
+  hover:shadow-[0_0_28px_rgba(79,195,247,0.20)]
+  active:scale-[0.98]
+  disabled:cursor-not-allowed
+  disabled:opacity-50
+  before:pointer-events-none
+  before:absolute
+  before:inset-0
+  before:bg-gradient-to-r
+  before:from-transparent
+  before:via-white/20
+  before:to-transparent
+  before:-translate-x-full
+  before:transition-transform
+  before:duration-700
+  hover:before:translate-x-full
+"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                  <span className="text-[#1D317D]">Send Feedback</span>
+                  <span>Send Feedback</span>
                 )}
               </Button>
             </form>
@@ -461,43 +556,97 @@ const LandingPage = () => {
   );
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden">
-      <div className="relative z-10 min-h-screen w-full bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#C6B8CC]">
-        <div className="relative z-50 flex min-h-screen flex-col items-center justify-center px-4 pb-20 text-center text-white sm:mb-0 sm:px-6 md:px-8">
-          <h2 className="xxs:text-3xl xs:text-4xl max-w-[90vw] font-fraunces text-2xl font-semibold leading-tight sm:max-w-none sm:text-4xl">
-            ENGINEERING INDIA YCCE
-          </h2>
-          <p className="xs:text-sm xs:max-w-xs mt-2 max-w-[85vw] font-fraunces text-xs italic tracking-tight text-white/80 sm:mt-3 sm:max-w-sm sm:text-base md:max-w-md md:text-lg lg:text-xl">
-            "Think Nationally, Act Locally."
-          </p>
-          <div className="mt-4 flex items-center justify-center gap-3 sm:mt-6 sm:gap-4 md:mt-8">
-            <Button
-              className="group relative z-50 h-10 px-4 font-bold sm:h-12 sm:px-6 md:px-8"
-              variant="premium"
-              size="xl"
-              onClick={() => router.push("/events")}
-            >
-              <span className="text-sm font-bold text-[#193486] sm:text-base md:text-lg">
-                Join Now
-              </span>
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5"
-                strokeWidth={2.5}
-                color="#193486"
-              />
-            </Button>
-          </div>
+    <div
+      ref={containerRef}
+      className="relative z-20 min-h-dvh w-full overflow-hidden bg-gradient-to-b from-[#081726]/5 via-[#0B1F33]/10 to-[#1E5F74]/75"
+    >
+      {/* Tech Network Background */}
+      {/* <div className="relative min-h-dvh w-full overflow-hidden bg-[#0B1F33]/75"> */}
+      {/* Aurora Glow */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        {/* <div className="absolute bottom-[-150px] right-[-100px] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[160px]" />
+
+          <div className="absolute left-[-100px] top-[35%] h-[400px] w-[400px] rounded-full bg-indigo-500/10 blur-[160px]" /> */}
+        <DataNetwork />
+      </div>
+
+      {/* Engineering Grid */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+              linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px)
+            `,
+          backgroundSize: "60px 60px",
+        }}
+      />
+      {/* Aurora Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-[-20%] h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[180px]" />
+
+        <div className="absolute bottom-[-15%] right-[-10%] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[160px]" />
+
+        <div className="absolute left-[-10%] top-[35%] h-[400px] w-[400px] rounded-full bg-indigo-500/10 blur-[160px]" />
+      </div>
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+      linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px)
+    `,
+          backgroundSize: "60px 60px",
+        }}
+      />
+      <div className="relative z-30 flex min-h-dvh flex-col items-center justify-center px-4 pb-20 text-center text-white sm:mb-0 sm:px-6 md:px-8">
+        <h1 className="bg-gradient-to-r from-[#FF9933] via-white to-[#138808] bg-clip-text px-4 text-center font-fraunces text-4xl font-black leading-tight tracking-[0.12em] text-transparent sm:text-5xl sm:tracking-[0.18em] md:text-7xl md:tracking-[0.25em] xl:text-8xl">
+          ENGINEERING INDIA YCCE
+        </h1>
+        <p className="mt-6 text-2xl italic text-cyan-100">
+          Think Nationally, Act Locally.
+        </p>
+
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
+          Empowering future engineers through innovation, leadership, technical
+          excellence and meaningful community impact.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
+          <Button
+            className={`${premiumButtonClass} h-12 px-8`}
+            variant="premium"
+            size="xl"
+            onClick={() => router.push("/events")}
+          >
+            <span className="text-base font-bold text-[#193486]">Join Now</span>
+
+            <ArrowRight
+  className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5"
+  strokeWidth={2.5}
+  color="#193486"
+/>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="xl"
+            onClick={() => router.push("/about")}
+            className={`${secondaryButtonClass} h-12 px-8`}
+          >
+            Learn More
+          </Button>
         </div>
       </div>
+      {/* </div> */}
 
       <motion.div
         style={{
           x: cloudX,
           y: cloudY,
         }}
-        className="xxs:top-[58vh] xxs:-left-[55%] xxs:h-[48vh] xxs:w-[180%] xs:top-[55vh] xs:-left-[50%] xs:h-[52vh] xs:w-[170%] pointer-events-none absolute -left-[60%] top-[60vh] z-30 h-[45vh] w-[200%] pb-16 sm:-left-[45%] sm:top-[50vh] sm:h-[60vh] sm:w-[150%] sm:pb-0 md:-left-[38%] md:top-[45vh] md:h-[70vh] md:w-[130%] lg:-left-[32%] lg:top-[40vh] lg:h-[85vh] lg:w-[115%] xl:-left-[28%] xl:top-[35vh] xl:h-screen xl:w-[110%]"
+        className="xxs:top-[58vh] xxs:-left-[55%] xxs:h-[48vh] xxs:w-[180%] xs:top-[55vh] xs:-left-[50%] xs:h-[52vh] xs:w-[170%] pointer-events-none absolute -left-[60%] top-[60vh] z-30 h-[45vh] w-[200%] pb-16 sm:-left-[45%] sm:top-[50vh] sm:h-[60vh] sm:w-[150%] sm:pb-0 md:-left-[38%] md:top-[45vh] md:h-[70vh] md:w-[130%] lg:-left-[32%] lg:top-[40vh] lg:h-[85vh] lg:w-[115%] xl:-left-[28%] xl:top-[35vh] xl:h-dvh xl:w-[110%]"
       >
-        <img
+        {/* <img
           src="/landing/clouds/4.png"
           className="h-full w-full select-none object-contain object-bottom"
           alt="cloud"
@@ -507,10 +656,10 @@ const LandingPage = () => {
             willChange: "transform",
             transform: "translateZ(0)",
           }}
-        />
+        /> */}
       </motion.div>
 
-      <FloatingCloud
+      {/* <FloatingCloud
         top="110vh"
         left="10%"
         speed={0.5}
@@ -524,69 +673,72 @@ const LandingPage = () => {
         cloudNum={2}
         opacity="opacity-20"
         scale={0.8}
-      />
+      /> */}
 
-      <div className="z-15 relative hidden w-full bg-gradient-to-b from-[#C6B8CC] to-[#C6B8CC] sm:block sm:h-[30vh]" />
+      {/* <div className="z-15 relative hidden w-full bg-gradient-to-b from-[#C6B8CC] to-[#C6B8CC] sm:block sm:h-[30vh]" /> */}
 
       <div
         id="about"
-        className="relative z-20 min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]"
+        className="relative z-20 min-h-dvh w-full overflow-hidden bg-gradient-to-b from-[#081726]/5 via-[#0B1F33]/10 to-[#1E5F74]/75"
       >
-        <div className="flex min-h-screen flex-col items-center justify-between px-4 py-16 sm:flex-row sm:px-10 lg:px-14 xl:px-20">
+        {/* Seamless transition from Landing → About */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-72 bg-gradient-to-b from-[#081726]/0 via-[#081726]/10 to-transparent sm:h-80 md:h-96" />
+
+        <div className="relative z-20 flex min-h-dvh flex-col items-center justify-between px-4 py-16 sm:flex-row sm:px-10 lg:px-14 xl:px-20">
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="w-full space-y-4 text-center sm:w-1/2 sm:text-left lg:max-w-2xl"
+            initial={{
+              opacity: 0,
+              y: 80,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 1,
+            }}
+            viewport={{
+              once: true,
+            }}
           >
             <h3 className="xxs:text-3xl xs:text-4xl max-w-[90vw] font-fraunces text-2xl font-semibold leading-tight text-white sm:max-w-none sm:text-4xl">
-              About Engineering India
+              About <span className="text-cyan-300">Engineering India</span>
             </h3>
-            <p className="text-xs leading-relaxed text-white/75 sm:text-sm md:text-base lg:text-lg">
+            <p className="text-xs leading-relaxed text-blue-100/80 sm:text-sm md:text-base lg:text-lg">
               A dynamic student-led organization at YCCE College, Nagpur,
               dedicated to fostering innovation, technical excellence, and
               social responsibility among engineering students.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 pt-4 sm:justify-start sm:gap-6 md:gap-8 md:pt-4">
-              <div className="text-center sm:text-left">
-                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                  50+
-                </p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                  Events
-                </p>
+            <div className="mt-20 grid grid-cols-3 gap-4 text-center sm:gap-12">
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <h3 className="text-4xl font-bold text-cyan-300">250+</h3>
+                <p className="text-blue-100/60">Members</p>
               </div>
-              <div className="text-center sm:text-left">
-                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                  250+
-                </p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                  Members
-                </p>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <h3 className="text-4xl font-bold text-cyan-300">50+</h3>
+                <p className="text-blue-100/60">Events</p>
               </div>
-              <div className="text-center sm:text-left">
-                <p className="text-2xl font-bold text-[#D4EBFF] sm:text-3xl md:text-4xl">
-                  8+
-                </p>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 sm:text-xs md:text-sm">
-                  Social Leads
-                </p>
+
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
+                <h3 className="text-4xl font-bold text-amber-300">2022</h3>
+                <p className="text-blue-100/60">Founded</p>
               </div>
             </div>
 
             <div className="pt-2 sm:pt-4 md:pt-6">
               <Button
-                className="group h-10 rounded-full border-white/50 px-5 font-bold text-white hover:bg-white/10"
+                className={`${secondaryButtonClass} h-10 px-5 font-bold`}
                 variant="premium"
                 size="sm"
+                onClick={() => router.push("/blog")}
               >
                 <span className="text-xs sm:text-sm md:text-base">
                   Our Story
                 </span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
               </Button>
             </div>
           </motion.div>
@@ -599,9 +751,9 @@ const LandingPage = () => {
             viewport={{ once: true }}
             className="flex w-full items-center justify-center sm:w-1/2"
           >
-            <div className="relative w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-white/10 backdrop-blur-sm">
+            <div className="relative w-full max-w-xl overflow-hidden rounded-[3rem] border-[12px] border-cyan-200/20 shadow-2xl shadow-cyan-900/30 backdrop-blur-sm">
               <img
-                src="/landing/about.png"
+                src="/landing/about.jpeg"
                 className="h-full w-full object-cover"
                 alt="Engineering India Team"
               />
@@ -609,50 +761,41 @@ const LandingPage = () => {
             </div>
           </motion.div>
         </div>
-
-        <div
-          className="pointer-events-none absolute -bottom-8 -right-[50%] z-10 h-48 sm:-bottom-10 sm:h-56 md:h-64 lg:h-72 xl:h-80"
-          style={{
-            background:
-              "linear-gradient(to top, #6183B1 0%, #6183B1 40%, transparent 100%)",
-            left: "-100vw",
-            width: "200vw",
-          }}
-        />
       </div>
 
       {/* ========== BENTO GRID EVENTS SECTION ========== */}
       <div
         id="events"
-        className="relative z-20 w-full bg-gradient-to-b from-[#6183B1] to-[#4F6D9A] px-4 py-16 sm:px-6 md:px-8 md:py-20"
+        className="via-[#123B5D]/72 relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#1E5F74]/75 to-[#0B1F33]/80 px-4 py-16 sm:px-6 md:px-8 md:py-20"
       >
         <div className="container mx-auto max-w-5xl">
+          <div className="pointer-events-none absolute left-1/2 top-20 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
           <div className="mb-10 text-center md:mb-12">
             <h3 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
-              Our Events
+              Our <span className="text-cyan-300">Events</span>
             </h3>
-            <p className="mx-auto max-w-xl px-4 text-xs leading-relaxed text-white/60 sm:text-sm">
+            <p className="mx-auto max-w-xl px-4 text-xs leading-relaxed text-blue-100/70 sm:text-sm">
               A glimpse of the various events, workshops, and social initiatives
               organized by Engineering India.
             </p>
           </div>
 
-          <div className="grid h-auto grid-cols-1 gap-4 md:h-[500px] md:grid-cols-4 md:grid-rows-2">
+          <div className="grid h-auto grid-cols-1 gap-4 md:h-[650px] md:grid-cols-4 md:grid-rows-2 lg:h-[700px] xl:h-[750px]">
             {/* Feature 1 */}
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="group relative overflow-hidden rounded-3xl md:col-span-2 md:row-span-2"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 shadow-xl transition-all duration-500 hover:border-cyan-300/40 hover:shadow-cyan-900/30 md:col-span-2 md:row-span-2"
             >
               <img
-                src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540145/EI-Events/Donation%20Drive/Donation%20drive%20%28orphanage%29/Copy_of_IMG_0377_alioxw.jpg"
+                src="\image\events\donation_drive.png"
                 alt="Donation Drive"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6">
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6">
                 <h4 className="mb-1 text-xl font-bold text-white">
-                  Donation Drive
+                  <span className="text-cyan-300">Donation</span> Drive
                 </h4>
                 <p className="text-xs text-white/70">
                   Spreading joy through compassion and community support.
@@ -666,14 +809,14 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="group relative overflow-hidden rounded-3xl md:col-span-2"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 shadow-xl transition-all duration-500 hover:border-cyan-300/40 hover:shadow-cyan-900/30 md:col-span-2 md:row-span-2"
             >
               <img
-                src="https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217526/UST-Home_page_rnhpsv.jpg"
+                src="\image\events\concept.png"
                 alt="UST"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-6">
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6">
                 <h4 className="mb-1 text-lg font-bold text-white">
                   Social Technocart
                 </h4>
@@ -689,14 +832,14 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="group relative overflow-hidden rounded-3xl md:col-span-1"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 shadow-xl transition-all duration-500 hover:border-cyan-300/40 hover:shadow-cyan-900/30 md:col-span-2 md:row-span-2"
             >
               <img
-                src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540002/EI-Events/Rangittalim3/IMG20231022171239_nnmgko.jpg"
+                src="\image\events\rangittalim.png"
                 alt="Rangittalim"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4">
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4">
                 <h4 className="text-sm font-bold text-white">Rangittalim</h4>
               </div>
             </motion.div>
@@ -707,14 +850,14 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="group relative overflow-hidden rounded-3xl md:col-span-1"
+              className="group relative overflow-hidden rounded-3xl border border-white/10 shadow-xl transition-all duration-500 hover:border-cyan-300/40 hover:shadow-cyan-900/30 md:col-span-2 md:row-span-2"
             >
               <img
-                src="https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217795/abhudaya_tt2su2.jpg"
+                src="\image\events\abhyudhaya.png"
                 alt="Abhyudhaya"
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/20 to-transparent p-4">
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4">
                 <h4 className="text-sm font-bold text-white">Abhyudhaya</h4>
               </div>
             </motion.div>
@@ -722,7 +865,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <FloatingCloud
+      {/* <FloatingCloud
         top="220vh"
         left="-5%"
         speed={0.4}
@@ -737,7 +880,7 @@ const LandingPage = () => {
         cloudNum={4}
         opacity="opacity-15"
         scale={0.9}
-      />
+      /> */}
 
       {/* ========== JOURNEY TIMELINE SECTION ========== */}
       <div id="journey">
@@ -745,7 +888,9 @@ const LandingPage = () => {
       </div>
 
       {/* ========== HOW IT WORKS SECTION (Callbaba Style) ========== */}
-      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#3D5783] to-[#2B416C] px-4 py-20 sm:px-6 md:px-8">
+      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#1E5F74]/80 via-[#164B68]/70 to-[#0B1F33]/80 px-4 py-20 sm:px-6 md:px-8">
+        <div className="bg-cyan-400/8 pointer-events-none absolute left-1/2 top-1/3 h-[550px] w-[550px] -translate-x-1/2 rounded-full blur-[140px]" />
+        <div className="bg-blue-500/8 pointer-events-none absolute -left-32 bottom-20 h-[400px] w-[400px] rounded-full blur-[120px]" />
         <div className="container mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -755,21 +900,22 @@ const LandingPage = () => {
             className="mb-12 text-center"
           >
             <h2 className="mb-3 px-4 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
-              Here's how it works:
+              How We Build{" "}
+              <span className="text-cyan-300">Future Engineers</span>
             </h2>
             <p className="mx-auto max-w-xl px-6 font-fraunces text-sm italic tracking-tight text-white/80 sm:text-base">
               At Engineering India, we believe learning begins with engagement.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
             {/* Card 1 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#1D317D] p-6 pb-0 transition-transform hover:scale-[1.02]"
+              className="flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-6 pb-0 backdrop-blur-xl transition-transform hover:scale-[1.02]"
             >
               <div>
                 <h3 className="mb-3 font-fraunces text-xl font-medium text-white">
@@ -782,7 +928,7 @@ const LandingPage = () => {
               </div>
               <div className="relative mt-auto">
                 <img
-                  src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540145/EI-Events/Donation%20Drive/Donation%20drive%20%28orphanage%29/Copy_of_IMG_0377_alioxw.jpg"
+                  src="\image\events\donation_drive.png"
                   alt="Discovery"
                   className="h-auto w-full rounded-t-2xl border-t-2 border-white/10 object-cover"
                 />
@@ -795,31 +941,31 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#FCFAF2] p-6 transition-transform hover:scale-[1.02]"
+              className="flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/10 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-300/40 hover:shadow-2xl hover:shadow-cyan-900/30"
             >
               <div>
-                <h3 className="mb-3 font-fraunces text-xl font-medium text-[#1D317D]">
+                <h3 className="mb-3 font-fraunces text-xl font-medium text-white">
                   2. Peer Mentorship
                 </h3>
-                <p className="mb-6 font-sans text-xs leading-relaxed text-[#1D317D]/70">
+                <p className="mb-6 font-sans text-xs leading-relaxed text-blue-100/70">
                   You're matched with a dedicated student lead who guides you
                   through club activities.
                 </p>
 
                 <div className="space-y-4">
                   <div className="border-l-2 border-[#1D317D]/10 pl-3">
-                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-[#1D317D]">
+                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-cyan-300">
                       20+
                     </p>
-                    <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#1D317D]/40">
+                    <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-white">
                       Categories
                     </p>
                   </div>
                   <div className="border-l-2 border-[#1D317D]/10 pl-3">
-                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-[#1D317D]">
+                    <p className="mb-1 font-fraunces text-3xl font-bold leading-none text-cyan-300">
                       50+
                     </p>
-                    <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-[#1D317D]/40">
+                    <p className="text-[8px] font-bold uppercase tracking-[0.2em] text-white">
                       Active Mentors
                     </p>
                   </div>
@@ -827,9 +973,9 @@ const LandingPage = () => {
               </div>
               <div className="relative mt-6">
                 <img
-                  src="https://res.cloudinary.com/dzryfm8cb/image/upload/v1743217526/UST-Home_page_rnhpsv.jpg"
+                  src="\image\events\concept.png"
                   alt="Mentorship"
-                  className="ml-auto h-auto w-32 rounded-br-2xl rounded-tl-3xl object-cover"
+                  className="ml-auto h-auto w-32 rounded-br-2xl rounded-tl-3xl border border-white/10 object-cover"
                 />
               </div>
             </motion.div>
@@ -840,7 +986,7 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#1D317D] p-6 transition-transform hover:scale-[1.02]"
+              className="flex flex-col justify-between overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-300/40 hover:shadow-2xl hover:shadow-cyan-900/30"
             >
               <div className="mb-0">
                 <h3 className="mb-3 font-fraunces text-xl font-medium text-white">
@@ -853,10 +999,10 @@ const LandingPage = () => {
               </div>
 
               <div className="mt-auto">
-                <p className="mb-3 font-fraunces text-5xl font-bold leading-none text-white">
+                <p className="mb-3 font-fraunces text-5xl font-bold leading-none text-cyan-300">
                   +98%
                 </p>
-                <p className="text-sm font-medium text-white/70">
+                <p className="text-sm font-medium text-white">
                   Increased confidence in core engineering skills
                 </p>
               </div>
@@ -865,7 +1011,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <FloatingCloud
+      {/* <FloatingCloud
         top="450vh"
         left="15%"
         speed={0.7}
@@ -880,16 +1026,19 @@ const LandingPage = () => {
         cloudNum={2}
         opacity="opacity-15"
         scale={1.1}
-      />
+      /> */}
 
       {/* ========== HOW WE CAN HELP SECTION (Interactive Style) ========== */}
-      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#2B416C] to-[#1D317D] px-4 py-20 sm:px-6 md:px-8">
+      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#0B1F33]/80 via-[#102C47]/70 to-[#123B5D]/80 px-4 py-20 sm:px-6 md:px-8">
+        <div className="bg-cyan-400/8 pointer-events-none absolute right-0 top-24 h-[500px] w-[500px] rounded-full blur-[140px]" />
+
+        <div className="bg-blue-500/8 pointer-events-none absolute -left-24 bottom-16 h-[350px] w-[350px] rounded-full blur-[120px]" />
         <div className="container mx-auto max-w-5xl">
           <div className="mb-12 text-center md:text-left">
             <h2 className="mb-3 font-fraunces text-2xl font-semibold text-white sm:text-3xl md:text-4xl">
-              How we can help you
+              How We Can <span className="text-cyan-300">Help You</span>
             </h2>
-            <p className="mx-auto max-w-xl px-4 font-sans text-xs text-white/60 sm:text-sm md:mx-0 md:px-0 md:text-base">
+            <p className="mx-auto max-w-xl px-4 font-sans text-sm leading-relaxed text-blue-100/75 sm:text-base md:mx-0 md:px-0">
               Your growth as an engineer is our priority. We provide the support
               you deserve.
             </p>
@@ -921,7 +1070,10 @@ const LandingPage = () => {
       </div>
 
       {/* ========== BENEFITS SECTION (Callbaba Style) ========== */}
-      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#1D317D] to-[#0F1B40] px-4 py-20 sm:px-6 md:px-8">
+      <div className="relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#123B5D]/80 via-[#102C47]/70 to-[#0B1F33]/80 px-4 py-20 sm:px-6 md:px-8">
+        <div className="bg-cyan-400/8 pointer-events-none absolute left-0 top-24 h-[500px] w-[500px] rounded-full blur-[150px]" />
+
+        <div className="bg-blue-500/8 pointer-events-none absolute bottom-10 right-0 h-[350px] w-[350px] rounded-full blur-[120px]" />
         <div className="container mx-auto max-w-5xl">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <motion.div
@@ -929,10 +1081,10 @@ const LandingPage = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="relative mx-auto max-w-md overflow-hidden rounded-[40px] bg-[#FCFAF2] lg:mx-0"
+              className="relative mx-auto max-w-md overflow-hidden rounded-[40px] border border-white/10 bg-white/5 shadow-2xl shadow-cyan-900/20 backdrop-blur-xl lg:mx-0"
             >
               <img
-                src="https://res.cloudinary.com/priyanshukayarkar/image/upload/v1741540002/EI-Events/Rangittalim3/IMG20231022171239_nnmgko.jpg"
+                src="\image\events\rangittalim.png"
                 alt="Support"
                 className="aspect-[4/5] h-auto w-full object-cover opacity-90 mix-blend-multiply"
               />
@@ -945,9 +1097,10 @@ const LandingPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="mb-6 font-fraunces text-3xl font-semibold leading-tight text-white md:text-4xl">
-                No more confusion, or missed opportunities.
+                Build Your{" "}
+                <span className="text-cyan-300">Future with Confidence</span>
               </h2>
-              <p className="mb-10 max-w-lg font-sans text-sm leading-relaxed text-white/70">
+              <p className="mb-10 max-w-lg font-sans text-sm leading-relaxed text-blue-100/75">
                 Your career path should be clear. Engineering India takes over
                 the hard parts, from resource gathering to planning, so you can
                 focus on building your future.
@@ -955,7 +1108,7 @@ const LandingPage = () => {
 
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="space-y-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 backdrop-blur-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-400/10 backdrop-blur-md">
                     <ClipboardCheck className="h-5 w-5 text-white" />
                   </div>
                   <div>
@@ -988,51 +1141,164 @@ const LandingPage = () => {
               <div className="mt-12">
                 <Button
                   variant="premium"
-                  className="group flex items-center gap-2 rounded-full bg-white px-8 py-5 text-sm font-bold text-[#1D317D] transition-all duration-300 hover:scale-105 hover:bg-[#FCFAF2] active:scale-95"
+                  className={`${premiumButtonClass} flex items-center gap-2 px-8 py-5 text-sm font-bold`}
+                  onClick={() => router.push("/contact")}
                 >
                   Join the Club
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1.5" />
                 </Button>
               </div>
             </motion.div>
           </div>
         </div>
+      </div>
 
-        {/* Aesthetic Cloud Decoration at Bottom Right */}
+      {/* Aesthetic Cloud Decoration at Bottom Right */}
+      {/* Background Cloud Decoration 
         <motion.div
           style={{
-            y: useTransform(scrollYProgress, [0.8, 1], ["20%", "-20%"]),
+            y: useTransform(scrollYProgress, [0.8, 1], ["15%", "-10%"]),
           }}
-          className="pointer-events-none absolute bottom-0 right-[-5%] z-30 w-[30%] select-none opacity-30"
+          className="pointer-events-none absolute bottom-0 right-[-10%] z-10 w-[24%] select-none opacity-10 blur-[1px]"
         >
-          <img src="/landing/clouds/4.png" className="h-auto w-full" alt="" />
-        </motion.div>
-      </div>
+          <img
+            src="/landing/clouds/4.png"
+            className="h-auto w-full"
+            alt=""
+          />
+        </motion.div>*/}
 
       {/* ========== FEEDBACK SECTION ========== */}
       <div id="contact">
         <FeedbackSection />
       </div>
 
+      {/* ========== VIBE-A-THON PROMO SECTION ========== */}
+      {/* <div className="relative z-20 w-full overflow-hidden bg-gradient-to-br from-[#081726] via-[#0B1F33] to-[#123B5D] px-4 py-20 sm:px-6 md:px-8">
+        <div className="pointer-events-none absolute -left-32 top-20 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[160px]" />
+
+        <div className="pointer-events-none absolute -right-24 bottom-0 h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[140px]" />
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 text-center"
+          >
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-6 py-3 backdrop-blur-sm">
+              <Zap className="h-5 w-5 text-cyan-300" />
+              <span className="text-sm font-semibold text-white">
+                Upcoming Event
+              </span>
+            </div>
+            <h2 className="mb-6 bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-500 bg-clip-text font-fraunces text-4xl font-black text-transparent md:text-6xl">
+              VIBE-A-THON
+            </h2>
+            <p className="mb-4 text-xl font-bold text-blue-100 md:text-2xl">
+              Code the Vibe. Own the Era.
+            </p>
+            <div className="mb-8 flex flex-wrap justify-center gap-4">
+              <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm backdrop-blur-xl">
+                <Calendar className="h-5 w-5 text-cyan-300" />
+                <span className="text-white">9th April 2026</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm backdrop-blur-xl">
+                <Clock className="h-5 w-5 text-cyan-300" />
+                <span className="text-white">3 Hours</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm backdrop-blur-xl">
+                <Trophy className="h-5 w-5 text-cyan-300" />
+                <span className="text-white">₹2000 Prize Pool</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-3"
+          >
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-white">Teams of 2</h3>
+              <p className="text-blue-100/75">
+                Gather your partner and register together
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500">
+                <Wand2 className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                AI Tools Allowed
+              </h3>
+              <p className="text-blue-100/75">
+                Use Cursor, Bolt, Claude, and any AI tools
+              </p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center backdrop-blur-sm">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-blue-500">
+                <Code className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-white">
+                Build & Present
+              </h3>
+              <p className="text-blue-100/75">
+                Create a working prototype and present via PPT
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="text-center"
+          >
+            <Button
+              variant="premium"
+              className="group mx-auto flex items-center gap-2 rounded-full border border-cyan-300/30 bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 hover:from-cyan-400 hover:to-blue-400 hover:shadow-lg hover:shadow-cyan-500/30 active:scale-95"
+              onClick={() => (window.location.href = "/vibeathon")}
+            >
+              Register Now
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <p className="mt-4 text-cyan-300">Entry Fee: ₹100 per team</p>
+          </motion.div>
+        </div>
+      </div> */}
+
       {/* ========== FAQ SECTION (Callbaba Style) ========== */}
       <div
         id="faq"
-        className="relative z-20 w-full bg-[#0F1B40] px-4 py-20 sm:px-6 md:px-8"
+        className="via-[#0B1F33]/72 relative z-20 w-full overflow-hidden bg-gradient-to-b from-[#081726]/80 to-[#102C47]/80 px-4 py-20 sm:px-6 md:px-8"
       >
+        <div className="bg-cyan-400/8 pointer-events-none absolute -left-32 top-16 h-[450px] w-[450px] rounded-full blur-[150px]" />
+
+        <div className="bg-blue-500/8 pointer-events-none absolute bottom-0 right-[-100px] h-[350px] w-[350px] rounded-full blur-[120px]" />
         <div className="container mx-auto max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="mb-10"
+            className="mb-12 text-center"
           >
             <h2 className="font-fraunces text-3xl font-semibold text-white md:text-4xl">
-              Frequently asked questions
+              Frequently Asked <span className="text-cyan-300">Questions</span>
             </h2>
           </motion.div>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-blue-100/70">
+            Find answers to the most common questions about Engineering India,
+            our events, memberships, and opportunities.
+          </p>
 
-          <div className="space-y-1">
+          <div className="mt-8 space-y-3">
             {faqsData.map((faq, i) => (
               <FAQItem key={faq.question} faq={faq} index={i} />
             ))}

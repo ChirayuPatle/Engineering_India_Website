@@ -468,8 +468,11 @@ const LandingPage = () => {
 
   return (
     <div ref={containerRef} className="relative w-full overflow-hidden">
-      <div className="relative z-10 min-h-screen w-full bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#C6B8CC]">
-        <div className="relative z-50 flex min-h-screen flex-col items-center justify-center px-4 pb-20 text-center text-white sm:mb-0 sm:px-6 md:px-8">
+      <div className="relative z-10 min-h-dvh w-full overflow-hidden bg-gradient-to-br from-slate-950 via-[#071C3D] to-[#0A2F5A]">
+        <div className="absolute inset-0 opacity-20">
+  <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(rgba(0,180,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(0,180,255,0.15)_1px,transparent_1px)] bg-[size:60px_60px]" />
+</div>
+        <div className="relative z-50 flex min-h-dvh flex-col items-center justify-center px-4 pb-20 text-center text-white sm:mb-0 sm:px-6 md:px-8">
           <h2 className="font-fraunces xxs:text-3xl xs:text-4xl max-w-[90vw] text-2xl font-semibold leading-tight sm:max-w-none sm:text-4xl">
             ENGINEERING INDIA YCCE
           </h2>
@@ -501,7 +504,7 @@ const LandingPage = () => {
           x: cloudX,
           y: cloudY,
         }}
-        className="xxs:top-[58vh] xxs:-left-[55%] xxs:h-[48vh] xxs:w-[180%] xs:top-[55vh] xs:-left-[50%] xs:h-[52vh] xs:w-[170%] pointer-events-none absolute -left-[60%] top-[60vh] z-30 h-[45vh] w-[200%] pb-16 sm:-left-[45%] sm:top-[50vh] sm:h-[60vh] sm:w-[150%] sm:pb-0 md:-left-[38%] md:top-[45vh] md:h-[70vh] md:w-[130%] lg:-left-[32%] lg:top-[40vh] lg:h-[85vh] lg:w-[115%] xl:-left-[28%] xl:top-[35vh] xl:h-screen xl:w-[110%]"
+        className="xxs:top-[58vh] xxs:-left-[55%] xxs:h-[48vh] xxs:w-[180%] xs:top-[55vh] xs:-left-[50%] xs:h-[52vh] xs:w-[170%] pointer-events-none absolute -left-[60%] top-[60vh] z-30 h-[45vh] w-[200%] pb-16 sm:-left-[45%] sm:top-[50vh] sm:h-[60vh] sm:w-[150%] sm:pb-0 md:-left-[38%] md:top-[45vh] md:h-[70vh] md:w-[130%] lg:-left-[32%] lg:top-[40vh] lg:h-[85vh] lg:w-[115%] xl:-left-[28%] xl:top-[35vh] xl:h-dvh xl:w-[110%]"
       >
         <img
           src="/landing/clouds/4.png"
@@ -536,7 +539,7 @@ const LandingPage = () => {
 
       <div
         id="about"
-        className="relative z-20 min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]"
+        className="relative z-20 min-h-dvh w-full overflow-hidden bg-gradient-to-b from-[#C6B8CC] via-[#9A8EB8] to-[#6183B1]"
       >
         <motion.div
           initial={{ opacity: 0, y: -20 }}

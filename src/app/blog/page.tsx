@@ -15,9 +15,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { FloatingCloud } from "@/components/landing/FloatingCloud";
+// import { FloatingCloud } from "@/components/landing/FloatingCloud";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import BlueprintBackground from "@/components/animations/BlueprintBackground";
 
 interface BlogItem {
   img: string;
@@ -66,8 +67,10 @@ const Blog = () => {
 
   return (
     <main className="min-h-screen bg-[#0F1B40] text-white selection:bg-[#D4EBFF] selection:text-[#0F1B40]">
+       <BlueprintBackground />
+       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#07152E]/70 via-[#07152E]/60 to-[#0B1F33]/75" />
       {/* Hero Section */}
-      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#6183B1] via-[#9A8EB8] to-[#0F1B40] px-4 pb-24 pt-32 text-center">
+      <section className="relative z-10 flex min-h-[50vh] flex-col items-center justify-center overflow-hidden px-4 pb-24 pt-32 text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -103,27 +106,18 @@ const Blog = () => {
           </div>
         </motion.div>
 
-        <FloatingCloud
-          top="10%"
-          left="5%"
-          speed={0.5}
-          cloudNum={1}
-          opacity="opacity-20"
-        />
-        <FloatingCloud
-          top="30%"
-          left="85%"
-          speed={0.8}
-          cloudNum={2}
-          opacity="opacity-15"
-          scale={0.8}
-        />
+        
       </section>
 
       {/* Blog Content */}
       <section className="relative z-20 -mt-10 px-4">
         <div className="container mx-auto flex max-w-7xl flex-col items-start gap-12 lg:flex-row">
           {/* Main Feed */}
+          <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="rounded-[32px] border border-cyan-400/10 bg-white/[0.04] p-8 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_30px_rgba(34,211,238,.15)]"
+            >
           <div className="order-2 w-full flex-1 lg:order-1">
             {isLoading ? (
               <div className="space-y-8">
@@ -174,7 +168,7 @@ const Blog = () => {
                 </p>
               </div>
             )}
-          </div>
+          </div></motion.div>
 
           {/* Sidebar */}
           <aside className="order-1 w-full space-y-8 lg:sticky lg:top-24 lg:order-2 lg:w-[400px]">
@@ -182,9 +176,9 @@ const Blog = () => {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="rounded-[40px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl"
+              className="rounded-[32px] border border-cyan-400/10 bg-white/[0.04] p-8 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_30px_rgba(34,211,238,.15)]"
             >
-              <h3 className="font-fraunces mb-4 flex items-center gap-3 text-2xl font-bold text-white">
+              <h3 className="mb-4 flex items-center gap-3 text-2xl font-bold text-white">
                 <Newspaper className="h-6 w-6 text-[#D4EBFF]" />
                 EI Publications
               </h3>
@@ -216,15 +210,15 @@ const Blog = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="rounded-[40px] border border-white/10 bg-[#D4EBFF] p-8 text-[#0F1B40]"
+              className="rounded-[32px] border border-cyan-400/10 bg-white/[0.04] p-8 text-white backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_30px_rgba(34,211,238,.15)]"
             >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0F1B40]/10">
+              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/10">
                 <Mail className="h-6 w-6" />
               </div>
               <h3 className="font-fraunces mb-4 text-2xl font-bold">
                 Stay Notified
               </h3>
-              <p className="mb-8 font-medium text-[#0F1B40]/70">
+              <p className="mb-8 font-medium text-white/60">
                 Get the latest articles and event invites directly in your
                 inbox.
               </p>
@@ -232,7 +226,7 @@ const Blog = () => {
                 <input
                   type="email"
                   placeholder="name@email.com"
-                  className="w-full rounded-2xl border-none bg-white px-6 py-4 text-[#0F1B40] placeholder:text-[#0F1B40]/30 focus:outline-none"
+                  className="w-full rounded-2xl border border-cyan-400/15 bg-white/10 px-6 py-4 text-white backdrop-blur-xl placeholder:text-white/40 focus:border-cyan-400 focus:outline-none"
                 />
                 <Button className="w-full rounded-2xl bg-[#0F1B40] py-6 font-bold text-white hover:bg-[#0F1B40]/90">
                   Subscribe Now
@@ -245,7 +239,7 @@ const Blog = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="rounded-[40px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl"
+              className="rounded-[32px] border border-cyan-400/10 bg-white/[0.04] p-8 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_30px_rgba(34,211,238,.15)]"
             >
               <h3 className="font-fraunces mb-6 text-sm text-xl font-bold uppercase tracking-wider text-white opacity-60">
                 Resources
@@ -271,23 +265,6 @@ const Blog = () => {
         </div>
       </section>
 
-      {/* Background Decor */}
-      <FloatingCloud
-        top="70%"
-        left="-5%"
-        speed={0.4}
-        cloudNum={3}
-        opacity="opacity-10"
-        scale={1.5}
-      />
-      <FloatingCloud
-        top="85%"
-        left="90%"
-        speed={0.6}
-        cloudNum={4}
-        opacity="opacity-10"
-        scale={1.2}
-      />
     </main>
   );
 };
